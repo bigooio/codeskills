@@ -1,0 +1,63 @@
+[
+  {
+    "id": "1",
+    "slug": "react-useeffect-cleanup",
+    "title": "React useEffect 正确清理副作用",
+    "description": "避免 useEffect 内存泄漏和不必要的重复请求",
+    "content": "useEffect 的清理函数非常重要，它能确保组件卸载时清理副作用，避免内存泄漏。\n\n```tsx\nuseEffect(() => {\n  const controller = new AbortController();\n  \n  fetch('/api/data', { signal: controller.signal })\n    .then(res => res.json())\n    .then(data => setData(data));\n\n  return () => controller.abort();\n}, []);\n```",
+    "tags": ["React", "JavaScript", "前端"],
+    "source": "original",
+    "createdAt": "2026-03-23"
+  },
+  {
+    "id": "2",
+    "slug": "typescript-utility-types",
+    "title": "TypeScript 内置工具类型",
+    "description": "Partial、Required、Pick、Omit 等常用工具类型详解",
+    "content": "TypeScript 提供了一系列内置工具类型，能帮我们快速转换类型。\n\n```typescript\ninterface User {\n  id: number;\n  name: string;\n  email: string;\n}\n\n// 可选类型\ntype PartialUser = Partial<User>;\n\n// 选取部分属性\ntype UserPreview = Pick<User, 'id' | 'name'>;\n\n// 排除部分属性\ntype UserWithoutEmail = Omit<User, 'email'>;\n```",
+    "tags": ["TypeScript", "前端"],
+    "source": "original",
+    "createdAt": "2026-03-22"
+  },
+  {
+    "id": "3",
+    "slug": "github-cli-tool",
+    "title": "gh CLI - GitHub 命令行工具",
+    "description": "告别网页，直接在终端管理 GitHub",
+    "content": "gh 是 GitHub 官方命令行工具，可以完成大部分 GitHub 网页操作。\n\n```bash\n# 安装\nbrew install gh\n\n# 登录\ngh auth login\n\n# 创建 PR\ngh pr create --title \"feat: new feature\" --body \"description\"\n\n# 查看 PR 状态\ngh pr status\n```",
+    "tags": ["工具", "GitHub"],
+    "source": "github",
+    "sourceUrl": "https://github.com/cli/cli",
+    "createdAt": "2026-03-21"
+  },
+  {
+    "id": "4",
+    "slug": "python-fastapi-crud",
+    "title": "FastAPI 快速 CRUD 教程",
+    "description": "使用 FastAPI 和 SQLAlchemy 构建 RESTful API",
+    "content": "FastAPI 是一个现代、快速的 Python Web 框架。\n\n```python\nfrom fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass Item(BaseModel):\n    name: str\n    description: str | None = None\n\nitems = {}\n\n@app.post(\"/items/\")\nasync def create_item(item: Item):\n    items[item.name] = item\n    return item\n```",
+    "tags": ["Python", "后端", "API"],
+    "source": "original",
+    "createdAt": "2026-03-20"
+  },
+  {
+    "id": "5",
+    "slug": "docker-debug-container",
+    "title": "Docker 容器调试技巧",
+    "description": "进入容器、检查日志、排查网络问题",
+    "content": "容器化应用出问题怎么办？这些命令帮你快速定位。\n\n```bash\n# 进入运行中的容器\ndocker exec -it <container_id> /bin/bash\n\n# 查看容器日志\ndocker logs -f <container_id>\n\n# 检查容器网络\ndocker network inspect <network_name>\n\n# 查看容器资源使用\ndocker stats\n```",
+    "tags": ["Docker", "DevOps", "工具"],
+    "source": "original",
+    "createdAt": "2026-03-19"
+  },
+  {
+    "id": "6",
+    "slug": "git-interactive-rebase",
+    "title": "Git 交互式 rebase 整理提交",
+    "description": "合并commit、修改message、删除冗余提交",
+    "content": "git rebase -i 是整理提交历史的利器。\n\n```bash\n# 整理最近3个提交\ngit rebase -i HEAD~3\n\n# 交互式界面命令：\n# pick - 保留提交\n# squash - 合并到上一个提交\n# reword - 修改提交信息\n# drop - 删除提交\n```",
+    "tags": ["Git", "工具"],
+    "source": "original",
+    "createdAt": "2026-03-18"
+  }
+]
