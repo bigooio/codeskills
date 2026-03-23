@@ -18,7 +18,9 @@ const colors = {
   yellow: '\x1b[33m',
   red: '\x1b[31m',
   cyan: '\x1b[36m',
-  reset: '\x1b[0m'
+  reset: '\x1b[0m',
+  gray: '\x1b[90m',
+  white: '\x1b[37m'
 }
 
 function log(color, prefix, message) {
@@ -29,168 +31,218 @@ function info(msg) { log(colors.blue, 'ℹ', msg) }
 function success(msg) { log(colors.green, '✓', msg) }
 function warn(msg) { log(colors.yellow, '⚠', msg) }
 function error(msg) { log(colors.red, '✗', msg) }
+function header(msg) { log(colors.cyan, '▸', msg) }
 
-async function downloadFile(url, dest) {
+function downloadFile(url) {
   return new Promise((resolve, reject) => {
-    const file = fs.createWriteStream(dest)
     const request = url.startsWith('https') ? https : http
+    let data = ''
 
     request.get(url, (response) => {
       if (response.statusCode === 301 || response.statusCode === 302) {
-        downloadFile(response.headers.location, dest).then(resolve).catch(reject)
+        downloadFile(response.headers.location).then(resolve).catch(reject)
         return
       }
-      response.pipe(file)
-      file.on('finish', () => {
-        file.close()
-        resolve()
-      })
-    }).on('error', (err) => {
-      fs.unlink(dest, () => {})
-      reject(err)
-    })
+      response.on('data', chunk => data += chunk)
+      response.on('end', () => resolve(data))
+    }).on('error', reject)
   })
 }
 
-function Command() {
+async function listRemoteSkills() {
+  try {
+    info('获取远程 Skills 列表...')
+
+    // 从 GitHub API 获取 skills 目录内容
+    const apiUrl = 'https://api.github.com/repos/bigooio/codeskills/contents/skills'
+    const data = await downloadFile(apiUrl)
+
+    if (!data) {
+      throw new Error('无法获取远程列表')
+    }
+
+    const files = JSON.parse(data)
+    const skills = files.filter(f => f.type === 'dir')
+
+    console.log(`\n${colors.cyan}╔═══════════════════════════════════════════╗${colors.reset}`)
+    console.log(`${colors.cyan}║     CodeSkills 远程 Skills${colors.reset}`)
+    console.log(`${colors.cyan}╚═══════════════════════════════════════════╝${colors.reset}\n`)
+
+    skills.forEach((skill, i) => {
+      console.log(`  ${colors.green}${i + 1}.${colors.reset} ${colors.white}${skill.name}${colors.reset}`)
+      console.log(`     ${colors.gray}下载: npx skills install ${skill.name}${colors.reset}\n`)
+    })
+
+    console.log(`${colors.yellow}共 ${skills.length} 个 Skills${colors.reset}\n`)
+
+  } catch (e) {
+    // 如果 GitHub API 失败，尝试直接 clone
+    warn('无法获取远程列表，尝试直接克隆...')
+    await cloneAndShow()
+  }
+}
+
+async function cloneAndShow() {
+  const tempDir = path.join(__dirname, '..', '..', 'temp-clone')
+
+  try {
+    execSync(`git clone --depth 1 -b ${DEFAULT_BRANCH} ${GITCODDE_REPO} "${tempDir}"`, { stdio: 'pipe' })
+
+    const skillsPath = path.join(tempDir, 'skills')
+    if (fs.existsSync(skillsPath)) {
+      const skills = fs.readdirSync(skillsPath).filter(f =>
+        fs.statSync(path.join(skillsPath, f)).isDirectory()
+      )
+
+      console.log(`\n${colors.cyan}╔═══════════════════════════════════════════╗${colors.reset}`)
+      console.log(`${colors.cyan}║     CodeSkills Skills${colors.reset}`)
+      console.log(`${colors.cyan}╚═══════════════════════════════════════════╝${colors.reset}\n`)
+
+      skills.forEach((skill, i) => {
+        console.log(`  ${colors.green}${i + 1}.${colors.reset} ${colors.white}${skill}${colors.reset}`)
+      })
+
+      console.log(`\n${colors.yellow}共 ${skills.length} 个 Skills${colors.reset}\n`)
+    }
+
+  } finally {
+    // 清理临时目录
+    execSync(`rm -rf "${tempDir}"`, { stdio: 'pipe' })
+  }
+}
+
+async function installSkill(skillName) {
+  const skillsDir = path.join(process.cwd(), 'skills')
+
+  info(`安装 Skill: ${skillName}`)
+
+  // 检查是否已有 skills 目录
+  const parentSkillsDir = path.join(process.cwd(), 'skills')
+  if (fs.existsSync(parentSkillsDir)) {
+    const skillDir = path.join(parentSkillsDir, skillName)
+    if (fs.existsSync(skillDir)) {
+      success(`Skill "${skillName}" 已存在`)
+      return
+    }
+  }
+
+  // 从 GitHub 下载单个 SKILL.md
+  try {
+    const rawUrl = `https://raw.githubusercontent.com/bigooio/codeskills/${DEFAULT_BRANCH}/skills/${skillName}/SKILL.md`
+    const content = await downloadFile(rawUrl)
+
+    if (!content || content.includes('404') || content.includes('Not Found')) {
+      error(`Skill "${skillName}" 不存在`)
+      info('运行 "skills list" 查看可用 Skills')
+      return
+    }
+
+    // 创建目录并保存
+    const skillDir = path.join(process.cwd(), 'skills', skillName)
+    execSync(`mkdir -p "${skillDir}"`)
+
+    fs.writeFileSync(path.join(skillDir, 'SKILL.md'), content)
+
+    success(`Skill "${skillName}" 安装成功！`)
+    console.log(`\n📁 位置: ${skillDir}`)
+
+  } catch (e) {
+    error(`安装失败: ${e.message}`)
+  }
+}
+
+function showHelp() {
+  console.log(`
+${colors.cyan}
+╔═══════════════════════════════════════════╗
+║         CodeSkills CLI v2.0.0            ║
+║      发现编程超能力 - AI Agent 技能工具   ║
+╚═══════════════════════════════════════════╝
+${colors.reset}
+
+${colors.white}使用方法:${colors.reset}
+
+  ${colors.green}npx skills${colors.reset}              # 显示帮助
+  ${colors.green}npx skills list${colors.reset}         # 列出所有可用 Skills
+  ${colors.green}npx skills install${colors.reset}      # 安装所有 Skills
+  ${colors.green}npx skills install <name>${colors.reset} # 安装指定 Skill
+  ${colors.green}npx skills update${colors.reset}       # 更新 Skills
+
+${colors.cyan}示例:${colors.reset}
+
+  ${colors.gray}# 查看所有可用的 Skills
+  npx skills list
+
+  # 安装所有 Skills 到当前目录
+  npx skills install
+
+  # 安装指定的 Skill
+  npx skills install react-useeffect-cleanup
+
+  # 更新到最新版本
+  npx skills update${colors.reset}
+`)
+}
+
+async function Command() {
   const args = process.argv.slice(2)
-  const command = args[0] || 'install'
+  const command = args[0] || 'help'
+  const skillName = args[1]
 
   console.log(`
 ${colors.cyan}
 ╔═══════════════════════════════════════════╗
-║         CodeSkills CLI v1.0.0            ║
-║      发现编程超能力 - 下载技能工具        ║
+║         CodeSkills CLI v2.0.0            ║
+║      发现编程超能力 - AI Agent 技能工具   ║
 ╚═══════════════════════════════════════════╝
 ${colors.reset}
 `)
 
   switch (command) {
-    case 'install':
-    case 'i':
-      install()
-      break
     case 'list':
     case 'ls':
-      list()
+      await listRemoteSkills()
       break
+
+    case 'install':
+    case 'i':
+      if (skillName) {
+        await installSkill(skillName)
+      } else {
+        info('安装所有 Skills...')
+        // 完整克隆
+        const targetDir = path.join(process.cwd(), 'skills')
+        execSync(`mkdir -p "${targetDir}"`)
+        try {
+          execSync(`git clone --depth 1 -b ${DEFAULT_BRANCH} ${GITCODDE_REPO} temp-cs`, { stdio: 'pipe', cwd: process.cwd() })
+          execSync(`cp -r temp-cs/skills/* "${targetDir}/"`, { stdio: 'pipe' })
+          execSync(`rm -rf temp-cs`, { stdio: 'pipe' })
+          const skills = fs.readdirSync(targetDir).filter(f => fs.statSync(path.join(targetDir, f)).isDirectory())
+          success(`安装完成！共 ${skills.length} 个 Skills`)
+          console.log(`\n📁 位置: ${targetDir}`)
+          console.log(`\n${colors.gray}查看: cd skills && ls${colors.reset}`)
+        } catch (e) {
+          error('安装失败')
+        }
+      }
+      break
+
     case 'update':
     case 'u':
-      update()
+      info('更新 Skills...')
+      execSync(`rm -rf "${path.join(process.cwd(), 'skills')}"`, { stdio: 'pipe' })
+      await Command() // 重新执行 install
       break
+
     case 'help':
     case '--help':
     case '-h':
-      showHelp()
-      break
     default:
-      error(`未知命令: ${command}`)
-      showHelp()
-      process.exit(1)
-  }
-}
-
-function install() {
-  info('开始安装 CodeSkills...')
-
-  const targetDir = path.join(process.cwd(), 'codeskills-data')
-  const skillsFile = path.join(targetDir, 'skills.json')
-
-  // 如果已有目录，更新
-  if (fs.existsSync(targetDir)) {
-    success(`检测到已有目录: ${targetDir}`)
-    info('更新 skills.json...')
-
-    try {
-      // 使用 gh 或 curl 下载
-      const rawUrl = `https://gitcode.com/codeskills/codeskills/raw/${DEFAULT_BRANCH}/data/skills.json`
-
-      info(`下载来源: ${rawUrl}`)
-      execSync(`curl -sL "${rawUrl}" -o "${skillsFile}"`, { stdio: 'inherit' })
-
-      const data = JSON.parse(fs.readFileSync(skillsFile, 'utf8'))
-      success(`安装完成！共 ${data.length} 个 Skills`)
-      console.log(`\n📁 数据位置: ${skillsFile}`)
-    } catch (e) {
-      warn('下载失败，尝试使用 git...')
-      execSync(`cd "${targetDir}" && git pull origin ${DEFAULT_BRANCH}`, { stdio: 'inherit' })
-      success('已通过 git 更新')
-    }
-  } else {
-    // 首次安装 - git clone
-    success('首次安装，克隆仓库...')
-    console.log(`\n🌐 克隆地址: ${GITHUB_REPO}`)
-    console.log(`📂 分支: ${DEFAULT_BRANCH}`)
-    console.log(`📁 安装目录: ${targetDir}\n`)
-
-    try {
-      execSync(`git clone --depth 1 -b ${DEFAULT_BRANCH} ${GITCODDE_REPO} "${targetDir}"`, { stdio: 'inherit' })
-      success('安装完成！')
-
-      if (fs.existsSync(skillsFile)) {
-        const data = JSON.parse(fs.readFileSync(skillsFile, 'utf8'))
-        console.log(`\n${colors.green}✅ 共 ${data.length} 个 Skills${colors.reset}`)
+      if (command !== 'help' && command !== '--help' && command !== '-h') {
+        error(`未知命令: ${command}\n`)
       }
-      console.log(`\n📁 安装目录: ${targetDir}`)
-      console.log(`\n📖 使用方法:`)
-      console.log(`   skills list    - 查看所有 Skills`)
-      console.log(`   skills update   - 更新到最新`)
-    } catch (e) {
-      error('克隆失败，请检查网络连接')
-      process.exit(1)
-    }
+      showHelp()
   }
 }
 
-function list() {
-  const skillsFile = path.join(process.cwd(), 'codeskills-data', 'skills.json')
-
-  if (!fs.existsSync(skillsFile)) {
-    warn('未找到数据，请先运行: skills install')
-    return
-  }
-
-  const data = JSON.parse(fs.readFileSync(skillsFile, 'utf8'))
-
-  console.log(`\n${colors.cyan}📦 CodeSkills 列表${colors.reset}\n`)
-
-  data.forEach((skill, i) => {
-    console.log(`${colors.green}${i + 1}.${colors.reset} ${colors.white}${skill.title}${colors.reset}`)
-    console.log(`   ${colors.gray}${skill.description}${colors.reset}`)
-    console.log(`   标签: ${skill.tags.join(', ')}`)
-    console.log('')
-  })
-
-  console.log(`${colors.yellow}共 ${data.length} 个 Skills${colors.reset}\n`)
-}
-
-function update() {
-  info('更新 CodeSkills...')
-  install()
-}
-
-function showHelp() {
-  console.log(`
-${colors.cyan}使用方法:${colors.reset}
-
-  ${colors.green}npx skills install${colors.reset}   # 安装/更新 Skills
-  ${colors.green}npx skills list${colors.reset}     # 查看所有 Skills
-  ${colors.green}npx skills update${colors.reset}  # 更新到最新版本
-  ${colors.green}npx skills help${colors.reset}    # 显示帮助
-
-${colors.cyan}示例:${colors.reset}
-
-  ${colors.gray}# 安装 Skills 到当前目录
-  npx skills install
-
-  # 查看已安装的 Skills
-  cd codeskills-data
-  skills list
-
-  # 更新到最新版本
-  skills update${colors.reset}
-`)
-}
-
-// 运行
 Command()
