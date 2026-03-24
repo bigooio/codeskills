@@ -1,0 +1,2 @@
+[    1322ms] [ERROR] Access to fetch at 'https://dnspod.cloud.tencent.com/ajax/rainbow?action=getRainbowConfig' from origin 'https://skillhub.tencent.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://skillhub.tencent.com/#categories:0
+[    1322ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dnspod.cloud.tencent.com/ajax/rainbow?action=getRainbowConfig:0
