@@ -2,6 +2,7 @@ import { getSkillBySlug, getAllSkills } from '@/lib/skills'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import SkillViewer from '@/components/SkillViewer'
+import CopyCommand from '@/components/CopyCommand'
 
 interface SkillPageProps {
   params: { slug: string }
@@ -29,6 +30,8 @@ export default function SkillPage({ params }: SkillPageProps) {
   const relatedSkills = allSkills
     .filter((s) => s.id !== skill.id && s.tags.some((t) => skill.tags.includes(t)))
     .slice(0, 3)
+
+  const installCmd = `npx codeskills install ${skill.slug}`
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -69,19 +72,11 @@ export default function SkillPage({ params }: SkillPageProps) {
           </div>
 
           {/* CLI Install Command */}
-          <div className="mt-6 p-4 bg-card border border-border rounded-lg">
-            <p className="text-sm text-text-secondary mb-3">安装此 Skill:</p>
-            <div className="flex items-center gap-3">
-              <code className="flex-1 px-4 py-2 bg-background border border-border rounded-lg text-sm font-mono text-accent">
-                npx codeskills install {skill.slug}
-              </code>
-              <button
-                onClick={() => navigator.clipboard.writeText(`npx codeskills install ${skill.slug}`)}
-                className="px-3 py-2 bg-accent text-white rounded-lg text-sm hover:bg-accent/90 transition"
-              >
-                复制
-              </button>
-            </div>
+          <div className="mt-6 p-4 bg-card border border-border rounded-lg flex items-center gap-3">
+            <code className="flex-1 px-4 py-2 bg-background border border-border rounded-lg text-sm font-mono text-accent overflow-x-auto">
+              {installCmd}
+            </code>
+            <CopyCommand text={installCmd} />
           </div>
         </header>
 
