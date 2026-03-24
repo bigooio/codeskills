@@ -1,6 +1,7 @@
 {
   "name": "codeskills",
   "version": "1.0.0",
+  "license": "MIT",
   "description": "CodeSkills CLI - 发现和安装编程超能力",
   "bin": {
     "codeskills": "./bin/skills.js",
