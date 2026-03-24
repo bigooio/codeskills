@@ -15,21 +15,20 @@ export default function SkillViewer({ slug, initialContent }: SkillViewerProps) 
   const [loading, setLoading] = useState(false)
   const [copied, setCopied] = useState(false)
 
+  // Load full content on mount
   useEffect(() => {
-    if (mode === 'md' || mode === 'split') {
-      setLoading(true)
-      fetch(`/api/skills/${slug}`)
-        .then(res => res.json())
-        .then(data => {
-          setFullContent(data.fullContent || initialContent)
-          setLoading(false)
-        })
-        .catch(() => {
-          setFullContent(initialContent)
-          setLoading(false)
-        })
-    }
-  }, [mode, slug, initialContent])
+    setLoading(true)
+    fetch(`/api/skills/${slug}`)
+      .then(res => res.json())
+      .then(data => {
+        setFullContent(data.fullContent || initialContent)
+        setLoading(false)
+      })
+      .catch(() => {
+        setFullContent(initialContent)
+        setLoading(false)
+      })
+  }, [slug, initialContent])
 
   const handleCopy = async () => {
     try {
