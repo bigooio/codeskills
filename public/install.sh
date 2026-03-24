@@ -1,10 +1,14 @@
 #!/bin/bash
 #
 # CodeSkills CLI 安装脚本
-# 用法:
-#   curl -fsSL https://codeskills.cn/install.sh | bash          # 自动
+#
+# Linux/macOS:
+#   curl -fsSL https://codeskills.cn/install.sh | bash          # 自动选择
 #   curl -fsSL https://codeskills.cn/install.sh | bash -s -- github   # GitHub
 #   curl -fsSL https://codeskills.cn/install.sh | bash -s -- gitcode  # GitCode
+#
+# Windows (PowerShell):
+#   irm https://codeskills.cn/install.ps1 | iex
 #
 
 set -e
