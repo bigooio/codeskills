@@ -1,8 +1,9 @@
 {
-  "name": "skills-cli",
+  "name": "codeskills",
   "version": "1.0.0",
-  "description": "CodeSkills - 下载编程技能的工具",
+  "description": "CodeSkills CLI - 发现和安装编程超能力",
   "bin": {
+    "codeskills": "./bin/skills.js",
     "skills": "./bin/skills.js"
   },
   "scripts": {
@@ -11,5 +12,6 @@
   "engines": {
     "node": ">=16"
   },
-  "keywords": ["skills", "programming", "tools"]
+  "keywords": ["skills", "programming", "codeskills", "tools"],
+  "files": ["bin"]
 }

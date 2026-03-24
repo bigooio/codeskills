@@ -209,6 +209,39 @@ async function installSkill(skillName) {
   }
 }
 
+async function searchSkills(query) {
+  info(`搜索 Skills: ${query}`)
+  try {
+    // 尝试从 GitHub raw 获取 skills.json
+    const rawUrl = `https://raw.githubusercontent.com/bigooio/codeskills/${DEFAULT_BRANCH}/data/skills.json`
+    const data = await downloadFile(rawUrl)
+    if (data && !data.includes('404')) {
+      const skills = JSON.parse(data)
+      const q = query.toLowerCase()
+      const results = skills.filter(s =>
+        s.title.toLowerCase().includes(q) ||
+        s.description.toLowerCase().includes(q) ||
+        (s.tags || []).some(t => t.toLowerCase().includes(q))
+      )
+      if (results.length === 0) {
+        warn(`没有找到包含 "${query}" 的 Skills`)
+        return
+      }
+      console.log(`\n${colors.green}找到 ${results.length} 个 Skills:${colors.reset}\n`)
+      results.forEach((s, i) => {
+        console.log(`  ${colors.green}${i + 1}.${colors.reset} ${colors.white}${s.slug}${colors.reset}`)
+        console.log(`     ${colors.gray}${s.description.substring(0, 80)}${colors.reset}\n`)
+      })
+      console.log(`${colors.cyan}安装: codeskills install <name>${colors.reset}`)
+    } else {
+      // 降级：列出所有
+      await listRemoteSkills()
+    }
+  } catch (e) {
+    warn('搜索失败，请使用 codeskills list 查看所有 Skills')
+  }
+}
+
 function showHelp() {
   console.log(`
 ${colors.cyan}
@@ -220,25 +253,29 @@ ${colors.reset}
 
 ${colors.white}使用方法:${colors.reset}
 
-  ${colors.green}npx skills${colors.reset}              # 显示帮助
-  ${colors.green}npx skills list${colors.reset}         # 列出所有可用 Skills
-  ${colors.green}npx skills install${colors.reset}      # 安装所有 Skills
-  ${colors.green}npx skills install <name>${colors.reset} # 安装指定 Skill
-  ${colors.green}npx skills update${colors.reset}       # 更新 Skills
+  ${colors.green}codeskills${colors.reset}               # 显示帮助
+  ${colors.green}codeskills list${colors.reset}          # 列出所有可用 Skills
+  ${colors.green}codeskills search <关键词>${colors.reset} # 搜索 Skills
+  ${colors.green}codeskills install${colors.reset}       # 安装所有 Skills
+  ${colors.green}codeskills install <name>${colors.reset} # 安装指定 Skill
+  ${colors.green}codeskills update${colors.reset}        # 更新 Skills
 
 ${colors.cyan}示例:${colors.reset}
 
   ${colors.gray}# 查看所有可用的 Skills
-  npx skills list
+  codeskills list
+
+  # 搜索包含关键词的 Skills
+  codeskills search python
 
   # 安装所有 Skills 到当前目录
-  npx skills install
+  codeskills install
 
   # 安装指定的 Skill
-  npx skills install react-useeffect-cleanup
+  codeskills install git
 
   # 更新到最新版本
-  npx skills update${colors.reset}
+  codeskills update${colors.reset}
 `)
 }
 
@@ -246,6 +283,7 @@ async function Command() {
   const args = process.argv.slice(2)
   const command = args[0] || 'help'
   const skillName = args[1]
+  const invokedAs = path.basename(process.argv[1])
 
   console.log(`
 ${colors.cyan}
@@ -260,6 +298,15 @@ ${colors.reset}
     case 'list':
     case 'ls':
       await listRemoteSkills()
+      break
+
+    case 'search':
+    case 's':
+      if (!skillName) {
+        warn('请提供搜索关键词，例如: codeskills search python')
+      } else {
+        await searchSkills(skillName)
+      }
       break
 
     case 'install':
