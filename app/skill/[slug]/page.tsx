@@ -31,7 +31,7 @@ export default function SkillPage({ params }: SkillPageProps) {
     .filter((s) => s.id !== skill.id && s.tags.some((t) => skill.tags.includes(t)))
     .slice(0, 3)
 
-  const installCmd = `npx codeskills install ${skill.slug}`
+  const installCmd = `codeskills install ${skill.slug}`
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
