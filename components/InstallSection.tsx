@@ -11,10 +11,7 @@ export default function InstallSection() {
       <code className="px-4 py-2 bg-card border border-border rounded-lg text-sm font-mono text-accent">
         {INSTALL_CMD}
       </code>
-      <CopyButton
-        text={INSTALL_CMD}
-        className="bg-accent text-white hover:bg-accent/90"
-      />
+      <CopyButton text={INSTALL_CMD} />
       <Link
         href="/discover"
         className="px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium hover:bg-accent/90 transition"
