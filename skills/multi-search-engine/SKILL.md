@@ -37,50 +37,50 @@ tags:
 
 ## 基础用法
 
-```bash
+```Bash
 # 默认搜索（使用所有引擎）
-search "查询内容"
+搜索 "查询内容"
 
 # 使用特定引擎
-search --engine google "查询内容"
-search --engine baidu "查询内容"
+搜索 --engine google "查询内容"
+搜索 --engine baidu "查询内容"
 
 # 限制结果数量
-search --limit 10 "查询内容"
+搜索 --限制 10 "查询内容"
 ```
 
 ## 高级搜索
 
-```bash
+```Bash
 # 站内搜索
-search --site github.com "关键字"
+搜索 --site github.com "关键字"
 
 # 时间筛选
-search --time-range "2024-01-01" "关键字"
+搜索 --time-range "2024-01-01" "关键字"
 
 # 隐私模式（不追踪）
-search --privacy "敏感查询"
+搜索 --privacy "敏感查询"
 ```
 
 ## 搜索语法
 
-```bash
+```Bash
 # 精确匹配
-search "exact phrase"
+搜索 "exact phrase"
 
 # 排除词
-search "word1 -word2"
+搜索 "word1 -word2"
 
 # OR 搜索
-search "word1 OR word2"
+搜索 "word1 OR word2"
 
 # 组合
-search ""exact phrase" site:github.com -old"
+搜索 ""exact phrase" site:github.com -old"
 ```
 
 ## WolframAlpha 知识查询
 
-```bash
+```Bash
 # 数学计算
 ask "2+2"
 

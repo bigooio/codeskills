@@ -7,21 +7,21 @@ tags:
   - bash
 ---
 
-# Code Stats
+# Code 统计
 
-Analyzes the current workspace to provide development metrics.
+Analyzes the current 工作空间 to provide 开发环境 metrics.
 
-## Usage
+## 使用方法
 
-```bash
-node skills/code-stats/index.js [path]
+```Bash
+节点 skills/code-统计/index.js [路径]
 ```
 
-Defaults to current working directory if path is omitted.
+Defaults to current working directory if 路径 is omitted.
 
-## Output
+## 输出
 
-JSON object with:
-- `files`: Total file count.
+JSON 对象 with:
+- `files`: Total 文件 count.
 - `lines`: Total line count (approximate).
-- `byExt`: Breakdown by file extension.
+- `byExt`: Breakdown by 文件 扩展.

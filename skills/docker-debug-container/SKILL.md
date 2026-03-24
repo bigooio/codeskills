@@ -17,129 +17,129 @@ tags:
 
 ## 进入容器
 
-```bash
-# 进入运行中的容器（bash）
-docker exec -it <container_id> /bin/bash
+```Bash
+# 进入运行中的容器（Bash）
+Docker 执行 -它 <container_id> /bin/Bash
 
 # 进入运行中的容器（sh，适合轻量镜像）
-docker exec -it <container_id> /bin/sh
+Docker 执行 -它 <container_id> /bin/sh
 
 # 以 root 身份进入
-docker exec -it --privileged <container_id> /bin/bash
+Docker 执行 -它 --特权模式 <container_id> /bin/Bash
 
 # 在容器中执行单个命令
-docker exec <container_id> ls -la /app
+Docker 执行 <container_id> ls -la /app
 ```
 
 ## 查看日志
 
-```bash
+```Bash
 # 查看实时日志
-docker logs -f <container_id>
+Docker 日志 -f <container_id>
 
 # 查看最近 100 行
-docker logs --tail 100 <container_id>
+Docker 日志 --tail 100 <container_id>
 
 # 查看时间戳
-docker logs -t <container_id>
+Docker 日志 -t <container_id>
 
 # 查看最近 1 小时的日志
-docker logs --since "1h" <container_id>
+Docker 日志 --since "1h" <container_id>
 
 # 查看错误日志
-docker logs <container_id> 2>&1 | grep -i error
+Docker 日志 <container_id> 2>&1 | grep -i 错误
 ```
 
 ## 网络诊断
 
-```bash
+```Bash
 # 检查容器网络
-docker network inspect <network_name>
+Docker 网络 检查 <network_name>
 
-# 查看容器 IP
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_id>
+# 查看容器 ip
+Docker 检查 -f '{{range .NetworkSettings.网络}}{{.IPAddress}}{{end}}' <container_id>
 
 # 测试容器间网络
-docker exec <container1> ping <container2_ip>
+Docker 执行 <container1> ping <container2_ip>
 
 # 查看端口映射
-docker port <container_id>
+Docker 端口 <container_id>
 ```
 
 ## 资源监控
 
-```bash
+```Bash
 # 实时查看资源使用
-docker stats
+Docker 统计
 
 # 查看所有容器资源（只显示一次）
-docker stats --no-stream
+Docker 统计 --no-流
 
 # 查看特定容器
-docker stats <container_id>
+Docker 统计 <container_id>
 
 # 检查容器配置
-docker inspect <container_id>
+Docker 检查 <container_id>
 ```
 
 ## 文件操作
 
-```bash
+```Bash
 # 从容器复制文件到主机
-docker cp <container_id>:/path/in/container/file.txt ./
+Docker cp <container_id>:/路径/in/容器/文件.txt ./
 
 # 从主机复制文件到容器
-docker cp ./file.txt <container_id>:/path/in/container/
+Docker cp ./文件.txt <container_id>:/路径/in/容器/
 
 # 查看容器文件系统变化
-docker diff <container_id>
+Docker 差异 <container_id>
 ```
 
 ## 常见问题排查
 
 ### 容器无法启动
 
-```bash
+```Bash
 # 查看详细错误
-docker logs <container_id>
+Docker 日志 <container_id>
 
 # 检查配置
-docker inspect <container_id>
+Docker 检查 <container_id>
 
 # 查看事件
-docker events --since "10m"
+Docker events --since "10m"
 ```
 
 ### 性能问题
 
-```bash
+```Bash
 # 检查 CPU、内存
-docker stats --no-stream
+Docker 统计 --no-流
 
 # 进入容器检查进程
-docker exec -it <container_id> top
+Docker 执行 -它 <container_id> 进程
 
 # 检查磁盘
-docker exec -it <container_id> df -h
+Docker 执行 -它 <container_id> df -h
 ```
 
 ### 网络问题
 
-```bash
+```Bash
 # 测试 DNS
-docker exec -it <container_id> nslookup google.com
+Docker 执行 -它 <container_id> nslookup google.com
 
 # 检查连接
-docker exec -it <container_id> curl -v http://api:port/health
+Docker 执行 -它 <container_id> curl -v HTTP://api:端口/health
 
 # 查看路由表
-docker exec -it <container_id> netstat -r
+Docker 执行 -它 <container_id> netstat -r
 ```
 
 ## 最佳实践
 
-1. `docker logs -f` 实时追踪问题
-2. `docker exec` 进入容器调试
-3. `docker stats` 快速定位资源问题
-4. `docker network inspect` 排查网络配置
+1. `Docker 日志 -f` 实时追踪问题
+2. `Docker 执行` 进入容器调试
+3. `Docker 统计` 快速定位资源问题
+4. `Docker 网络 检查` 排查网络配置
 5. 先看日志再看配置，逐层排查

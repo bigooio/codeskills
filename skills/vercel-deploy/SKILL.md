@@ -10,162 +10,162 @@ tags:
   - api
 ---
 
-# Vercel Deployment & Management
+# Vercel 部署 & Management
 
-Deploy and manage Vercel projects. No "AI will build your app" nonsense - just practical Vercel operations.
+部署 and manage Vercel projects. No "AI will 构建 your app" nonsense - just practical Vercel operations.
 
-## Configuration
+## 配置
 
-### Vercel Setup
+### Vercel 设置
 
-**Get your token:**
-1. Go to https://vercel.com/account/tokens
-2. Create token (name it "OpenClaw")
-3. Set in environment:
+**GET your 令牌:**
+1. Go to HTTPS://vercel.com/account/tokens
+2. Create 令牌 (name 它 "OpenClaw")
+3. 集合 in 环境:
 
-```bash
-export VERCEL_TOKEN="your-token-here"
+```Bash
+导出 VERCEL_TOKEN="your-令牌-here"
 ```
 
 Or store in `.env`:
 ```
-VERCEL_TOKEN=your-token-here
+VERCEL_TOKEN=your-令牌-here
 ```
 
 ## Vercel Operations
 
-### Deploy Project
+### 部署 Project
 
-```bash
-# Deploy to preview
+```Bash
+# 部署 to preview
 scripts/vercel_deploy.sh --project bountylock --preview
 
-# Deploy to production
-scripts/vercel_deploy.sh --project bountylock --production
+# 部署 to 生产环境
+scripts/vercel_deploy.sh --project bountylock --生产环境
 ```
 
-### Manage Environment Variables
+### Manage 环境变量
 
-```bash
-# List env vars
-scripts/vercel_env.sh --project bountylock --list
+```Bash
+# 列表 env vars
+scripts/vercel_env.sh --project bountylock --列表
 
-# Set env var
-scripts/vercel_env.sh --project bountylock --set \
+# 集合 env var
+scripts/vercel_env.sh --project bountylock --集合 \
   --key NEXT_PUBLIC_RPC_URL \
-  --value "https://sepolia.base.org" \
-  --env production
+  --value "HTTPS://sepolia.BASE.org" \
+  --env 生产环境
 
-# Delete env var
-scripts/vercel_env.sh --project bountylock --delete \
+# DELETE env var
+scripts/vercel_env.sh --project bountylock --DELETE \
   --key OLD_VAR \
-  --env production
+  --env 生产环境
 ```
 
-### Check Deployment Status
+### Check 部署 状态
 
-```bash
-# Get latest deployment
+```Bash
+# GET latest 部署
 scripts/vercel_status.sh --project bountylock
 
-# Get specific deployment
-scripts/vercel_status.sh --deployment dpl_abc123
+# GET specific 部署
+scripts/vercel_status.sh --部署 dpl_abc123
 ```
 
-### View Logs
+### View 日志
 
-```bash
-# Get deployment logs
-scripts/vercel_logs.sh --deployment dpl_abc123
+```Bash
+# GET 部署 日志
+scripts/vercel_logs.sh --部署 dpl_abc123
 
-# Get runtime logs
-scripts/vercel_logs.sh --project bountylock --function api/bounties
+# GET 运行时 日志
+scripts/vercel_logs.sh --project bountylock --函数 api/bounties
 ```
 
 ## Common Workflows
 
-### Initial Testnet Deployment
+### Initial Testnet 部署
 
-1. **Set environment variables:**
-```bash
+1. **集合 环境变量:**
+```Bash
 # Contract addresses (after deploying to Sepolia)
-scripts/vercel_env.sh --project bountylock --set \
+scripts/vercel_env.sh --project bountylock --集合 \
   --key NEXT_PUBLIC_CONTRACT_ADDRESS \
   --value "0x..." \
-  --env production
+  --env 生产环境
 
 # RPC URL
-scripts/vercel_env.sh --project bountylock --set \
+scripts/vercel_env.sh --project bountylock --集合 \
   --key NEXT_PUBLIC_RPC_URL \
-  --value "https://sepolia.base.org" \
-  --env production
+  --value "HTTPS://sepolia.BASE.org" \
+  --env 生产环境
 
 # Chain ID
-scripts/vercel_env.sh --project bountylock --set \
+scripts/vercel_env.sh --project bountylock --集合 \
   --key NEXT_PUBLIC_CHAIN_ID \
   --value "84532" \
-  --env production
+  --env 生产环境
 ```
 
-2. **Deploy:**
-```bash
-scripts/vercel_deploy.sh --project bountylock --production
+2. **部署:**
+```Bash
+scripts/vercel_deploy.sh --project bountylock --生产环境
 ```
 
-3. **Check status:**
-```bash
+3. **Check 状态:**
+```Bash
 scripts/vercel_status.sh --project bountylock
 ```
 
-### Update Environment Variables
+### 更新 环境变量
 
-```bash
-# Update contract address after redeployment
-scripts/vercel_env.sh --project bountylock --set \
+```Bash
+# 更新 contract address after redeployment
+scripts/vercel_env.sh --project bountylock --集合 \
   --key NEXT_PUBLIC_CONTRACT_ADDRESS \
   --value "0xNEW_ADDRESS" \
-  --env production
+  --env 生产环境
 
-# Trigger new deployment to use updated vars
-scripts/vercel_deploy.sh --project bountylock --production
+# 触发器 new 部署 to use updated vars
+scripts/vercel_deploy.sh --project bountylock --生产环境
 ```
 
-### Debug Deployment Issues
+### Debug 部署 Issues
 
-```bash
-# Get latest deployment info
+```Bash
+# GET latest 部署 info
 scripts/vercel_status.sh --project bountylock
 
-# Get build logs
-scripts/vercel_logs.sh --deployment dpl_abc123
+# GET 构建 日志
+scripts/vercel_logs.sh --部署 dpl_abc123
 
-# Check environment variables
-scripts/vercel_env.sh --project bountylock --list
+# Check 环境变量
+scripts/vercel_env.sh --project bountylock --列表
 ```
 
-## Security Best Practices
+## 安全 最佳实践
 
-1. **Token Scope:** Use project-scoped tokens when possible
+1. **令牌 Scope:** Use project-scoped tokens when possible
 2. **Rotation:** Rotate tokens periodically
-3. **Audit:** Review deployment logs regularly
-4. **Secrets:** Never commit tokens to git
+3. **Audit:** Review 部署 日志 regularly
+4. **Secrets:** never 提交 tokens to git
 
-## Troubleshooting
+## 故障排除
 
-**"Authentication failed"**
-- Check token is set correctly
-- Verify token hasn't expired
+**"认证 failed"**
+- Check 令牌 is 集合 correctly
+- Verify 令牌 hasn't expired
 
 **"Project not found"**
 - Verify project name matches Vercel project
 - Check account has access to project
 
-**"Deployment failed"**
-- Check build logs: `scripts/vercel_logs.sh --deployment dpl_xxx`
-- Verify environment variables are set correctly
-- Check for build errors in code
+**"部署 failed"**
+- Check 构建 日志: `scripts/vercel_logs.sh --部署 dpl_xxx`
+- Verify 环境变量 are 集合 correctly
+- Check for 构建 errors in code
 
-## Reference Files
+## 引用 Files
 
-- **Vercel API Reference:** See [vercel-api.md](references/vercel-api.md) for complete API documentation
-- **Deployment Patterns:** See [deployment-patterns.md](references/deployment-patterns.md) for common deployment workflows
+- **Vercel api 引用:** See [vercel-api.md](references/vercel-api.md) for complete api documentation
+- **部署 Patterns:** See [部署-patterns.md](references/部署-patterns.md) for common 部署 workflows

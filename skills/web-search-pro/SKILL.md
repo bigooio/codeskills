@@ -61,22 +61,22 @@ tags:
   - testing
 ---
 
-# Web Search Pro 2.1 Core Profile
+# Web 搜索 Pro 2.1 Core Profile
 
-This ClawHub package publishes the core retrieval profile of `web-search-pro`.
-It is a code-backed Node runtime package, not an instruction-only bundle.
+This ClawHub 包 publishes the core retrieval profile of `web-搜索-pro`.
+它 is a code-backed 节点 运行时 包, not an instruction-only 包.
 
 ## Use This Skill When
 
-- the caller needs live web search or news search
+- the caller needs live web 搜索 or news 搜索
 - the caller needs docs lookup or code lookup
-- the caller may continue from search into extract, crawl, map, or research
-- the agent needs explainable routing and visible federated-search gains
-- the first run needs a real no-key baseline
+- the caller may continue from 搜索 into 提取, crawl, 映射, or research
+- the agent needs explainable 路由 and visible federated-搜索 gains
+- the first 运行 needs a real no-key baseline
 
-## Quick Start
+## 快速开始
 
-The shortest successful path is:
+The shortest successful 路径 is:
 
 - Option A: No-key baseline
 - Option B: Add one premium provider
@@ -84,52 +84,52 @@ The shortest successful path is:
 
 ### Option A: No-key baseline
 
-No API key is required for the first successful run.
+No api key is 必需 for the first successful 运行.
 
-```bash
-node {baseDir}/scripts/doctor.mjs --json
-node {baseDir}/scripts/bootstrap.mjs --json
-node {baseDir}/scripts/search.mjs "OpenAI Responses API docs" --json
+```Bash
+节点 {baseDir}/scripts/doctor.mjs --JSON
+节点 {baseDir}/scripts/bootstrap.mjs --JSON
+节点 {baseDir}/scripts/搜索.mjs "OpenAI Responses api docs" --JSON
 ```
 
 ### Option B: Add one premium provider
 
 If you only add one premium provider, start with `TAVILY_API_KEY`.
 
-```bash
-export TAVILY_API_KEY=tvly-xxxxx
-node {baseDir}/scripts/doctor.mjs --json
-node {baseDir}/scripts/search.mjs "latest OpenAI news" --type news --json
+```Bash
+导出 TAVILY_API_KEY=tvly-xxxxx
+节点 {baseDir}/scripts/doctor.mjs --JSON
+节点 {baseDir}/scripts/搜索.mjs "latest OpenAI news" --类型 news --JSON
 ```
 
 ### First successful searches
 
-```bash
-node {baseDir}/scripts/search.mjs "OpenClaw web search" --json
-node {baseDir}/scripts/search.mjs "OpenAI Responses API docs" --preset docs --plan --json
-node {baseDir}/scripts/extract.mjs "https://platform.openai.com/docs" --json
+```Bash
+节点 {baseDir}/scripts/搜索.mjs "OpenClaw web 搜索" --JSON
+节点 {baseDir}/scripts/搜索.mjs "OpenAI Responses api docs" --preset docs --plan --JSON
+节点 {baseDir}/scripts/提取.mjs "HTTPS://platform.openai.com/docs" --JSON
 ```
 
 ### Then try docs, news, and research
 
-```bash
-node {baseDir}/scripts/search.mjs "OpenAI Responses API docs" --preset docs --json
-node {baseDir}/scripts/search.mjs "latest OpenAI news" --type news --json
-node {baseDir}/scripts/research.mjs "OpenClaw search skill landscape" --plan --json
+```Bash
+节点 {baseDir}/scripts/搜索.mjs "OpenAI Responses api docs" --preset docs --JSON
+节点 {baseDir}/scripts/搜索.mjs "latest OpenAI news" --类型 news --JSON
+节点 {baseDir}/scripts/research.mjs "OpenClaw 搜索 skill landscape" --plan --JSON
 ```
 
 ## Install Model
 
-ClawHub installs this bundle directly as a code-backed Node skill pack.
+ClawHub installs this 包 directly as a code-backed 节点 skill pack.
 
-- hard runtime requirement: `node`
-- no remote installer, curl-to-shell bootstrap, or Python helper transport in the baseline path
-- optional runtime config file: `config.json`
-- local state directory: `.cache/web-search-pro`
+- hard 运行时 requirement: `节点`
+- no 远程 installer, curl-to-Shell bootstrap, or Python helper transport in the baseline 路径
+- 可选 运行时 配置 文件: `配置.JSON`
+- 本地 状态 directory: `.缓存/web-搜索-pro`
 
-## Why Federated Search Matters
+## Why Federated 搜索 Matters
 
-Federation is not just "more providers". It exposes compact gain metrics:
+Federation is not just "more providers". 它 exposes compact gain metrics:
 
 - `federated.value.additionalProvidersUsed`
 - `federated.value.resultsRecoveredByFanout`
@@ -137,56 +137,56 @@ Federation is not just "more providers". It exposes compact gain metrics:
 - `federated.value.duplicateSavings`
 - `routingSummary.federation.value`
 
-## Runtime Contract
+## 运行时 Contract
 
 - `selectedProvider`
-  The planner's primary route.
+  The planner's primary 路由.
 - `routingSummary`
-  Compact route explanation with confidence and federation summary.
-- `routing.diagnostics`
-  Full route diagnostics exposed by `--explain-routing` or `--plan`.
+  Compact 路由 explanation with confidence and federation 概要.
+- `路由.diagnostics`
+  Full 路由 diagnostics exposed by `--explain-路由` or `--plan`.
 - `federated.providersUsed`
   The providers that actually returned results when fanout is active.
 - `federated.value`
-  Compact federation gain summary for added providers, recovered results, corroboration, and
+  Compact federation gain 概要 for added providers, recovered results, corroboration, and
   duplicate savings.
-- `cached` / `cache`
-  Cache hit plus TTL telemetry for agents.
+- `cached` / `缓存`
+  缓存 hit plus TTL telemetry for agents.
 - `topicType`, `topicSignals`, `researchAxes`
   Structured planning summaries for the model-facing research pack.
 
-## Commands By Task
+## Commands By 任务
 
 Included commands:
 
-- `search.mjs`
-- `extract.mjs`
+- `搜索.mjs`
+- `提取.mjs`
 - `crawl.mjs`
-- `map.mjs`
+- `映射.mjs`
 - `research.mjs`
 - `doctor.mjs`
 - `bootstrap.mjs`
 - `capabilities.mjs`
 - `review.mjs`
-- `cache.mjs`
+- `缓存.mjs`
 - `health.mjs`
 
-Runtime notes:
+运行时 备注:
 
-- Node is the only hard runtime requirement.
-- No API key is required for the baseline.
-- Optional provider credentials or endpoints widen coverage.
-- Baseline outbound requests use `curl` when available and fall back to built-in `fetch`.
+- 节点 is the only hard 运行时 requirement.
+- No api key is 必需 for the baseline.
+- 可选 provider credentials or endpoints widen 覆盖率.
+- Baseline outbound requests use `curl` when available and fall back to 内置 `获取`.
 
 Baseline:
 
-- No API key is required for the baseline.
-- `ddg` is best-effort no-key search.
-- `fetch` is the no-key extract / crawl / map fallback.
+- No api key is 必需 for the baseline.
+- `ddg` is best-effort no-key 搜索.
+- `获取` is the no-key 提取 / crawl / 映射 fallback.
 
-Optional provider credentials or endpoints unlock stronger coverage:
+可选 provider credentials or endpoints unlock stronger 覆盖率:
 
-```bash
+```Bash
 TAVILY_API_KEY=tvly-xxxxx
 EXA_API_KEY=exa-xxxxx
 QUERIT_API_KEY=xxxxx
@@ -194,32 +194,32 @@ SERPER_API_KEY=xxxxx
 BRAVE_API_KEY=xxxxx
 SERPAPI_API_KEY=xxxxx
 YOU_API_KEY=xxxxx
-SEARXNG_INSTANCE_URL=https://searx.example.com
+SEARXNG_INSTANCE_URL=HTTPS://searx.example.com
 
-# Perplexity / Sonar: choose one transport path
+# Perplexity / Sonar: choose one transport 路径
 PERPLEXITY_API_KEY=xxxxx
 OPENROUTER_API_KEY=xxxxx
-OPENROUTER_BASE_URL=https://openrouter.ai/api/v1  # optional override
+OPENROUTER_BASE_URL=HTTPS://openrouter.AI/api/v1  # 可选 override
 KILOCODE_API_KEY=xxxxx
 
-# Or use a custom OpenAI-compatible gateway
+# Or use a custom OpenAI-compatible 网关
 PERPLEXITY_GATEWAY_API_KEY=xxxxx
-PERPLEXITY_BASE_URL=https://gateway.example.com/v1
+PERPLEXITY_BASE_URL=HTTPS://网关.example.com/v1
 PERPLEXITY_MODEL=perplexity/sonar-pro  # accepts sonar* or perplexity/sonar*
 ```
 
 Review and diagnostics:
 
-```bash
-node {baseDir}/scripts/capabilities.mjs --json
-node {baseDir}/scripts/doctor.mjs --json
-node {baseDir}/scripts/bootstrap.mjs --json
-node {baseDir}/scripts/review.mjs --json
+```Bash
+节点 {baseDir}/scripts/capabilities.mjs --JSON
+节点 {baseDir}/scripts/doctor.mjs --JSON
+节点 {baseDir}/scripts/bootstrap.mjs --JSON
+节点 {baseDir}/scripts/review.mjs --JSON
 ```
 
-Search keywords:
+搜索 keywords:
 
-`web search`, `news search`, `latest updates`, `current events`, `docs search`,
-`API docs`, `code search`, `company research`, `competitor analysis`, `site crawl`,
-`site map`, `multilingual search`, `Baidu search`, `answer-first search`,
-`cited answers`, `explainable routing`, `no-key baseline`
+`web 搜索`, `news 搜索`, `latest updates`, `current events`, `docs 搜索`,
+`api docs`, `code 搜索`, `company research`, `competitor analysis`, `site crawl`,
+`site 映射`, `multilingual 搜索`, `Baidu 搜索`, `answer-first 搜索`,
+`cited answers`, `explainable 路由`, `no-key baseline`

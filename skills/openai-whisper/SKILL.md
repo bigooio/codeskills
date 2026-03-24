@@ -15,20 +15,20 @@ tags:
 
 ## 安装
 
-```bash
+```Bash
 # macOS
 brew install whisper
 
 # 或使用 pip
-pip install whisper-cli
+pip install whisper-CLI
 
 # 验证安装
-whisper --version
+whisper --版本
 ```
 
 ## 基础用法
 
-```bash
+```Bash
 # 转录音频文件
 whisper "audio.mp3"
 
@@ -36,7 +36,7 @@ whisper "audio.mp3"
 whisper "audio.mp3" --language Chinese
 
 # 输出到文件
-whisper "audio.mp3" --output transcript.txt
+whisper "audio.mp3" --输出 transcript.txt
 ```
 
 ## 支持的格式
@@ -49,14 +49,14 @@ whisper "audio.mp3" --output transcript.txt
 
 ## 高级选项
 
-```bash
+```Bash
 # 指定模型大小
 whisper "audio.mp3" --model medium
 
-# 可用模型: tiny, base, small, medium, large
+# 可用模型: tiny, BASE, small, medium, large
 
 # 翻译为英文
-whisper "audio.mp3" --task translate
+whisper "audio.mp3" --任务 Translate
 
 # 添加时间戳
 whisper "audio.mp3" --timestamps
@@ -64,9 +64,9 @@ whisper "audio.mp3" --timestamps
 
 ## 输出格式
 
-```bash
+```Bash
 # JSON（带置信度）
-whisper "audio.mp3" --format json
+whisper "audio.mp3" --format JSON
 
 # SRT 字幕
 whisper "audio.mp3" --format srt
@@ -77,17 +77,17 @@ whisper "audio.mp3" --format vtt
 
 ## 实际应用
 
-```bash
+```Bash
 # 转录会议录音
-whisper "meeting.m4a" --language Chinese --timestamps --output meeting.txt
+whisper "meeting.m4a" --language Chinese --timestamps --输出 meeting.txt
 
 # 提取 YouTube 音频并转录
-yt-dlp "https://youtube.com/watch?v=xxx" -x --audio-format mp3
-whisper "audio.mp3" --language auto --output transcript.txt
+yt-dlp "HTTPS://youtube.com/watch?v=xxx" -x --audio-format mp3
+whisper "audio.mp3" --language auto --输出 transcript.txt
 
-# 批量转录（bash for循环）
+# 批量转录（Bash for循环）
 # 批量转录（单引号避免变量展开）
-for f in *.mp3; do whisper "$f" --output "$(basename "$f" .mp3).txt"; done
+for f in *.mp3; do whisper "$f" --输出 "$(basename "$f" .mp3).txt"; done
 ```
 
 ## 最佳实践

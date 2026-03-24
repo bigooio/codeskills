@@ -5,129 +5,129 @@ tags:
   - DevOps
   - Deploy
 ---
-# web-deploy
+# web-部署
 
-Build and deploy websites, web apps, and APIs to production.
+构建 and 部署 websites, web apps, and APIs to 生产环境.
 
-## Local Preview Workflow
+## 本地 Preview 工作流
 
-```bash
-# Static site
-npx http-server ./dist -p 8080 -c-1
+```Bash
+# 静态 site
+npx HTTP-服务器 ./dist -p 8080 -c-1
 
 # Next.js
-npm run dev          # Development (hot reload)
-npm run build && npm run start  # Production preview
+npm 运行 开发          # 开发环境 (热重载)
+npm 运行 构建 && npm 运行 start  # 生产环境 preview
 
 # FastAPI
-uvicorn app.main:app --reload --port 8000
+uvicorn app.主分支:app --reload --端口 8000
 
 # Vite-based
-npm run dev          # Dev server
-npm run build && npx serve dist  # Production preview
+npm 运行 开发          # 开发 服务器
+npm 运行 构建 && npx serve dist  # 生产环境 preview
 ```
 
-## Deployment Targets
+## 部署 Targets
 
-### Vercel (Frontend / Next.js / Static)
+### Vercel (前端 / Next.js / 静态)
 
-```bash
-# First time setup
-npx vercel link
+```Bash
+# First time 设置
+npx vercel 链接
 
-# Preview deployment
+# Preview 部署
 npx vercel
 
-# Production deployment
+# 生产环境 部署
 npx vercel --prod
 
-# Environment variables
+# 环境变量
 npx vercel env add SECRET_KEY
 ```
 
-**Best for:** Next.js apps, React SPAs, static sites, serverless functions.
+**Best for:** Next.js apps, React SPAs, 静态 sites, 无服务器 functions.
 
-**Config:** `vercel.json` (usually not needed for Next.js)
-```json
+**配置:** `vercel.JSON` (usually not needed for Next.js)
+```JSON
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm 运行 构建",
   "outputDirectory": "dist",
-  "framework": "nextjs"
+  "框架": "NextJS"
 }
 ```
 
-### Railway (Backend / APIs / Databases)
+### Railway (后端 / APIs / Databases)
 
-```bash
-# First time setup
+```Bash
+# First time 设置
 railway login
 railway init
 
-# Deploy
+# 部署
 railway up
 
-# Add database
-railway add --plugin postgresql
+# Add 数据库
+railway add --插件 PostgreSQL
 
-# Environment variables
-railway variables set SECRET_KEY=value
+# 环境变量
+railway variables 集合 SECRET_KEY=value
 
-# View logs
-railway logs
+# View 日志
+railway 日志
 ```
 
-**Best for:** Backend APIs, databases, long-running processes, Docker containers.
+**Best for:** 后端 APIs, databases, long-running processes, Docker 容器.
 
-### GitHub Pages (Static Sites)
+### GitHub Pages (静态 Sites)
 
-```bash
-# Using gh-pages package
+```Bash
+# Using gh-pages 包
 npm install -D gh-pages
-# Add to package.json scripts: "deploy": "gh-pages -d dist"
-npm run build && npm run deploy
+# Add to 包.JSON scripts: "部署": "gh-pages -d dist"
+npm 运行 构建 && npm 运行 部署
 ```
 
-**Best for:** Documentation, simple static sites, project pages.
+**Best for:** Documentation, simple 静态 sites, project pages.
 
-### Canvas (Clawdbot Workspace)
+### Canvas (Clawdbot 工作空间)
 
-Deploy to `~/clawd/canvas/` for local serving through the clawdbot gateway.
-```bash
+部署 to `~/clawd/canvas/` for 本地 serving through the clawdbot 网关.
+```Bash
 cp -r ./dist/* ~/clawd/canvas/my-project/
 ```
 
-## Pre-Deploy Checklist
+## Pre-部署 Checklist
 
-- [ ] Build succeeds locally (`npm run build` / `python -m build`)
+- [ ] 构建 succeeds locally (`npm 运行 构建` / `Python -m 构建`)
 - [ ] No TypeScript/lint errors
 - [ ] Tests pass
-- [ ] Environment variables set on target platform
+- [ ] 环境变量 集合 on target platform
 - [ ] `.env` / secrets NOT in git
-- [ ] `robots.txt` and `sitemap.xml` if public site
-- [ ] Favicon and meta tags set
+- [ ] `robots.txt` and `sitemap.XML` if public site
+- [ ] Favicon and meta tags 集合
 - [ ] HTTPS configured (automatic on Vercel/Railway)
-- [ ] Error pages (404, 500) configured
-- [ ] Performance: images optimized, code split, no huge bundles
+- [ ] 错误 pages (404, 500) configured
+- [ ] Performance: 镜像 optimized, code split, no huge bundles
 
-## Rollback
+## 回滚
 
-```bash
+```Bash
 # Vercel — redeploy previous
-npx vercel rollback
+npx vercel 回滚
 
 # Railway — redeploy previous
-railway rollback
+railway 回滚
 
-# Git-based — revert and push
-git revert HEAD && git push
+# Git-based — 撤销 and 推送
+git 撤销 HEAD && git 推送
 ```
 
-## Domain Setup
+## 域名 设置
 
-```bash
+```Bash
 # Vercel
 npx vercel domains add mydomain.com
 
-# DNS: Point CNAME to cname.vercel-dns.com
-# Or A record to 76.76.21.21
+# DNS: Point CNAME to cname.vercel-DNS.com
+# Or A 记录 to 76.76.21.21
 ```

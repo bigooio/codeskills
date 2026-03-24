@@ -17,25 +17,25 @@ tags:
   - 工具
 ---
 
-# AI Image Editing
+# AI 镜像 Editing
 
-Help users edit and enhance images with AI tools.
+Help users edit and enhance 镜像 with AI tools.
 
 **Rules:**
-- Ask what edit they need: remove objects, extend canvas, upscale, fix faces, change background
+- Ask what edit they need: 删除 objects, extend canvas, upscale, fix faces, change background
 - Check technique files: `inpainting.md`, `outpainting.md`, `background-removal.md`, `upscaling.md`, `restoration.md`, `style-transfer.md`
-- Check `tools.md` for provider-specific setup
-- Always preserve original file before editing
+- Check `tools.md` for provider-specific 设置
+- Always preserve original 文件 before editing
 
 ---
 
-## Edit Type Selection
+## Edit 类型 Selection
 
-| Task | Technique | Best Tools |
+| 任务 | Technique | Best Tools |
 |------|-----------|------------|
-| Remove objects/people | Inpainting | DALL-E, SD Inpaint, IOPaint |
-| Extend image borders | Outpainting | DALL-E, SD Outpaint, Photoshop AI |
-| Remove background | Segmentation | remove.bg, ClipDrop, Photoroom |
+| 删除 objects/people | Inpainting | DALL-E, SD Inpaint, IOPaint |
+| Extend 镜像 borders | Outpainting | DALL-E, SD Outpaint, Photoshop AI |
+| 删除 background | Segmentation | 删除.bg, ClipDrop, Photoroom |
 | Increase resolution | Upscaling | Real-ESRGAN, Topaz, Magnific |
 | Fix blurry faces | Restoration | GFPGAN, CodeFormer |
 | Change style | Style Transfer | SD img2img, ControlNet |
@@ -43,11 +43,11 @@ Help users edit and enhance images with AI tools.
 
 ---
 
-## Workflow Principles
+## 工作流 Principles
 
-- **Non-destructive editing** — keep originals, save edits as new files
+- **Non-destructive editing** — keep originals, 保存 edits as new files
 - **Work in layers** — combine multiple edits sequentially
-- **Match resolution** — edit at original resolution, upscale last
+- **匹配 resolution** — edit at original resolution, upscale last
 - **Mask precision matters** — better masks = better results
 - **Iterate on masks** — refine edges for seamless blends
 
@@ -58,33 +58,33 @@ Help users edit and enhance images with AI tools.
 Masks define edit regions:
 - **White** = edit this area
 - **Black** = preserve this area
-- **Gray** = partial blend (feathering)
+- **Gray** = 偏函数 blend (feathering)
 
 **Mask creation methods:**
 - Manual brush in editor
 - SAM (Segment Anything) for auto-selection
 - Color/luminance keying
-- Edge detection
+- 边缘 detection
 
 ---
 
 ## Common Workflows
 
-### Object Removal
-1. Create mask over unwanted object
-2. Run inpainting with context prompt (optional)
+### 对象 Removal
+1. Create mask over unwanted 对象
+2. 运行 inpainting with 上下文 prompt (可选)
 3. Blend edges if needed
 4. Touch up artifacts
 
 ### Background Replacement
-1. Remove background (get transparent PNG)
+1. 删除 background (GET transparent PNG)
 2. Place on new background
-3. Match lighting/color
+3. 匹配 lighting/color
 4. Add shadows for realism
 
-### Enhancement Pipeline
+### Enhancement 管道
 1. Restore faces (if present)
-2. Remove artifacts/noise
+2. 删除 artifacts/noise
 3. Color correct
 4. Upscale to final resolution
 
@@ -93,15 +93,15 @@ Masks define edit regions:
 ## Quality Tips
 
 - **Feather masks** — hard edges look artificial
-- **Context prompts help** — describe what should fill the area
+- **上下文 prompts help** — 描述 what 应该 fill the area
 - **Multiple passes** — large edits may need iterative refinement
 - **Check edges** — zoom in to verify blend quality
-- **Match grain/noise** — add film grain to match original
+- **匹配 grain/noise** — add film grain to 匹配 original
 
 ---
 
-### Current Setup
-<!-- Tool: status -->
+### Current 设置
+<!-- Tool: 状态 -->
 
 ### Projects
 <!-- What they're editing -->

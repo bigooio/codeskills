@@ -11,125 +11,125 @@ tags:
   - frontend
 ---
 
-# Deploy
+# 部署
 
-Deploy code from the current directory to Railway using `railway up`.
+部署 code from the current directory to Railway using `railway up`.
 
-## When to Use
+## 何时使用
 
-- User asks to "deploy", "ship", "push code"
-- User says "railway up" or "deploy to Railway"
-- User wants to deploy local code changes
-- User says "deploy and fix any issues" (use --ci mode)
+- 用户 asks to "部署", "ship", "推送 code"
+- 用户 says "railway up" or "部署 to Railway"
+- 用户 wants to 部署 本地 code changes
+- 用户 says "部署 and fix any issues" (use --ci mode)
 
-## Commit Message
+## 提交 Message
 
-Always use the `-m` flag with a descriptive commit message summarizing what's being deployed:
+Always use the `-m` flag with a descriptive 提交 message summarizing what's being deployed:
 
-```bash
-railway up --detach -m "Add user authentication endpoint"
+```Bash
+railway up --detach -m "Add 用户 认证 端点"
 ```
 
-Good commit messages:
-- Describe what changed: "Fix memory leak in worker process"
-- Reference tickets/issues: "Implement feature #123"
-- Be concise but meaningful: "Update deps and fix build warnings"
+Good 提交 messages:
+- 描述 what changed: "Fix 内存 泄漏 in 工作节点 进程"
+- 引用 tickets/issues: "Implement feature #123"
+- Be concise but meaningful: "更新 deps and fix 构建 警告"
 
 ## Modes
 
 ### Detach Mode (default)
-Starts deploy and returns immediately. Use for most deploys.
+Starts 部署 and returns immediately. Use for most deploys.
 
-```bash
-railway up --detach -m "Deploy description here"
+```Bash
+railway up --detach -m "部署 说明 here"
 ```
 
 ### CI Mode
-Streams build logs until complete. Use when user wants to watch the build or needs to debug issues.
+Streams 构建 日志 until complete. Use when 用户 wants to watch the 构建 or needs to debug issues.
 
-```bash
-railway up --ci -m "Deploy description here"
+```Bash
+railway up --ci -m "部署 说明 here"
 ```
 
-**When to use CI mode:**
-- User says "deploy and watch", "deploy and fix issues"
-- User is debugging build failures
-- User wants to see build output
+**何时使用 CI mode:**
+- 用户 says "部署 and watch", "部署 and fix issues"
+- 用户 is 调试 构建 failures
+- 用户 wants to see 构建 输出
 
-## Deploy Specific Service
+## 部署 Specific 服务
 
-Default is linked service. To deploy to a different service:
+Default is linked 服务. To 部署 to a different 服务:
 
-```bash
-railway up --detach --service backend -m "Deploy description here"
+```Bash
+railway up --detach --服务 后端 -m "部署 说明 here"
 ```
 
-## Deploy to Unlinked Project
+## 部署 to Unlinked Project
 
-Deploy to a project without linking first:
+部署 to a project without linking first:
 
-```bash
-railway up --project <project-id> --environment production --detach -m "Deploy description here"
+```Bash
+railway up --project <project-id> --环境 生产环境 --detach -m "部署 说明 here"
 ```
 
-Requires both `--project` and `--environment` flags.
+Requires both `--project` and `--环境` 标志.
 
-## CLI Options
+## CLI OPTIONS
 
-| Flag | Description |
+| Flag | 说明 |
 |------|-------------|
-| `-m, --message <MSG>` | Commit message describing the deploy (always use this) |
-| `-d, --detach` | Don't attach to logs (default) |
-| `-c, --ci` | Stream build logs, exit when done |
-| `-s, --service <NAME>` | Target service (defaults to linked) |
-| `-e, --environment <NAME>` | Target environment (defaults to linked) |
-| `-p, --project <ID>` | Target project (requires --environment) |
-| `[PATH]` | Path to deploy (defaults to current directory) |
+| `-m, --message <MSG>` | 提交 message describing the 部署 (always use this) |
+| `-d, --detach` | Don't attach to 日志 (default) |
+| `-c, --ci` | 流 构建 日志, exit when done |
+| `-s, --服务 <NAME>` | Target 服务 (defaults to linked) |
+| `-e, --环境 <NAME>` | Target 环境 (defaults to linked) |
+| `-p, --project <ID>` | Target project (requires --环境) |
+| `[路径]` | 路径 to 部署 (defaults to current directory) |
 
 ## Directory Linking
 
 Railway CLI walks UP the directory tree to find a linked project. If you're in a subdirectory of a linked project, you don't need to relink.
 
-For subdirectory deployments, prefer setting `rootDirectory` via the environment skill, then deploy normally with `railway up`.
+For subdirectory deployments, prefer setting `rootDirectory` via the 环境 skill, then 部署 normally with `railway up`.
 
-## After Deploy
+## After 部署
 
 ### Detach mode
 ```
-Deploying to <service>...
+Deploying to <服务>...
 ```
-Use `deployment` skill to check build status (with `--lines` flag).
+Use `部署` skill to check 构建 状态 (with `--lines` flag).
 
 ### CI mode
-Build logs stream inline. If build fails, the error will be in the output.
+构建 日志 流 inline. If 构建 fails, the 错误 will be in the 输出.
 
-**Do NOT run `railway logs --build` after CI mode** - the logs already streamed. If you need
-more context, use `deployment` skill with `--lines` flag (never stream).
+**Do NOT 运行 `railway 日志 --构建` after CI mode** - the 日志 already streamed. If you need
+more 上下文, use `部署` skill with `--lines` flag (never 流).
 
 ## Composability
 
-- **Check status after deploy**: Use `service` skill
-- **View logs**: Use `deployment` skill
-- **Fix config issues**: Use `environment` skill
-- **Redeploy after config fix**: Use `environment` skill
+- **Check 状态 after 部署**: Use `服务` skill
+- **View 日志**: Use `部署` skill
+- **Fix 配置 issues**: Use `环境` skill
+- **Redeploy after 配置 fix**: Use `环境` skill
 
-## Error Handling
+## 错误 Handling
 
 ### No Project Linked
 ```
-No Railway project linked. Run `railway link` first.
+No Railway project linked. 运行 `railway 链接` first.
 ```
 
-### No Service Linked
+### No 服务 Linked
 ```
-No service linked. Use --service flag or run `railway service` to select one.
+No 服务 linked. Use --服务 flag or 运行 `railway 服务` to select one.
 ```
 
-### Build Failure (CI mode)
-The build logs already streamed - analyze them directly from the `railway up --ci` output.
-Do NOT run `railway logs` after CI mode (it streams forever without `--lines`).
+### 构建 Failure (CI mode)
+The 构建 日志 already streamed - analyze them directly from the `railway up --ci` 输出.
+Do NOT 运行 `railway 日志` after CI mode (它 streams forever without `--lines`).
 
 Common issues:
-- Missing dependencies → check package.json/requirements.txt
-- Build command wrong → use environment skill to fix
-- Dockerfile issues → check dockerfile path
+- Missing 依赖 → check 包.JSON/要求.txt
+- 构建 命令 wrong → use 环境 skill to fix
+- Dockerfile issues → check Dockerfile 路径

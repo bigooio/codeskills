@@ -10,74 +10,74 @@ tags:
   - bash
 ---
 
-# AI Image Generation
+# AI 镜像 Generation
 
-Generate images with 50+ AI models via [inference.sh](https://inference.sh) CLI.
+Generate 镜像 with 50+ AI models via [inference.sh](HTTPS://inference.sh) CLI.
 
-![AI Image Generation](https://cloud.inference.sh/app/files/u/4mg21r6ta37mpaz6ktzwtt8krr/01kg0v0nz7wv0qwqjtq1cam52z.jpeg)
+![AI 镜像 Generation](HTTPS://cloud.inference.sh/app/files/u/4mg21r6ta37mpaz6ktzwtt8krr/01kg0v0nz7wv0qwqjtq1cam52z.jpeg)
 
-## Quick Start
+## 快速开始
 
-```bash
+```Bash
 # Install CLI
-curl -fsSL https://cli.inference.sh | sh && infsh login
+curl -fsSL HTTPS://CLI.inference.sh | sh && infsh login
 
-# Generate an image with FLUX
-infsh app run falai/flux-dev-lora --input '{"prompt": "a cat astronaut in space"}'
+# Generate an 镜像 with Flux
+infsh app 运行 falai/Flux-开发-lora --input '{"prompt": "a cat astronaut in space"}'
 ```
 
-> **Install note:** The [install script](https://cli.inference.sh) only detects your OS/architecture, downloads the matching binary from `dist.inference.sh`, and verifies its SHA-256 checksum. No elevated permissions or background processes. [Manual install & verification](https://dist.inference.sh/cli/checksums.txt) available.
+> **Install note:** The [install 脚本](HTTPS://CLI.inference.sh) only detects your OS/architecture, downloads the matching binary from `dist.inference.sh`, and verifies its SHA-256 checksum. No elevated permissions or background processes. [Manual install & verification](HTTPS://dist.inference.sh/CLI/checksums.txt) available.
 
 ## Available Models
 
 | Model | App ID | Best For |
 |-------|--------|----------|
-| FLUX Dev LoRA | `falai/flux-dev-lora` | High quality with custom styles |
-| FLUX.2 Klein LoRA | `falai/flux-2-klein-lora` | Fast with LoRA support (4B/9B) |
-| Gemini 3 Pro | `google/gemini-3-pro-image-preview` | Google's latest |
-| Gemini 2.5 Flash | `google/gemini-2-5-flash-image` | Fast Google model |
-| Grok Imagine | `xai/grok-imagine-image` | xAI's model, multiple aspects |
+| Flux 开发 LoRA | `falai/Flux-开发-lora` | High quality with custom styles |
+| Flux.2 Klein LoRA | `falai/Flux-2-klein-lora` | Fast with LoRA support (4B/9B) |
+| Gemini 3 Pro | `google/gemini-3-pro-镜像-preview` | Google's latest |
+| Gemini 2.5 Flash | `google/gemini-2-5-flash-镜像` | Fast Google model |
+| Grok Imagine | `xai/grok-imagine-镜像` | xAI's model, multiple aspects |
 | Seedream 4.5 | `bytedance/seedream-4-5` | 2K-4K cinematic quality |
 | Seedream 4.0 | `bytedance/seedream-4-0` | High quality 2K-4K |
 | Seedream 3.0 | `bytedance/seedream-3-0-t2i` | Accurate text rendering |
 | Reve | `falai/reve` | Natural language editing, text rendering |
 | ImagineArt 1.5 Pro | `falai/imagine-art-1-5-pro-preview` | Ultra-high-fidelity 4K |
-| Topaz Upscaler | `falai/topaz-image-upscaler` | Professional upscaling |
+| Topaz Upscaler | `falai/topaz-镜像-upscaler` | Professional upscaling |
 
-## Browse All Image Apps
+## Browse All 镜像 Apps
 
-```bash
-infsh app list --category image
+```Bash
+infsh app 列表 --category 镜像
 ```
 
-## Examples
+## 示例
 
-### Text-to-Image with FLUX
+### Text-to-镜像 with Flux
 
-```bash
-infsh app run falai/flux-dev-lora --input '{
+```Bash
+infsh app 运行 falai/Flux-开发-lora --input '{
   "prompt": "professional product photo of a coffee mug, studio lighting"
 }'
 ```
 
-### Fast Generation with FLUX Klein
+### Fast Generation with Flux Klein
 
-```bash
-infsh app run falai/flux-2-klein-lora --input '{"prompt": "sunset over mountains"}'
+```Bash
+infsh app 运行 falai/Flux-2-klein-lora --input '{"prompt": "sunset over mountains"}'
 ```
 
 ### Google Gemini 3 Pro
 
-```bash
-infsh app run google/gemini-3-pro-image-preview --input '{
-  "prompt": "photorealistic landscape with mountains and lake"
+```Bash
+infsh app 运行 google/gemini-3-pro-镜像-preview --input '{
+  "prompt": "photorealistic landscape with mountains and 湖"
 }'
 ```
 
 ### Grok Imagine
 
-```bash
-infsh app run xai/grok-imagine-image --input '{
+```Bash
+infsh app 运行 xai/grok-imagine-镜像 --input '{
   "prompt": "cyberpunk city at night",
   "aspect_ratio": "16:9"
 }'
@@ -85,61 +85,61 @@ infsh app run xai/grok-imagine-image --input '{
 
 ### Reve (with Text Rendering)
 
-```bash
-infsh app run falai/reve --input '{
+```Bash
+infsh app 运行 falai/reve --input '{
   "prompt": "A poster that says HELLO WORLD in bold letters"
 }'
 ```
 
 ### Seedream 4.5 (4K Quality)
 
-```bash
-infsh app run bytedance/seedream-4-5 --input '{
+```Bash
+infsh app 运行 bytedance/seedream-4-5 --input '{
   "prompt": "cinematic portrait of a woman, golden hour lighting"
 }'
 ```
 
-### Image Upscaling
+### 镜像 Upscaling
 
-```bash
-infsh app run falai/topaz-image-upscaler --input '{"image_url": "https://..."}'
+```Bash
+infsh app 运行 falai/topaz-镜像-upscaler --input '{"image_url": "HTTPS://..."}'
 ```
 
-### Stitch Multiple Images
+### Stitch Multiple 镜像
 
-```bash
-infsh app run infsh/stitch-images --input '{
-  "images": ["https://img1.jpg", "https://img2.jpg"],
+```Bash
+infsh app 运行 infsh/stitch-镜像 --input '{
+  "镜像": ["HTTPS://img1.jpg", "HTTPS://img2.jpg"],
   "direction": "horizontal"
 }'
 ```
 
-## Related Skills
+## 相关 Skills
 
-```bash
+```Bash
 # Full platform skill (all 150+ apps)
 npx skills add inference-sh/skills@inference-sh
 
-# FLUX-specific skill
-npx skills add inference-sh/skills@flux-image
+# Flux-specific skill
+npx skills add inference-sh/skills@Flux-镜像
 
 # Upscaling & enhancement
-npx skills add inference-sh/skills@image-upscaling
+npx skills add inference-sh/skills@镜像-upscaling
 
 # Background removal
 npx skills add inference-sh/skills@background-removal
 
 # Video generation
-npx skills add inference-sh/skills@ai-video-generation
+npx skills add inference-sh/skills@AI-video-generation
 
-# AI avatars from images
-npx skills add inference-sh/skills@ai-avatar-video
+# AI avatars from 镜像
+npx skills add inference-sh/skills@AI-avatar-video
 ```
 
-Browse all apps: `infsh app list`
+Browse all apps: `infsh app 列表`
 
 ## Documentation
 
-- [Running Apps](https://inference.sh/docs/apps/running) - How to run apps via CLI
-- [Image Generation Example](https://inference.sh/docs/examples/image-generation) - Complete image generation guide
-- [Apps Overview](https://inference.sh/docs/apps/overview) - Understanding the app ecosystem
+- [Running Apps](HTTPS://inference.sh/docs/apps/running) - How to 运行 apps via CLI
+- [镜像 Generation Example](HTTPS://inference.sh/docs/示例/镜像-generation) - Complete 镜像 generation guide
+- [Apps 概述](HTTPS://inference.sh/docs/apps/概述) - Understanding the app ecosystem

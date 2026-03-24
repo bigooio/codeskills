@@ -25,14 +25,14 @@ tags:
 
 # E2E Testing Patterns
 
-> Test what users do, not how code works. E2E tests prove the system works as a whole — they're your confidence to ship.
+> 测试 what users do, not how code works. E2E tests prove the system works as a whole — they're your confidence to ship.
 
 
-## Installation
+## 安装
 
 ### OpenClaw / Moltbot / Clawbot
 
-```bash
+```Bash
 npx clawhub@latest install e2e-testing-patterns
 ```
 
@@ -41,31 +41,31 @@ npx clawhub@latest install e2e-testing-patterns
 
 ## WHAT This Skill Does
 
-Provides patterns for building end-to-end test suites that:
-- Catch regressions before users do
-- Run fast enough for CI/CD
+Provides patterns for building end-to-end 测试 suites that:
+- 捕获 regressions before users do
+- 运行 fast enough for CI/CD
 - Remain stable (no flaky failures)
-- Cover critical user journeys without over-testing
+- Cover critical 用户 journeys without over-testing
 
-## WHEN To Use
+## 何时使用
 
-- **Implementing E2E test automation** for a web application
-- **Debugging flaky tests** that fail intermittently
-- **Setting up CI/CD test pipelines** with browser tests
-- **Testing critical user workflows** (auth, checkout, signup)
-- **Choosing what to test with E2E** vs unit/integration tests
+- **Implementing 端到端测试 automation** for a web application
+- **调试 flaky tests** that fail intermittently
+- **Setting up CI/CD 测试 pipelines** with browser tests
+- **Testing critical 用户 workflows** (auth, 检出, signup)
+- **Choosing what to 测试 with E2E** vs unit/integration tests
 
 ---
 
-## Test Pyramid — Know Your Layer
+## 测试 Pyramid — Know Your 层
 
 ```
         /\
        /E2E\         ← FEW: Critical paths only (this skill)
       /─────\
-     /Integr\        ← MORE: Component interactions, API contracts
+     /Integr\        ← MORE: 组件 interactions, api contracts
     /────────\
-   /Unit Tests\      ← MANY: Fast, isolated, cover edge cases
+   /Unit Tests\      ← MANY: Fast, isolated, cover 边缘 cases
   /────────────\
 ```
 
@@ -73,13 +73,13 @@ Provides patterns for building end-to-end test suites that:
 
 | E2E Tests ✓ | NOT E2E Tests ✗ |
 |-------------|-----------------|
-| Critical user journeys (login → dashboard → action → logout) | Unit-level logic (use unit tests) |
-| Multi-step flows (checkout, onboarding wizard) | API contracts (use integration tests) |
-| Cross-browser compatibility | Edge cases (too slow, use unit tests) |
-| Real API integration | Internal implementation details |
-| Authentication flows | Component visual states (use Storybook) |
+| Critical 用户 journeys (login → dashboard → 操作 → logout) | Unit-level logic (use unit tests) |
+| Multi-步骤 flows (检出, onboarding wizard) | api contracts (use integration tests) |
+| Cross-browser compatibility | 边缘 cases (too slow, use unit tests) |
+| Real api integration | Internal implementation details |
+| 认证 flows | 组件 visual states (use Storybook) |
 
-**Rule of thumb:** If it would devastate your business to break, E2E test it. If it's just inconvenient, test it faster with unit/integration tests.
+**Rule of thumb:** If 它 would devastate your business to break, 端到端测试 它. If 它's just inconvenient, 测试 它 faster with unit/integration tests.
 
 ---
 
@@ -87,34 +87,34 @@ Provides patterns for building end-to-end test suites that:
 
 | Principle | Why | How |
 |-----------|-----|-----|
-| **Test behavior, not implementation** | Survives refactors | Assert on user-visible outcomes, not DOM structure |
-| **Independent tests** | Parallelizable, debuggable | Each test creates its own data, cleans up after |
+| **测试 behavior, not implementation** | Survives refactors | 断言 on 用户-visible outcomes, not DOM structure |
+| **Independent tests** | Parallelizable, debuggable | Each 测试 creates its own data, cleans up after |
 | **Deterministic waits** | No flakiness | Wait for conditions, not fixed timeouts |
 | **Stable selectors** | Survives UI changes | Use `data-testid`, roles, labels — never CSS classes |
-| **Fast feedback** | Developers run them | Mock external services, parallelize, shard |
+| **Fast feedback** | Developers 运行 them | 模拟 external services, parallelize, 分片 |
 
 ---
 
 ## Playwright Patterns
 
-### Configuration
+### 配置
 
-```typescript
-// playwright.config.ts
-import { defineConfig, devices } from "@playwright/test";
+```TypeScript
+// Playwright.配置.ts
+导入 { defineConfig, devices } from "@Playwright/测试";
 
-export default defineConfig({
+导出 default defineConfig({
   testDir: "./e2e",
-  timeout: 30000,
-  expect: { timeout: 5000 },
+  超时: 30000,
+  期望: { 超时: 5000 },
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: [["html"], ["junit", { outputFile: "results.xml" }]],
+  forbidOnly: !!进程.env.CI,
+  retries: 进程.env.CI ? 2 : 0,
+  workers: 进程.env.CI ? 1 : undefined,
+  reporter: [["html"], ["junit", { outputFile: "results.XML" }]],
   use: {
-    baseURL: "http://localhost:3000",
-    trace: "on-first-retry",
+    baseURL: "HTTP://localhost:3000",
+    trace: "on-first-重试",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
   },
@@ -127,135 +127,135 @@ export default defineConfig({
 });
 ```
 
-### Pattern: Page Object Model
+### 模式: Page 对象 Model
 
-Encapsulate page logic. Tests read like user stories.
+Encapsulate page logic. Tests read like 用户 stories.
 
-```typescript
+```TypeScript
 // pages/LoginPage.ts
-import { Page, Locator } from "@playwright/test";
+导入 { Page, Locator } from "@Playwright/测试";
 
-export class LoginPage {
-  readonly page: Page;
-  readonly emailInput: Locator;
-  readonly passwordInput: Locator;
-  readonly loginButton: Locator;
-  readonly errorMessage: Locator;
+导出 类 LoginPage {
+  只读 page: Page;
+  只读 emailInput: Locator;
+  只读 passwordInput: Locator;
+  只读 loginButton: Locator;
+  只读 errorMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.emailInput = page.getByLabel("Email");
-    this.passwordInput = page.getByLabel("Password");
+    this.passwordInput = page.getByLabel("密码");
     this.loginButton = page.getByRole("button", { name: "Login" });
     this.errorMessage = page.getByRole("alert");
   }
 
-  async goto() {
-    await this.page.goto("/login");
+  异步 goto() {
+    等待 this.page.goto("/login");
   }
 
-  async login(email: string, password: string) {
-    await this.emailInput.fill(email);
-    await this.passwordInput.fill(password);
-    await this.loginButton.click();
+  异步 login(email: 字符串, 密码: 字符串) {
+    等待 this.emailInput.fill(email);
+    等待 this.passwordInput.fill(密码);
+    等待 this.loginButton.click();
   }
 }
 
 // tests/login.spec.ts
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "../pages/LoginPage";
+导入 { 测试, 期望 } from "@Playwright/测试";
+导入 { LoginPage } from "../pages/LoginPage";
 
-test("successful login redirects to dashboard", async ({ page }) => {
+测试("successful login redirects to dashboard", 异步 ({ page }) => {
   const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.login("user@example.com", "password123");
+  等待 loginPage.goto();
+  等待 loginPage.login("用户@example.com", "password123");
 
-  await expect(page).toHaveURL("/dashboard");
-  await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
+  等待 期望(page).toHaveURL("/dashboard");
+  等待 期望(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
 });
 ```
 
-### Pattern: Fixtures for Test Data
+### 模式: Fixtures for 测试 Data
 
-Create and clean up test data automatically.
+Create and 清理 up 测试 data automatically.
 
-```typescript
-// fixtures/test-data.ts
-import { test as base } from "@playwright/test";
+```TypeScript
+// fixtures/测试-data.ts
+导入 { 测试 as BASE } from "@Playwright/测试";
 
-export const test = base.extend<{ testUser: TestUser }>({
-  testUser: async ({}, use) => {
-    // Setup: Create user
-    const user = await createTestUser({
-      email: `test-${Date.now()}@example.com`,
-      password: "Test123!@#",
+导出 const 测试 = BASE.extend<{ testUser: TestUser }>({
+  testUser: 异步 ({}, use) => {
+    // 设置: Create 用户
+    const 用户 = 等待 createTestUser({
+      email: `测试-${Date.now()}@example.com`,
+      密码: "Test123!@#",
     });
 
-    await use(user);
+    等待 use(用户);
 
-    // Teardown: Clean up
-    await deleteTestUser(user.id);
+    // 拆卸: 清理 up
+    等待 deleteTestUser(用户.id);
   },
 });
 
-// Usage — testUser is created before, deleted after
-test("user can update profile", async ({ page, testUser }) => {
-  await page.goto("/login");
-  await page.getByLabel("Email").fill(testUser.email);
+// 使用方法 — testUser is created before, deleted after
+测试("用户 can 更新 profile", 异步 ({ page, testUser }) => {
+  等待 page.goto("/login");
+  等待 page.getByLabel("Email").fill(testUser.email);
   // ...
 });
 ```
 
-### Pattern: Smart Waiting
+### 模式: Smart Waiting
 
-Never use fixed timeouts. Wait for specific conditions.
+never use fixed timeouts. Wait for specific conditions.
 
-```typescript
-// ❌ FLAKY: Fixed timeout
-await page.waitForTimeout(3000);
+```TypeScript
+// ❌ FLAKY: Fixed 超时
+等待 page.waitForTimeout(3000);
 
 // ✅ STABLE: Wait for conditions
-await page.waitForLoadState("networkidle");
-await page.waitForURL("/dashboard");
+等待 page.waitForLoadState("networkidle");
+等待 page.waitForURL("/dashboard");
 
 // ✅ BEST: Auto-waiting assertions
-await expect(page.getByText("Welcome")).toBeVisible();
-await expect(page.getByRole("button", { name: "Submit" })).toBeEnabled();
+等待 期望(page.getByText("Welcome")).toBeVisible();
+等待 期望(page.getByRole("button", { name: "Submit" })).toBeEnabled();
 
-// Wait for API response
+// Wait for api 响应
 const responsePromise = page.waitForResponse(
-  (r) => r.url().includes("/api/users") && r.status() === 200
+  (r) => r.URL().includes("/api/users") && r.状态() === 200
 );
-await page.getByRole("button", { name: "Load" }).click();
-await responsePromise;
+等待 page.getByRole("button", { name: "加载" }).click();
+等待 responsePromise;
 ```
 
-### Pattern: Network Mocking
+### 模式: 网络 Mocking
 
 Isolate tests from real external services.
 
-```typescript
-test("shows error when API fails", async ({ page }) => {
-  // Mock the API response
-  await page.route("**/api/users", (route) => {
-    route.fulfill({
-      status: 500,
-      body: JSON.stringify({ error: "Server Error" }),
+```TypeScript
+测试("shows 错误 when api fails", 异步 ({ page }) => {
+  // 模拟 the api 响应
+  等待 page.路由("**/api/users", (路由) => {
+    路由.fulfill({
+      状态: 500,
+      请求体: JSON.字符串化({ 错误: "服务器 错误" }),
     });
   });
 
-  await page.goto("/users");
-  await expect(page.getByText("Failed to load users")).toBeVisible();
+  等待 page.goto("/users");
+  等待 期望(page.getByText("Failed to 加载 users")).toBeVisible();
 });
 
-test("handles slow network gracefully", async ({ page }) => {
-  await page.route("**/api/data", async (route) => {
-    await new Promise((r) => setTimeout(r, 3000)); // Simulate delay
-    await route.continue();
+测试("handles slow 网络 gracefully", 异步 ({ page }) => {
+  等待 page.路由("**/api/data", 异步 (路由) => {
+    等待 new Promise((r) => setTimeout(r, 3000)); // Simulate delay
+    等待 路由.continue();
   });
 
-  await page.goto("/dashboard");
-  await expect(page.getByText("Loading...")).toBeVisible();
+  等待 page.goto("/dashboard");
+  等待 期望(page.getByText("Loading...")).toBeVisible();
 });
 ```
 
@@ -265,93 +265,93 @@ test("handles slow network gracefully", async ({ page }) => {
 
 ### Custom Commands
 
-```typescript
-// cypress/support/commands.ts
-declare global {
-  namespace Cypress {
-    interface Chainable {
-      login(email: string, password: string): Chainable<void>;
-      dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+```TypeScript
+// Cypress/support/commands.ts
+declare 全局 {
+  命名空间 Cypress {
+    接口 Chainable {
+      login(email: 字符串, 密码: 字符串): Chainable<void>;
+      dataCy(value: 字符串): Chainable<JQuery<HTMLElement>>;
     }
   }
 }
 
-Cypress.Commands.add("login", (email, password) => {
+Cypress.Commands.add("login", (email, 密码) => {
   cy.visit("/login");
-  cy.get('[data-testid="email"]').type(email);
-  cy.get('[data-testid="password"]').type(password);
-  cy.get('[data-testid="login-button"]').click();
-  cy.url().should("include", "/dashboard");
+  cy.GET('[data-testid="email"]').类型(email);
+  cy.GET('[data-testid="密码"]').类型(密码);
+  cy.GET('[data-testid="login-button"]').click();
+  cy.URL().应该("include", "/dashboard");
 });
 
 Cypress.Commands.add("dataCy", (value) => {
-  return cy.get(`[data-cy="${value}"]`);
+  return cy.GET(`[data-cy="${value}"]`);
 });
 
-// Usage
-cy.login("user@example.com", "password");
+// 使用方法
+cy.login("用户@example.com", "密码");
 cy.dataCy("submit-button").click();
 ```
 
-### Network Intercepts
+### 网络 Intercepts
 
-```typescript
-// Mock API
+```TypeScript
+// 模拟 api
 cy.intercept("GET", "/api/users", {
   statusCode: 200,
-  body: [{ id: 1, name: "John" }],
+  请求体: [{ id: 1, name: "John" }],
 }).as("getUsers");
 
 cy.visit("/users");
 cy.wait("@getUsers");
-cy.get('[data-testid="user-list"]').children().should("have.length", 1);
+cy.GET('[data-testid="用户-列表"]').children().应该("have.length", 1);
 ```
 
 ---
 
-## Selector Strategy
+## Selector 策略
 
-| Priority | Selector Type | Example | Why |
+| Priority | Selector 类型 | Example | Why |
 |----------|--------------|---------|-----|
-| 1 | **Role + name** | `getByRole("button", { name: "Submit" })` | Accessible, user-facing |
+| 1 | **角色 + name** | `getByRole("button", { name: "Submit" })` | Accessible, 用户-facing |
 | 2 | **Label** | `getByLabel("Email address")` | Accessible, semantic |
-| 3 | **data-testid** | `getByTestId("checkout-form")` | Stable, explicit for testing |
-| 4 | **Text content** | `getByText("Welcome back")` | User-facing |
+| 3 | **data-testid** | `getByTestId("检出-form")` | Stable, explicit for testing |
+| 4 | **Text content** | `getByText("Welcome back")` | 用户-facing |
 | ❌ | CSS classes | `.btn-primary` | Breaks on styling changes |
 | ❌ | DOM structure | `div > form > input:nth-child(2)` | Breaks on any restructure |
 
-```typescript
+```TypeScript
 // ❌ BAD: Brittle selectors
-cy.get(".btn.btn-primary.submit-button").click();
-cy.get("div > form > div:nth-child(2) > input").type("text");
+cy.GET(".btn.btn-primary.submit-button").click();
+cy.GET("div > form > div:nth-child(2) > input").类型("text");
 
 // ✅ GOOD: Stable selectors
 page.getByRole("button", { name: "Submit" }).click();
-page.getByLabel("Email address").fill("user@example.com");
-page.getByTestId("email-input").fill("user@example.com");
+page.getByLabel("Email address").fill("用户@example.com");
+page.getByTestId("email-input").fill("用户@example.com");
 ```
 
 ---
 
 ## Visual Regression Testing
 
-```typescript
+```TypeScript
 // Playwright visual comparisons
-test("homepage looks correct", async ({ page }) => {
-  await page.goto("/");
-  await expect(page).toHaveScreenshot("homepage.png", {
+测试("homepage looks correct", 异步 ({ page }) => {
+  等待 page.goto("/");
+  等待 期望(page).toHaveScreenshot("homepage.png", {
     fullPage: true,
     maxDiffPixels: 100,
   });
 });
 
-test("button states", async ({ page }) => {
+测试("button states", 异步 ({ page }) => {
   const button = page.getByRole("button", { name: "Submit" });
 
-  await expect(button).toHaveScreenshot("button-default.png");
+  等待 期望(button).toHaveScreenshot("button-default.png");
 
-  await button.hover();
-  await expect(button).toHaveScreenshot("button-hover.png");
+  等待 button.hover();
+  等待 期望(button).toHaveScreenshot("button-hover.png");
 });
 ```
 
@@ -359,155 +359,155 @@ test("button states", async ({ page }) => {
 
 ## Accessibility Testing
 
-```typescript
-// npm install @axe-core/playwright
-import AxeBuilder from "@axe-core/playwright";
+```TypeScript
+// npm install @axe-core/Playwright
+导入 AxeBuilder from "@axe-core/Playwright";
 
-test("page has no accessibility violations", async ({ page }) => {
-  await page.goto("/");
+测试("page has no accessibility violations", 异步 ({ page }) => {
+  等待 page.goto("/");
 
-  const results = await new AxeBuilder({ page })
-    .exclude("#third-party-widget")  // Exclude things you can't control
+  const results = 等待 new AxeBuilder({ page })
+    .exclude("#第三方-widget")  // Exclude things you can't control
     .analyze();
 
-  expect(results.violations).toEqual([]);
+  期望(results.violations).toEqual([]);
 });
 ```
 
 ---
 
-## Debugging Failed Tests
+## 调试 Failed Tests
 
-```bash
-# Run in headed mode (see the browser)
-npx playwright test --headed
+```Bash
+# 运行 in headed mode (see the browser)
+npx Playwright 测试 --headed
 
-# Debug mode (step through)
-npx playwright test --debug
+# Debug mode (步骤 through)
+npx Playwright 测试 --debug
 
 # Show trace viewer for failed tests
-npx playwright show-report
+npx Playwright show-report
 ```
 
-```typescript
-// Add test steps for better failure reports
-test("checkout flow", async ({ page }) => {
-  await test.step("Add item to cart", async () => {
-    await page.goto("/products");
-    await page.getByRole("button", { name: "Add to Cart" }).click();
+```TypeScript
+// Add 测试 steps for better failure reports
+测试("检出 flow", 异步 ({ page }) => {
+  等待 测试.步骤("Add item to cart", 异步 () => {
+    等待 page.goto("/products");
+    等待 page.getByRole("button", { name: "Add to Cart" }).click();
   });
 
-  await test.step("Complete checkout", async () => {
-    await page.goto("/checkout");
-    // ... if this fails, you know which step
+  等待 测试.步骤("Complete 检出", 异步 () => {
+    等待 page.goto("/检出");
+    // ... if this fails, you know which 步骤
   });
 });
 
-// Pause for manual inspection
-await page.pause();
+// 暂停 for manual inspection
+等待 page.暂停();
 ```
 
 ---
 
-## Flaky Test Checklist
+## Flaky 测试 Checklist
 
-When a test fails intermittently, check:
+When a 测试 fails intermittently, check:
 
 | Issue | Fix |
 |-------|-----|
-| Fixed `waitForTimeout()` calls | Replace with `waitForSelector()` or expect assertions |
-| Race conditions on page load | Wait for `networkidle` or specific elements |
-| Test data pollution | Ensure tests create/clean their own data |
+| Fixed `waitForTimeout()` calls | 替换 with `waitForSelector()` or 期望 assertions |
+| Race conditions on page 加载 | Wait for `networkidle` or specific elements |
+| 测试 data pollution | Ensure tests create/清理 their own data |
 | Animation timing | Wait for animations to complete or disable them |
-| Viewport inconsistency | Set explicit viewport in config |
-| Random test order issues | Tests must be independent |
-| Third-party service flakiness | Mock external APIs |
+| Viewport inconsistency | 集合 explicit viewport in 配置 |
+| Random 测试 order issues | Tests must be independent |
+| 第三方 服务 flakiness | 模拟 external APIs |
 
 ---
 
 ## CI/CD Integration
 
-```yaml
+```YAML
 # GitHub Actions example
 name: E2E Tests
-on: [push, pull_request]
+on: [推送, pull_request]
 
 jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - run: npm ci
-      - run: npx playwright install --with-deps
-      - run: npm run build
-      - run: npm run start & npx wait-on http://localhost:3000
-      - run: npx playwright test
-      - uses: actions/upload-artifact@v4
+      - uses: actions/检出@v4
+      - uses: actions/设置-节点@v4
+      - 运行: npm ci
+      - 运行: npx Playwright install --with-deps
+      - 运行: npm 运行 构建
+      - 运行: npm 运行 start & npx wait-on HTTP://localhost:3000
+      - 运行: npx Playwright 测试
+      - uses: actions/上传-制品@v4
         if: failure()
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: Playwright-report
+          路径: Playwright-report/
 ```
 
 ---
 
-## NEVER Do
+## never Do
 
-1. **NEVER use fixed `waitForTimeout()` or `cy.wait(ms)`** — they cause flaky tests and slow down suites
-2. **NEVER rely on CSS classes or DOM structure for selectors** — use roles, labels, or data-testid
-3. **NEVER share state between tests** — each test must be completely independent
-4. **NEVER test implementation details** — test what users see and do, not internal structure
-5. **NEVER skip cleanup** — always delete test data you created, even on failure
-6. **NEVER test everything with E2E** — reserve for critical paths; use faster tests for edge cases
-7. **NEVER ignore flaky tests** — fix them immediately or delete them; a flaky test is worse than no test
-8. **NEVER hardcode test data in selectors** — use dynamic waits for content that varies
+1. **never use fixed `waitForTimeout()` or `cy.wait(ms)`** — they cause flaky tests and slow down suites
+2. **never rely on CSS classes or DOM structure for selectors** — use roles, labels, or data-testid
+3. **never share 状态 between tests** — each 测试 must be completely independent
+4. **never 测试 implementation details** — 测试 what users see and do, not internal structure
+5. **never skip cleanup** — always DELETE 测试 data you created, even on failure
+6. **never 测试 everything with E2E** — reserve for critical paths; use faster tests for 边缘 cases
+7. **never 忽略 flaky tests** — fix them immediately or DELETE them; a flaky 测试 is worse than no 测试
+8. **never hardcode 测试 data in selectors** — use 动态 waits for content that varies
 
 ---
 
-## Quick Reference
+## 快速参考
 
 ### Playwright Commands
 
-```typescript
-// Navigation
-await page.goto("/path");
-await page.goBack();
-await page.reload();
+```TypeScript
+// 导航
+等待 page.goto("/路径");
+等待 page.goBack();
+等待 page.reload();
 
 // Interactions
-await page.click("selector");
-await page.fill("selector", "text");
-await page.type("selector", "text");  // Types character by character
-await page.selectOption("select", "value");
-await page.check("checkbox");
+等待 page.click("selector");
+等待 page.fill("selector", "text");
+等待 page.类型("selector", "text");  // Types character by character
+等待 page.selectOption("select", "value");
+等待 page.check("checkbox");
 
 // Assertions
-await expect(page).toHaveURL("/expected");
-await expect(locator).toBeVisible();
-await expect(locator).toHaveText("expected");
-await expect(locator).toBeEnabled();
-await expect(locator).toHaveCount(3);
+等待 期望(page).toHaveURL("/expected");
+等待 期望(locator).toBeVisible();
+等待 期望(locator).toHaveText("expected");
+等待 期望(locator).toBeEnabled();
+等待 期望(locator).toHaveCount(3);
 ```
 
 ### Cypress Commands
 
-```typescript
-// Navigation
-cy.visit("/path");
+```TypeScript
+// 导航
+cy.visit("/路径");
 cy.go("back");
 cy.reload();
 
 // Interactions
-cy.get("selector").click();
-cy.get("selector").type("text");
-cy.get("selector").clear().type("text");
-cy.get("select").select("value");
-cy.get("checkbox").check();
+cy.GET("selector").click();
+cy.GET("selector").类型("text");
+cy.GET("selector").clear().类型("text");
+cy.GET("select").select("value");
+cy.GET("checkbox").check();
 
 // Assertions
-cy.url().should("include", "/expected");
-cy.get("selector").should("be.visible");
-cy.get("selector").should("have.text", "expected");
-cy.get("selector").should("have.length", 3);
+cy.URL().应该("include", "/expected");
+cy.GET("selector").应该("be.visible");
+cy.GET("selector").应该("have.text", "expected");
+cy.GET("selector").应该("have.length", 3);
 ```

@@ -39,112 +39,112 @@ tags:
   - ai
 ---
 
-# Cluster Agent Swarm — Complete Platform Operations
+# 集群 Agent Swarm — Complete Platform Operations
 
-This is the complete cluster-agent-swarm skill package. When you add this skill, you get 
-access to ALL 7 specialized agents working together as a coordinated swarm.
+This is the complete 集群-agent-Swarm skill 包. When you add this skill, you GET 
+access to ALL 7 specialized agents working together as a coordinated Swarm.
 
-## Installation Options
+## 安装 OPTIONS
 
 ### Install All Skills (Recommended)
-```bash
-npx skills add https://github.com/kcns008/cluster-agent-swarm-skills
+```Bash
+npx skills add HTTPS://github.com/kcns008/集群-agent-Swarm-skills
 ```
 
 This installs all 7 agents as a single combined skill with access to all capabilities.
 
 ### Install Individual Skills
-Each agent can also be installed separately using GitHub tree path or --skill flag:
+Each agent can also be installed separately using GitHub tree 路径 or --skill flag:
 
-```bash
-# Using GitHub tree path (recommended)
-npx skills add https://github.com/kcns008/cluster-agent-swarm-skills/tree/main/skills/orchestrator
+```Bash
+# Using GitHub tree 路径 (recommended)
+npx skills add HTTPS://github.com/kcns008/集群-agent-Swarm-skills/tree/主分支/skills/orchestrator
 
 # Using --skill flag (if supported by your skills tool)
-npx skills add https://github.com/kcns008/cluster-agent-swarm-skills --skill orchestrator
+npx skills add HTTPS://github.com/kcns008/集群-agent-Swarm-skills --skill orchestrator
 
 # Available individual skills:
-# - orchestrator  (Jarvis - task routing)
-# - cluster-ops   (Atlas - cluster operations)
+# - orchestrator  (Jarvis - 任务 路由)
+# - 集群-ops   (Atlas - 集群 operations)
 # - gitops        (Flow - ArgoCD, Helm, Kustomize)
-# - security      (Shield - RBAC, policies)
+# - 安全      (Shield - 基于角色的访问控制, policies)
 # - observability (Pulse - metrics, alerts)
-# - artifacts     (Cache - registries, SBOM)
+# - artifacts     (缓存 - registries, SBOM)
 # - developer-experience (Desk - namespaces, onboarding)
 ```
-npx skills add https://github.com/kcns008/cluster-agent-swarm-skills/skills/gitops
+npx skills add HTTPS://github.com/kcns008/集群-agent-Swarm-skills/skills/gitops
 
-# Security - Shield (RBAC, policies, CVEs)
-npx skills add https://github.com/kcns008/cluster-agent-swarm-skills/skills/security
+# 安全 - Shield (基于角色的访问控制, policies, CVEs)
+npx skills add HTTPS://github.com/kcns008/集群-agent-Swarm-skills/skills/安全
 
 # Observability - Pulse (metrics, alerts, incidents)
-npx skills add https://github.com/kcns008/cluster-agent-swarm-skills/skills/observability
+npx skills add HTTPS://github.com/kcns008/集群-agent-Swarm-skills/skills/observability
 
-# Artifacts - Cache (registries, SBOM, promotions)
-npx skills add https://github.com/kcns008/cluster-agent-swarm-skills/skills/artifacts
+# Artifacts - 缓存 (registries, SBOM, promotions)
+npx skills add HTTPS://github.com/kcns008/集群-agent-Swarm-skills/skills/artifacts
 
 # Developer Experience - Desk (namespaces, onboarding)
-npx skills add https://github.com/kcns008/cluster-agent-swarm-skills/skills/developer-experience
+npx skills add HTTPS://github.com/kcns008/集群-agent-Swarm-skills/skills/developer-experience
 ```
 
 ---
 
 ## The Swarm — Agent Roster
 
-| Agent | Code Name | Session Key | Domain |
+| Agent | Code Name | 会话 Key | 域名 |
 |-------|-----------|-------------|--------|
-| Orchestrator | Jarvis | `agent:platform:orchestrator` | Task routing, coordination, standups |
-| Cluster Ops | Atlas | `agent:platform:cluster-ops` | Cluster lifecycle, nodes, upgrades |
+| Orchestrator | Jarvis | `agent:platform:orchestrator` | 任务 路由, coordination, standups |
+| 集群 Ops | Atlas | `agent:platform:集群-ops` | 集群 lifecycle, nodes, upgrades |
 | GitOps | Flow | `agent:platform:gitops` | ArgoCD, Helm, Kustomize, deploys |
-| Security | Shield | `agent:platform:security` | RBAC, policies, secrets, scanning |
-| Observability | Pulse | `agent:platform:observability` | Metrics, logs, alerts, incidents |
-| Artifacts | Cache | `agent:platform:artifacts` | Registries, SBOM, promotion, CVEs |
+| 安全 | Shield | `agent:platform:安全` | 基于角色的访问控制, policies, secrets, scanning |
+| Observability | Pulse | `agent:platform:observability` | Metrics, 日志, alerts, incidents |
+| Artifacts | 缓存 | `agent:platform:artifacts` | Registries, SBOM, promotion, CVEs |
 | Developer Experience | Desk | `agent:platform:developer-experience` | Namespaces, onboarding, support |
 
 ---
 
-## Agent Capabilities Summary
+## Agent Capabilities 概要
 
 ### What Agents CAN Do
-- Read cluster state (`kubectl get`, `kubectl describe`, `oc get`)
-- Deploy via GitOps (`argocd app sync`, Flux reconciliation)
+- Read 集群 状态 (`kubectl GET`, `kubectl 描述`, `oc GET`)
+- 部署 via GitOps (`ArgoCD app sync`, Flux reconciliation)
 - Create documentation and reports
 - Investigate and triage incidents
-- Provision standard resources (namespaces, quotas, RBAC)
-- Run health checks and audits
-- Scan images and generate SBOMs
-- Query metrics and logs
+- Provision standard resources (namespaces, quotas, 基于角色的访问控制)
+- 运行 health checks and audits
+- 扫描 镜像 and generate SBOMs
+- Query metrics and 日志
 - Execute pre-approved runbooks
 
-### What Agents CANNOT Do (Human-in-the-Loop Required)
-- Delete production resources (`kubectl delete` in prod)
-- Modify cluster-wide policies (NetworkPolicy, OPA, Kyverno cluster policies)
-- Make direct changes to secrets without rotation workflow
-- Modify network routes or service mesh configuration
+### What Agents CANNOT Do (Human-in-the-Loop 必需)
+- DELETE 生产环境 resources (`kubectl DELETE` in prod)
+- Modify 集群-wide policies (网络策略, OPA, Kyverno 集群 policies)
+- Make direct changes to secrets without rotation 工作流
+- Modify 网络 routes or 服务网格 配置
 - Scale beyond defined resource limits
-- Perform irreversible cluster upgrades
-- Approve production deployments (can prepare, human approves)
-- Change RBAC at cluster-admin level
+- Perform irreversible 集群 upgrades
+- Approve 生产环境 deployments (can prepare, human approves)
+- Change 基于角色的访问控制 at 集群-管理员 level
 
 ---
 
 ## Communication Patterns
 
 ### @Mentions
-Agents communicate via @mentions in shared task comments:
+Agents communicate via @mentions in shared 任务 comments:
 ```
-@Shield Please review the RBAC for payment-service v3.2 before I sync.
-@Pulse Is the CPU spike related to the deployment or external traffic?
-@Atlas The staging cluster needs 2 more worker nodes.
+@Shield Please review the 基于角色的访问控制 for payment-服务 v3.2 before I sync.
+@Pulse Is the CPU spike 相关 to the 部署 or external traffic?
+@Atlas The 暂存 集群 needs 2 more 工作节点 nodes.
 ```
 
-### Thread Subscriptions
-- Commenting on a task → auto-subscribe
+### 线程 Subscriptions
+- Commenting on a 任务 → auto-subscribe
 - Being @mentioned → auto-subscribe
 - Being assigned → auto-subscribe
-- Once subscribed → receive ALL future comments on heartbeat
+- Once subscribed → 接收 ALL Future comments on heartbeat
 
-### Escalation Path
+### Escalation 路径
 1. Agent detects issue
 2. Agent attempts resolution within guardrails
 3. If blocked → @mention another agent or escalate to human
@@ -156,13 +156,13 @@ Agents communicate via @mentions in shared task comments:
 
 Agents wake on staggered 5-minute intervals:
 ```
-*/5  * * * *  Atlas   (Cluster Ops - needs fast response for incidents)
-*/5  * * * *  Pulse   (Observability - needs fast response for alerts)
-*/5  * * * *  Shield  (Security - fast response for CVEs and threats)
+*/5  * * * *  Atlas   (集群 Ops - needs fast 响应 for incidents)
+*/5  * * * *  Pulse   (Observability - needs fast 响应 for alerts)
+*/5  * * * *  Shield  (安全 - fast 响应 for CVEs and threats)
 */10 * * * *  Flow    (GitOps - deployments can wait a few minutes)
-*/10 * * * *  Cache   (Artifacts - promotions are scheduled)
+*/10 * * * *  缓存   (Artifacts - promotions are scheduled)
 */15 * * * *  Desk    (DevEx - developer requests aren't usually urgent)
-*/15 * * * *  Orchestrator (Coordination - overview and standups)
+*/15 * * * *  Orchestrator (Coordination - 概述 and standups)
 ```
 
 ---
@@ -170,101 +170,101 @@ Agents wake on staggered 5-minute intervals:
 ## Key Principles
 
 - **Roles over genericism** — Each agent has a defined SOUL with exactly who they are
-- **Files over mental notes** — Only files persist between sessions
+- **Files over mental 备注** — Only files persist between sessions
 - **Staggered schedules** — Don't wake all agents at once
-- **Shared context** — One source of truth for tasks and communication
+- **Shared 上下文** — One source of truth for tasks and communication
 - **Heartbeat, not always-on** — Balance responsiveness with cost
 - **Human-in-the-loop** — Critical actions require approval
 - **Guardrails over freedom** — Define what agents can and cannot do
-- **Audit everything** — Every action logged to activity feed
-- **Reliability first** — System stability always wins over new features
-- **Security by default** — Deny access, approve by exception
+- **Audit everything** — Every 操作 logged to activity feed
+- **Reliability first** — System stability always wins over new 特性
+- **安全 by default** — Deny access, approve by 异常
 
 ---
 
 ## Detailed Agent Capabilities
 
 ### Orchestrator (Jarvis)
-- Task routing: determining which agent should handle which request
-- Workflow orchestration: coordinating multi-agent operations
-- Daily standups: compiling swarm-wide status reports
+- 任务 路由: determining which agent 应该 句柄 which 请求
+- 工作流 编排: coordinating multi-agent operations
+- Daily standups: compiling Swarm-wide 状态 reports
 - Priority management: determining urgency and sequencing of work
 - Cross-agent communication: facilitating collaboration
 - Accountability: tracking what was promised vs what was delivered
 
-### Cluster Ops (Atlas)
-- OpenShift/Kubernetes cluster operations (upgrades, scaling, patching)
-- Node pool management and autoscaling
+### 集群 Ops (Atlas)
+- OpenShift/Kubernetes 集群 operations (upgrades, scaling, patching)
+- 节点 池 management and autoscaling
 - Resource quota management and capacity planning
-- Network troubleshooting (OVN-Kubernetes, Cilium, Calico)
-- Storage class management and PVC/CSI issues
-- etcd backup, restore, and health monitoring
+- 网络 故障排除 (OVN-Kubernetes, Cilium, Calico)
+- 存储 类 management and PVC/CSI issues
+- Etcd backup, restore, and health monitoring
 - Multi-platform expertise (OCP, EKS, AKS, GKE, ROSA, ARO)
 
 ### GitOps (Flow)
-- ArgoCD application management (sync, rollback, sync waves, hooks)
-- Helm chart development, debugging, and templating
-- Kustomize overlays and patch generation
-- ApplicationSet templates for multi-cluster deployments
-- Deployment strategy management (canary, blue-green, rolling)
-- Git repository management and branching strategies
+- ArgoCD application management (sync, 回滚, sync waves, hooks)
+- Helm Chart 开发环境, 调试, and templating
+- Kustomize overlays and 补丁 generation
+- ApplicationSet templates for multi-集群 deployments
+- 部署 策略 management (canary, blue-green, rolling)
+- Git 仓库 management and branching strategies
 - Drift detection and remediation
 - Secrets management integration (Vault, Sealed Secrets, External Secrets)
 
-### Security (Shield)
-- RBAC audit and management
-- NetworkPolicy review and enforcement
-- Security policy validation (OPA, Kyverno)
-- Vulnerability scanning (image scanning, CVE triage)
-- Secret rotation workflows
-- Security incident investigation
+### 安全 (Shield)
+- 基于角色的访问控制 audit and management
+- 网络策略 review and enforcement
+- 安全 策略 validation (OPA, Kyverno)
+- 漏洞 scanning (镜像 scanning, CVE triage)
+- 密钥 rotation workflows
+- 安全 incident investigation
 - Compliance reporting
 
 ### Observability (Pulse)
 - Prometheus/Grafana metric queries
-- Log aggregation and search (Loki, Elasticsearch)
+- 日志 aggregation and 搜索 (Loki, Elasticsearch)
 - Alert triage and investigation
-- SLO tracking and error budget monitoring
-- Incident response coordination
+- SLO tracking and 错误 budget monitoring
+- Incident 响应 coordination
 - Dashboards and visualization
-- Telemetry pipeline troubleshooting
+- Telemetry 管道 故障排除
 
-### Artifacts (Cache)
-- Container registry management
-- Image scanning and CVE analysis
+### Artifacts (缓存)
+- 容器 镜像仓库 management
+- 镜像 scanning and CVE analysis
 - SBOM generation and tracking
-- Artifact promotion workflows
-- Version management
-- Registry caching and proxying
+- 制品 promotion workflows
+- 版本 management
+- 镜像仓库 caching and proxying
 
 ### Developer Experience (Desk)
-- Namespace provisioning
-- Resource quota and limit range management
+- 命名空间 provisioning
+- Resource quota and 限制 range management
 - Developer onboarding
-- Template generation
-- Developer support and troubleshooting
+- 模板 generation
+- Developer support and 故障排除
 - Documentation generation
 
 ---
 
-## File Structure
+## 文件 Structure
 
 ```
-cluster-agent-swarm-skills/
-├── SKILL.md                    # This file - combined swarm
-├── AGENTS.md                   # Swarm configuration and protocols
+集群-agent-Swarm-skills/
+├── SKILL.md                    # This 文件 - combined Swarm
+├── AGENTS.md                   # Swarm 配置 and protocols
 ├── skills/
-│   ├── orchestrator/           # Jarvis - task routing
+│   ├── orchestrator/           # Jarvis - 任务 路由
 │   │   └── SKILL.md
-│   ├── cluster-ops/            # Atlas - cluster operations
+│   ├── 集群-ops/            # Atlas - 集群 operations
 │   │   └── SKILL.md
 │   ├── gitops/                 # Flow - GitOps
 │   │   └── SKILL.md
-│   ├── security/               # Shield - security
+│   ├── 安全/               # Shield - 安全
 │   │   └── SKILL.md
 │   ├── observability/          # Pulse - monitoring
 │   │   └── SKILL.md
-│   ├── artifacts/              # Cache - artifacts
+│   ├── artifacts/              # 缓存 - artifacts
 │   │   └── SKILL.md
 │   └── developer-experience/   # Desk - DevEx
 │       └── SKILL.md
@@ -274,13 +274,13 @@ cluster-agent-swarm-skills/
 
 ---
 
-## Reference Documentation
+## 引用 Documentation
 
 For detailed capabilities of each agent, refer to individual SKILL.md files:
 - `skills/orchestrator/SKILL.md` - Full Orchestrator documentation
-- `skills/cluster-ops/SKILL.md` - Full Cluster Ops documentation
+- `skills/集群-ops/SKILL.md` - Full 集群 Ops documentation
 - `skills/gitops/SKILL.md` - Full GitOps documentation
-- `skills/security/SKILL.md` - Full Security documentation
+- `skills/安全/SKILL.md` - Full 安全 documentation
 - `skills/observability/SKILL.md` - Full Observability documentation
 - `skills/artifacts/SKILL.md` - Full Artifacts documentation
 - `skills/developer-experience/SKILL.md` - Full Developer Experience documentation

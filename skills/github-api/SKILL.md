@@ -24,370 +24,370 @@ tags:
 
 # GitHub
 
-Access the GitHub REST API with managed OAuth authentication. Manage repositories, issues, pull requests, commits, branches, users, and more.
+Access the GitHub REST api with managed OAuth 认证. Manage repositories, issues, 拉取 requests, 提交, 分支, users, and more.
 
-## Quick Start
+## 快速开始
 
-```bash
-# Get authenticated user
-python <<'EOF'
-import urllib.request, os, json
-req = urllib.request.Request('https://gateway.maton.ai/github/user')
-req.add_header('Authorization', f'Bearer {os.environ["MATON_API_KEY"]}')
-print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))
+```Bash
+# GET authenticated 用户
+Python <<'EOF'
+导入 urllib.请求, os, JSON
+req = urllib.请求.请求('HTTPS://网关.maton.AI/github/用户')
+req.add_header('授权', f'Bearer {os.environ["MATON_API_KEY"]}')
+print(JSON.dumps(JSON.加载(urllib.请求.urlopen(req)), indent=2))
 EOF
 ```
 
-## Base URL
+## BASE URL
 
 ```
-https://gateway.maton.ai/github/{native-api-path}
+HTTPS://网关.maton.AI/github/{native-api-路径}
 ```
 
-Replace `{native-api-path}` with the actual GitHub API endpoint path. The gateway proxies requests to `api.github.com` and automatically injects your OAuth token.
+替换 `{native-api-路径}` with the actual GitHub api 端点 路径. The 网关 proxies requests to `api.github.com` and automatically injects your OAuth 令牌.
 
-## Authentication
+## 认证
 
-All requests require the Maton API key in the Authorization header:
+All requests require the Maton api key in the 授权 请求头:
 
 ```
-Authorization: Bearer $MATON_API_KEY
+授权: Bearer $MATON_API_KEY
 ```
 
-**Environment Variable:** Set your API key as `MATON_API_KEY`:
+**环境 变量:** 集合 your api key as `MATON_API_KEY`:
 
-```bash
-export MATON_API_KEY="YOUR_API_KEY"
+```Bash
+导出 MATON_API_KEY="YOUR_API_KEY"
 ```
 
-### Getting Your API Key
+### Getting Your api Key
 
-1. Sign in or create an account at [maton.ai](https://maton.ai)
-2. Go to [maton.ai/settings](https://maton.ai/settings)
-3. Copy your API key
+1. Sign in or create an account at [maton.AI](HTTPS://maton.AI)
+2. Go to [maton.AI/settings](HTTPS://maton.AI/settings)
+3. 复制 your api key
 
-## Connection Management
+## 连接 Management
 
-Manage your GitHub OAuth connections at `https://ctrl.maton.ai`.
+Manage your GitHub OAuth connections at `HTTPS://ctrl.maton.AI`.
 
-### List Connections
+### 列表 Connections
 
-```bash
-python <<'EOF'
-import urllib.request, os, json
-req = urllib.request.Request('https://ctrl.maton.ai/connections?app=github&status=ACTIVE')
-req.add_header('Authorization', f'Bearer {os.environ["MATON_API_KEY"]}')
-print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))
+```Bash
+Python <<'EOF'
+导入 urllib.请求, os, JSON
+req = urllib.请求.请求('HTTPS://ctrl.maton.AI/connections?app=github&状态=ACTIVE')
+req.add_header('授权', f'Bearer {os.environ["MATON_API_KEY"]}')
+print(JSON.dumps(JSON.加载(urllib.请求.urlopen(req)), indent=2))
 EOF
 ```
 
-### Create Connection
+### Create 连接
 
-```bash
-python <<'EOF'
-import urllib.request, os, json
-data = json.dumps({'app': 'github'}).encode()
-req = urllib.request.Request('https://ctrl.maton.ai/connections', data=data, method='POST')
-req.add_header('Authorization', f'Bearer {os.environ["MATON_API_KEY"]}')
-req.add_header('Content-Type', 'application/json')
-print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))
+```Bash
+Python <<'EOF'
+导入 urllib.请求, os, JSON
+data = JSON.dumps({'app': 'github'}).编码()
+req = urllib.请求.请求('HTTPS://ctrl.maton.AI/connections', data=data, 方法='POST')
+req.add_header('授权', f'Bearer {os.environ["MATON_API_KEY"]}')
+req.add_header('Content-类型', 'application/JSON')
+print(JSON.dumps(JSON.加载(urllib.请求.urlopen(req)), indent=2))
 EOF
 ```
 
-### Get Connection
+### GET 连接
 
-```bash
-python <<'EOF'
-import urllib.request, os, json
-req = urllib.request.Request('https://ctrl.maton.ai/connections/{connection_id}')
-req.add_header('Authorization', f'Bearer {os.environ["MATON_API_KEY"]}')
-print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))
+```Bash
+Python <<'EOF'
+导入 urllib.请求, os, JSON
+req = urllib.请求.请求('HTTPS://ctrl.maton.AI/connections/{connection_id}')
+req.add_header('授权', f'Bearer {os.environ["MATON_API_KEY"]}')
+print(JSON.dumps(JSON.加载(urllib.请求.urlopen(req)), indent=2))
 EOF
 ```
 
-**Response:**
-```json
+**响应:**
+```JSON
 {
-  "connection": {
+  "连接": {
     "connection_id": "83e7c665-60f6-4a64-816c-5e287ea8982f",
-    "status": "ACTIVE",
+    "状态": "ACTIVE",
     "creation_time": "2026-02-06T03:00:43.860014Z",
     "last_updated_time": "2026-02-06T03:01:06.027323Z",
-    "url": "https://connect.maton.ai/?session_token=...",
+    "URL": "HTTPS://连接.maton.AI/?session_token=...",
     "app": "github",
     "metadata": {}
   }
 }
 ```
 
-Open the returned `url` in a browser to complete OAuth authorization.
+Open the returned `URL` in a browser to complete OAuth 授权.
 
-### Delete Connection
+### DELETE 连接
 
-```bash
-python <<'EOF'
-import urllib.request, os, json
-req = urllib.request.Request('https://ctrl.maton.ai/connections/{connection_id}', method='DELETE')
-req.add_header('Authorization', f'Bearer {os.environ["MATON_API_KEY"]}')
-print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))
+```Bash
+Python <<'EOF'
+导入 urllib.请求, os, JSON
+req = urllib.请求.请求('HTTPS://ctrl.maton.AI/connections/{connection_id}', 方法='DELETE')
+req.add_header('授权', f'Bearer {os.environ["MATON_API_KEY"]}')
+print(JSON.dumps(JSON.加载(urllib.请求.urlopen(req)), indent=2))
 EOF
 ```
 
-### Specifying Connection
+### Specifying 连接
 
-If you have multiple GitHub connections, specify which one to use with the `Maton-Connection` header:
+If you have multiple GitHub connections, specify which one to use with the `Maton-连接` 请求头:
 
-```bash
-python <<'EOF'
-import urllib.request, os, json
-req = urllib.request.Request('https://gateway.maton.ai/github/user')
-req.add_header('Authorization', f'Bearer {os.environ["MATON_API_KEY"]}')
-req.add_header('Maton-Connection', '83e7c665-60f6-4a64-816c-5e287ea8982f')
-print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))
+```Bash
+Python <<'EOF'
+导入 urllib.请求, os, JSON
+req = urllib.请求.请求('HTTPS://网关.maton.AI/github/用户')
+req.add_header('授权', f'Bearer {os.environ["MATON_API_KEY"]}')
+req.add_header('Maton-连接', '83e7c665-60f6-4a64-816c-5e287ea8982f')
+print(JSON.dumps(JSON.加载(urllib.请求.urlopen(req)), indent=2))
 EOF
 ```
 
-If omitted, the gateway uses the default (oldest) active connection.
+If omitted, the 网关 uses the default (oldest) active 连接.
 
-## API Reference
+## api 引用
 
 ### Users
 
-#### Get Authenticated User
+#### GET Authenticated 用户
 
-```bash
-GET /github/user
+```Bash
+GET /github/用户
 ```
 
-#### Get User by Username
+#### GET 用户 by Username
 
-```bash
+```Bash
 GET /github/users/{username}
 ```
 
-#### List Users
+#### 列表 Users
 
-```bash
+```Bash
 GET /github/users?since={user_id}&per_page=30
 ```
 
 ### Repositories
 
-#### List User Repositories
+#### 列表 用户 Repositories
 
-```bash
-GET /github/user/repos?per_page=30&sort=updated
+```Bash
+GET /github/用户/repos?per_page=30&排序=updated
 ```
 
-Query parameters: `type` (all, owner, public, private, member), `sort` (created, updated, pushed, full_name), `direction` (asc, desc), `per_page`, `page`
+Query 参数: `类型` (all, owner, public, private, member), `排序` (created, updated, pushed, full_name), `direction` (asc, desc), `per_page`, `page`
 
-#### List Organization Repositories
+#### 列表 Organization Repositories
 
-```bash
+```Bash
 GET /github/orgs/{org}/repos?per_page=30
 ```
 
-#### Get Repository
+#### GET 仓库
 
-```bash
+```Bash
 GET /github/repos/{owner}/{repo}
 ```
 
-#### Create Repository (User)
+#### Create 仓库 (用户)
 
-```bash
-POST /github/user/repos
-Content-Type: application/json
+```Bash
+POST /github/用户/repos
+Content-类型: application/JSON
 
 {
   "name": "my-new-repo",
-  "description": "A new repository",
+  "说明": "A new 仓库",
   "private": true,
   "auto_init": true
 }
 ```
 
-#### Create Repository (Organization)
+#### Create 仓库 (Organization)
 
-```bash
+```Bash
 POST /github/orgs/{org}/repos
-Content-Type: application/json
+Content-类型: application/JSON
 
 {
   "name": "my-new-repo",
-  "description": "A new repository",
+  "说明": "A new 仓库",
   "private": true
 }
 ```
 
-#### Update Repository
+#### 更新 仓库
 
-```bash
-PATCH /github/repos/{owner}/{repo}
-Content-Type: application/json
+```Bash
+补丁 /github/repos/{owner}/{repo}
+Content-类型: application/JSON
 
 {
-  "description": "Updated description",
+  "说明": "Updated 说明",
   "has_issues": true,
   "has_wiki": false
 }
 ```
 
-#### Delete Repository
+#### DELETE 仓库
 
-```bash
+```Bash
 DELETE /github/repos/{owner}/{repo}
 ```
 
-### Repository Contents
+### 仓库 Contents
 
-#### List Contents
+#### 列表 Contents
 
-```bash
-GET /github/repos/{owner}/{repo}/contents/{path}
+```Bash
+GET /github/repos/{owner}/{repo}/contents/{路径}
 ```
 
-#### Get File Contents
+#### GET 文件 Contents
 
-```bash
-GET /github/repos/{owner}/{repo}/contents/{path}?ref={branch}
+```Bash
+GET /github/repos/{owner}/{repo}/contents/{路径}?ref={分支}
 ```
 
-#### Create or Update File
+#### Create or 更新 文件
 
-```bash
-PUT /github/repos/{owner}/{repo}/contents/{path}
-Content-Type: application/json
+```Bash
+PUT /github/repos/{owner}/{repo}/contents/{路径}
+Content-类型: application/JSON
 
 {
-  "message": "Create new file",
+  "message": "Create new 文件",
   "content": "SGVsbG8gV29ybGQh",
-  "branch": "main"
+  "分支": "主分支"
 }
 ```
 
 Note: `content` must be Base64 encoded.
 
-#### Delete File
+#### DELETE 文件
 
-```bash
-DELETE /github/repos/{owner}/{repo}/contents/{path}
-Content-Type: application/json
+```Bash
+DELETE /github/repos/{owner}/{repo}/contents/{路径}
+Content-类型: application/JSON
 
 {
-  "message": "Delete file",
+  "message": "DELETE 文件",
   "sha": "{file_sha}",
-  "branch": "main"
+  "分支": "主分支"
 }
 ```
 
-### Branches
+### 分支
 
-#### List Branches
+#### 列表 分支
 
-```bash
-GET /github/repos/{owner}/{repo}/branches?per_page=30
+```Bash
+GET /github/repos/{owner}/{repo}/分支?per_page=30
 ```
 
-#### Get Branch
+#### GET 分支
 
-```bash
-GET /github/repos/{owner}/{repo}/branches/{branch}
+```Bash
+GET /github/repos/{owner}/{repo}/分支/{分支}
 ```
 
-#### Rename Branch
+#### Rename 分支
 
-```bash
-POST /github/repos/{owner}/{repo}/branches/{branch}/rename
-Content-Type: application/json
+```Bash
+POST /github/repos/{owner}/{repo}/分支/{分支}/rename
+Content-类型: application/JSON
 
 {
-  "new_name": "new-branch-name"
+  "new_name": "new-分支-name"
 }
 ```
 
-#### Merge Branches
+#### 合并 分支
 
-```bash
+```Bash
 POST /github/repos/{owner}/{repo}/merges
-Content-Type: application/json
+Content-类型: application/JSON
 
 {
-  "base": "main",
-  "head": "feature-branch",
-  "commit_message": "Merge feature branch"
+  "BASE": "主分支",
+  "HEAD": "feature-分支",
+  "commit_message": "合并 功能分支"
 }
 ```
 
-### Commits
+### 提交
 
-#### List Commits
+#### 列表 提交
 
-```bash
-GET /github/repos/{owner}/{repo}/commits?per_page=30
+```Bash
+GET /github/repos/{owner}/{repo}/提交?per_page=30
 ```
 
-Query parameters: `sha` (branch name or commit SHA), `path` (file path), `author`, `committer`, `since`, `until`, `per_page`, `page`
+Query 参数: `sha` (分支 name or 提交 SHA), `路径` (文件 路径), `author`, `committer`, `since`, `until`, `per_page`, `page`
 
-#### Get Commit
+#### GET 提交
 
-```bash
-GET /github/repos/{owner}/{repo}/commits/{ref}
+```Bash
+GET /github/repos/{owner}/{repo}/提交/{ref}
 ```
 
-#### Compare Two Commits
+#### Compare Two 提交
 
-```bash
-GET /github/repos/{owner}/{repo}/compare/{base}...{head}
+```Bash
+GET /github/repos/{owner}/{repo}/compare/{BASE}...{HEAD}
 ```
 
 ### Issues
 
-#### List Repository Issues
+#### 列表 仓库 Issues
 
-```bash
-GET /github/repos/{owner}/{repo}/issues?state=open&per_page=30
+```Bash
+GET /github/repos/{owner}/{repo}/issues?状态=open&per_page=30
 ```
 
-Query parameters: `state` (open, closed, all), `labels`, `assignee`, `creator`, `mentioned`, `sort`, `direction`, `since`, `per_page`, `page`
+Query 参数: `状态` (open, closed, all), `labels`, `assignee`, `creator`, `mentioned`, `排序`, `direction`, `since`, `per_page`, `page`
 
-#### Get Issue
+#### GET Issue
 
-```bash
+```Bash
 GET /github/repos/{owner}/{repo}/issues/{issue_number}
 ```
 
 #### Create Issue
 
-```bash
+```Bash
 POST /github/repos/{owner}/{repo}/issues
-Content-Type: application/json
+Content-类型: application/JSON
 
 {
   "title": "Found a bug",
-  "body": "Bug description here",
+  "请求体": "Bug 说明 here",
   "labels": ["bug"],
   "assignees": ["username"]
 }
 ```
 
-#### Update Issue
+#### 更新 Issue
 
-```bash
-PATCH /github/repos/{owner}/{repo}/issues/{issue_number}
-Content-Type: application/json
+```Bash
+补丁 /github/repos/{owner}/{repo}/issues/{issue_number}
+Content-类型: application/JSON
 
 {
-  "state": "closed",
+  "状态": "closed",
   "state_reason": "completed"
 }
 ```
 
-#### Lock Issue
+#### 锁 Issue
 
-```bash
-PUT /github/repos/{owner}/{repo}/issues/{issue_number}/lock
-Content-Type: application/json
+```Bash
+PUT /github/repos/{owner}/{repo}/issues/{issue_number}/锁
+Content-类型: application/JSON
 
 {
   "lock_reason": "resolved"
@@ -396,375 +396,375 @@ Content-Type: application/json
 
 #### Unlock Issue
 
-```bash
-DELETE /github/repos/{owner}/{repo}/issues/{issue_number}/lock
+```Bash
+DELETE /github/repos/{owner}/{repo}/issues/{issue_number}/锁
 ```
 
 ### Issue Comments
 
-#### List Issue Comments
+#### 列表 Issue Comments
 
-```bash
+```Bash
 GET /github/repos/{owner}/{repo}/issues/{issue_number}/comments?per_page=30
 ```
 
 #### Create Issue Comment
 
-```bash
+```Bash
 POST /github/repos/{owner}/{repo}/issues/{issue_number}/comments
-Content-Type: application/json
+Content-类型: application/JSON
 
 {
-  "body": "This is a comment"
+  "请求体": "This is a comment"
 }
 ```
 
-#### Update Issue Comment
+#### 更新 Issue Comment
 
-```bash
-PATCH /github/repos/{owner}/{repo}/issues/comments/{comment_id}
-Content-Type: application/json
+```Bash
+补丁 /github/repos/{owner}/{repo}/issues/comments/{comment_id}
+Content-类型: application/JSON
 
 {
-  "body": "Updated comment"
+  "请求体": "Updated comment"
 }
 ```
 
-#### Delete Issue Comment
+#### DELETE Issue Comment
 
-```bash
+```Bash
 DELETE /github/repos/{owner}/{repo}/issues/comments/{comment_id}
 ```
 
 ### Labels
 
-#### List Labels
+#### 列表 Labels
 
-```bash
+```Bash
 GET /github/repos/{owner}/{repo}/labels?per_page=30
 ```
 
 #### Create Label
 
-```bash
+```Bash
 POST /github/repos/{owner}/{repo}/labels
-Content-Type: application/json
+Content-类型: application/JSON
 
 {
   "name": "priority:high",
   "color": "ff0000",
-  "description": "High priority issues"
+  "说明": "High priority issues"
 }
 ```
 
 ### Milestones
 
-#### List Milestones
+#### 列表 Milestones
 
-```bash
-GET /github/repos/{owner}/{repo}/milestones?state=open&per_page=30
+```Bash
+GET /github/repos/{owner}/{repo}/milestones?状态=open&per_page=30
 ```
 
 #### Create Milestone
 
-```bash
+```Bash
 POST /github/repos/{owner}/{repo}/milestones
-Content-Type: application/json
+Content-类型: application/JSON
 
 {
   "title": "v1.0",
-  "state": "open",
-  "description": "First release",
+  "状态": "open",
+  "说明": "First 发布",
   "due_on": "2026-03-01T00:00:00Z"
 }
 ```
 
-### Pull Requests
+### 拉取 Requests
 
-#### List Pull Requests
+#### 列表 拉取 Requests
 
-```bash
-GET /github/repos/{owner}/{repo}/pulls?state=open&per_page=30
+```Bash
+GET /github/repos/{owner}/{repo}/pulls?状态=open&per_page=30
 ```
 
-Query parameters: `state` (open, closed, all), `head`, `base`, `sort`, `direction`, `per_page`, `page`
+Query 参数: `状态` (open, closed, all), `HEAD`, `BASE`, `排序`, `direction`, `per_page`, `page`
 
-#### Get Pull Request
+#### GET 拉取请求
 
-```bash
+```Bash
 GET /github/repos/{owner}/{repo}/pulls/{pull_number}
 ```
 
-#### Create Pull Request
+#### Create 拉取请求
 
-```bash
+```Bash
 POST /github/repos/{owner}/{repo}/pulls
-Content-Type: application/json
+Content-类型: application/JSON
 
 {
   "title": "New feature",
-  "body": "Description of changes",
-  "head": "feature-branch",
-  "base": "main",
+  "请求体": "说明 of changes",
+  "HEAD": "feature-分支",
+  "BASE": "主分支",
   "draft": false
 }
 ```
 
-#### Update Pull Request
+#### 更新 拉取请求
 
-```bash
-PATCH /github/repos/{owner}/{repo}/pulls/{pull_number}
-Content-Type: application/json
+```Bash
+补丁 /github/repos/{owner}/{repo}/pulls/{pull_number}
+Content-类型: application/JSON
 
 {
   "title": "Updated title",
-  "state": "closed"
+  "状态": "closed"
 }
 ```
 
-#### List Pull Request Commits
+#### 列表 拉取请求 提交
 
-```bash
-GET /github/repos/{owner}/{repo}/pulls/{pull_number}/commits?per_page=30
+```Bash
+GET /github/repos/{owner}/{repo}/pulls/{pull_number}/提交?per_page=30
 ```
 
-#### List Pull Request Files
+#### 列表 拉取请求 Files
 
-```bash
+```Bash
 GET /github/repos/{owner}/{repo}/pulls/{pull_number}/files?per_page=30
 ```
 
 #### Check If Merged
 
-```bash
-GET /github/repos/{owner}/{repo}/pulls/{pull_number}/merge
+```Bash
+GET /github/repos/{owner}/{repo}/pulls/{pull_number}/合并
 ```
 
-#### Merge Pull Request
+#### 合并 拉取请求
 
-```bash
-PUT /github/repos/{owner}/{repo}/pulls/{pull_number}/merge
-Content-Type: application/json
+```Bash
+PUT /github/repos/{owner}/{repo}/pulls/{pull_number}/合并
+Content-类型: application/JSON
 
 {
-  "commit_title": "Merge pull request",
-  "merge_method": "squash"
+  "commit_title": "合并 拉取请求",
+  "merge_method": "压缩"
 }
 ```
 
-Merge methods: `merge`, `squash`, `rebase`
+合并 methods: `合并`, `压缩`, `变基`
 
-### Pull Request Reviews
+### 拉取请求 Reviews
 
-#### List Reviews
+#### 列表 Reviews
 
-```bash
+```Bash
 GET /github/repos/{owner}/{repo}/pulls/{pull_number}/reviews?per_page=30
 ```
 
 #### Create Review
 
-```bash
+```Bash
 POST /github/repos/{owner}/{repo}/pulls/{pull_number}/reviews
-Content-Type: application/json
+Content-类型: application/JSON
 
 {
-  "body": "Looks good!",
-  "event": "APPROVE"
+  "请求体": "Looks good!",
+  "事件": "APPROVE"
 }
 ```
 
 Events: `APPROVE`, `REQUEST_CHANGES`, `COMMENT`
 
-### Search
+### 搜索
 
-#### Search Repositories
+#### 搜索 Repositories
 
-```bash
-GET /github/search/repositories?q={query}&per_page=30
+```Bash
+GET /github/搜索/repositories?q={query}&per_page=30
 ```
 
 Example queries:
-- `tetris+language:python` - Repositories with "tetris" in Python
-- `react+stars:>10000` - Repositories with "react" and 10k+ stars
+- `tetris+language:Python` - Repositories with "tetris" in Python
+- `React+stars:>10000` - Repositories with "React" and 10k+ stars
 
-#### Search Issues
+#### 搜索 Issues
 
-```bash
-GET /github/search/issues?q={query}&per_page=30
+```Bash
+GET /github/搜索/issues?q={query}&per_page=30
 ```
 
 Example queries:
 - `bug+is:open+is:issue` - Open issues containing "bug"
-- `author:username+is:pr` - Pull requests by author
+- `author:username+is:pr` - 拉取 requests by author
 
-#### Search Code
+#### 搜索 Code
 
-```bash
-GET /github/search/code?q={query}&per_page=30
+```Bash
+GET /github/搜索/code?q={query}&per_page=30
 ```
 
 Example queries:
-- `addClass+repo:facebook/react` - Search for "addClass" in a specific repo
-- `function+extension:js` - JavaScript functions
+- `addClass+repo:facebook/React` - 搜索 for "addClass" in a specific repo
+- `函数+扩展:js` - JavaScript functions
 
-Note: Code search may timeout on broad queries.
+Note: Code 搜索 may 超时 on broad queries.
 
-#### Search Users
+#### 搜索 Users
 
-```bash
-GET /github/search/users?q={query}&per_page=30
+```Bash
+GET /github/搜索/users?q={query}&per_page=30
 ```
 
 ### Organizations
 
-#### List User Organizations
+#### 列表 用户 Organizations
 
-```bash
-GET /github/user/orgs?per_page=30
+```Bash
+GET /github/用户/orgs?per_page=30
 ```
 
 Note: Requires `read:org` scope.
 
-#### Get Organization
+#### GET Organization
 
-```bash
+```Bash
 GET /github/orgs/{org}
 ```
 
-#### List Organization Members
+#### 列表 Organization Members
 
-```bash
+```Bash
 GET /github/orgs/{org}/members?per_page=30
 ```
 
-### Rate Limit
+### Rate 限制
 
-#### Get Rate Limit
+#### GET Rate 限制
 
-```bash
+```Bash
 GET /github/rate_limit
 ```
 
-Response:
-```json
+响应:
+```JSON
 {
   "rate": {
-    "limit": 5000,
+    "限制": 5000,
     "remaining": 4979,
-    "reset": 1707200000
+    "重置": 1707200000
   },
   "resources": {
-    "core": { "limit": 5000, "remaining": 4979 },
-    "search": { "limit": 30, "remaining": 28 }
+    "core": { "限制": 5000, "remaining": 4979 },
+    "搜索": { "限制": 30, "remaining": 28 }
   }
 }
 ```
 
-## Pagination
+## 分页
 
-GitHub uses page-based and link-based pagination:
+GitHub uses page-based and 链接-based 分页:
 
-```bash
+```Bash
 GET /github/repos/{owner}/{repo}/issues?per_page=30&page=2
 ```
 
-Response headers include pagination links:
-- `Link: <url>; rel="next", <url>; rel="last"`
+响应 headers include 分页 links:
+- `链接: <URL>; rel="next", <URL>; rel="last"`
 
-Common pagination parameters:
+Common 分页 参数:
 - `per_page`: Results per page (max 100, default 30)
 - `page`: Page number (default 1)
 
-Some endpoints use cursor-based pagination with `since` parameter (e.g., listing users).
+Some endpoints use 游标-based 分页 with `since` parameter (e.g., listing users).
 
-## Code Examples
+## Code 示例
 
 ### JavaScript
 
-```javascript
-const response = await fetch(
-  'https://gateway.maton.ai/github/repos/owner/repo/issues?state=open&per_page=10',
+```JavaScript
+const 响应 = 等待 获取(
+  'HTTPS://网关.maton.AI/github/repos/owner/repo/issues?状态=open&per_page=10',
   {
     headers: {
-      'Authorization': `Bearer ${process.env.MATON_API_KEY}`
+      '授权': `Bearer ${进程.env.MATON_API_KEY}`
     }
   }
 );
-const issues = await response.json();
+const issues = 等待 响应.JSON();
 ```
 
 ### Python
 
-```python
-import os
-import requests
+```Python
+导入 os
+导入 requests
 
-response = requests.get(
-    'https://gateway.maton.ai/github/repos/owner/repo/issues',
-    headers={'Authorization': f'Bearer {os.environ["MATON_API_KEY"]}'},
-    params={'state': 'open', 'per_page': 10}
+响应 = requests.GET(
+    'HTTPS://网关.maton.AI/github/repos/owner/repo/issues',
+    headers={'授权': f'Bearer {os.environ["MATON_API_KEY"]}'},
+    params={'状态': 'open', 'per_page': 10}
 )
-issues = response.json()
+issues = 响应.JSON()
 ```
 
-## Notes
+## 备注
 
-- Repository names are case-insensitive but the API preserves case
-- Issue numbers and PR numbers share the same sequence per repository
+- 仓库 names are case-insensitive but the api preserves case
+- Issue numbers and PR numbers share the same sequence per 仓库
 - Content must be Base64 encoded when creating/updating files
 - Rate limits: 5000 requests/hour for authenticated users, 30 searches/minute
-- Search queries may timeout on very broad patterns
-- Some endpoints require specific OAuth scopes (e.g., `read:org` for organization operations). If you receive a scope error, contact Maton support at support@maton.ai with the specific operations/APIs you need and your use-case
+- 搜索 queries may 超时 on very broad patterns
+- Some endpoints require specific OAuth scopes (e.g., `read:org` for organization operations). If you 接收 a scope 错误, contact Maton support at support@maton.AI with the specific operations/APIs you need and your use-case
 - IMPORTANT: When using curl commands, use `curl -g` when URLs contain brackets to disable glob parsing
-- IMPORTANT: When piping curl output to `jq` or other commands, environment variables like `$MATON_API_KEY` may not expand correctly in some shell environments
+- IMPORTANT: When piping curl 输出 to `jq` or other commands, 环境变量 like `$MATON_API_KEY` may not expand correctly in some Shell environments
 
-## Error Handling
+## 错误 Handling
 
-| Status | Meaning |
+| 状态 | Meaning |
 |--------|---------|
-| 400 | Missing GitHub connection |
-| 401 | Invalid or missing Maton API key |
+| 400 | Missing GitHub 连接 |
+| 401 | Invalid or missing Maton api key |
 | 403 | Forbidden - insufficient permissions or scope |
 | 404 | Resource not found |
-| 408 | Request timeout (common for complex searches) |
+| 408 | 请求 超时 (common for complex searches) |
 | 422 | Validation failed |
 | 429 | Rate limited |
-| 4xx/5xx | Passthrough error from GitHub API |
+| 4xx/5xx | Passthrough 错误 from GitHub api |
 
-### Troubleshooting: API Key Issues
+### 故障排除: api Key Issues
 
-1. Check that the `MATON_API_KEY` environment variable is set:
+1. Check that the `MATON_API_KEY` 环境 变量 is 集合:
 
-```bash
+```Bash
 echo $MATON_API_KEY
 ```
 
-2. Verify the API key is valid by listing connections:
+2. Verify the api key is valid by listing connections:
 
-```bash
-python <<'EOF'
-import urllib.request, os, json
-req = urllib.request.Request('https://ctrl.maton.ai/connections')
-req.add_header('Authorization', f'Bearer {os.environ["MATON_API_KEY"]}')
-print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))
+```Bash
+Python <<'EOF'
+导入 urllib.请求, os, JSON
+req = urllib.请求.请求('HTTPS://ctrl.maton.AI/connections')
+req.add_header('授权', f'Bearer {os.environ["MATON_API_KEY"]}')
+print(JSON.dumps(JSON.加载(urllib.请求.urlopen(req)), indent=2))
 EOF
 ```
 
-### Troubleshooting: Invalid App Name
+### 故障排除: Invalid App Name
 
-1. Ensure your URL path starts with `github`. For example:
+1. Ensure your URL 路径 starts with `github`. For example:
 
-- Correct: `https://gateway.maton.ai/github/user`
-- Incorrect: `https://gateway.maton.ai/api.github.com/user`
+- Correct: `HTTPS://网关.maton.AI/github/用户`
+- Incorrect: `HTTPS://网关.maton.AI/api.github.com/用户`
 
 ## Resources
 
-- [GitHub REST API Documentation](https://docs.github.com/en/rest)
-- [Repositories API](https://docs.github.com/en/rest/repos/repos)
-- [Issues API](https://docs.github.com/en/rest/issues/issues)
-- [Pull Requests API](https://docs.github.com/en/rest/pulls/pulls)
-- [Search API](https://docs.github.com/en/rest/search/search)
-- [Rate Limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting)
-- [Maton Community](https://discord.com/invite/dBfFAcefs2)
-- [Maton Support](mailto:support@maton.ai)
+- [GitHub REST api Documentation](HTTPS://docs.github.com/en/REST)
+- [Repositories api](HTTPS://docs.github.com/en/REST/repos/repos)
+- [Issues api](HTTPS://docs.github.com/en/REST/issues/issues)
+- [拉取 Requests api](HTTPS://docs.github.com/en/REST/pulls/pulls)
+- [搜索 api](HTTPS://docs.github.com/en/REST/搜索/搜索)
+- [Rate Limits](HTTPS://docs.github.com/en/REST/概述/resources-in-the-REST-api#rate-limiting)
+- [Maton Community](HTTPS://discord.com/invite/dBfFAcefs2)
+- [Maton Support](mailto:support@maton.AI)

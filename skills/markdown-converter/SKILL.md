@@ -12,17 +12,17 @@ tags:
 
 # Markdown Converter
 
-Convert files to Markdown using `uvx markitdown` — no installation required.
+Convert files to Markdown using `uvx markitdown` — no 安装 必需.
 
-## Basic Usage
+## 基本用法
 
-```bash
+```Bash
 # Convert to stdout
 uvx markitdown input.pdf
 
-# Save to file
-uvx markitdown input.pdf -o output.md
-uvx markitdown input.docx > output.md
+# 保存 to 文件
+uvx markitdown input.pdf -o 输出.md
+uvx markitdown input.docx > 输出.md
 
 # From stdin
 cat input.pdf | uvx markitdown
@@ -32,25 +32,25 @@ cat input.pdf | uvx markitdown
 
 - **Documents**: PDF, Word (.docx), PowerPoint (.pptx), Excel (.xlsx, .xls)
 - **Web/Data**: HTML, CSV, JSON, XML
-- **Media**: Images (EXIF + OCR), Audio (EXIF + transcription)
-- **Other**: ZIP (iterates contents), YouTube URLs, EPub
+- **Media**: 镜像 (EXIF + OCR), Audio (EXIF + transcription)
+- **Other**: zip (iterates contents), YouTube URLs, EPub
 
-## Options
+## OPTIONS
 
-```bash
--o OUTPUT      # Output file
--x EXTENSION   # Hint file extension (for stdin)
--m MIME_TYPE   # Hint MIME type
+```Bash
+-o 输出      # 输出 文件
+-x 扩展   # Hint 文件 扩展 (for stdin)
+-m MIME_TYPE   # Hint MIME 类型
 -c CHARSET     # Hint charset (e.g., UTF-8)
 -d             # Use Azure Document Intelligence
--e ENDPOINT    # Document Intelligence endpoint
+-e 端点    # Document Intelligence 端点
 --use-plugins  # Enable 3rd-party plugins
---list-plugins # Show installed plugins
+--列表-plugins # Show installed plugins
 ```
 
-## Examples
+## 示例
 
-```bash
+```Bash
 # Convert Word document
 uvx markitdown report.docx -o report.md
 
@@ -60,15 +60,15 @@ uvx markitdown data.xlsx > data.md
 # Convert PowerPoint presentation
 uvx markitdown slides.pptx -o slides.md
 
-# Convert with file type hint (for stdin)
-cat document | uvx markitdown -x .pdf > output.md
+# Convert with 文件 类型提示 (for stdin)
+cat document | uvx markitdown -x .pdf > 输出.md
 
 # Use Azure Document Intelligence for better PDF extraction
-uvx markitdown scan.pdf -d -e "https://your-resource.cognitiveservices.azure.com/"
+uvx markitdown 扫描.pdf -d -e "HTTPS://your-resource.cognitiveservices.azure.com/"
 ```
 
-## Notes
+## 备注
 
-- Output preserves document structure: headings, tables, lists, links
-- First run caches dependencies; subsequent runs are faster
+- 输出 preserves document structure: headings, tables, lists, links
+- First 运行 caches 依赖; subsequent runs are faster
 - For complex PDFs with poor extraction, use `-d` with Azure Document Intelligence

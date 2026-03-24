@@ -12,53 +12,53 @@ tags:
 
 # Notion 集成
 
-通过 API 操作 Notion 页面、数据库和区块。
+通过 api 操作 Notion 页面、数据库和区块。
 
 ## 基础配置
 
-```bash
-# 设置 API 密钥
-notion auth --token ntn_xxxxx
+```Bash
+# 设置 api 密钥
+notion auth --令牌 ntn_xxxxx
 
 # 验证连接
-notion status
+notion 状态
 ```
 
 ## 页面操作
 
-```bash
+```Bash
 # 创建页面
 notion page create --parent "database_id" --title "新页面"
 
 # 获取页面
-notion page get "page_id"
+notion page GET "page_id"
 
 # 更新页面
-notion page update "page_id" --title "新标题" --content "内容"
+notion page 更新 "page_id" --title "新标题" --content "内容"
 
 # 删除页面
-notion page delete "page_id"
+notion page DELETE "page_id"
 ```
 
 ## 数据库操作
 
-```bash
+```Bash
 # 创建数据库
-notion database create --parent "page_id" --title "我的数据库"
+notion 数据库 create --parent "page_id" --title "我的数据库"
 
 # 添加属性
-notion database add-property "database_id" --name "状态" --type "select"
+notion 数据库 add-属性 "database_id" --name "状态" --类型 "select"
 
 # 插入记录
-notion database insert "database_id" --properties '{"标题": "任务1", "状态": "进行中"}'
+notion 数据库 insert "database_id" --properties '{"标题": "任务1", "状态": "进行中"}'
 
 # 查询记录
-notion database query "database_id" --filter '{"property": "状态", "select": {"equals": "进行中"}}'
+notion 数据库 query "database_id" --过滤 '{"属性": "状态", "select": {"equals": "进行中"}}'
 ```
 
 ## 区块操作
 
-```bash
+```Bash
 # 添加文本区块
 notion block append "page_id" --text "Hello World"
 
@@ -66,7 +66,7 @@ notion block append "page_id" --text "Hello World"
 notion block append "page_id" --todo "完成任务" --checked false
 
 # 添加代码块
-notion block append "page_id" --code "console.log('hi')" --language "javascript"
+notion block append "page_id" --code "console.日志('hi')" --language "JavaScript"
 
 # 嵌套区块
 notion block append "parent_id" --child "child_block_id"
@@ -74,12 +74,12 @@ notion block append "parent_id" --child "child_block_id"
 
 ## 搜索
 
-```bash
+```Bash
 # 搜索页面
-notion search "关键词"
+notion 搜索 "关键词"
 
 # 限定数据库搜索
-notion search "关键词" --type database
+notion 搜索 "关键词" --类型 数据库
 ```
 
 ## 最佳实践

@@ -16,33 +16,33 @@ tags:
 
 ## 基础用法
 
-```bash
+```Bash
 # 搜索网页
 baidu "关键词"
 
 # 限制结果数
-baidu "关键词" --limit 10
+baidu "关键词" --限制 10
 ```
 
 ## 搜索类型
 
-```bash
+```Bash
 # 新闻搜索
-baidu "关键词" --type news
+baidu "关键词" --类型 news
 
 # 图片搜索
-baidu "关键词" --type image
+baidu "关键词" --类型 镜像
 
 # 视频搜索
-baidu "关键词" --type video
+baidu "关键词" --类型 video
 
 # 学术搜索
-baidu "关键词" --type scholar
+baidu "关键词" --类型 scholar
 ```
 
 ## 高级搜索
 
-```bash
+```Bash
 # 站内搜索
 baidu "关键词 site:github.com"
 
@@ -58,7 +58,7 @@ baidu "关键词" --region China
 
 ## 过滤器
 
-```bash
+```Bash
 # 只看可信来源
 baidu "关键词" --verify
 
@@ -69,17 +69,17 @@ baidu "关键词 -推广"
 baidu "手机" --price "2000-5000"
 ```
 
-## API 调用
+## api 调用
 
-```bash
+```Bash
 # 获取搜索结果（JSON）
-baidu "关键词" --json
+baidu "关键词" --JSON
 
 # 获取详细信息
 baidu "关键词" --verbose
 
 # 搜索并保存
-baidu "关键词" --output results.json
+baidu "关键词" --输出 results.JSON
 ```
 
 ## 最佳实践

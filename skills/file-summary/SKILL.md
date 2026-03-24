@@ -5,83 +5,83 @@ tags:
   - Tool
 ---
 ---
-name: file-summary
-description: |
-  Local document summary tool. Activate when user mentions "总结文件", "帮我总结", "总结文档", "分析文档" or provides a local file path (txt/docx/pdf/xlsx/xls).
+name: 文件-概要
+说明: |
+  本地 document 概要 tool. Activate when 用户 mentions "总结文件", "帮我总结", "总结文档", "分析文档" or provides a 本地 文件 路径 (txt/docx/pdf/xlsx/xls).
 ---
 
-# File Summary Tool
+# 文件 概要 Tool
 
-Single tool `file_summary` for local document text extraction and summary.
+Single tool `file_summary` for 本地 document text extraction and 概要.
 
-## Token Extraction
+## 令牌 Extraction
 
-From user input `帮我总结 D:\测试.pdf` → `file_path` = `D:\测试.pdf`
+From 用户 input `帮我总结 D:\测试.pdf` → `file_path` = `D:\测试.pdf`
 
 ## Actions
 
-### Extract Document Content
+### 提取 Document Content
 
-{ "action": "extract", "file_path": "D:\\测试.pdf" }
+{ "操作": "提取", "file_path": "D:\\测试.pdf" }
 
 Returns:
 - Success: Plain text content of the document (txt/docx/pdf/xlsx/xls)
-- Error: Error message starting with ❌ (e.g. ❌ File not found, ❌ Unsupported format)
+- 错误: 错误 message starting with ❌ (e.g. ❌ 文件 not found, ❌ Unsupported format)
 
-### Generate Summary
+### Generate 概要
 
-{ "action": "summary", "file_path": "D:\\测试.pdf" }
+{ "操作": "概要", "file_path": "D:\\测试.pdf" }
 
-Returns: Concise summary of the document content (integrated with OpenClaw LLM)
+Returns: Concise 概要 of the document content (integrated with OpenClaw LLM)
 
-## Workflow
+## 工作流
 
-To summarize a local document:
-1. Extract content: `{ "action": "extract", "file_path": "your_file_path" }` → returns plain text
-2. Generate summary: OpenClaw LLM summarizes the extracted text automatically
+To summarize a 本地 document:
+1. 提取 content: `{ "操作": "提取", "file_path": "your_file_path" }` → returns plain text
+2. Generate 概要: OpenClaw LLM summarizes the extracted text automatically
 
-## Configuration
+## 配置
 
 channels:
-  local:
+  本地:
     tools:
       file_summary: true # default: true
-      python: true # required - need Python environment
+      Python: true # 必需 - need Python 环境
 
-## Dependency
+## 依赖
 
-### Required Environment
-1. Python 3.8+ (added to system environment variables)
-2. Required Python packages (auto-installed by script):
-   - python-docx (for docx)
+### 必需 环境
+1. Python 3.8+ (added to system 环境变量)
+2. 必需 Python 包 (auto-installed by 脚本):
+   - Python-docx (for docx)
    - pypdf (for pdf)
    - openpyxl (for xlsx)
    - xlrd==1.2.0 (for xls)
 
-### Tool Path Configuration
+### Tool 路径 配置
 1. Place the tool files in OpenClaw's skill folder:
-   OpenClaw/skills/file-summary/
-   ├─ SKILL.md (this file)
+   OpenClaw/skills/文件-概要/
+   ├─ SKILL.md (this 文件)
    ├─ file2sum.py
-2. Set the execution command in OpenClaw:
+2. 集合 the execution 命令 in OpenClaw:
    ${skill_path}\\file2sum.py
 
 ## Permissions
 
-Required:
-- Local file read permission (user needs to grant file access)
-- Python execute permission (no special system permissions required)
+必需:
+- 本地 文件 read 权限 (用户 needs to grant 文件 access)
+- Python execute 权限 (no special system permissions 必需)
 
-## Usage
+## 使用方法
 
-### Local Deployment
-1. Put the `file-summary` folder into OpenClaw's `skills` directory
-2. Restart OpenClaw
-3. User input example:
+### 本地 部署
+1. PUT the `文件-概要` folder into OpenClaw's `skills` directory
+2. 重启 OpenClaw
+3. 用户 input example:
    - "帮我总结 D:\测试.pdf"
    - "总结文件 D:\数据\销售表.xlsx"
 
-### Public Deployment
-1. Upload the `file-summary` folder (include md/py) to a public platform (e.g. GitHub/Gitee, ClawHub)
-2. Share the download link
-3. Users import via OpenClaw "Skill Market → Import from URL"
+### Public 部署
+1. 上传 the `文件-概要` folder (include md/py) to a public platform (e.g. GitHub/Gitee, ClawHub)
+2. Share the 下载 链接
+3. Users 导入 via OpenClaw "Skill Market → 导入 from URL"

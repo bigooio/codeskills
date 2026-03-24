@@ -25,68 +25,68 @@ tags:
   - backend
 ---
 
-# Ragflow API Client
+# Ragflow api 客户端
 
-Universal client for Ragflow — self-hosted RAG (Retrieval-Augmented Generation) platform.
+Universal 客户端 for Ragflow — self-hosted RAG (Retrieval-Augmented Generation) platform.
 
-## Features
+## 特性
 
-- **Dataset management** — Create, list, delete knowledge bases
-- **Document upload** — Upload files or text content
-- **Chat queries** — Run RAG queries against datasets
-- **Chunk management** — Trigger parsing, list chunks
+- **Dataset management** — Create, 列表, DELETE knowledge bases
+- **Document 上传** — 上传 files or text content
+- **Chat queries** — 运行 RAG queries against datasets
+- **块 management** — 触发器 parsing, 列表 chunks
 
-## Usage
+## 使用方法
 
-```bash
-# List datasets
-node {baseDir}/scripts/ragflow.js datasets
+```Bash
+# 列表 datasets
+节点 {baseDir}/scripts/ragflow.js datasets
 
 # Create dataset
-node {baseDir}/scripts/ragflow.js create-dataset --name "My Knowledge Base"
+节点 {baseDir}/scripts/ragflow.js create-dataset --name "My Knowledge BASE"
 
-# Upload document
-node {baseDir}/scripts/ragflow.js upload --dataset DATASET_ID --file article.md
+# 上传 document
+节点 {baseDir}/scripts/ragflow.js 上传 --dataset DATASET_ID --文件 article.md
 
 # Chat query
-node {baseDir}/scripts/ragflow.js chat --dataset DATASET_ID --query "What is stroke?"
+节点 {baseDir}/scripts/ragflow.js chat --dataset DATASET_ID --query "What is stroke?"
 
-# List documents in dataset
-node {baseDir}/scripts/ragflow.js documents --dataset DATASET_ID
+# 列表 documents in dataset
+节点 {baseDir}/scripts/ragflow.js documents --dataset DATASET_ID
 ```
 
-## Configuration
+## 配置
 
-Set environment variables in your `.env`:
+集合 环境变量 in your `.env`:
 
-```bash
-RAGFLOW_URL=https://your-ragflow-instance.com
+```Bash
+RAGFLOW_URL=HTTPS://your-ragflow-instance.com
 RAGFLOW_API_KEY=your-api-key
 ```
 
-## API
+## api
 
-This skill wraps Ragflow's REST API:
+This skill wraps Ragflow's REST api:
 
-- `GET /api/v1/datasets` — List datasets
+- `GET /api/v1/datasets` — 列表 datasets
 - `POST /api/v1/datasets` — Create dataset
-- `DELETE /api/v1/datasets/{id}` — Delete dataset
-- `POST /api/v1/datasets/{id}/documents` — Upload document
-- `POST /api/v1/datasets/{id}/chunks` — Trigger parsing
+- `DELETE /api/v1/datasets/{id}` — DELETE dataset
+- `POST /api/v1/datasets/{id}/documents` — 上传 document
+- `POST /api/v1/datasets/{id}/chunks` — 触发器 parsing
 - `POST /api/v1/datasets/{id}/retrieval` — RAG query
 
-Full API docs: https://ragflow.io/docs
+Full api docs: HTTPS://ragflow.io/docs
 
-## Examples
+## 示例
 
-```javascript
-// Programmatic usage
+```JavaScript
+// Programmatic 使用方法
 const ragflow = require('{baseDir}/lib/api.js');
 
-// Upload and parse
-await ragflow.uploadDocument(datasetId, './article.md', { filename: 'article.md' });
-await ragflow.triggerParsing(datasetId, [documentId]);
+// 上传 and 解析
+等待 ragflow.uploadDocument(datasetId, './article.md', { filename: 'article.md' });
+等待 ragflow.triggerParsing(datasetId, [documentId]);
 
 // Query
-const answer = await ragflow.chat(datasetId, 'What are the stroke guidelines?');
+const answer = 等待 ragflow.chat(datasetId, 'What are the stroke guidelines?');
 ```

@@ -22,48 +22,48 @@ tags:
 
 # Crawl4AI Web Scraper
 
-Local Crawl4AI instance for full web page extraction with JavaScript rendering.
+本地 Crawl4AI instance for full web page extraction with JavaScript rendering.
 
 ## Endpoints
 
-**Proxy (port 11234)** — Clean output, OpenWebUI-compatible
+**代理 (端口 11234)** — 清理 输出, OpenWebUI-compatible
 - Returns: `[{page_content, metadata}]`
 - Use for: Simple content extraction
 
-**Direct (port 11235)** — Full output with all data
+**Direct (端口 11235)** — Full 输出 with all data
 - Returns: `{results: [{markdown, html, links, media, ...}]}`
 - Use for: When you need links, media, or other metadata
 
-## Usage
+## 使用方法
 
-```bash
-# Via script
-node {baseDir}/scripts/crawl4ai.js "url"
-node {baseDir}/scripts/crawl4ai.js "url" --json
+```Bash
+# Via 脚本
+节点 {baseDir}/scripts/crawl4ai.js "URL"
+节点 {baseDir}/scripts/crawl4ai.js "URL" --JSON
 ```
 
-**Script options:**
-- `--json` — Full JSON response
+**脚本 OPTIONS:**
+- `--JSON` — Full JSON 响应
 
-**Output:** Clean markdown from the page.
+**输出:** 清理 markdown from the page.
 
-## Configuration
+## 配置
 
-**Required environment variable:**
+**必需 环境 变量:**
 
-- `CRAWL4AI_URL` — Your Crawl4AI instance URL (e.g., `http://localhost:11235`)
+- `CRAWL4AI_URL` — Your Crawl4AI instance URL (e.g., `HTTP://localhost:11235`)
 
-**Optional:**
+**可选:**
 
-- `CRAWL4AI_KEY` — API key if your instance requires authentication
+- `CRAWL4AI_KEY` — api key if your instance requires 认证
 
-## Features
+## 特性
 
-- **JavaScript rendering** — Handles dynamic content
-- **Unlimited usage** — Local instance, no API limits
+- **JavaScript rendering** — Handles 动态 content
+- **Unlimited 使用方法** — 本地 instance, no api limits
 - **Full content** — HTML, markdown, links, media, tables
 - **Better than Tavily** for complex pages with JS
 
-## API
+## api
 
-Uses your local Crawl4AI instance REST API. Auth header only sent if `CRAWL4AI_KEY` is set.
+Uses your 本地 Crawl4AI instance REST api. Auth 请求头 only sent if `CRAWL4AI_KEY` is 集合.

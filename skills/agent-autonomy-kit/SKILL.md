@@ -18,16 +18,16 @@ tags:
 
 Transform your agent from reactive to proactive.
 
-## Quick Start
+## 快速开始
 
-1. Create `tasks/QUEUE.md` with Ready/In Progress/Blocked/Done sections
-2. Update `HEARTBEAT.md` to pull from queue and do work
-3. Set up cron jobs for overnight work and daily reports
+1. Create `tasks/队列.md` with Ready/in Progress/Blocked/Done sections
+2. 更新 `HEARTBEAT.md` to 拉取 from 队列 and do work
+3. 集合 up cron jobs for overnight work and daily reports
 4. Watch work happen without prompting
 
 ## Key Concepts
 
-- **Task Queue** — Always have work ready
+- **任务 队列** — Always have work ready
 - **Proactive Heartbeat** — Do work, don't just check
 - **Continuous Operation** — Work until limits hit
 

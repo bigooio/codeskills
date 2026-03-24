@@ -10,75 +10,75 @@ tags:
   - bash
 ---
 
-# File Manager - OpenClaw 自动化文件管理
+# 文件 管理节点 - OpenClaw 自动化文件管理
 
 ## 核心功能
 
 ### 1. 智能文件分类 (`organize`)
 按文件类型、日期、大小或自定义规则自动分类文件。
 
-```bash
+```Bash
 # 按文件类型分类
-python scripts/organize.py <source_dir> --by-type
+Python scripts/organize.py <source_dir> --by-类型
 
 # 按日期分类 (年/月/日)
-python scripts/organize.py <source_dir> --by-date --date-format year/month
+Python scripts/organize.py <source_dir> --by-date --date-format year/month
 
 # 按文件大小分类
-python scripts/organize.py <source_dir> --by-size --size-ranges "10MB,100MB,1GB"
+Python scripts/organize.py <source_dir> --by-size --size-ranges "10MB,100MB,1GB"
 ```
 
 ### 2. 批量重命名 (`batch_rename`)
 支持正则表达式、序列号、日期等模式的重命名。
 
-```bash
+```Bash
 # 添加前缀/后缀
-python scripts/batch_rename.py <pattern> --prefix "IMG_" --suffix "_2024"
+Python scripts/batch_rename.py <模式> --prefix "IMG_" --suffix "_2024"
 
 # 使用正则替换
-python scripts/batch_rename.py "IMG_(\d+)" --replace "Photo_\1"
+Python scripts/batch_rename.py "IMG_(\d+)" --替换 "Photo_\1"
 
 # 序列号重命名
-python scripts/batch_rename.py "*.jpg" --sequence --start 1 --pad 4
+Python scripts/batch_rename.py "*.jpg" --sequence --start 1 --pad 4
 ```
 
 ### 3. 重复文件清理 (`deduplicate`)
 基于内容哈希检测并处理重复文件。
 
-```bash
+```Bash
 # 扫描并列出重复文件
-python scripts/deduplicate.py <directory> --scan-only
+Python scripts/deduplicate.py <directory> --扫描-only
 
 # 删除重复文件（保留最旧/最新）
-python scripts/deduplicate.py <directory> --keep oldest --action delete
+Python scripts/deduplicate.py <directory> --keep oldest --操作 DELETE
 
 # 移动重复文件到隔离目录
-python scripts/deduplicate.py <directory> --action move --to <quarantine_dir>
+Python scripts/deduplicate.py <directory> --操作 移动 --to <quarantine_dir>
 ```
 
 ### 4. 目录同步 (`sync`)
 双向或单向目录同步，支持排除模式和增量同步。
 
-```bash
+```Bash
 # 单向同步 (源 → 目标)
-python scripts/sync.py <source> <target> --mirror
+Python scripts/sync.py <source> <target> --mirror
 
 # 双向同步
-python scripts/sync.py <dir1> <dir2> --bidirectional
+Python scripts/sync.py <dir1> <dir2> --bidirectional
 
 # 排除特定文件
-python scripts/sync.py <source> <target> --exclude "*.tmp,*.log,.git"
+Python scripts/sync.py <source> <target> --exclude "*.tmp,*.日志,.git"
 ```
 
 ### 5. 文件监控 (`watch`)
 监控目录变化并触发动作。
 
-```bash
+```Bash
 # 监控并记录变化
-python scripts/watch.py <directory> --log changes.log
+Python scripts/watch.py <directory> --日志 changes.日志
 
 # 监控并自动执行命令
-python scripts/watch.py <directory> --on-change "python scripts/organize.py {path}"
+Python scripts/watch.py <directory> --on-change "Python scripts/organize.py {路径}"
 ```
 
 ## 使用模式
@@ -86,27 +86,27 @@ python scripts/watch.py <directory> --on-change "python scripts/organize.py {pat
 ### 常见场景
 
 **场景1: 整理下载文件夹**
-```python
+```Python
 # 自动分类下载的文件
-python scripts/organize.py ~/Downloads --by-type --move
+Python scripts/organize.py ~/Downloads --by-类型 --移动
 ```
 
 **场景2: 清理重复照片**
-```python
+```Python
 # 找出并删除重复照片，保留高质量版本
-python scripts/deduplicate.py ~/Pictures --compare-resolution --keep best
+Python scripts/deduplicate.py ~/Pictures --compare-resolution --keep best
 ```
 
 **场景3: 批量整理项目文件**
-```python
+```Python
 # 按日期整理并按类型分类
-python scripts/organize.py ./projects --by-date --by-type --date-format year/month
+Python scripts/organize.py ./projects --by-date --by-类型 --date-format year/month
 ```
 
 **场景4: 自动备份工作目录**
-```python
+```Python
 # 同步到备份目录，排除临时文件
-python scripts/sync.py ~/Work ~/Backups/Work --exclude "node_modules,.git,*.tmp"
+Python scripts/sync.py ~/Work ~/Backups/Work --exclude "node_modules,.git,*.tmp"
 ```
 
 ## 工作流
@@ -114,7 +114,7 @@ python scripts/sync.py ~/Work ~/Backups/Work --exclude "node_modules,.git,*.tmp"
 ### 文件整理工作流
 1. 分析目录结构和文件分布
 2. 选择分类策略 (类型/日期/大小/自定义)
-3. 执行整理 (dry-run 预览 → 确认 → 执行)
+3. 执行整理 (dry-运行 预览 → 确认 → 执行)
 4. 验证结果
 
 ### 清理工作流
@@ -131,7 +131,7 @@ python scripts/sync.py ~/Work ~/Backups/Work --exclude "node_modules,.git,*.tmp"
 
 ## 安全原则
 
-- **预览优先**: 所有修改操作默认执行 dry-run，确认后再执行
+- **预览优先**: 所有修改操作默认执行 dry-运行，确认后再执行
 - **备份保护**: 删除操作优先移动到隔离区而非永久删除
 - **递归警告**: 递归操作需要显式确认
 - **日志记录**: 所有操作记录到日志文件便于审计
@@ -142,13 +142,13 @@ python scripts/sync.py ~/Work ~/Backups/Work --exclude "node_modules,.git,*.tmp"
 
 本 skill 依赖以下 Python 包：
 
-```bash
+```Bash
 pip install tqdm colorama
 ```
 
-或使用 requirements.txt（如果存在）：
-```bash
-pip install -r requirements.txt
+或使用 要求.txt（如果存在）：
+```Bash
+pip install -r 要求.txt
 ```
 
 ### 环境要求
@@ -162,6 +162,6 @@ pip install -r requirements.txt
 ## 脚本参数说明
 
 直接查看脚本帮助获取详细参数:
-```bash
-python scripts/<script>.py --help
+```Bash
+Python scripts/<脚本>.py --help
 ```

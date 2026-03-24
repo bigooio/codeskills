@@ -15,8 +15,8 @@ tags:
 ## 何时使用
 
 当用户提到以下场景时：
-- "automate"、"automation"、"workflow automation"
-- "save time"、"reduce manual work"
+- "automate"、"automation"、"工作流 automation"
+- "保存 time"、"reduce manual work"
 - "automate my business"、"no-code automation"
 - 识别重复任务
 - 跨工具搭建流程
@@ -40,7 +40,7 @@ tags:
 
 ### 触发器类型
 
-- **事件触发** - 文件更新、新邮件、API 调用
+- **事件触发** - 文件更新、新邮件、api 调用
 - **时间触发** - 定时任务、cron
 - **手动触发** - 按钮点击、Webhook
 

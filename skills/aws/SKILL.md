@@ -31,52 +31,52 @@ tags:
   - security
 ---
 
-## Setup
+## 设置
 
-On first use, read `setup.md` for integration options. The skill works immediately — setup is optional for personalization.
+On first use, read `设置.md` for integration OPTIONS. The skill works immediately — 设置 is 可选 for personalization.
 
-## When to Use
+## 何时使用
 
-User needs AWS infrastructure guidance. Agent handles architecture decisions, service selection, cost optimization, security hardening, and deployment patterns.
+用户 needs AWS 基础设施 guidance. Agent handles architecture decisions, 服务 selection, cost optimization, 安全 加固, and 部署 patterns.
 
 ## Architecture
 
-Memory lives in `~/aws/`. See `memory-template.md` for structure.
+内存 lives in `~/aws/`. See `内存-模板.md` for structure.
 
 ```
 ~/aws/
-├── memory.md        # Account context + preferences
-├── resources.md     # Active infrastructure inventory
+├── 内存.md        # Account 上下文 + preferences
+├── resources.md     # Active 基础设施 inventory
 └── costs.md         # Cost tracking + alerts
 ```
 
-## Quick Reference
+## 快速参考
 
-| Topic | File |
+| Topic | 文件 |
 |-------|------|
-| Setup process | `setup.md` |
-| Memory template | `memory-template.md` |
-| Service patterns | `services.md` |
+| 设置 进程 | `设置.md` |
+| 内存 模板 | `内存-模板.md` |
+| 服务 patterns | `services.md` |
 | Cost optimization | `costs.md` |
-| Security hardening | `security.md` |
+| 安全 加固 | `安全.md` |
 
 ## Core Rules
 
-### 1. Verify Account Context First
+### 1. Verify Account 上下文 First
 Before any operation, confirm:
 - Region (default: us-east-1, but ask)
-- Account type (personal/startup/enterprise)
-- Existing infrastructure (VPC, subnets, security groups)
+- Account 类型 (personal/startup/enterprise)
+- Existing 基础设施 (VPC, subnets, 安全 groups)
 
-```bash
-aws sts get-caller-identity
-aws ec2 describe-vpcs --query 'Vpcs[].{ID:VpcId,CIDR:CidrBlock,Default:IsDefault}'
+```Bash
+aws sts GET-caller-identity
+aws ec2 描述-vpcs --query 'Vpcs[].{ID:VpcId,CIDR:CidrBlock,Default:IsDefault}'
 ```
 
 ### 2. Cost-First Architecture
 Every recommendation includes cost impact:
 
-| Stage | Recommended Stack | Monthly Cost |
+| Stage | Recommended 栈 | Monthly Cost |
 |-------|-------------------|--------------|
 | MVP (<1k users) | Single EC2 + RDS | ~$50 |
 | Growth (1-10k) | ALB + ASG + RDS Multi-AZ | ~$200 |
@@ -84,150 +84,150 @@ Every recommendation includes cost impact:
 
 **Default to smallest viable instance.** Scaling up is easy; scaling down wastes money.
 
-### 3. Security by Default
+### 3. 安全 by Default
 Every resource includes:
 - Principle of least privilege IAM
-- Encryption at rest (KMS default key minimum)
+- 加密 at REST (KMS default key minimum)
 - VPC isolation (no public subnets for databases)
-- Security groups with explicit deny-all inbound
+- 安全 groups with explicit deny-all inbound
 
-### 4. Infrastructure as Code
+### 4. 基础设施 as Code
 Generate Terraform or CloudFormation for reproducibility:
-```bash
+```Bash
 # Prefer Terraform for multi-cloud portability
-terraform init && terraform plan
+Terraform init && Terraform plan
 ```
-Never rely on console-only changes.
+never rely on console-only changes.
 
-### 5. Tagging Strategy
-Every resource gets tagged for cost allocation:
-```bash
---tags Key=Environment,Value=prod Key=Project,Value=myapp Key=Owner,Value=team
+### 5. Tagging 策略
+Every resource gets tagged for cost 分配:
+```Bash
+--tags Key=环境,Value=prod Key=Project,Value=myapp Key=Owner,Value=team
 ```
 
 ### 6. Monitoring from Day 1
-Deploy CloudWatch alarms with infrastructure:
-- Billing alerts (before you get surprised)
-- CPU/Memory thresholds
-- Error rate spikes
+部署 CloudWatch alarms with 基础设施:
+- Billing alerts (before you GET surprised)
+- CPU/内存 thresholds
+- 错误 rate spikes
 
 ## Cost Traps
 
-**NAT Gateway data processing ($0.045/GB):**
+**NAT 网关 data processing ($0.045/GB):**
 VPC endpoints are free for S3/DynamoDB. A busy app can burn $500/month on NAT alone.
-```bash
-aws ec2 create-vpc-endpoint --vpc-id vpc-xxx \
-  --service-name com.amazonaws.us-east-1.s3 --route-table-ids rtb-xxx
+```Bash
+aws ec2 create-VPC-端点 --VPC-id VPC-xxx \
+  --服务-name com.amazonaws.us-east-1.S3 --路由-table-ids rtb-xxx
 ```
 
 **EBS snapshots accumulate forever:**
-Automated backups create snapshots that never delete. Set lifecycle policies.
-```bash
-aws ec2 describe-snapshots --owner-ids self \
+Automated backups create snapshots that never DELETE. 集合 lifecycle policies.
+```Bash
+aws ec2 描述-snapshots --owner-ids self \
   --query 'Snapshots[?StartTime<=`2024-01-01`].[SnapshotId,StartTime,VolumeSize]'
 ```
 
-**CloudWatch Logs default retention is forever:**
-```bash
-aws logs put-retention-policy --log-group-name /aws/lambda/fn --retention-in-days 14
+**CloudWatch 日志 default retention is forever:**
+```Bash
+aws 日志 PUT-retention-策略 --日志-用户组-name /aws/Lambda/fn --retention-in-days 14
 ```
 
-**Idle load balancers cost $16/month minimum:**
-ALBs charge even with zero traffic. Delete unused ones.
+**Idle 加载 balancers cost $16/month minimum:**
+ALBs charge even with zero traffic. DELETE unused ones.
 
 **Data transfer between AZs costs $0.01/GB each way:**
-Chatty microservices across AZs add up fast. Co-locate when possible.
+Chatty 微服务 across AZs add up fast. Co-locate when possible.
 
-## Security Traps
+## 安全 Traps
 
 **S3 bucket policies override ACLs:**
-Console shows ACL as "private" but a bucket policy can still expose everything.
-```bash
-aws s3api get-bucket-policy --bucket my-bucket 2>/dev/null || echo "No policy"
-aws s3api get-public-access-block --bucket my-bucket
+Console shows ACL as "private" but a bucket 策略 can still expose everything.
+```Bash
+aws s3api GET-bucket-策略 --bucket my-bucket 2>/开发/null || echo "No 策略"
+aws s3api GET-public-access-block --bucket my-bucket
 ```
 
-**Default VPC security groups allow all outbound:**
-Attackers exfiltrate through outbound. Restrict it.
+**Default VPC 安全 groups allow all outbound:**
+Attackers exfiltrate through outbound. Restrict 它.
 
 **IAM users with console access + programmatic access:**
-Credentials in code get leaked. Use roles + temporary credentials.
+Credentials in code GET leaked. Use roles + temporary credentials.
 
 **RDS publicly accessible defaults to Yes in console:**
 Always verify:
-```bash
-aws rds describe-db-instances --query 'DBInstances[].{ID:DBInstanceIdentifier,Public:PubliclyAccessible}'
+```Bash
+aws RDS 描述-db-instances --query 'DBInstances[].{ID:DBInstanceIdentifier,Public:PubliclyAccessible}'
 ```
 
 ## Performance Patterns
 
 **Lambda cold starts:**
-- Use provisioned concurrency for latency-sensitive functions
-- Keep packages small (<50MB unzipped)
-- Initialize SDK clients outside handler
+- Use provisioned 并发 for 延迟-sensitive functions
+- Keep 包 small (<50MB unzipped)
+- Initialize SDK clients outside 处理器
 
-**RDS connection limits:**
+**RDS 连接 limits:**
 | Instance | Max Connections |
 |----------|-----------------|
 | db.t3.micro | 66 |
 | db.t3.small | 150 |
 | db.t3.medium | 300 |
 
-Use RDS Proxy for Lambda to avoid connection exhaustion.
+Use RDS 代理 for Lambda to avoid 连接 exhaustion.
 
-**EBS volume types:**
-| Type | Use Case | IOPS |
+**EBS 存储卷 types:**
+| 类型 | Use Case | IOPS |
 |------|----------|------|
-| gp3 | Default (consistent) | 3,000 base |
+| gp3 | Default (consistent) | 3,000 BASE |
 | io2 | Databases (guaranteed) | Up to 64,000 |
-| st1 | Big data (throughput) | 500 MiB/s |
+| st1 | Big data (吞吐量) | 500 MiB/s |
 
-## Service Selection
+## 服务 Selection
 
-| Need | Service | Why |
+| Need | 服务 | Why |
 |------|---------|-----|
-| Static site | S3 + CloudFront | Pennies/month, global CDN |
-| API backend | Lambda + API Gateway | Zero idle cost |
-| Container app | ECS Fargate | No cluster management |
-| Database | RDS PostgreSQL | Managed, Multi-AZ ready |
-| Cache | ElastiCache Redis | Session/cache, < DynamoDB latency |
-| Queue | SQS | Simpler than SNS for most cases |
-| Search | OpenSearch | Elasticsearch managed |
+| 静态 site | S3 + CloudFront | Pennies/month, 全局 CDN |
+| api 后端 | Lambda + api 网关 | Zero idle cost |
+| 容器 app | ECS Fargate | No 集群 management |
+| 数据库 | RDS PostgreSQL | Managed, Multi-AZ ready |
+| 缓存 | ElastiCache Redis | 会话/缓存, < DynamoDB 延迟 |
+| 队列 | SQS | Simpler than SNS for most cases |
+| 搜索 | OpenSearch | Elasticsearch managed |
 
 ## CLI Essentials
 
-```bash
+```Bash
 # Configure credentials
 aws configure --profile myproject
 
 # Always specify profile
-export AWS_PROFILE=myproject
+导出 AWS_PROFILE=myproject
 
 # Check current identity
-aws sts get-caller-identity
+aws sts GET-caller-identity
 
-# List all regions
-aws ec2 describe-regions --query 'Regions[].RegionName'
+# 列表 all regions
+aws ec2 描述-regions --query 'Regions[].RegionName'
 
 # Estimate monthly cost
-aws ce get-cost-forecast --time-period Start=$(date +%Y-%m-01),End=$(date -v+1m +%Y-%m-01) \
+aws ce GET-cost-forecast --time-period Start=$(date +%Y-%m-01),End=$(date -v+1m +%Y-%m-01) \
   --metric UNBLENDED_COST --granularity MONTHLY
 ```
 
-## Security & Privacy
+## 安全 & Privacy
 
-**Credentials:** This skill uses the AWS CLI, which reads credentials from `~/.aws/credentials` or environment variables. The skill never stores, logs, or transmits AWS credentials.
+**Credentials:** This skill uses the AWS CLI, which reads credentials from `~/.aws/credentials` or 环境变量. The skill never stores, 日志, or transmits AWS credentials.
 
-**Local storage:** Preferences and context stored in `~/aws/` — no data leaves your machine.
+**本地 存储:** Preferences and 上下文 stored in `~/aws/` — no data leaves your machine.
 
-**CLI commands:** All commands shown are read-only by default. Destructive operations (delete, terminate) require explicit user confirmation.
+**CLI commands:** All commands shown are read-only by default. Destructive operations (DELETE, terminate) require explicit 用户 confirmation.
 
-## Related Skills
-Install with `clawhub install <slug>` if user confirms:
-- `infrastructure` — architecture decisions
+## 相关 Skills
+Install with `clawhub install <slug>` if 用户 confirms:
+- `基础设施` — architecture decisions
 - `cloud` — multi-cloud patterns
-- `docker` — container basics
-- `backend` — API design
+- `Docker` — 容器 basics
+- `后端` — api design
 
 ## Feedback
 

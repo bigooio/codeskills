@@ -8,23 +8,23 @@ tags:
   - Documentation
 ---
 
-# Code Docs Search by Exa
+# Code Docs 搜索 by Exa
 
-Up-to-date code docs and examples for AI, powered by Exa. Finds real code snippets and docs from GitHub, docs sites, and Stack Overflow.
+Up-to-date code docs and 示例 for AI, powered by Exa. Finds real code snippets and docs from GitHub, docs sites, and 栈 溢出.
 
-## Setup
-Connect MCP server:
-`https://mcp.exa.ai/mcp`
+## 设置
+连接 MCP 服务器:
+`HTTPS://mcp.exa.AI/mcp`
 
-No API key needed.
+No api key needed.
 
 ## Tool
 `get_code_context_exa`
 
-## What it does
-Finds real code snippets and docs from GitHub, docs sites, and Stack Overflow.
-Great for correct syntax, setup guides, and usage examples.
+## What 它 does
+Finds real code snippets and docs from GitHub, docs sites, and 栈 溢出.
+Great for correct 语法, 设置 guides, and 使用示例.
 
 ## Inputs
-- `query` (string, required): What code or doc you want to find.
-- `tokensNum` (string or int, optional): How much context to return.
+- `query` (字符串, 必需): What code or doc you want to find.
+- `tokensNum` (字符串 or int, 可选): How much 上下文 to return.

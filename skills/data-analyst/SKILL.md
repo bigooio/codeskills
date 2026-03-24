@@ -23,26 +23,26 @@ Query databases, analyze spreadsheets, create visualizations, and generate insig
 ## What This Skill Does
 
 ✅ **SQL Queries** — Write and execute queries against databases
-✅ **Spreadsheet Analysis** — Process CSV, Excel, Google Sheets data
+✅ **Spreadsheet Analysis** — 进程 CSV, Excel, Google Sheets data
 ✅ **Data Visualization** — Create charts, graphs, and dashboards
 ✅ **Report Generation** — Automated reports with insights
-✅ **Data Cleaning** — Handle missing data, outliers, formatting
-✅ **Statistical Analysis** — Descriptive stats, trends, correlations
+✅ **Data Cleaning** — 句柄 missing data, outliers, formatting
+✅ **Statistical Analysis** — Descriptive 统计, trends, correlations
 
 ---
 
-## Quick Start
+## 快速开始
 
 1. Configure your data sources in `TOOLS.md`:
 ```markdown
 ### Data Sources
-- Primary DB: [Connection string or description]
-- Spreadsheets: [Google Sheets URL / local path]
-- Data warehouse: [BigQuery/Snowflake/etc.]
+- Primary DB: [连接 字符串 or 说明]
+- Spreadsheets: [Google Sheets URL / 本地 路径]
+- 数据仓库: [BigQuery/Snowflake/etc.]
 ```
 
-2. Set up your workspace:
-```bash
+2. 集合 up your 工作空间:
+```Bash
 ./scripts/data-init.sh
 ```
 
@@ -60,7 +60,7 @@ Query databases, analyze spreadsheets, create visualizations, and generate insig
 SELECT COUNT(*) FROM table_name;
 
 -- Sample data
-SELECT * FROM table_name LIMIT 10;
+SELECT * FROM table_name 限制 10;
 
 -- Column statistics
 SELECT 
@@ -70,7 +70,7 @@ SELECT
     MIN(column_name) as min_val,
     MAX(column_name) as max_val
 FROM table_name
-GROUP BY column_name;
+用户组 BY column_name;
 ```
 
 **Time-Based Analysis**
@@ -81,7 +81,7 @@ SELECT
     COUNT(*) as daily_count,
     SUM(amount) as daily_total
 FROM transactions
-GROUP BY DATE(created_at)
+用户组 BY DATE(created_at)
 ORDER BY date DESC;
 
 -- Month-over-month comparison
@@ -92,31 +92,31 @@ SELECT
     (COUNT(*) - LAG(COUNT(*)) OVER (ORDER BY DATE_TRUNC('month', created_at))) / 
         NULLIF(LAG(COUNT(*)) OVER (ORDER BY DATE_TRUNC('month', created_at)), 0) * 100 as growth_pct
 FROM transactions
-GROUP BY DATE_TRUNC('month', created_at)
+用户组 BY DATE_TRUNC('month', created_at)
 ORDER BY month;
 ```
 
 **Cohort Analysis**
 ```sql
--- User cohort by signup month
+-- 用户 cohort by signup month
 SELECT 
     DATE_TRUNC('month', u.created_at) as cohort_month,
     DATE_TRUNC('month', o.created_at) as activity_month,
     COUNT(DISTINCT u.id) as users
 FROM users u
-LEFT JOIN orders o ON u.id = o.user_id
-GROUP BY cohort_month, activity_month
+LEFT 加入 orders o ON u.id = o.user_id
+用户组 BY cohort_month, activity_month
 ORDER BY cohort_month, activity_month;
 ```
 
 **Funnel Analysis**
 ```sql
 -- Conversion funnel
-WITH funnel AS (
+with funnel as (
     SELECT
-        COUNT(DISTINCT CASE WHEN event = 'page_view' THEN user_id END) as views,
-        COUNT(DISTINCT CASE WHEN event = 'signup' THEN user_id END) as signups,
-        COUNT(DISTINCT CASE WHEN event = 'purchase' THEN user_id END) as purchases
+        COUNT(DISTINCT CASE WHEN 事件 = 'page_view' THEN user_id END) as views,
+        COUNT(DISTINCT CASE WHEN 事件 = 'signup' THEN user_id END) as signups,
+        COUNT(DISTINCT CASE WHEN 事件 = 'purchase' THEN user_id END) as purchases
     FROM events
     WHERE date >= CURRENT_DATE - INTERVAL '30 days'
 )
@@ -137,11 +137,11 @@ FROM funnel;
 
 | Issue | Detection | Solution |
 |-------|-----------|----------|
-| **Missing values** | `IS NULL` or empty string | Impute, drop, or flag |
-| **Duplicates** | `GROUP BY` with `HAVING COUNT(*) > 1` | Deduplicate with rules |
-| **Outliers** | Z-score > 3 or IQR method | Investigate, cap, or exclude |
-| **Inconsistent formats** | Sample and pattern match | Standardize with transforms |
-| **Invalid values** | Range checks, referential integrity | Validate and correct |
+| **Missing Values** | `IS NULL` or empty 字符串 | Impute, drop, or flag |
+| **Duplicates** | `用户组 BY` with `HAVING COUNT(*) > 1` | Deduplicate with rules |
+| **Outliers** | Z-score > 3 or IQR 方法 | Investigate, cap, or exclude |
+| **Inconsistent formats** | Sample and 模式 匹配 | Standardize with transforms |
+| **Invalid Values** | Range checks, referential integrity | 验证 and correct |
 
 ### Data Cleaning SQL Patterns
 
@@ -149,7 +149,7 @@ FROM funnel;
 -- Find duplicates
 SELECT email, COUNT(*)
 FROM users
-GROUP BY email
+用户组 BY email
 HAVING COUNT(*) > 1;
 
 -- Find nulls
@@ -160,17 +160,17 @@ SELECT
 FROM users;
 
 -- Standardize text
-UPDATE products
-SET category = LOWER(TRIM(category));
+更新 products
+集合 category = LOWER(TRIM(category));
 
--- Remove outliers (IQR method)
-WITH stats AS (
+-- 删除 outliers (IQR 方法)
+with 统计 as (
     SELECT 
-        PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY value) as q1,
-        PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY value) as q3
+        PERCENTILE_CONT(0.25) WITHIN 用户组 (ORDER BY value) as q1,
+        PERCENTILE_CONT(0.75) WITHIN 用户组 (ORDER BY value) as q3
     FROM data
 )
-SELECT * FROM data, stats
+SELECT * FROM data, 统计
 WHERE value BETWEEN q1 - 1.5*(q3-q1) AND q3 + 1.5*(q3-q1);
 ```
 
@@ -185,18 +185,18 @@ WHERE value BETWEEN q1 - 1.5*(q3-q1) AND q3 + 1.5*(q3-q1);
 - [ ] Rows with any null: [X]
 
 ## Column-Level Checks
-| Column | Type | Nulls | Unique | Min | Max | Issues |
+| Column | 类型 | Nulls | Unique | Min | Max | Issues |
 |--------|------|-------|--------|-----|-----|--------|
-| [col] | [type] | [n] | [n] | [v] | [v] | [notes] |
+| [col] | [类型] | [n] | [n] | [v] | [v] | [备注] |
 
 ## Data Lineage
 - Source: [Where data came from]
 - Last updated: [Date]
-- Known issues: [List]
+- Known issues: [列表]
 
 ## Cleaning Actions Taken
-1. [Action and reason]
-2. [Action and reason]
+1. [操作 and reason]
+2. [操作 and reason]
 ```
 
 ---
@@ -205,16 +205,16 @@ WHERE value BETWEEN q1 - 1.5*(q3-q1) AND q3 + 1.5*(q3-q1);
 
 ### CSV/Excel Processing with Python
 
-```python
-import pandas as pd
+```Python
+导入 pandas as pd
 
-# Load data
+# 加载 data
 df = pd.read_csv('data.csv')  # or pd.read_excel('data.xlsx')
 
 # Basic exploration
 print(df.shape)  # (rows, columns)
 print(df.info())  # Column types and nulls
-print(df.describe())  # Numeric statistics
+print(df.描述())  # Numeric statistics
 
 # Data cleaning
 df = df.drop_duplicates()
@@ -222,34 +222,34 @@ df['date'] = pd.to_datetime(df['date'])
 df['amount'] = df['amount'].fillna(0)
 
 # Analysis
-summary = df.groupby('category').agg({
+概要 = df.groupby('category').agg({
     'amount': ['sum', 'mean', 'count'],
     'quantity': 'sum'
 }).round(2)
 
-# Export
-summary.to_csv('analysis_output.csv')
+# 导出
+概要.to_csv('analysis_output.csv')
 ```
 
 ### Common Pandas Operations
 
-```python
+```Python
 # Filtering
-filtered = df[df['status'] == 'active']
+filtered = df[df['状态'] == 'active']
 filtered = df[df['amount'] > 1000]
 filtered = df[df['date'].between('2024-01-01', '2024-12-31')]
 
 # Aggregation
 by_category = df.groupby('category')['amount'].sum()
-pivot = df.pivot_table(values='amount', index='month', columns='category', aggfunc='sum')
+pivot = df.pivot_table(Values='amount', index='month', columns='category', aggfunc='sum')
 
-# Window functions
+# 窗口 functions
 df['running_total'] = df['amount'].cumsum()
 df['pct_change'] = df['amount'].pct_change()
-df['rolling_avg'] = df['amount'].rolling(window=7).mean()
+df['rolling_avg'] = df['amount'].rolling(窗口=7).mean()
 
-# Merging
-merged = pd.merge(df1, df2, on='id', how='left')
+# 合并中
+merged = pd.合并(df1, df2, on='id', how='left')
 ```
 
 ---
@@ -258,27 +258,27 @@ merged = pd.merge(df1, df2, on='id', how='left')
 
 ### Chart Selection Guide
 
-| Data Type | Best Chart | Use When |
+| Data 类型 | Best Chart | Use When |
 |-----------|------------|----------|
-| Trend over time | Line chart | Showing patterns/changes over time |
-| Category comparison | Bar chart | Comparing discrete categories |
+| Trend over time | Line Chart | Showing patterns/changes over time |
+| Category comparison | Bar Chart | Comparing discrete categories |
 | Part of whole | Pie/Donut | Showing proportions (≤5 categories) |
 | Distribution | Histogram | Understanding data spread |
 | Correlation | Scatter plot | Relationship between two variables |
 | Many categories | Horizontal bar | Ranking or comparing many items |
-| Geographic | Map | Location-based data |
+| Geographic | 映射 | Location-based data |
 
 ### Python Visualization with Matplotlib/Seaborn
 
-```python
-import matplotlib.pyplot as plt
-import seaborn as sns
+```Python
+导入 matplotlib.pyplot as plt
+导入 seaborn as SNS
 
-# Set style
+# 集合 style
 plt.style.use('seaborn-v0_8-whitegrid')
-sns.set_palette("husl")
+SNS.set_palette("husl")
 
-# Line chart (trends)
+# Line Chart (trends)
 plt.figure(figsize=(10, 6))
 plt.plot(df['date'], df['value'], marker='o')
 plt.title('Trend Over Time')
@@ -288,9 +288,9 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.savefig('trend.png', dpi=150)
 
-# Bar chart (comparisons)
+# Bar Chart (comparisons)
 plt.figure(figsize=(10, 6))
-sns.barplot(data=df, x='category', y='amount')
+SNS.barplot(data=df, x='category', y='amount')
 plt.title('Amount by Category')
 plt.xticks(rotation=45)
 plt.tight_layout()
@@ -298,15 +298,15 @@ plt.savefig('comparison.png', dpi=150)
 
 # Heatmap (correlations)
 plt.figure(figsize=(10, 8))
-sns.heatmap(df.corr(), annot=True, cmap='coolwarm', center=0)
+SNS.heatmap(df.corr(), annot=True, cmap='coolwarm', center=0)
 plt.title('Correlation Matrix')
 plt.tight_layout()
 plt.savefig('correlation.png', dpi=150)
 ```
 
-### ASCII Charts (Quick Terminal Visualization)
+### ASCII Charts (Quick 终端 Visualization)
 
-When you can't generate images, use ASCII:
+When you can't generate 镜像, use ASCII:
 
 ```
 Revenue by Month (in $K)
@@ -323,7 +323,7 @@ Jun: █████████████████████████
 
 ## Report Generation
 
-### Standard Report Template
+### Standard Report 模板
 
 ```markdown
 # [Report Name]
@@ -331,7 +331,7 @@ Jun: █████████████████████████
 **Generated:** [Date]
 **Author:** [Agent/Human]
 
-## Executive Summary
+## Executive 概要
 [2-3 sentences with key findings]
 
 ## Key Metrics
@@ -363,26 +363,26 @@ Jun: █████████████████████████
 - Data source: [Source]
 - Date range: [Range]
 - Filters applied: [Filters]
-- Known limitations: [Limitations]
+- Known 限制: [限制]
 
 ## Appendix
 [Supporting data tables]
 ```
 
-### Automated Report Script
+### Automated Report 脚本
 
-```bash
-#!/bin/bash
+```Bash
+#!/bin/Bash
 # generate-report.sh
 
-# Pull latest data
-python scripts/extract_data.py --output data/latest.csv
+# 拉取 latest data
+Python scripts/extract_data.py --输出 data/latest.csv
 
-# Run analysis
-python scripts/analyze.py --input data/latest.csv --output reports/
+# 运行 analysis
+Python scripts/analyze.py --input data/latest.csv --输出 reports/
 
 # Generate report
-python scripts/format_report.py --template weekly --output reports/weekly-$(date +%Y-%m-%d).md
+Python scripts/format_report.py --模板 weekly --输出 reports/weekly-$(date +%Y-%m-%d).md
 
 echo "Report generated: reports/weekly-$(date +%Y-%m-%d).md"
 ```
@@ -393,23 +393,23 @@ echo "Report generated: reports/weekly-$(date +%Y-%m-%d).md"
 
 ### Descriptive Statistics
 
-| Statistic | What It Tells You | Use Case |
+| Statistic | What 它 Tells You | Use Case |
 |-----------|-------------------|----------|
 | **Mean** | Average value | Central tendency |
 | **Median** | Middle value | Robust to outliers |
 | **Mode** | Most common | Categorical data |
-| **Std Dev** | Spread around mean | Variability |
+| **Std 开发** | Spread around mean | Variability |
 | **Min/Max** | Range | Data boundaries |
 | **Percentiles** | Distribution shape | Benchmarking |
 
-### Quick Stats with Python
+### Quick 统计 with Python
 
-```python
+```Python
 # Full descriptive statistics
-stats = df['amount'].describe()
-print(stats)
+统计 = df['amount'].描述()
+print(统计)
 
-# Additional stats
+# Additional 统计
 print(f"Median: {df['amount'].median()}")
 print(f"Mode: {df['amount'].mode()[0]}")
 print(f"Skewness: {df['amount'].skew()}")
@@ -420,20 +420,20 @@ correlation = df['sales'].corr(df['marketing_spend'])
 print(f"Correlation: {correlation:.3f}")
 ```
 
-### Statistical Tests Quick Reference
+### Statistical Tests 快速参考
 
-| Test | Use Case | Python |
+| 测试 | Use Case | Python |
 |------|----------|--------|
-| T-test | Compare two means | `scipy.stats.ttest_ind(a, b)` |
-| Chi-square | Categorical independence | `scipy.stats.chi2_contingency(table)` |
-| ANOVA | Compare 3+ means | `scipy.stats.f_oneway(a, b, c)` |
-| Pearson | Linear correlation | `scipy.stats.pearsonr(x, y)` |
+| T-测试 | Compare two means | `scipy.统计.ttest_ind(a, b)` |
+| Chi-square | Categorical independence | `scipy.统计.chi2_contingency(table)` |
+| ANOVA | Compare 3+ means | `scipy.统计.f_oneway(a, b, c)` |
+| Pearson | Linear correlation | `scipy.统计.pearsonr(x, y)` |
 
 ---
 
-## Analysis Workflow
+## Analysis 工作流
 
-### Standard Analysis Process
+### Standard Analysis 进程
 
 1. **Define the Question**
    - What are we trying to answer?
@@ -443,10 +443,10 @@ print(f"Correlation: {correlation:.3f}")
    - What data is available?
    - What's the structure and quality?
 
-3. **Clean and Prepare**
-   - Handle missing values
+3. **清理 and Prepare**
+   - 句柄 missing Values
    - Fix data types
-   - Remove duplicates
+   - 删除 duplicates
 
 4. **Explore**
    - Descriptive statistics
@@ -456,37 +456,37 @@ print(f"Correlation: {correlation:.3f}")
 5. **Analyze**
    - Deep dive into findings
    - Statistical tests if needed
-   - Validate hypotheses
+   - 验证 hypotheses
 
 6. **Communicate**
    - Clear visualizations
    - Actionable insights
    - Recommendations
 
-### Analysis Request Template
+### Analysis 请求 模板
 
 ```markdown
-# Analysis Request
+# Analysis 请求
 
 ## Question
 [What are we trying to answer?]
 
-## Context
-[Why does this matter? What decision will it inform?]
+## 上下文
+[Why does this matter? What decision will 它 inform?]
 
 ## Data Available
-- [Dataset 1]: [Description]
-- [Dataset 2]: [Description]
+- [Dataset 1]: [说明]
+- [Dataset 2]: [说明]
 
-## Expected Output
+## Expected 输出
 - [Deliverable 1]
 - [Deliverable 2]
 
 ## Timeline
 [When is this needed?]
 
-## Notes
-[Any constraints or considerations]
+## 备注
+[any constraints or considerations]
 ```
 
 ---
@@ -494,47 +494,47 @@ print(f"Correlation: {correlation:.3f}")
 ## Scripts
 
 ### data-init.sh
-Initialize your data analysis workspace.
+Initialize your data analysis 工作空间.
 
 ### query.sh
 Quick SQL query execution.
 
-```bash
-# Run query from file
-./scripts/query.sh --file queries/daily-report.sql
+```Bash
+# 运行 query from 文件
+./scripts/query.sh --文件 queries/daily-report.sql
 
-# Run inline query
+# 运行 inline query
 ./scripts/query.sh "SELECT COUNT(*) FROM users"
 
-# Save output to file
-./scripts/query.sh --file queries/export.sql --output data/export.csv
+# 保存 输出 to 文件
+./scripts/query.sh --文件 queries/导出.sql --输出 data/导出.csv
 ```
 
 ### analyze.py
 Python analysis toolkit.
 
-```bash
+```Bash
 # Basic analysis
-python scripts/analyze.py --input data/sales.csv
+Python scripts/analyze.py --input data/sales.csv
 
-# With specific analysis type
-python scripts/analyze.py --input data/sales.csv --type cohort
+# with specific analysis 类型
+Python scripts/analyze.py --input data/sales.csv --类型 cohort
 
 # Generate report
-python scripts/analyze.py --input data/sales.csv --report weekly
+Python scripts/analyze.py --input data/sales.csv --report weekly
 ```
 
 ---
 
 ## Integration Tips
 
-### With Other Skills
+### with Other Skills
 
 | Skill | Integration |
 |-------|-------------|
 | **Marketing** | Analyze campaign performance, content metrics |
-| **Sales** | Pipeline analytics, conversion analysis |
-| **Business Dev** | Market research data, competitor analysis |
+| **Sales** | 管道 分析, conversion analysis |
+| **Business 开发** | Market research data, competitor analysis |
 
 ### Common Data Sources
 
@@ -546,16 +546,16 @@ python scripts/analyze.py --input data/sales.csv --report weekly
 
 ---
 
-## Best Practices
+## 最佳实践
 
 1. **Start with the question** — Know what you're trying to answer
-2. **Validate your data** — Garbage in = garbage out
+2. **验证 your data** — Garbage in = garbage out
 3. **Document everything** — Queries, assumptions, decisions
-4. **Visualize appropriately** — Right chart for right data
+4. **Visualize appropriately** — Right Chart for right data
 5. **Show your work** — Methodology matters
 6. **Lead with insights** — Not just data dumps
-7. **Make it actionable** — "So what?" → "Now what?"
-8. **Version your queries** — Track changes over time
+7. **Make 它 actionable** — "So what?" → "Now what?"
+8. **版本 your queries** — Track changes over time
 
 ---
 
@@ -566,13 +566,13 @@ python scripts/analyze.py --input data/sales.csv --report weekly
 ❌ **Cherry-picking** — Using only favorable data
 ❌ **Ignoring outliers** — Investigate before removing
 ❌ **Over-complicating** — Simple analysis often wins
-❌ **No context** — Numbers without comparison are meaningless
+❌ **No 上下文** — Numbers without comparison are meaningless
 
 ---
 
-## License
+## 许可
 
-**License:** MIT — use freely, modify, distribute.
+**许可:** MIT — use freely, modify, distribute.
 
 ---
 

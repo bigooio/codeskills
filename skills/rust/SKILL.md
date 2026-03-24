@@ -22,78 +22,78 @@ tags:
   - frontend
 ---
 
-## Quick Reference
+## 快速参考
 
-| Topic | File | Key Trap |
+| Topic | 文件 | Key Trap |
 |-------|------|----------|
-| Ownership & Borrowing | `ownership-borrowing.md` | Move semantics catch everyone |
-| Strings & Types | `types-strings.md` | `String` vs `&str`, UTF-8 indexing |
-| Errors & Iteration | `errors-iteration.md` | `unwrap()` in production, lazy iterators |
-| Concurrency & Memory | `concurrency-memory.md` | `Rc` not `Send`, `RefCell` panics |
+| Ownership & Borrowing | `ownership-borrowing.md` | 移动 semantics 捕获 everyone |
+| Strings & Types | `types-strings.md` | `字符串` vs `&str`, UTF-8 indexing |
+| Errors & Iteration | `errors-iteration.md` | `unwrap()` in 生产环境, 懒惰 iterators |
+| 并发 & 内存 | `并发-内存.md` | `Rc` not `发送`, `RefCell` panics |
 | Advanced Traps | `advanced-traps.md` | unsafe, macros, FFI, performance |
 
 ---
 
 ## Critical Traps (High-Frequency Failures)
 
-### Ownership — #1 Source of Compiler Errors
-- **Variable moved after use** — clone explicitly or borrow with `&`
+### Ownership — #1 Source of 编译器 Errors
+- **变量 moved after use** — 克隆 explicitly or borrow with `&`
 - **`for item in vec` moves vec** — use `&vec` or `.iter()` to borrow
-- **`String` moved into function** — pass `&str` for read-only access
+- **`字符串` moved into 函数** — pass `&str` for read-only access
 
 ### Borrowing — The Borrow Checker Always Wins
 - **Can't have `&mut` and `&` simultaneously** — restructure or interior mutability
-- **Returning reference to local fails** — return owned value instead
+- **Returning 引用 to 本地 fails** — return owned value instead
 - **Mutable borrow through `&mut self` blocks all access** — split struct or `RefCell`
 
-### Lifetimes — When Compiler Can't Infer
-- **`'static` means CAN live forever, not DOES** — `String` is 'static capable
-- **Struct with reference needs `<'a>`** — `struct Foo<'a> { bar: &'a str }`
-- **Function returning ref must tie to input** — `fn get<'a>(s: &'a str) -> &'a str`
+### Lifetimes — When 编译器 Can't 推断
+- **`'静态` means CAN live forever, not DOES** — `字符串` is '静态 capable
+- **Struct with 引用 needs `<'a>`** — `struct Foo<'a> { bar: &'a str }`
+- **函数 returning ref must tie to input** — `fn GET<'a>(s: &'a str) -> &'a str`
 
 ### Strings — UTF-8 Surprises
-- **`s[0]` doesn't compile** — use `.chars().nth(0)` or `.bytes()`
+- **`s[0]` doesn't 编译** — use `.chars().nth(0)` or `.bytes()`
 - **`.len()` returns bytes, not chars** — use `.chars().count()`
 - **`s1 + &s2` moves s1** — use `format!("{}{}", s1, s2)` to keep both
 
-### Error Handling — Production Code
-- **`unwrap()` panics** — use `?` or `match` in production
-- **`?` needs `Result`/`Option` return type** — main needs `-> Result<()>`
-- **`expect("context")` > `unwrap()`** — shows why it panicked
+### 错误 Handling — 生产环境 Code
+- **`unwrap()` panics** — use `?` or `匹配` in 生产环境
+- **`?` needs `Result`/`Option` return 类型** — 主分支 needs `-> Result<()>`
+- **`期望("上下文")` > `unwrap()`** — shows why 它 panicked
 
-### Iterators — Lazy Evaluation
+### Iterators — 懒惰 Evaluation
 - **`.iter()` borrows, `.into_iter()` moves** — choose carefully
-- **`.collect()` needs type** — `collect::<Vec<_>>()` or typed binding
-- **Iterators are lazy** — nothing runs until consumed
+- **`.collect()` needs 类型** — `collect::<Vec<_>>()` or typed binding
+- **Iterators are 懒惰** — nothing runs until consumed
 
-### Concurrency — Thread Safety
-- **`Rc` is NOT `Send`** — use `Arc` for threads
-- **`Mutex` lock returns guard** — auto-unlocks on drop, don't hold across await
-- **`RwLock` deadlock** — reader upgrading to writer blocks forever
+### 并发 — 线程 Safety
+- **`Rc` is NOT `发送`** — use `Arc` for threads
+- **`互斥锁` 锁 returns guard** — auto-unlocks on drop, don't hold across 等待
+- **`RwLock` 死锁** — reader upgrading to writer blocks forever
 
-### Memory — Smart Pointers
-- **`RefCell` panics at runtime** — if borrow rules violated
-- **`Box` for recursive types** — compiler needs known size
+### 内存 — Smart Pointers
+- **`RefCell` panics at 运行时** — if borrow rules violated
+- **`Box` for recursive types** — 编译器 needs known size
 - **Avoid `Rc<RefCell<T>>` spaghetti** — rethink ownership
 
 ---
 
-## Common Compiler Errors (NEW)
+## Common 编译器 Errors (NEW)
 
-| Error | Cause | Fix |
+| 错误 | Cause | Fix |
 |-------|-------|-----|
-| `value moved here` | Used after move | Clone or borrow |
+| `value moved here` | Used after 移动 | 克隆 or borrow |
 | `cannot borrow as mutable` | Already borrowed | Restructure or RefCell |
-| `missing lifetime specifier` | Ambiguous reference | Add `<'a>` |
+| `missing lifetime specifier` | Ambiguous 引用 | Add `<'a>` |
 | `the trait bound X is not satisfied` | Missing impl | Check trait bounds |
-| `type annotations needed` | Can't infer | Turbofish or explicit type |
-| `cannot move out of borrowed content` | Deref moves | Clone or pattern match |
+| `类型 annotations needed` | Can't 推断 | Turbofish or explicit 类型 |
+| `cannot 移动 out of borrowed content` | Deref moves | 克隆 or 模式 匹配 |
 
 ---
 
 ## Cargo Traps (NEW)
 
-- **`cargo update` updates Cargo.lock, not Cargo.toml** — manual version bump needed
-- **Features are additive** — can't disable a feature a dependency enables
-- **`[dev-dependencies]` not in release binary** — but in tests/examples
-- **`cargo build --release` much faster** — debug builds are slow intentionally
+- **`cargo 更新` updates Cargo.锁, not Cargo.TOML** — manual 版本 bump needed
+- **特性 are additive** — can't disable a feature a 依赖 enables
+- **`[开发-依赖]` not in 发布 binary** — but in tests/示例
+- **`cargo 构建 --发布` much faster** — debug builds are slow intentionally

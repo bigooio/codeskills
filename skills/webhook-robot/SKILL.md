@@ -18,22 +18,22 @@ tags:
 
 # Webhook Robot Skill
 
-A universal skill to send messages to webhook-based chat bots. Currently supports **WeCom (企业微信)**.
+A universal skill to 发送 messages to Webhook-based chat bots. Currently supports **WeCom (企业微信)**.
 
-## Usage
+## 使用方法
 
 ### WeCom (企业微信)
 
-Send a text message to a WeCom group bot.
+发送 a text message to a WeCom 用户组 bot.
 
-```bash
-# Basic usage (requires configuring webhook url or passing it)
+```Bash
+# 基本用法 (requires configuring Webhook URL or passing 它)
 scripts/send_wecom.py --key <YOUR_KEY> --content "Hello from OpenClaw!"
 
-# Or full webhook url
-scripts/send_wecom.py --url "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=..." --content "Hello!"
+# Or full Webhook URL
+scripts/send_wecom.py --URL "HTTPS://qyapi.weixin.qq.com/cgi-bin/Webhook/发送?key=..." --content "Hello!"
 ```
 
-## Configuration
+## 配置
 
-You can store your default webhook keys/URLs in `config.json` (to be implemented) or pass them as arguments.
+You can store your default Webhook keys/URLs in `配置.JSON` (to be implemented) or pass them as 参数.

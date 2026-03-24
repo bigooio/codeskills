@@ -16,8 +16,8 @@ tags:
 
 - **Person** - 人员
 - **Project** - 项目
-- **Task** - 任务
-- **Event** - 事件
+- **任务** - 任务
+- **事件** - 事件
 - **Document** - 文档
 - **Organization** - 组织
 - **Location** - 地点
@@ -25,28 +25,28 @@ tags:
 
 ## 基础操作
 
-```bash
+```Bash
 # 创建实体
-ontology create person --name "张三" --role "开发者"
+ontology create person --name "张三" --角色 "开发者"
 
 # 查询实体
 ontology find person --name "张三"
 
 # 更新实体
-ontology update person "person_id" --name "新名字"
+ontology 更新 person "person_id" --name "新名字"
 
 # 删除实体
-ontology delete person "person_id"
+ontology DELETE person "person_id"
 ```
 
 ## 关系管理
 
-```bash
+```Bash
 # 创建关系
-ontology relate --from "person_id" --to "project_id" --type "works_on"
+ontology relate --from "person_id" --to "project_id" --类型 "works_on"
 
 # 查询关系
-ontology relations --entity "person_id"
+ontology relations --实体 "person_id"
 
 # 删除关系
 ontology unrelate --from "person_id" --to "project_id"
@@ -54,29 +54,29 @@ ontology unrelate --from "person_id" --to "project_id"
 
 ## 查询示例
 
-```bash
+```Bash
 # 查找某人的所有项目
-ontology find --type person --name "张三" | ontology related --type project
+ontology find --类型 person --name "张三" | ontology 相关 --类型 project
 
 # 查找项目所有参与者
-ontology find --type project --name "项目X" | ontology related --type person
+ontology find --类型 project --name "项目X" | ontology 相关 --类型 person
 
 # 查找时间范围内的任务
-ontology find --type task --after "2024-01-01" --before "2024-12-31"
+ontology find --类型 任务 --after "2024-01-01" --before "2024-12-31"
 ```
 
 ## 在 Agent 中的使用
 
-```javascript
+```JavaScript
 // 记住用户偏好
-await ontology.create('person', {
+等待 ontology.create('person', {
   name: '用户',
   preferences: ['喜欢简洁的设计', '使用中文']
 })
 
 // 查询历史交互
-const history = await ontology.find('event', {
-  type: 'interaction',
+const 历史 = 等待 ontology.find('事件', {
+  类型: 'interaction',
   related_to: 'current_user'
 })
 ```

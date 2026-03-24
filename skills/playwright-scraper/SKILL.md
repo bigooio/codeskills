@@ -7,17 +7,17 @@ tags:
 ---
 # Playwright Stealth Scraper
 
-A high-performance MCP skill for OpenClaw that bypasses anti-bot measures using Playwright Extra and Stealth plugin.
+A high-performance MCP skill for OpenClaw that bypasses anti-bot measures using Playwright Extra and Stealth 插件.
 
-## Features
-- **Stealth Mode**: Uses `puppeteer-extra-plugin-stealth` to mimic real browser behavior.
-- **Dynamic Content**: Full JavaScript execution support for SPA and React-based sites.
-- **Flexible Options**: Custom viewport and User-Agent spoofing.
+## 特性
+- **Stealth Mode**: Uses `Puppeteer-extra-插件-stealth` to mimic real browser behavior.
+- **动态 Content**: Full JavaScript execution support for SPA and React-based sites.
+- **Flexible OPTIONS**: Custom viewport and 用户-Agent spoofing.
 
 ## Tools
 ### stealth_scrape
 Scrapes any URL with advanced bot detection bypass.
-- `url`: The target website address.
+- `URL`: The target website address.
 
-## Installation
+## 安装
 Requires Playwright and Chromium to be installed in the skill directory.

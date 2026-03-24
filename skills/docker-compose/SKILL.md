@@ -21,77 +21,77 @@ tags:
   - database
 ---
 
-## depends_on Ready Condition
+## depends_on Ready 条件
 
-- `depends_on:` alone only waits for container start—service likely not ready yet
-- Add healthcheck + condition for actual readiness:
-```yaml
+- `depends_on:` alone only waits for 容器 start—服务 likely not ready yet
+- Add healthcheck + 条件 for actual readiness:
+```YAML
 depends_on:
   db:
-    condition: service_healthy
+    条件: service_healthy
 ```
-- Without healthcheck defined on target service, `service_healthy` fails
+- Without healthcheck defined on target 服务, `service_healthy` fails
 
 ## Healthcheck start_period
 
-```yaml
+```YAML
 healthcheck:
-  test: ["CMD", "pg_isready"]
+  测试: ["CMD", "pg_isready"]
   start_period: 30s
 ```
 - `start_period`: initial grace period—health failures don't count during this time
 - Slow-starting services (databases, Java apps) need adequate start_period
-- Without it, container marked unhealthy before it finishes initializing
+- Without 它, 容器 marked unhealthy before 它 finishes initializing
 
-## Volume Destruction
+## 存储卷 Destruction
 
-- `docker compose down` preserves volumes
-- `docker compose down -v` DELETES ALL VOLUMES—data loss
-- `-v` often added by habit from tutorials—catastrophic in production
-- Named volumes survive `down`; anonymous volumes deleted on `down`
+- `Docker 组合 down` preserves 存储卷
+- `Docker 组合 down -v` DELETES ALL 存储卷—data loss
+- `-v` often added by habit from tutorials—catastrophic in 生产环境
+- Named 存储卷 survive `down`; anonymous 存储卷 deleted on `down`
 
-## Resource Limits in Development
+## Resource Limits in 开发环境
 
-```yaml
-deploy:
+```YAML
+部署:
   resources:
     limits:
-      memory: 512M
+      内存: 512M
 ```
-- Set limits during development—catches memory issues early
-- Unlimited container can consume all host memory—kills other processes
-- Copy limits to production config—don't discover limits in prod
+- 集合 limits during 开发环境—catches 内存 issues early
+- Unlimited 容器 can consume all host 内存—kills other processes
+- 复制 limits to 生产环境 配置—don't discover limits in prod
 
 ## .dockerignore
 
-- Without it: `node_modules`, `.git`, secrets copied into image
-- Mirrors `.gitignore` syntax—create at same level as Dockerfile
-- Large build context = slow builds, large images, potential security issues
-- At minimum: `.git`, `node_modules`, `.env`, `*.log`, build artifacts
+- Without 它: `node_modules`, `.git`, secrets copied into 镜像
+- Mirrors `.gitignore` 语法—create at same level as Dockerfile
+- Large 构建 上下文 = slow builds, large 镜像, potential 安全 issues
+- At minimum: `.git`, `node_modules`, `.env`, `*.日志`, 构建 artifacts
 
-## Override File Pattern
+## Override 文件 模式
 
-- `docker-compose.yml`: base config that works everywhere
-- `docker-compose.override.yml`: auto-loaded, development-specific (mounts, ports)
-- Production: `docker compose -f docker-compose.yml -f docker-compose.prod.yml up`
-- Keep secrets and environment-specific config in override files, not base
+- `Docker-组合.yml`: BASE 配置 that works everywhere
+- `Docker-组合.override.yml`: auto-loaded, 开发环境-specific (mounts, ports)
+- 生产环境: `Docker 组合 -f Docker-组合.yml -f Docker-组合.prod.yml up`
+- Keep secrets and 环境-specific 配置 in override files, not BASE
 
-## Profiles for Optional Services
+## Profiles for 可选 Services
 
-```yaml
+```YAML
 services:
   mailhog:
-    profiles: [dev]
+    profiles: [开发]
 ```
-- Services with profiles don't start by default—cleaner `docker compose up`
-- Enable with `--profile dev`
-- Use for: test databases, debug tools, mock services, admin interfaces
+- Services with profiles don't start by default—cleaner `Docker 组合 up`
+- Enable with `--profile 开发`
+- Use for: 测试 databases, debug tools, 模拟 services, 管理员 interfaces
 
-## Environment Variable Precedence
+## 环境 变量 Precedence
 
-1. Shell environment (highest)
-2. `.env` file in compose directory
+1. Shell 环境 (highest)
+2. `.env` 文件 in 组合 directory
 3. `env_file:` directive
-4. `environment:` in compose file (lowest for that var)
-- `.env` must be exactly `.env`—`.env.local` not auto-loaded
-- Debug with `docker compose config`—shows resolved values
+4. `环境:` in 组合 文件 (lowest for that var)
+- `.env` must be exactly `.env`—`.env.本地` not auto-loaded
+- Debug with `Docker 组合 配置`—shows resolved Values

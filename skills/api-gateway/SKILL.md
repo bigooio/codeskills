@@ -11,13 +11,13 @@ tags:
   - backend
 ---
 
-# API Gateway - API 集成
+# api 网关 - api 集成
 
-通过统一接口连接各种第三方 API。
+通过统一接口连接各种第三方 api。
 
 ## 支持的服务
 
-### Google Workspace
+### Google 工作空间
 - Gmail
 - Calendar
 - Drive
@@ -50,63 +50,63 @@ tags:
 
 ## 基础用法
 
-```bash
+```Bash
 # 查看可用连接
-api-gateway list
+api-网关 列表
 
 # 连接服务
-api-gateway connect github
+api-网关 连接 github
 
 # 查看连接状态
-api-gateway status
+api-网关 状态
 
 # 断开连接
-api-gateway disconnect github
+api-网关 disconnect github
 ```
 
-## API 调用
+## api 调用
 
-```bash
-# 调用 GitHub API
-api-gateway call github --method GET --path "/user/repos"
+```Bash
+# 调用 GitHub api
+api-网关 call github --方法 GET --路径 "/用户/repos"
 
 # 调用 Notion
-api-gateway call notion --method POST --path "/pages" --body '{"parent": {...}}'
+api-网关 call notion --方法 POST --路径 "/pages" --请求体 '{"parent": {...}}'
 
 # 调用 Slack
-api-gateway call slack --method POST --path "/chat.postMessage" --body '{"channel": "#general", "text": "Hello"}'
+api-网关 call slack --方法 POST --路径 "/chat.postMessage" --请求体 '{"通道": "#general", "text": "Hello"}'
 ```
 
 ## OAuth 流程
 
-```bash
+```Bash
 # 启动 OAuth 授权
-api-gateway auth github --scopes "repo,read:user"
+api-网关 auth github --scopes "repo,read:用户"
 
 # 查看当前令牌
-api-gateway token github
+api-网关 令牌 github
 
 # 刷新令牌
-api-gateway token refresh github
+api-网关 令牌 refresh github
 ```
 
 ## 错误处理
 
-```bash
+```Bash
 # 查看错误日志
-api-gateway logs --service github --level error
+api-网关 日志 --服务 github --level 错误
 
 # 重试失败请求
-api-gateway retry --id request_id
+api-网关 重试 --id request_id
 
 # 清理过期令牌
-api-gateway cleanup
+api-网关 cleanup
 ```
 
 ## 最佳实践
 
 1. 最小权限 - 只申请需要的 scopes
 2. 定期刷新令牌
-3. 记录 API 调用日志
+3. 记录 api 调用日志
 4. 设置速率限制
 5. 敏感操作添加确认

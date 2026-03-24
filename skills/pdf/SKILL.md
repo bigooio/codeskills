@@ -13,20 +13,20 @@ tags:
 
 # PDF Processing Guide
 
-## Overview
+## 概述
 
-This guide covers essential PDF processing operations using Python libraries and command-line tools. For advanced features, JavaScript libraries, and detailed examples, see reference.md. If you need to fill out a PDF form, read forms.md and follow its instructions.
+This guide covers essential PDF processing operations using Python libraries and 命令-line tools. For advanced 特性, JavaScript libraries, and detailed 示例, see 引用.md. If you need to fill out a PDF form, read forms.md and follow its instructions.
 
-## Quick Start
+## 快速开始
 
-```python
-from pypdf import PdfReader, PdfWriter
+```Python
+from pypdf 导入 PdfReader, PdfWriter
 
 # Read a PDF
 reader = PdfReader("document.pdf")
 print(f"Pages: {len(reader.pages)}")
 
-# Extract text
+# 提取 text
 text = ""
 for page in reader.pages:
     text += page.extract_text()
@@ -36,9 +36,9 @@ for page in reader.pages:
 
 ### pypdf - Basic Operations
 
-#### Merge PDFs
-```python
-from pypdf import PdfWriter, PdfReader
+#### 合并 PDFs
+```Python
+from pypdf 导入 PdfWriter, PdfReader
 
 writer = PdfWriter()
 for pdf_file in ["doc1.pdf", "doc2.pdf", "doc3.pdf"]:
@@ -46,22 +46,22 @@ for pdf_file in ["doc1.pdf", "doc2.pdf", "doc3.pdf"]:
     for page in reader.pages:
         writer.add_page(page)
 
-with open("merged.pdf", "wb") as output:
-    writer.write(output)
+with open("merged.pdf", "wb") as 输出:
+    writer.write(输出)
 ```
 
 #### Split PDF
-```python
+```Python
 reader = PdfReader("input.pdf")
 for i, page in enumerate(reader.pages):
     writer = PdfWriter()
     writer.add_page(page)
-    with open(f"page_{i+1}.pdf", "wb") as output:
-        writer.write(output)
+    with open(f"page_{i+1}.pdf", "wb") as 输出:
+        writer.write(输出)
 ```
 
-#### Extract Metadata
-```python
+#### 提取 Metadata
+```Python
 reader = PdfReader("document.pdf")
 meta = reader.metadata
 print(f"Title: {meta.title}")
@@ -71,7 +71,7 @@ print(f"Creator: {meta.creator}")
 ```
 
 #### Rotate Pages
-```python
+```Python
 reader = PdfReader("input.pdf")
 writer = PdfWriter()
 
@@ -79,15 +79,15 @@ page = reader.pages[0]
 page.rotate(90)  # Rotate 90 degrees clockwise
 writer.add_page(page)
 
-with open("rotated.pdf", "wb") as output:
-    writer.write(output)
+with open("rotated.pdf", "wb") as 输出:
+    writer.write(输出)
 ```
 
 ### pdfplumber - Text and Table Extraction
 
-#### Extract Text with Layout
-```python
-import pdfplumber
+#### 提取 Text with Layout
+```Python
+导入 pdfplumber
 
 with pdfplumber.open("document.pdf") as pdf:
     for page in pdf.pages:
@@ -95,8 +95,8 @@ with pdfplumber.open("document.pdf") as pdf:
         print(text)
 ```
 
-#### Extract Tables
-```python
+#### 提取 Tables
+```Python
 with pdfplumber.open("document.pdf") as pdf:
     for i, page in enumerate(pdf.pages):
         tables = page.extract_tables()
@@ -107,8 +107,8 @@ with pdfplumber.open("document.pdf") as pdf:
 ```
 
 #### Advanced Table Extraction
-```python
-import pandas as pd
+```Python
+导入 pandas as pd
 
 with pdfplumber.open("document.pdf") as pdf:
     all_tables = []
@@ -128,9 +128,9 @@ if all_tables:
 ### reportlab - Create PDFs
 
 #### Basic PDF Creation
-```python
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+```Python
+from reportlab.lib.pagesizes 导入 letter
+from reportlab.pdfgen 导入 canvas
 
 c = canvas.Canvas("hello.pdf", pagesize=letter)
 width, height = letter
@@ -142,15 +142,15 @@ c.drawString(100, height - 120, "This is a PDF created with reportlab")
 # Add a line
 c.line(100, height - 140, 400, height - 140)
 
-# Save
-c.save()
+# 保存
+c.保存()
 ```
 
 #### Create PDF with Multiple Pages
-```python
-from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
-from reportlab.lib.styles import getSampleStyleSheet
+```Python
+from reportlab.lib.pagesizes 导入 letter
+from reportlab.platypus 导入 SimpleDocTemplate, Paragraph, Spacer, PageBreak
+from reportlab.lib.styles 导入 getSampleStyleSheet
 
 doc = SimpleDocTemplate("report.pdf", pagesize=letter)
 styles = getSampleStyleSheet()
@@ -161,35 +161,35 @@ title = Paragraph("Report Title", styles['Title'])
 story.append(title)
 story.append(Spacer(1, 12))
 
-body = Paragraph("This is the body of the report. " * 20, styles['Normal'])
-story.append(body)
+请求体 = Paragraph("This is the 请求体 of the report. " * 20, styles['Normal'])
+story.append(请求体)
 story.append(PageBreak())
 
 # Page 2
 story.append(Paragraph("Page 2", styles['Heading1']))
 story.append(Paragraph("Content for page 2", styles['Normal']))
 
-# Build PDF
-doc.build(story)
+# 构建 PDF
+doc.构建(story)
 ```
 
-## Command-Line Tools
+## 命令-Line Tools
 
 ### pdftotext (poppler-utils)
-```bash
-# Extract text
-pdftotext input.pdf output.txt
+```Bash
+# 提取 text
+pdftotext input.pdf 输出.txt
 
-# Extract text preserving layout
-pdftotext -layout input.pdf output.txt
+# 提取 text preserving layout
+pdftotext -layout input.pdf 输出.txt
 
-# Extract specific pages
-pdftotext -f 1 -l 5 input.pdf output.txt  # Pages 1-5
+# 提取 specific pages
+pdftotext -f 1 -l 5 input.pdf 输出.txt  # Pages 1-5
 ```
 
 ### qpdf
-```bash
-# Merge PDFs
+```Bash
+# 合并 PDFs
 qpdf --empty --pages file1.pdf file2.pdf -- merged.pdf
 
 # Split pages
@@ -197,75 +197,75 @@ qpdf input.pdf --pages . 1-5 -- pages1-5.pdf
 qpdf input.pdf --pages . 6-10 -- pages6-10.pdf
 
 # Rotate pages
-qpdf input.pdf output.pdf --rotate=+90:1  # Rotate page 1 by 90 degrees
+qpdf input.pdf 输出.pdf --rotate=+90:1  # Rotate page 1 by 90 degrees
 
-# Remove password
-qpdf --password=mypassword --decrypt encrypted.pdf decrypted.pdf
+# 删除 密码
+qpdf --密码=mypassword --解密 encrypted.pdf decrypted.pdf
 ```
 
 ### pdftk (if available)
-```bash
-# Merge
-pdftk file1.pdf file2.pdf cat output merged.pdf
+```Bash
+# 合并
+pdftk file1.pdf file2.pdf cat 输出 merged.pdf
 
 # Split
 pdftk input.pdf burst
 
 # Rotate
-pdftk input.pdf rotate 1east output rotated.pdf
+pdftk input.pdf rotate 1east 输出 rotated.pdf
 ```
 
 ## Common Tasks
 
-### Extract Text from Scanned PDFs
-```python
+### 提取 Text from Scanned PDFs
+```Python
 # Requires: pip install pytesseract pdf2image
-import pytesseract
-from pdf2image import convert_from_path
+导入 pytesseract
+from pdf2image 导入 convert_from_path
 
-# Convert PDF to images
-images = convert_from_path('scanned.pdf')
+# Convert PDF to 镜像
+镜像 = convert_from_path('scanned.pdf')
 
 # OCR each page
 text = ""
-for i, image in enumerate(images):
+for i, 镜像 in enumerate(镜像):
     text += f"Page {i+1}:\n"
-    text += pytesseract.image_to_string(image)
+    text += pytesseract.image_to_string(镜像)
     text += "\n\n"
 
 print(text)
 ```
 
-### Add Watermark
-```python
-from pypdf import PdfReader, PdfWriter
+### Add 水位线
+```Python
+from pypdf 导入 PdfReader, PdfWriter
 
-# Create watermark (or load existing)
-watermark = PdfReader("watermark.pdf").pages[0]
+# Create 水位线 (or 加载 existing)
+水位线 = PdfReader("水位线.pdf").pages[0]
 
 # Apply to all pages
 reader = PdfReader("document.pdf")
 writer = PdfWriter()
 
 for page in reader.pages:
-    page.merge_page(watermark)
+    page.merge_page(水位线)
     writer.add_page(page)
 
-with open("watermarked.pdf", "wb") as output:
-    writer.write(output)
+with open("watermarked.pdf", "wb") as 输出:
+    writer.write(输出)
 ```
 
-### Extract Images
-```bash
+### 提取 镜像
+```Bash
 # Using pdfimages (poppler-utils)
 pdfimages -j input.pdf output_prefix
 
-# This extracts all images as output_prefix-000.jpg, output_prefix-001.jpg, etc.
+# This extracts all 镜像 as output_prefix-000.jpg, output_prefix-001.jpg, etc.
 ```
 
-### Password Protection
-```python
-from pypdf import PdfReader, PdfWriter
+### 密码 Protection
+```Python
+from pypdf 导入 PdfReader, PdfWriter
 
 reader = PdfReader("input.pdf")
 writer = PdfWriter()
@@ -273,29 +273,29 @@ writer = PdfWriter()
 for page in reader.pages:
     writer.add_page(page)
 
-# Add password
-writer.encrypt("userpassword", "ownerpassword")
+# Add 密码
+writer.加密("userpassword", "ownerpassword")
 
-with open("encrypted.pdf", "wb") as output:
-    writer.write(output)
+with open("encrypted.pdf", "wb") as 输出:
+    writer.write(输出)
 ```
 
-## Quick Reference
+## 快速参考
 
-| Task | Best Tool | Command/Code |
+| 任务 | Best Tool | 命令/Code |
 |------|-----------|--------------|
-| Merge PDFs | pypdf | `writer.add_page(page)` |
-| Split PDFs | pypdf | One page per file |
-| Extract text | pdfplumber | `page.extract_text()` |
-| Extract tables | pdfplumber | `page.extract_tables()` |
+| 合并 PDFs | pypdf | `writer.add_page(page)` |
+| Split PDFs | pypdf | One page per 文件 |
+| 提取 text | pdfplumber | `page.extract_text()` |
+| 提取 tables | pdfplumber | `page.extract_tables()` |
 | Create PDFs | reportlab | Canvas or Platypus |
-| Command line merge | qpdf | `qpdf --empty --pages ...` |
-| OCR scanned PDFs | pytesseract | Convert to image first |
+| 命令行 合并 | qpdf | `qpdf --empty --pages ...` |
+| OCR scanned PDFs | pytesseract | Convert to 镜像 first |
 | Fill PDF forms | pdf-lib or pypdf (see forms.md) | See forms.md |
 
 ## Next Steps
 
-- For advanced pypdfium2 usage, see reference.md
-- For JavaScript libraries (pdf-lib), see reference.md
+- For advanced pypdfium2 使用方法, see 引用.md
+- For JavaScript libraries (pdf-lib), see 引用.md
 - If you need to fill out a PDF form, follow the instructions in forms.md
-- For troubleshooting guides, see reference.md
+- For 故障排除 guides, see 引用.md

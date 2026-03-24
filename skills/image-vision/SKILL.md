@@ -7,87 +7,87 @@ tags:
 ---
 # Vision Analyze
 
-Analyze images using the built-in vision capabilities of multimodal AI models.
+Analyze 镜像 using the 内置 vision capabilities of multimodal AI models.
 
-## Quick Start
+## 快速开始
 
-### Analyze an Image
+### Analyze an 镜像
 
-Describe what's in an image:
+描述 what's in an 镜像:
 
-```python
-# The agent will automatically use vision when you provide an image path
-image("/path/to/image.jpg", prompt="Describe what's in this image")
+```Python
+# The agent will automatically use vision when you provide an 镜像 路径
+镜像("/路径/to/镜像.jpg", prompt="描述 what's in this 镜像")
 ```
 
-### Extract Text (OCR)
+### 提取 Text (OCR)
 
-Extract text from images:
+提取 text from 镜像:
 
-```python
-image("/path/to/document.png", prompt="Extract all text from this image")
+```Python
+镜像("/路径/to/document.png", prompt="提取 all text from this 镜像")
 ```
 
-### Analyze Multiple Images
+### Analyze Multiple 镜像
 
-Compare or analyze multiple images:
+Compare or analyze multiple 镜像:
 
-```python
-images(["/path/to/image1.jpg", "/path/to/image2.jpg"], 
-       prompt="Compare these two images and describe the differences")
+```Python
+镜像(["/路径/to/image1.jpg", "/路径/to/image2.jpg"], 
+       prompt="Compare these two 镜像 and 描述 the differences")
 ```
 
-## Usage Patterns
+## 使用方法 Patterns
 
 ### Visual Q&A
 
-Ask specific questions about image content:
+Ask specific questions about 镜像 content:
 
-```python
-image("menu.jpg", prompt="What are the prices of the main courses?")
-image("chart.png", prompt="What trend does this graph show?")
-image("screenshot.png", prompt="What error message is displayed?")
+```Python
+镜像("menu.jpg", prompt="What are the prices of the 主分支 courses?")
+镜像("Chart.png", prompt="What trend does this graph show?")
+镜像("screenshot.png", prompt="What 错误 message is displayed?")
 ```
 
 ### Content Moderation
 
-Check image content:
+Check 镜像 content:
 
-```python
-image("upload.jpg", prompt="Is this image appropriate for a professional setting?")
+```Python
+镜像("上传.jpg", prompt="Is this 镜像 appropriate for a professional setting?")
 ```
 
 ### Data Extraction
 
-Extract structured data from visual content:
+提取 structured data from visual content:
 
-```python
-image("receipt.jpg", prompt="Extract the date, total amount, and items purchased")
-image("business_card.png", prompt="Extract name, phone, email, and company")
-image("form.jpg", prompt="Extract all filled fields as key-value pairs")
+```Python
+镜像("receipt.jpg", prompt="提取 the date, total amount, and items purchased")
+镜像("business_card.png", prompt="提取 name, phone, email, and company")
+镜像("form.jpg", prompt="提取 all filled fields as key-value pairs")
 ```
 
 ### Visual Comparison
 
-Compare images:
+Compare 镜像:
 
-```python
-images(["before.jpg", "after.jpg"], 
-       prompt="What changes were made between these two images?")
+```Python
+镜像(["before.jpg", "after.jpg"], 
+       prompt="What changes were made between these two 镜像?")
 ```
 
 ## Tips
 
 - **Be specific**: The more specific your prompt, the better the results
-- **Multiple images**: You can analyze up to 20 images at once
+- **Multiple 镜像**: You can analyze up to 20 镜像 at once
 - **Supported formats**: JPG, PNG, GIF, WebP
-- **Size limits**: Large images are automatically resized
+- **Size limits**: Large 镜像 are automatically resized
 
-## When to Use
+## 何时使用
 
 - Reading text from screenshots, documents, or photos
 - Describing visual content for accessibility
 - Analyzing charts, graphs, or diagrams
 - Comparing visual changes
 - Extracting data from forms or receipts
-- Understanding UI elements or error messages
+- Understanding UI elements or 错误 messages

@@ -22,528 +22,528 @@ tags:
 
 # Git Workflows
 
-Advanced git operations for real-world development. Covers interactive rebase, bisect, worktree, reflog recovery, subtrees, submodules, sparse checkout, conflict resolution, and monorepo patterns.
+Advanced git operations for real-world 开发环境. Covers interactive 变基, 二分查找, 工作树, 引用日志 recovery, subtrees, submodules, sparse 检出, 冲突解决, and Monorepo patterns.
 
-## When to Use
+## 何时使用
 
-- Cleaning up commit history before merging (interactive rebase)
-- Finding which commit introduced a bug (bisect)
-- Working on multiple branches simultaneously (worktree)
-- Recovering lost commits or undoing mistakes (reflog)
-- Managing shared code across repos (subtree/submodule)
-- Resolving complex merge conflicts
-- Cherry-picking commits across branches or forks
-- Working with large monorepos (sparse checkout)
+- Cleaning up 提交 历史 before 合并中 (interactive 变基)
+- Finding which 提交 introduced a bug (二分查找)
+- Working on multiple 分支 simultaneously (工作树)
+- Recovering lost 提交 or undoing mistakes (引用日志)
+- Managing shared code across repos (subtree/子模块)
+- Resolving complex 合并 冲突
+- Cherry-picking 提交 across 分支 or forks
+- Working with large monorepos (sparse 检出)
 
-## Interactive Rebase
+## Interactive 变基
 
-### Squash, reorder, edit commits
+### 压缩, reorder, edit 提交
 
-```bash
-# Rebase last 5 commits interactively
-git rebase -i HEAD~5
+```Bash
+# 变基 last 5 提交 interactively
+git 变基 -i HEAD~5
 
-# Rebase onto main (all commits since diverging)
-git rebase -i main
+# 变基 onto 主分支 (all 提交 since diverging)
+git 变基 -i 主分支
 ```
 
-The editor opens with a pick list:
+The editor opens with a 选取 列表:
 
 ```
-pick a1b2c3d Add user model
-pick e4f5g6h Fix typo in user model
-pick i7j8k9l Add user controller
-pick m0n1o2p Add user routes
-pick q3r4s5t Fix import in controller
+选取 a1b2c3d Add 用户 model
+选取 e4f5g6h Fix typo in 用户 model
+选取 i7j8k9l Add 用户 控制器
+选取 m0n1o2p Add 用户 routes
+选取 q3r4s5t Fix 导入 in 控制器
 ```
 
 Commands available:
 ```
-pick   = use commit as-is
-reword = use commit but edit the message
-edit   = stop after this commit to amend it
-squash = merge into previous commit (keep both messages)
-fixup  = merge into previous commit (discard this message)
-drop   = remove the commit entirely
+选取   = use 提交 as-is
+修改提交信息 = use 提交 but edit the message
+edit   = 停止 after this 提交 to 修改 它
+压缩 = 合并 into previous 提交 (keep both messages)
+fixup  = 合并 into previous 提交 (discard this message)
+drop   = 删除 the 提交 entirely
 ```
 
 ### Common patterns
 
-```bash
-# Squash fix commits into their parent
-# Change "pick" to "fixup" for the fix commits:
-pick a1b2c3d Add user model
-fixup e4f5g6h Fix typo in user model
-pick i7j8k9l Add user controller
-fixup q3r4s5t Fix import in controller
-pick m0n1o2p Add user routes
+```Bash
+# 压缩 fix 提交 into their parent
+# Change "选取" to "fixup" for the fix 提交:
+选取 a1b2c3d Add 用户 model
+fixup e4f5g6h Fix typo in 用户 model
+选取 i7j8k9l Add 用户 控制器
+fixup q3r4s5t Fix 导入 in 控制器
+选取 m0n1o2p Add 用户 routes
 
-# Reorder commits (just move lines)
-pick i7j8k9l Add user controller
-pick m0n1o2p Add user routes
-pick a1b2c3d Add user model
+# Reorder 提交 (just 移动 lines)
+选取 i7j8k9l Add 用户 控制器
+选取 m0n1o2p Add 用户 routes
+选取 a1b2c3d Add 用户 model
 
-# Split a commit into two
-# Mark as "edit", then when it stops:
-git reset HEAD~
+# Split a 提交 into two
+# Mark as "edit", then when 它 stops:
+git 重置 HEAD~
 git add src/model.ts
-git commit -m "Add user model"
-git add src/controller.ts
-git commit -m "Add user controller"
-git rebase --continue
+git 提交 -m "Add 用户 model"
+git add src/控制器.ts
+git 提交 -m "Add 用户 控制器"
+git 变基 --continue
 ```
 
-### Autosquash (commit messages that auto-arrange)
+### Autosquash (提交 messages that auto-arrange)
 
-```bash
-# When committing a fix, reference the commit to squash into
-git commit --fixup=a1b2c3d -m "Fix typo"
+```Bash
+# When committing a fix, 引用 the 提交 to 压缩 into
+git 提交 --fixup=a1b2c3d -m "Fix typo"
 # or
-git commit --squash=a1b2c3d -m "Additional changes"
+git 提交 --压缩=a1b2c3d -m "Additional changes"
 
-# Later, rebase with autosquash
-git rebase -i --autosquash main
-# fixup/squash commits are automatically placed after their targets
+# Later, 变基 with autosquash
+git 变基 -i --autosquash 主分支
+# fixup/压缩 提交 are automatically placed after their targets
 ```
 
 ### Abort or continue
 
-```bash
-git rebase --abort      # Cancel and restore original state
-git rebase --continue   # Continue after resolving conflicts or editing
-git rebase --skip       # Skip the current commit and continue
+```Bash
+git 变基 --abort      # Cancel and restore original 状态
+git 变基 --continue   # Continue after resolving 冲突 or editing
+git 变基 --skip       # Skip the current 提交 and continue
 ```
 
-## Bisect (Find the Bug)
+## 二分查找 (Find the Bug)
 
-### Binary search through commits
+### Binary 搜索 through 提交
 
-```bash
-# Start bisect
-git bisect start
+```Bash
+# Start 二分查找
+git 二分查找 start
 
-# Mark current commit as bad (has the bug)
-git bisect bad
+# Mark current 提交 as bad (has the bug)
+git 二分查找 bad
 
-# Mark a known-good commit (before the bug existed)
-git bisect good v1.2.0
-# or: git bisect good abc123
+# Mark a known-good 提交 (before the bug existed)
+git 二分查找 good v1.2.0
+# or: git 二分查找 good abc123
 
-# Git checks out a middle commit. Test it, then:
-git bisect good   # if this commit doesn't have the bug
-git bisect bad    # if this commit has the bug
+# Git checks out a middle 提交. 测试 它, then:
+git 二分查找 good   # if this 提交 doesn't have the bug
+git 二分查找 bad    # if this 提交 has the bug
 
-# Repeat until git identifies the exact commit
-# "abc123 is the first bad commit"
+# Repeat until git identifies the exact 提交
+# "abc123 is the first bad 提交"
 
-# Done — return to original branch
-git bisect reset
+# Done — return to original 分支
+git 二分查找 重置
 ```
 
-### Automated bisect (with a test script)
+### Automated 二分查找 (with a 测试 脚本)
 
-```bash
-# Fully automatic: git runs the script on each commit
-# Script must exit 0 for good, 1 for bad
-git bisect start HEAD v1.2.0
-git bisect run ./test-for-bug.sh
+```Bash
+# Fully automatic: git runs the 脚本 on each 提交
+# 脚本 must exit 0 for good, 1 for bad
+git 二分查找 start HEAD v1.2.0
+git 二分查找 运行 ./测试-for-bug.sh
 
-# Example test script
-cat > /tmp/test-for-bug.sh << 'EOF'
-#!/bin/bash
-# Return 0 if bug is NOT present, 1 if it IS
-npm test -- --grep "login should redirect" 2>/dev/null
+# Example 测试 脚本
+cat > /tmp/测试-for-bug.sh << 'EOF'
+#!/bin/Bash
+# Return 0 if bug is NOT present, 1 if 它 IS
+npm 测试 -- --grep "login 应该 重定向" 2>/开发/null
 EOF
-chmod +x /tmp/test-for-bug.sh
-git bisect run /tmp/test-for-bug.sh
+chmod +x /tmp/测试-for-bug.sh
+git 二分查找 运行 /tmp/测试-for-bug.sh
 ```
 
-### Bisect with build failures
+### 二分查找 with 构建 failures
 
-```bash
-# If a commit doesn't compile, skip it
-git bisect skip
+```Bash
+# If a 提交 doesn't 编译, skip 它
+git 二分查找 skip
 
-# Skip a range of known-broken commits
-git bisect skip v1.3.0..v1.3.5
+# Skip a range of known-broken 提交
+git 二分查找 skip v1.3.0..v1.3.5
 ```
 
-## Worktree (Parallel Branches)
+## 工作树 (Parallel 分支)
 
-### Work on multiple branches simultaneously
+### Work on multiple 分支 simultaneously
 
-```bash
-# Add a worktree for a different branch
-git worktree add ../myproject-hotfix hotfix/urgent-fix
-# Creates a new directory with that branch checked out
+```Bash
+# Add a 工作树 for a different 分支
+git 工作树 add ../myproject-热修复 热修复/urgent-fix
+# Creates a new directory with that 分支 checked out
 
-# Add a worktree with a new branch
-git worktree add ../myproject-feature -b feature/new-thing
+# Add a 工作树 with a new 分支
+git 工作树 add ../myproject-feature -b feature/new-thing
 
-# List worktrees
-git worktree list
+# 列表 worktrees
+git 工作树 列表
 
-# Remove a worktree when done
-git worktree remove ../myproject-hotfix
+# 删除 a 工作树 when done
+git 工作树 删除 ../myproject-热修复
 
-# Prune stale worktree references
-git worktree prune
+# 清理 stale 工作树 references
+git 工作树 清理
 ```
 
 ### Use cases
 
-```bash
+```Bash
 # Review a PR while keeping your current work untouched
-git worktree add ../review-pr-123 origin/pr-123
+git 工作树 add ../review-pr-123 origin/pr-123
 
-# Run tests on main while developing on feature branch
-git worktree add ../main-tests main
-cd ../main-tests && npm test
+# 运行 tests on 主分支 while developing on 功能分支
+git 工作树 add ../主分支-tests 主分支
+cd ../主分支-tests && npm 测试
 
-# Compare behavior between branches side by side
-git worktree add ../compare-old release/v1.0
-git worktree add ../compare-new release/v2.0
+# Compare behavior between 分支 side by side
+git 工作树 add ../compare-old 发布/v1.0
+git 工作树 add ../compare-new 发布/v2.0
 ```
 
-## Reflog (Recovery)
+## 引用日志 (Recovery)
 
 ### See everything git remembers
 
-```bash
-# Show reflog (all HEAD movements)
-git reflog
-# Output:
-# abc123 HEAD@{0}: commit: Add feature
-# def456 HEAD@{1}: rebase: moving to main
-# ghi789 HEAD@{2}: checkout: moving from feature to main
+```Bash
+# Show 引用日志 (all HEAD movements)
+git 引用日志
+# 输出:
+# abc123 HEAD@{0}: 提交: Add feature
+# def456 HEAD@{1}: 变基: moving to 主分支
+# ghi789 HEAD@{2}: 检出: moving from feature to 主分支
 
-# Show reflog for a specific branch
-git reflog show feature/my-branch
+# Show 引用日志 for a specific 分支
+git 引用日志 show feature/my-分支
 
 # Show with timestamps
-git reflog --date=relative
+git 引用日志 --date=relative
 ```
 
 ### Recover from mistakes
 
-```bash
-# Undo a bad rebase (find the commit before rebase in reflog)
-git reflog
-# Find: "ghi789 HEAD@{5}: checkout: moving from feature to main" (pre-rebase)
-git reset --hard ghi789
+```Bash
+# Undo a bad 变基 (find the 提交 before 变基 in 引用日志)
+git 引用日志
+# Find: "ghi789 HEAD@{5}: 检出: moving from feature to 主分支" (pre-变基)
+git 重置 --hard ghi789
 
-# Recover a deleted branch
-git reflog
-# Find the last commit on that branch
-git branch recovered-branch abc123
+# Recover a deleted 分支
+git 引用日志
+# Find the last 提交 on that 分支
+git 分支 recovered-分支 abc123
 
-# Recover after reset --hard
-git reflog
-git reset --hard HEAD@{2}   # Go back 2 reflog entries
+# Recover after 重置 --hard
+git 引用日志
+git 重置 --hard HEAD@{2}   # Go back 2 引用日志 entries
 
-# Recover a dropped stash
-git fsck --unreachable | grep commit
+# Recover a dropped 暂存
+git fsck --unreachable | grep 提交
 # or
-git stash list  # if it's still there
-git log --walk-reflogs --all -- stash  # find dropped stash commits
+git 暂存 列表  # if 它's still there
+git 日志 --walk-reflogs --all -- 暂存  # find dropped 暂存 提交
 ```
 
-## Cherry-Pick
+## 摘取
 
-### Copy specific commits to another branch
+### 复制 specific 提交 to another 分支
 
-```bash
-# Pick a single commit
-git cherry-pick abc123
+```Bash
+# 选取 a single 提交
+git 摘取 abc123
 
-# Pick multiple commits
-git cherry-pick abc123 def456 ghi789
+# 选取 multiple 提交
+git 摘取 abc123 def456 ghi789
 
-# Pick a range (exclusive start, inclusive end)
-git cherry-pick abc123..ghi789
+# 选取 a range (exclusive start, inclusive end)
+git 摘取 abc123..ghi789
 
-# Pick without committing (stage changes only)
-git cherry-pick --no-commit abc123
+# 选取 without committing (stage changes only)
+git 摘取 --no-提交 abc123
 
-# Cherry-pick from another remote/fork
-git remote add upstream https://github.com/other/repo.git
-git fetch upstream
-git cherry-pick upstream/main~3   # 3rd commit from upstream's main
+# 摘取 from another 远程/分叉
+git 远程 add upstream HTTPS://github.com/other/repo.git
+git 获取 upstream
+git 摘取 upstream/主分支~3   # 3rd 提交 from upstream's 主分支
 ```
 
-### Handle conflicts during cherry-pick
+### 句柄 冲突 during 摘取
 
-```bash
-# If conflicts arise:
-# 1. Resolve conflicts in the files
+```Bash
+# If 冲突 arise:
+# 1. Resolve 冲突 in the files
 # 2. Stage resolved files
-git add resolved-file.ts
+git add resolved-文件.ts
 # 3. Continue
-git cherry-pick --continue
+git 摘取 --continue
 
 # Or abort
-git cherry-pick --abort
+git 摘取 --abort
 ```
 
-## Subtree and Submodule
+## Subtree and 子模块
 
 ### Subtree (simpler — copies code into your repo)
 
-```bash
+```Bash
 # Add a subtree
-git subtree add --prefix=lib/shared https://github.com/org/shared-lib.git main --squash
+git subtree add --prefix=lib/shared HTTPS://github.com/org/shared-lib.git 主分支 --压缩
 
-# Pull updates from upstream
-git subtree pull --prefix=lib/shared https://github.com/org/shared-lib.git main --squash
+# 拉取 updates from upstream
+git subtree 拉取 --prefix=lib/shared HTTPS://github.com/org/shared-lib.git 主分支 --压缩
 
-# Push local changes back to upstream
-git subtree push --prefix=lib/shared https://github.com/org/shared-lib.git main
+# 推送 本地 changes back to upstream
+git subtree 推送 --prefix=lib/shared HTTPS://github.com/org/shared-lib.git 主分支
 
-# Split subtree into its own branch (for extraction)
+# Split subtree into its own 分支 (for extraction)
 git subtree split --prefix=lib/shared -b shared-lib-standalone
 ```
 
-### Submodule (pointer to another repo at a specific commit)
+### 子模块 (指针 to another repo at a specific 提交)
 
-```bash
-# Add a submodule
-git submodule add https://github.com/org/shared-lib.git lib/shared
+```Bash
+# Add a 子模块
+git 子模块 add HTTPS://github.com/org/shared-lib.git lib/shared
 
-# Clone a repo with submodules
-git clone --recurse-submodules https://github.com/org/main-repo.git
+# 克隆 a repo with submodules
+git 克隆 --recurse-submodules HTTPS://github.com/org/主分支-repo.git
 
-# Initialize submodules after clone (if forgot --recurse)
-git submodule update --init --recursive
+# Initialize submodules after 克隆 (if forgot --recurse)
+git 子模块 更新 --init --recursive
 
-# Update submodules to latest
-git submodule update --remote
+# 更新 submodules to latest
+git 子模块 更新 --远程
 
-# Remove a submodule
+# 删除 a 子模块
 git rm lib/shared
 rm -rf .git/modules/lib/shared
-# Remove entry from .gitmodules if it persists
+# 删除 entry from .gitmodules if 它 persists
 ```
 
-### When to use which
+### 何时使用 which
 
 ```
 Subtree: Simpler, no special commands for cloners, code lives in your repo.
-         Use when: shared library, vendor code, infrequent upstream changes.
+         Use when: shared 库, vendor code, infrequent upstream changes.
 
-Submodule: Pointer to exact commit, smaller repo, clear separation.
-           Use when: large dependency, independent release cycle, many contributors.
+子模块: 指针 to exact 提交, smaller repo, clear separation.
+           Use when: large 依赖, independent 发布 cycle, many contributors.
 ```
 
-## Sparse Checkout (Monorepo)
+## Sparse 检出 (Monorepo)
 
 ### Check out only the directories you need
 
-```bash
-# Enable sparse checkout
-git sparse-checkout init --cone
+```Bash
+# Enable sparse 检出
+git sparse-检出 init --cone
 
 # Select directories
-git sparse-checkout set packages/my-app packages/shared-lib
+git sparse-检出 集合 包/my-app 包/shared-lib
 
 # Add another directory
-git sparse-checkout add packages/another-lib
+git sparse-检出 add 包/another-lib
 
-# List what's checked out
-git sparse-checkout list
+# 列表 what's checked out
+git sparse-检出 列表
 
 # Disable (check out everything again)
-git sparse-checkout disable
+git sparse-检出 disable
 ```
 
-### Clone with sparse checkout (large monorepos)
+### 克隆 with sparse 检出 (large monorepos)
 
-```bash
-# Partial clone + sparse checkout (fastest for huge repos)
-git clone --filter=blob:none --sparse https://github.com/org/monorepo.git
-cd monorepo
-git sparse-checkout set packages/my-service
+```Bash
+# 偏函数 克隆 + sparse 检出 (fastest for huge repos)
+git 克隆 --过滤=blob:空值 --sparse HTTPS://github.com/org/Monorepo.git
+cd Monorepo
+git sparse-检出 集合 包/my-服务
 
-# No-checkout clone (just metadata)
-git clone --no-checkout https://github.com/org/monorepo.git
-cd monorepo
-git sparse-checkout set packages/my-service
-git checkout main
+# No-检出 克隆 (just metadata)
+git 克隆 --no-检出 HTTPS://github.com/org/Monorepo.git
+cd Monorepo
+git sparse-检出 集合 包/my-服务
+git 检出 主分支
 ```
 
-## Conflict Resolution
+## 冲突解决
 
-### Understand the conflict markers
+### Understand the 冲突 markers
 
 ```
 <<<<<<< HEAD (or "ours")
-Your changes on the current branch
+Your changes on the current 分支
 =======
-Their changes from the incoming branch
->>>>>>> feature-branch (or "theirs")
+Their changes from the incoming 分支
+>>>>>>> feature-分支 (or "theirs")
 ```
 
 ### Resolution strategies
 
-```bash
-# Accept all of ours (current branch wins)
-git checkout --ours path/to/file.ts
-git add path/to/file.ts
+```Bash
+# 接受 all of ours (current 分支 wins)
+git 检出 --ours 路径/to/文件.ts
+git add 路径/to/文件.ts
 
-# Accept all of theirs (incoming branch wins)
-git checkout --theirs path/to/file.ts
-git add path/to/file.ts
+# 接受 all of theirs (incoming 分支 wins)
+git 检出 --theirs 路径/to/文件.ts
+git add 路径/to/文件.ts
 
-# Accept ours for ALL files
-git checkout --ours .
+# 接受 ours for ALL files
+git 检出 --ours .
 git add .
 
-# Use a merge tool
+# Use a 合并 tool
 git mergetool
 
-# See the three-way diff (base, ours, theirs)
-git diff --cc path/to/file.ts
+# See the three-way 差异 (BASE, ours, theirs)
+git 差异 --cc 路径/to/文件.ts
 
-# Show common ancestor version
-git show :1:path/to/file.ts   # base (common ancestor)
-git show :2:path/to/file.ts   # ours
-git show :3:path/to/file.ts   # theirs
+# Show common ancestor 版本
+git show :1:路径/to/文件.ts   # BASE (common ancestor)
+git show :2:路径/to/文件.ts   # ours
+git show :3:路径/to/文件.ts   # theirs
 ```
 
-### Rebase conflict workflow
+### 变基 冲突 工作流
 
-```bash
-# During rebase, conflicts appear one commit at a time
-# 1. Fix the conflict in the file
+```Bash
+# During 变基, 冲突 appear one 提交 at a time
+# 1. Fix the 冲突 in the 文件
 # 2. Stage the fix
-git add fixed-file.ts
-# 3. Continue to next commit
-git rebase --continue
+git add fixed-文件.ts
+# 3. Continue to next 提交
+git 变基 --continue
 # 4. Repeat until done
 
-# If a commit is now empty after resolution
-git rebase --skip
+# If a 提交 is now empty after resolution
+git 变基 --skip
 ```
 
 ### Rerere (reuse recorded resolutions)
 
-```bash
+```Bash
 # Enable rerere globally
-git config --global rerere.enabled true
+git 配置 --全局 rerere.enabled true
 
-# Git remembers how you resolved conflicts
-# Next time the same conflict appears, it auto-resolves
+# Git remembers how you resolved 冲突
+# Next time the same 冲突 appears, 它 auto-resolves
 
 # See recorded resolutions
-ls .git/rr-cache/
+ls .git/rr-缓存/
 
 # Forget a bad resolution
-git rerere forget path/to/file.ts
+git rerere forget 路径/to/文件.ts
 ```
 
-## Stash Patterns
+## 暂存 Patterns
 
-```bash
-# Stash with a message
-git stash push -m "WIP: refactoring auth flow"
+```Bash
+# 暂存 with a message
+git 暂存 推送 -m "WIP: refactoring auth flow"
 
-# Stash specific files
-git stash push -m "partial stash" -- src/auth.ts src/login.ts
+# 暂存 specific files
+git 暂存 推送 -m "偏函数 暂存" -- src/auth.ts src/login.ts
 
-# Stash including untracked files
-git stash push -u -m "with untracked"
+# 暂存 including untracked files
+git 暂存 推送 -u -m "with untracked"
 
-# List stashes
-git stash list
+# 列表 stashes
+git 暂存 列表
 
-# Apply most recent stash (keep in stash list)
-git stash apply
+# Apply most recent 暂存 (keep in 暂存 列表)
+git 暂存 apply
 
-# Apply and remove from stash list
-git stash pop
+# Apply and 删除 from 暂存 列表
+git 暂存 pop
 
-# Apply a specific stash
-git stash apply stash@{2}
+# Apply a specific 暂存
+git 暂存 apply 暂存@{2}
 
-# Show what's in a stash
-git stash show -p stash@{0}
+# Show what's in a 暂存
+git 暂存 show -p 暂存@{0}
 
-# Create a branch from a stash
-git stash branch new-feature stash@{0}
+# Create a 分支 from a 暂存
+git 暂存 分支 new-feature 暂存@{0}
 
-# Drop a specific stash
-git stash drop stash@{1}
+# Drop a specific 暂存
+git 暂存 drop 暂存@{1}
 
 # Clear all stashes
-git stash clear
+git 暂存 clear
 ```
 
-## Blame and Log Archaeology
+## 追溯 and 日志 Archaeology
 
-```bash
+```Bash
 # Who changed each line (with date)
-git blame src/auth.ts
+git 追溯 src/auth.ts
 
-# Blame a specific line range
-git blame -L 50,70 src/auth.ts
+# 追溯 a specific line range
+git 追溯 -L 50,70 src/auth.ts
 
-# Ignore whitespace changes in blame
-git blame -w src/auth.ts
+# 忽略 whitespace changes in 追溯
+git 追溯 -w src/auth.ts
 
-# Find when a line was deleted (search all history)
-git log -S "function oldName" --oneline
+# Find when a line was deleted (搜索 all 历史)
+git 日志 -S "函数 oldName" --oneline
 
-# Find when a regex pattern was added/removed
-git log -G "TODO.*hack" --oneline
+# Find when a 正则表达式 模式 was added/removed
+git 日志 -G "TODO.*hack" --oneline
 
-# Follow a file through renames
-git log --follow --oneline -- src/new-name.ts
+# Follow a 文件 through renames
+git 日志 --follow --oneline -- src/new-name.ts
 
-# Show the commit that last touched each line, ignoring moves
-git blame -M src/auth.ts
+# Show the 提交 that last touched each line, ignoring moves
+git 追溯 -M src/auth.ts
 
-# Show log with file changes
-git log --stat --oneline -20
+# Show 日志 with 文件 changes
+git 日志 --stat --oneline -20
 
-# Show all commits affecting a specific file
-git log --oneline -- src/auth.ts
+# Show all 提交 affecting a specific 文件
+git 日志 --oneline -- src/auth.ts
 
-# Show diff of a specific commit
+# Show 差异 of a specific 提交
 git show abc123
 ```
 
 ## Tags and Releases
 
-```bash
-# Create annotated tag (preferred for releases)
-git tag -a v1.2.0 -m "Release 1.2.0: Added auth module"
+```Bash
+# Create annotated 标签 (preferred for releases)
+git 标签 -a v1.2.0 -m "发布 1.2.0: Added auth 模块"
 
-# Create lightweight tag
-git tag v1.2.0
+# Create lightweight 标签
+git 标签 v1.2.0
 
-# Tag a past commit
-git tag -a v1.1.0 abc123 -m "Retroactive tag for release 1.1.0"
+# 标签 a past 提交
+git 标签 -a v1.1.0 abc123 -m "Retroactive 标签 for 发布 1.1.0"
 
-# List tags
-git tag -l
-git tag -l "v1.*"
+# 列表 tags
+git 标签 -l
+git 标签 -l "v1.*"
 
-# Push tags
-git push origin v1.2.0      # Single tag
-git push origin --tags       # All tags
+# 推送 tags
+git 推送 origin v1.2.0      # Single 标签
+git 推送 origin --tags       # All tags
 
-# Delete a tag
-git tag -d v1.2.0            # Local
-git push origin --delete v1.2.0  # Remote
+# DELETE a 标签
+git 标签 -d v1.2.0            # 本地
+git 推送 origin --DELETE v1.2.0  # 远程
 ```
 
 ## Tips
 
-- `git rebase -i` is the single most useful advanced git command. Learn it first.
-- Never rebase commits that have been pushed to a shared branch. Rebase your local/feature work only.
-- `git reflog` is your safety net. If you lose commits, they're almost always recoverable within 90 days.
-- `git bisect run` with an automated test is faster than manual binary search and eliminates human error.
-- Worktrees are cheaper than multiple clones — they share `.git` storage.
-- Prefer `git subtree` over `git submodule` unless you have a specific reason. Subtrees are simpler for collaborators.
-- Enable `rerere` globally. It remembers conflict resolutions so you never solve the same conflict twice.
-- `git stash push -m "description"` is much better than bare `git stash`. You'll thank yourself when you have 5 stashes.
-- `git log -S "string"` (pickaxe) is the fastest way to find when a function or variable was added or removed.
+- `git 变基 -i` is the single most useful advanced git 命令. Learn 它 first.
+- never 变基 提交 that have been pushed to a shared 分支. 变基 your 本地/feature work only.
+- `git 引用日志` is your safety net. If you lose 提交, they're almost always recoverable within 90 days.
+- `git 二分查找 运行` with an automated 测试 is faster than manual binary 搜索 and eliminates human 错误.
+- Worktrees are cheaper than multiple clones — they share `.git` 存储.
+- Prefer `git subtree` over `git 子模块` unless you have a specific reason. Subtrees are simpler for collaborators.
+- Enable `rerere` globally. 它 remembers 冲突 resolutions so you never solve the same 冲突 twice.
+- `git 暂存 推送 -m "说明"` is much better than bare `git 暂存`. You'll thank yourself when you have 5 stashes.
+- `git 日志 -S "字符串"` (pickaxe) is the fastest way to find when a 函数 or 变量 was added or removed.

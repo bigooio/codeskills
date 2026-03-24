@@ -174,8 +174,8 @@ cinematic style --ar 16:9
 ### 场次4（20-30秒）：结尾
 - **画面**：水杯与手机APP联动
 - **镜头**：特写 + 拉远
-- **提示词**：Water bottle and smartphone showing app interface, 
-  connection notification, modern tech style --ar 16:9
+- **提示词**：Water bottle and smartphone showing app 接口, 
+  连接 notification, modern tech style --ar 16:9
 - **配音**：智能提醒，健康生活从一杯水开始。点击下方链接了解详情。
 - **字幕**：智能提醒 | 健康生活 | [品牌LOGO]
 ```
@@ -211,7 +211,7 @@ cinematic style --ar 16:9
 ### 场次3（20-40秒）：梦境功能
 - **画面**：记忆整理、情绪处理的视觉化表现
 - **镜头**：抽象动画
-- **提示词**：Abstract visualization of memory consolidation, 
+- **提示词**：Abstract visualization of 内存 consolidation, 
   emotions being processed, colorful particles flowing --ar 16:9
 - **配音**：科学家认为，做梦帮助我们整理记忆、处理情绪，甚至解决白天的问题。
 - **字幕**：整理记忆 | 处理情绪 | 灵感来源
@@ -219,7 +219,7 @@ cinematic style --ar 16:9
 ### 场次4（40-60秒）：结尾
 - **画面**：日出，人醒来
 - **镜头**：延时摄影
-- **提示词**：Sunrise through window, person waking up peacefully, 
+- **提示词**：Sunrise through 窗口, person waking up peacefully, 
   warm golden light, timelapse --ar 16:9
 - **配音**：所以下次做梦时，也许是你的大脑在帮你成长。关注我，了解更多有趣知识。
 - **字幕**：梦是大脑的成长时间 | 关注我

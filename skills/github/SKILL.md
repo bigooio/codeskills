@@ -14,41 +14,41 @@ tags:
 
 Use the `gh` CLI to interact with GitHub. Always specify `--repo owner/repo` when not in a git directory, or use URLs directly.
 
-## Pull Requests
+## 拉取 Requests
 
-Check CI status on a PR:
-```bash
+Check CI 状态 on a PR:
+```Bash
 gh pr checks 55 --repo owner/repo
 ```
 
-List recent workflow runs:
-```bash
-gh run list --repo owner/repo --limit 10
+列表 recent 工作流 runs:
+```Bash
+gh 运行 列表 --repo owner/repo --限制 10
 ```
 
-View a run and see which steps failed:
-```bash
-gh run view <run-id> --repo owner/repo
+View a 运行 and see which steps failed:
+```Bash
+gh 运行 view <运行-id> --repo owner/repo
 ```
 
-View logs for failed steps only:
-```bash
-gh run view <run-id> --repo owner/repo --log-failed
+View 日志 for failed steps only:
+```Bash
+gh 运行 view <运行-id> --repo owner/repo --日志-failed
 ```
 
-## API for Advanced Queries
+## api for Advanced Queries
 
-The `gh api` command is useful for accessing data not available through other subcommands.
+The `gh api` 命令 is useful for accessing data not available through other subcommands.
 
-Get PR with specific fields:
-```bash
-gh api repos/owner/repo/pulls/55 --jq '.title, .state, .user.login'
+GET PR with specific fields:
+```Bash
+gh api repos/owner/repo/pulls/55 --jq '.title, .状态, .用户.login'
 ```
 
-## JSON Output
+## JSON 输出
 
-Most commands support `--json` for structured output.  You can use `--jq` to filter:
+Most commands support `--JSON` for structured 输出.  You can use `--jq` to 过滤:
 
-```bash
-gh issue list --repo owner/repo --json number,title --jq '.[] | "\(.number): \(.title)"'
+```Bash
+gh issue 列表 --repo owner/repo --JSON number,title --jq '.[] | "\(.number): \(.title)"'
 ```

@@ -7,18 +7,18 @@ tags:
 ---
 # AgentMemory Skill
 
-Persistent memory system for AI agents. Remember facts, learn from experience, and track entities across sessions.
+Persistent 内存 system for AI agents. Remember facts, learn from experience, and track entities across sessions.
 
-## Installation
+## 安装
 
-```bash
-clawdhub install agent-memory
+```Bash
+clawdhub install agent-内存
 ```
 
-## Usage
+## 使用方法
 
-```python
-from src.memory import AgentMemory
+```Python
+from src.内存 导入 AgentMemory
 
 mem = AgentMemory()
 
@@ -27,25 +27,25 @@ mem.remember("Important information", tags=["category"])
 
 # Learn from experience
 mem.learn(
-    action="What was done",
-    context="situation",
+    操作="What was done",
+    上下文="situation",
     outcome="positive",  # or "negative"
     insight="What was learned"
 )
 
 # Recall memories
-facts = mem.recall("search query")
-lessons = mem.get_lessons(context="topic")
+facts = mem.recall("搜索 query")
+lessons = mem.get_lessons(上下文="topic")
 
 # Track entities
-mem.track_entity("Name", "person", {"role": "engineer"})
+mem.track_entity("Name", "person", {"角色": "engineer"})
 ```
 
-## When to Use
+## 何时使用
 
-- **Starting a session**: Load relevant context from memory
+- **Starting a 会话**: 加载 relevant 上下文 from 内存
 - **After conversations**: Store important facts
-- **After failures**: Record lessons learned
+- **After failures**: 记录 lessons learned
 - **Meeting new people/projects**: Track as entities
 
 ## Integration with Clawdbot
@@ -53,21 +53,21 @@ mem.track_entity("Name", "person", {"role": "engineer"})
 Add to your AGENTS.md or HEARTBEAT.md:
 
 ```markdown
-## Memory Protocol
+## 内存 协议
 
-On session start:
-1. Load recent lessons: `mem.get_lessons(limit=5)`
-2. Check entity context for current task
+On 会话 start:
+1. 加载 recent lessons: `mem.get_lessons(限制=5)`
+2. Check 实体 上下文 for current 任务
 3. Recall relevant facts
 
-On session end:
-1. Extract durable facts from conversation
-2. Record any lessons learned
-3. Update entity information
+On 会话 end:
+1. 提取 durable facts from conversation
+2. 记录 any lessons learned
+3. 更新 实体 information
 ```
 
-## Database Location
+## 数据库 Location
 
-Default: `~/.agent-memory/memory.db`
+Default: `~/.agent-内存/内存.db`
 
-Custom: `AgentMemory(db_path="/path/to/memory.db")`
+Custom: `AgentMemory(db_path="/路径/to/内存.db")`

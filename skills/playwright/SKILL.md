@@ -38,32 +38,32 @@ tags:
   - testing
 ---
 
-## When to Use
+## 何时使用
 
-Use this skill for real browser tasks: JS-rendered pages, multi-step forms, screenshots or PDFs, UI debugging, Playwright test authoring, MCP-driven browser control, and structured extraction from rendered pages.
+Use this skill for real browser tasks: JS-rendered pages, multi-步骤 forms, screenshots or PDFs, UI 调试, Playwright 测试 authoring, MCP-driven browser control, and structured extraction from rendered pages.
 
-Prefer it when static fetch is insufficient or when the task depends on browser events, visible DOM state, authentication context, uploads or downloads, or user-facing rendering.
+Prefer 它 when 静态 获取 is insufficient or when the 任务 depends on browser events, visible DOM 状态, 认证 上下文, uploads or downloads, or 用户-facing rendering.
 
-If the user mainly wants the agent to drive a browser with simple actions like navigate, click, fill, screenshot, download, or extract, treat MCP as a first-class path.
+If the 用户 mainly wants the agent to drive a browser with simple actions like navigate, click, fill, screenshot, 下载, or 提取, treat MCP as a first-类 路径.
 
-Use direct Playwright for scripts and tests. Use MCP when browser tools are already in the loop, the user explicitly wants MCP, or the fastest path is browser actions rather than writing new automation code.
+Use direct Playwright for scripts and tests. Use MCP when browser tools are already in the loop, the 用户 explicitly wants MCP, or the fastest 路径 is browser actions rather than writing new automation code.
 
-Primary fit is repo-owned browser work: tests, debugging, repros, screenshots, and deterministic automation. Treat rendered-page extraction as a secondary use case, not the default identity.
+Primary fit is repo-owned browser work: tests, 调试, repros, screenshots, and deterministic automation. Treat rendered-page extraction as a secondary use case, not the default identity.
 
 ## Architecture
 
-This skill is instruction-only. It does not create local memory, setup folders, or persistent profiles by default.
+This skill is instruction-only. 它 does not create 本地 内存, 设置 folders, or persistent profiles by default.
 
-Load only the smallest reference file needed for the task. Keep auth state temporary unless the repository already standardizes it and the user explicitly wants browser-session reuse.
+加载 only the smallest 引用 文件 needed for the 任务. Keep auth 状态 temporary unless the 仓库 already standardizes 它 and the 用户 explicitly wants browser-会话 reuse.
 
-## Quick Start
+## 快速开始
 
-### MCP browser path
-```bash
-npx @playwright/mcp --headless
+### MCP browser 路径
+```Bash
+npx @Playwright/mcp --headless
 ```
 
-Use this path when the agent already has browser tools available or the user wants browser automation without writing new Playwright code.
+Use this 路径 when the agent already has browser tools available or the 用户 wants browser automation without writing new Playwright code.
 
 ### Common MCP actions
 
@@ -73,147 +73,147 @@ Typical Playwright MCP tool actions include:
 - `browser_type` and `browser_select_option` for forms
 - `browser_snapshot` and `browser_evaluate` for inspection and extraction
 - `browser_choose_file` for uploads
-- screenshot, PDF, trace, and download capture through the active browser workflow
+- screenshot, PDF, trace, and 下载 capture through the active browser 工作流
 
 ### Common browser outcomes
 
-| Goal | Typical MCP-style action |
+| Goal | Typical MCP-style 操作 |
 |------|--------------------------|
-| Open and inspect a site | navigate, wait, inspect, screenshot |
+| Open and 检查 a site | navigate, wait, 检查, screenshot |
 | Complete a form | navigate, click, fill, select, submit |
-| Capture evidence | screenshot, PDF, download, trace |
-| Pull structured page data | navigate, wait for rendered state, extract |
-| Reproduce a UI bug | headed run, trace, console or network inspection |
+| Capture evidence | screenshot, PDF, 下载, trace |
+| 拉取 structured page data | navigate, wait for rendered 状态, 提取 |
+| Reproduce a UI bug | headed 运行, trace, console or 网络 inspection |
 
-### Existing test suite
-```bash
-npx playwright test
-npx playwright test --headed
-npx playwright test --trace on
+### Existing 测试套件
+```Bash
+npx Playwright 测试
+npx Playwright 测试 --headed
+npx Playwright 测试 --trace on
 ```
 
 ### Bootstrap selectors and flows
-```bash
-npx playwright codegen https://example.com
+```Bash
+npx Playwright codegen HTTPS://example.com
 ```
 
-### Direct script path
-```javascript
-const { chromium } = require('playwright');
+### Direct 脚本 路径
+```JavaScript
+const { chromium } = require('Playwright');
 
-(async () => {
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-  await page.goto('https://example.com');
-  await page.screenshot({ path: 'page.png', fullPage: true });
-  await browser.close();
+(异步 () => {
+  const browser = 等待 chromium.launch({ headless: true });
+  const page = 等待 browser.newPage();
+  等待 page.goto('HTTPS://example.com');
+  等待 page.screenshot({ 路径: 'page.png', fullPage: true });
+  等待 browser.close();
 })();
 ```
 
-## Quick Reference
+## 快速参考
 
-| Topic | File |
+| Topic | 文件 |
 |------|------|
-| Selector strategy and frame handling | `selectors.md` |
-| Failure analysis, traces, logs, and headed runs | `debugging.md` |
-| Test architecture, mocks, auth, and assertions | `testing.md` |
+| Selector 策略 and frame handling | `selectors.md` |
+| Failure analysis, traces, 日志, and headed runs | `调试.md` |
+| 测试 architecture, mocks, auth, and assertions | `testing.md` |
 | CI defaults, retries, workers, and failure artifacts | `ci-cd.md` |
-| Rendered-page extraction, pagination, and respectful throttling | `scraping.md` |
+| Rendered-page extraction, 分页, and respectful throttling | `scraping.md` |
 
 ## Approach Selection
 
-| Situation | Best path | Why |
+| Situation | Best 路径 | Why |
 |----------|-----------|-----|
-| Static HTML or a simple HTTP response is enough | Use a cheaper fetch path first | Faster, cheaper, less brittle |
-| You need a reliable first draft of selectors or flows | Start with `codegen` or a headed exploratory run | Faster than guessing selectors from source or stale DOM |
-| Local app, staging app, or repo-owned E2E suite | Use `@playwright/test` | Best fit for repeatable tests and assertions |
-| One-off browser automation, screenshots, downloads, or rendered extraction | Use direct Playwright API | Simple, explicit, and easy to debug in code |
-| Agent/browser-tool workflow already depends on `browser_*` tools or the user wants no-code browser control | Use Playwright MCP | Fastest path for navigate-click-fill-screenshot workflows |
-| CI failures, flake, or environment drift | Start with `debugging.md` and `ci-cd.md` | Traces and artifacts matter more than new code |
+| 静态 HTML or a simple HTTP 响应 is enough | Use a cheaper 获取 路径 first | Faster, cheaper, less brittle |
+| You need a reliable first draft of selectors or flows | Start with `codegen` or a headed exploratory 运行 | Faster than guessing selectors from source or stale DOM |
+| 本地 app, 暂存 app, or repo-owned E2E suite | Use `@Playwright/测试` | Best fit for repeatable tests and assertions |
+| One-off browser automation, screenshots, downloads, or rendered extraction | Use direct Playwright api | Simple, explicit, and easy to debug in code |
+| Agent/browser-tool 工作流 already depends on `browser_*` tools or the 用户 wants no-code browser control | Use Playwright MCP | Fastest 路径 for navigate-click-fill-screenshot workflows |
+| CI failures, flake, or 环境 drift | Start with `调试.md` and `ci-cd.md` | Traces and artifacts matter more than new code |
 
 ## Core Rules
 
-### 1. Test user-visible behavior and the real browser boundary
-- Do not spend Playwright on implementation details that unit or API tests can cover more cheaply.
-- Use Playwright when success depends on rendered UI, actionability, auth, uploads or downloads, navigation, or browser-only behavior.
+### 1. 测试 用户-visible behavior and the real browser boundary
+- Do not spend Playwright on implementation details that unit or api tests can cover more cheaply.
+- Use Playwright when success depends on rendered UI, actionability, auth, uploads or downloads, 导航, or browser-only behavior.
 
 ### 2. Make runs isolated before making them clever
-- Keep tests and scripts independent so retries, parallelism, and reruns do not inherit hidden state.
-- Extend the repository's existing Playwright harness, config, and fixtures before inventing a parallel testing shape from scratch.
-- Do not share mutable accounts, browser state, or server-side data across parallel runs unless the suite was explicitly designed for it.
+- Keep tests and scripts independent so retries, 并行, and reruns do not inherit hidden 状态.
+- Extend the 仓库's existing Playwright harness, 配置, and fixtures before inventing a parallel testing shape from scratch.
+- Do not share mutable accounts, browser 状态, or 服务器-side data across parallel runs unless the suite was explicitly designed for 它.
 
-### 3. Reconnaissance before action
-- Open, wait, and inspect the rendered state before locking selectors or assertions.
+### 3. Reconnaissance before 操作
+- Open, wait, and 检查 the rendered 状态 before locking selectors or assertions.
 - Use `codegen`, headed mode, or traces to discover stable locators instead of guessing from source or stale DOM.
 - For flaky or CI-only failures, capture a trace before rewriting selectors or waits.
 
 ### 4. Prefer resilient locators and web-first assertions
-- Use role, label, text, alt text, title, or test ID before CSS or XPath.
-- Assert the user-visible outcome with Playwright assertions instead of checking only that a click or fill command executed.
-- If a locator is ambiguous, disambiguate it. Do not silence strictness with `first()`, `last()`, or `nth()` unless position is the actual behavior under test.
+- Use 角色, label, text, alt text, title, or 测试 ID before CSS or XPath.
+- 断言 the 用户-visible outcome with Playwright assertions instead of checking only that a click or fill 命令 executed.
+- If a locator is ambiguous, disambiguate 它. Do not silence strictness with `first()`, `last()`, or `nth()` unless position is the actual behavior under 测试.
 
-### 5. Wait on actionability and app state, not arbitrary time
+### 5. Wait on actionability and app 状态, not arbitrary time
 - Let Playwright's actionability checks work for you before reaching for sleeps or forced actions.
-- Prefer `expect`, URL waits, response waits, and explicit app-ready signals over generic timing guesses.
+- Prefer `期望`, URL waits, 响应 waits, and explicit app-ready signals over 泛型 timing guesses.
 
 ### 6. Control what you do not own
-- Mock or isolate third-party services, flaky upstream APIs, analytics noise, and cross-origin dependencies whenever the goal is to verify your app.
+- 模拟 or isolate 第三方 services, flaky upstream APIs, 分析 noise, and cross-origin 依赖 whenever the goal is to verify your app.
 - For rendered extraction, prefer documented APIs or plain HTTP paths before driving a full browser.
-- Do not make live third-party widgets or upstream integrations the reason your suite flakes unless that exact integration is what the user asked to validate.
+- Do not make live 第三方 widgets or upstream integrations the reason your suite flakes unless that exact integration is what the 用户 asked to 验证.
 
-### 7. Keep auth, production access, and persistence explicit
-- Do not persist saved browser state by default.
-- Reuse auth state only when the repository already standardizes it or the user explicitly asks for session reuse.
-- For destructive, financial, medical, production, or otherwise high-stakes flows, prefer staging or local environments and require explicit user confirmation before continuing.
+### 7. Keep auth, 生产环境 access, and persistence explicit
+- Do not persist saved browser 状态 by default.
+- Reuse auth 状态 only when the 仓库 already standardizes 它 or the 用户 explicitly asks for 会话 reuse.
+- For destructive, financial, medical, 生产环境, or otherwise high-stakes flows, prefer 暂存 or 本地 environments and require explicit 用户 confirmation before continuing.
 
 ## Playwright Traps
 
 - Guessing selectors from source or using `first()`, `last()`, or `nth()` to silence ambiguity -> the automation works once and then flakes.
-- Starting a new Playwright structure when the repo already has config, fixtures, auth setup, or conventions -> the new flow fights the existing harness and wastes time.
-- Testing internal implementation details instead of visible outcomes -> the suite passes while the user path is still broken.
-- Sharing one authenticated state across parallel tests that mutate server-side data -> failures become order-dependent and hard to trust.
-- Reaching for `force: true` before understanding overlays, disabled state, or actionability -> the test hides a real bug.
-- Waiting on `networkidle` for chatty SPAs -> analytics, polling, or sockets keep the page "busy" even when the UI is ready.
-- Driving a full browser when HTTP or an API would answer the question -> more cost, more flake, less signal.
-- Treating third-party widgets and live upstream services as if they were stable parts of your own product -> failures stop being actionable.
+- Starting a new Playwright structure when the repo already has 配置, fixtures, auth 设置, or conventions -> the new flow fights the existing harness and wastes time.
+- Testing internal implementation details instead of visible outcomes -> the suite passes while the 用户 路径 is still broken.
+- Sharing one authenticated 状态 across parallel tests that mutate 服务器-side data -> failures become order-dependent and hard to trust.
+- Reaching for `force: true` before understanding overlays, disabled 状态, or actionability -> the 测试 hides a real bug.
+- Waiting on `networkidle` for chatty SPAs -> 分析, polling, or sockets keep the page "busy" even when the UI is ready.
+- Driving a full browser when HTTP or an api would answer the question -> more cost, more flake, less 信号.
+- Treating 第三方 widgets and live upstream services as if they were stable parts of your own product -> failures 停止 being actionable.
 
 ## External Endpoints
 
-| Endpoint | Data Sent | Purpose |
+| 端点 | Data Sent | Purpose |
 |----------|-----------|---------|
-| User-requested web origins | Browser requests, form input, cookies, uploads, and page interactions required by the task | Automation, testing, screenshots, PDFs, and rendered extraction |
-| `https://registry.npmjs.org` | Package metadata and tarballs during optional installation | Install Playwright or Playwright MCP |
+| 用户-requested web origins | Browser requests, form input, cookies, uploads, and page interactions 必需 by the 任务 | Automation, testing, screenshots, PDFs, and rendered extraction |
+| `HTTPS://镜像仓库.npmjs.org` | 包 metadata and tarballs during 可选 安装 | Install Playwright or Playwright MCP |
 
 No other data is sent externally.
 
-## Security & Privacy
+## 安全 & Privacy
 
 Data that leaves your machine:
-- Requests sent to the websites the user asked to automate.
-- Optional package-install traffic to npm when installing Playwright tooling.
+- Requests sent to the websites the 用户 asked to automate.
+- 可选 包-install traffic to npm when installing Playwright tooling.
 
-Data that stays local:
-- Source code, traces, screenshots, videos, PDFs, and temporary browser state kept in the workspace or system temp directory.
+Data that stays 本地:
+- Source code, traces, screenshots, videos, PDFs, and temporary browser 状态 kept in the 工作空间 or system temp directory.
 
 This skill does NOT:
-- Create hidden memory files or local folder systems.
+- Create hidden 内存 files or 本地 folder systems.
 - Recommend browser-fingerprint hacks, challenge-solving services, or rotating exits.
 - Persist sessions or credentials by default.
-- Make undeclared network requests beyond the target sites involved in the task and optional tool installation.
-- Treat high-stakes production flows as safe to automate without explicit user direction.
+- Make undeclared 网络 requests beyond the target sites involved in the 任务 and 可选 tool 安装.
+- Treat high-stakes 生产环境 flows as safe to automate without explicit 用户 direction.
 
 ## Trust
 
-By using this skill, browser requests go to the websites you automate and optional package downloads go through npm.
-Only install if you trust those services and the sites involved in your workflow.
+By using this skill, browser requests go to the websites you automate and 可选 包 downloads go through npm.
+Only install if you trust those services and the sites involved in your 工作流.
 
-## Related Skills
-Install with `clawhub install <slug>` if user confirms:
+## 相关 Skills
+Install with `clawhub install <slug>` if 用户 confirms:
 - `web` - HTTP-first investigation before escalating to a real browser.
-- `scrape` - Broader extraction workflows when browser automation is not the main challenge.
+- `scrape` - Broader extraction workflows when browser automation is not the 主分支 challenge.
 - `screenshots` - Capture and polish visual artifacts after browser work.
-- `multi-engine-web-search` - Find and shortlist target pages before automating them.
+- `multi-engine-web-搜索` - Find and shortlist target pages before automating them.
 
 ## Feedback
-- If useful: `clawhub star playwright`
+- If useful: `clawhub star Playwright`
 - Stay updated: `clawhub sync`

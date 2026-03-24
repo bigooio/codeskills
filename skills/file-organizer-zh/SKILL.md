@@ -6,7 +6,7 @@ author: 黄豆豆
 tags: [文件, 整理, 效率, 工具, 中文]
 ---
 
-# file-organizer-zh - 文件整理器
+# 文件-organizer-zh - 文件整理器
 
 自动按类型分类整理文件。
 
@@ -22,9 +22,9 @@ tags: [文件, 整理, 效率, 工具, 中文]
 - 分类文件
 
 ## 文件类型映射
-- images: .jpg, .jpeg, .png, .gif, .bmp, .webp, .svg
+- 镜像: .jpg, .jpeg, .png, .gif, .bmp, .webp, .svg
 - documents: .doc, .docx, .pdf, .txt, .md, .xls, .xlsx, .ppt, .pptx
-- code: .js, .ts, .py, .java, .cpp, .c, .html, .css, .json
+- code: .js, .ts, .py, .java, .cpp, .c, .html, .css, .JSON
 - videos: .mp4, .avi, .mov, .wmv, .flv
 - audio: .mp3, .wav, .flac, .aac, .ogg
 - archives: .zip, .rar, .7z, .tar, .gz

@@ -24,104 +24,104 @@ tags:
   - devops
 ---
 
-## When to Use
+## 何时使用
 
-Use when the task involves Docker, Dockerfiles, container builds, Compose, image publishing, networking, volumes, logs, debugging, or production container operations. This skill is stateless and should be applied directly whenever Docker work appears.
+Use when the 任务 involves Docker, Dockerfiles, 容器 builds, 组合, 镜像 publishing, networking, 存储卷, 日志, 调试, or 生产环境 容器 operations. This skill is 无状态 and 应该 be applied directly whenever Docker work appears.
 
-## Quick Reference
+## 快速参考
 
-| Topic | File |
+| Topic | 文件 |
 |-------|------|
 | Essential commands | `commands.md` |
-| Dockerfile patterns | `images.md` |
-| Compose orchestration | `compose.md` |
-| Networking & volumes | `infrastructure.md` |
-| Security hardening | `security.md` |
+| Dockerfile patterns | `镜像.md` |
+| 组合 编排 | `组合.md` |
+| Networking & 存储卷 | `基础设施.md` |
+| 安全 加固 | `安全.md` |
 
 ## Core Rules
 
-### 1. Pin Image Versions
-- `python:3.11.5-slim` not `python:latest`
+### 1. Pin 镜像 Versions
+- `Python:3.11.5-slim` not `Python:latest`
 - Today's latest differs from tomorrow's — breaks immutable builds
 
-### 2. Combine RUN Commands
-- `apt-get update && apt-get install -y pkg` in ONE layer
-- Separate layers = stale package cache weeks later
+### 2. Combine 运行 Commands
+- `apt-GET 更新 && apt-GET install -y pkg` in ONE 层
+- Separate layers = stale 包 缓存 weeks later
 
-### 3. Non-Root by Default
-- Add `USER nonroot` in Dockerfile
-- Running as root fails security scans and platform policies
+### 3. Non-root by Default
+- Add `用户 nonroot` in Dockerfile
+- Running as root fails 安全 scans and platform policies
 
-### 4. Set Resource Limits
-- `-m 512m` on every container
+### 4. 集合 Resource Limits
+- `-m 512m` on every 容器
 - OOM killer strikes without warning otherwise
 
-### 5. Configure Log Rotation
-- Default json-file driver has no size limit
-- One chatty container fills disk and crashes host
+### 5. Configure 日志 Rotation
+- Default JSON-文件 driver has no size 限制
+- One chatty 容器 fills disk and crashes host
 
-## Image Traps
+## 镜像 Traps
 
-- Multi-stage builds: forgotten `--from=builder` copies from wrong stage silently
-- COPY before RUN invalidates cache on every file change — copy requirements first, install, then copy code
-- `ADD` extracts archives automatically — use `COPY` unless you need extraction
-- Build args visible in image history — never use for secrets
+- 多阶段 builds: forgotten `--from=建造者` copies from wrong stage silently
+- 复制 before 运行 invalidates 缓存 on every 文件 change — 复制 要求 first, install, then 复制 code
+- `ADD` extracts archives automatically — use `复制` unless you need extraction
+- 构建 args visible in 镜像 历史 — never use for secrets
 
-## Runtime Traps
+## 运行时 Traps
 
-- `localhost` inside container is container's localhost — bind to `0.0.0.0`
-- Port already in use: previous container still stopping — wait or force remove
-- Exit code 137 = OOM killed, 139 = segfault — check with `docker inspect --format='{{.State.ExitCode}}'`
-- No shell in distroless images — `docker cp` files out or use debug sidecar
+- `localhost` inside 容器 is 容器's localhost — 绑定 to `0.0.0.0`
+- 端口 already in use: previous 容器 still stopping — wait or force 删除
+- Exit code 137 = OOM killed, 139 = segfault — check with `Docker 检查 --format='{{.状态.ExitCode}}'`
+- No Shell in distroless 镜像 — `Docker cp` files out or use debug sidecar
 
 ## Networking Traps
 
-- Container DNS only works on custom networks — default bridge can't resolve names
-- Published ports bind to `0.0.0.0` — use `127.0.0.1:5432:5432` for local-only
-- Zombie connections from killed containers — set health checks and restart policies
+- 容器 DNS only works on custom 网络 — default 桥接 can't resolve names
+- Published ports 绑定 to `0.0.0.0` — use `127.0.0.1:5432:5432` for 本地-only
+- 僵尸进程 connections from killed 容器 — 集合 health checks and 重启 policies
 
-## Compose Traps
+## 组合 Traps
 
-- `depends_on` waits for container start, not service ready — use `condition: service_healthy`
-- `.env` file in wrong directory silently ignored — must be next to docker-compose.yml
-- Volume mounts overwrite container files — empty host dir = empty container dir
-- YAML anchors don't work across files — use multiple compose files instead
+- `depends_on` waits for 容器 start, not 服务 ready — use `条件: service_healthy`
+- `.env` 文件 in wrong directory silently ignored — must be next to Docker-组合.yml
+- 存储卷 mounts overwrite 容器 files — empty host dir = empty 容器 dir
+- YAML anchors don't work across files — use multiple 组合 files instead
 
-## Volume Traps
+## 存储卷 Traps
 
-- Anonymous volumes accumulate silently — use named volumes
-- Bind mounts have permission issues — container user must match host user
-- `docker system prune` doesn't remove named volumes — add `--volumes` flag
-- Stopped container data persists until container removed
+- Anonymous 存储卷 accumulate silently — use named 存储卷
+- 绑定 mounts have 权限 issues — 容器 用户 must 匹配 host 用户
+- `Docker system 清理` doesn't 删除 named 存储卷 — add `--存储卷` flag
+- Stopped 容器 data persists until 容器 removed
 
 ## Resource Leaks
 
-- Dangling images grow unbounded — `docker image prune` regularly
-- Build cache grows forever — `docker builder prune` reclaims space
-- Stopped containers consume disk — `docker container prune` or `--rm` on run
-- Networks pile up from compose projects — `docker network prune`
+- Dangling 镜像 grow unbounded — `Docker 镜像 清理` regularly
+- 构建 缓存 grows forever — `Docker 建造者 清理` reclaims space
+- Stopped 容器 consume disk — `Docker 容器 清理` or `--rm` on 运行
+- 网络 pile up from 组合 projects — `Docker 网络 清理`
 
-## Secrets and Security
+## Secrets and 安全
 
-- ENV and COPY bake secrets into layer history permanently — use secrets mount or runtime env
-- `--privileged` disables all security — almost never needed, find specific capability instead
-- Images from unknown registries may be malicious — verify sources
-- Build args visible in image history — don't use for secrets
+- ENV and 复制 bake secrets into 层 历史 permanently — use secrets mount or 运行时 env
+- `--特权模式` disables all 安全 — almost never needed, find specific capability instead
+- 镜像 from unknown registries may be malicious — verify sources
+- 构建 args visible in 镜像 历史 — don't use for secrets
 
-## Debugging
+## 调试
 
-- Exit code 137 = OOM killed, 139 = segfault — check `docker inspect --format='{{.State.ExitCode}}'`
-- Container won't start: check logs even for failed containers — `docker logs <container>`
-- No shell in distroless images — `docker cp` files out or use debug sidecar
-- Inspect filesystem of dead container — `docker cp deadcontainer:/path ./local`
+- Exit code 137 = OOM killed, 139 = segfault — check `Docker 检查 --format='{{.状态.ExitCode}}'`
+- 容器 won't start: check 日志 even for failed 容器 — `Docker 日志 <容器>`
+- No Shell in distroless 镜像 — `Docker cp` files out or use debug sidecar
+- 检查 filesystem of dead 容器 — `Docker cp deadcontainer:/路径 ./本地`
 
-## Related Skills
-Install with `clawhub install <slug>` if user confirms:
-- `devops` — deployment pipelines
+## 相关 Skills
+Install with `clawhub install <slug>` if 用户 confirms:
+- `devops` — 部署 pipelines
 - `linux` — host system management
-- `server` — server administration
+- `服务器` — 服务器 administration
 
 ## Feedback
 
-- If useful: `clawhub star docker`
+- If useful: `clawhub star Docker`
 - Stay updated: `clawhub sync`

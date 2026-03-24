@@ -9,9 +9,9 @@ tags: [redis, tool, utility]
 description: "Connect, query, and monitor Redis instances. Use when checking key health, validating data types, generating backups, formatting results, linting configs."
 ---
 
-# redis
+# Redis
 
-Connect, query, and monitor Redis instances. Use when checking key health, validating data types, generating backups, formatting results, linting configs.
+连接, query, and 监视器 Redis instances. Use when checking key health, validating data types, generating backups, formatting results, linting configs.
 
 ## Commands
 
@@ -19,167 +19,167 @@ Connect, query, and monitor Redis instances. Use when checking key health, valid
 
 (default: 127.0.0.1)
 
-```bash
-scripts/script.sh REDIS_HOST
+```Bash
+scripts/脚本.sh REDIS_HOST
 ```
 
 ### `REDIS_PORT`
 
 (default: 6379)
 
-```bash
-scripts/script.sh REDIS_PORT
+```Bash
+scripts/脚本.sh REDIS_PORT
 ```
 
 ### `REDIS_DB`
 
 (default: 0)
 
-```bash
-scripts/script.sh REDIS_DB
+```Bash
+scripts/脚本.sh REDIS_DB
 ```
 
 ### `ping`
 
-Test Redis connectivity and latency
+测试 Redis connectivity and 延迟
 
-```bash
-scripts/script.sh ping
+```Bash
+scripts/脚本.sh ping
 ```
 
 ### `info`
 
-Server info (sections: server, clients, memory, stats, etc.)
+服务器 info (sections: 服务器, clients, 内存, 统计, etc.)
 
-```bash
-scripts/script.sh info [section]
+```Bash
+scripts/脚本.sh info [section]
 ```
 
-### `get`
+### `GET`
 
-Get value (auto-detects type: string, list, set, hash, zset)
+GET value (auto-detects 类型: 字符串, 列表, 集合, 哈希, zset)
 
-```bash
-scripts/script.sh get <key>
+```Bash
+scripts/脚本.sh GET <key>
 ```
 
-### `set`
+### `集合`
 
-Set a key-value pair (extra opts passed to Redis SET)
+集合 a key-value pair (extra opts passed to Redis 集合)
 
-```bash
-scripts/script.sh set <key> <val> [opts]
+```Bash
+scripts/脚本.sh 集合 <key> <val> [opts]
 ```
 
 ### `del`
 
-Delete one or more keys
+DELETE one or more keys
 
-```bash
-scripts/script.sh del <key> [key...]
+```Bash
+scripts/脚本.sh del <key> [key...]
 ```
 
 ### `keys`
 
-List keys matching pattern (default: *)
+列表 keys matching 模式 (default: *)
 
-```bash
-scripts/script.sh keys [pattern]
+```Bash
+scripts/脚本.sh keys [模式]
 ```
 
-### `monitor`
+### `监视器`
 
-Live stream of all Redis commands
+Live 流 of all Redis commands
 
-```bash
-scripts/script.sh monitor
+```Bash
+scripts/脚本.sh 监视器
 ```
 
-### `stats`
+### `统计`
 
-Comprehensive server statistics
+Comprehensive 服务器 statistics
 
-```bash
-scripts/script.sh stats
+```Bash
+scripts/脚本.sh 统计
 ```
 
-### `flush-confirm`
+### `刷新-confirm`
 
-Flush current database (with confirmation)
+刷新 current 数据库 (with confirmation)
 
-```bash
-scripts/script.sh flush-confirm
+```Bash
+scripts/脚本.sh 刷新-confirm
 ```
 
-### `export`
+### `导出`
 
-Export all keys to a file
+导出 all keys to a 文件
 
-```bash
-scripts/script.sh export <file>
+```Bash
+scripts/脚本.sh 导出 <文件>
 ```
 
-### `import`
+### `导入`
 
-Import keys from an export file
+导入 keys from an 导出 文件
 
-```bash
-scripts/script.sh import <file>
+```Bash
+scripts/脚本.sh 导入 <文件>
 ```
 
 ### `ttl`
 
 Check TTL of a key
 
-```bash
-scripts/script.sh ttl <key>
+```Bash
+scripts/脚本.sh ttl <key>
 ```
 
-### `type`
+### `类型`
 
-Check type of a key
+Check 类型 of a key
 
-```bash
-scripts/script.sh type <key>
+```Bash
+scripts/脚本.sh 类型 <key>
 ```
 
 ### `dbsize`
 
 Show number of keys
 
-```bash
-scripts/script.sh dbsize
+```Bash
+scripts/脚本.sh dbsize
 ```
 
 ### `slowlog`
 
-Show slow query log (default: 10 entries)
+Show slow query 日志 (default: 10 entries)
 
-```bash
-scripts/script.sh slowlog [count]
+```Bash
+scripts/脚本.sh slowlog [count]
 ```
 
-## Requirements
+## 要求
 
-- redis-cli
+- Redis-CLI
 
 ---
 
 *Powered by BytesAgain | bytesagain.com | hello@bytesagain.com*
 
-## Configuration
+## 配置
 
-| Variable | Required | Description |
+| 变量 | 必需 | 说明 |
 |----------|----------|-------------|
 | `REDIS_HOST` | No | Redis host (default: 127.0.0.1) |
-| `REDIS_PORT` | No | Redis port (default: 6379) |
-| `REDIS_DB` | No | Redis database number (default: 0) |
-| `REDIS_PASSWORD` | No | Redis authentication password |
+| `REDIS_PORT` | No | Redis 端口 (default: 6379) |
+| `REDIS_DB` | No | Redis 数据库 number (default: 0) |
+| `REDIS_PASSWORD` | No | Redis 认证 密码 |
 
-## Data Storage
+## Data 存储
 
-Connection history and command logs are saved to `~/.local/share/redis-helper/`.
+连接 历史 and 命令 日志 are saved to `~/.本地/share/Redis-helper/`.
 
-## Security
+## 安全
 
-Redis credentials are passed via environment variables. The password is used in redis-cli command-line arguments as required by the redis-cli interface.
+Redis credentials are passed via 环境变量. The 密码 is used in Redis-CLI 命令-line 参数 as 必需 by the Redis-CLI 接口.

@@ -29,15 +29,15 @@ tags:
 
 # SQL
 
-Master relational databases from the command line. Covers SQLite, PostgreSQL, MySQL, and SQL Server with battle-tested patterns for schema design, querying, migrations, and operations.
+主分支 relational databases from the 命令行. Covers SQLite, PostgreSQL, MySQL, and SQL 服务器 with battle-tested patterns for schema design, querying, migrations, and operations.
 
-## When to Use
+## 何时使用
 
-Working with relational databases—designing schemas, writing queries, building migrations, optimizing performance, or managing backups. Applies to SQLite, PostgreSQL, MySQL, and SQL Server.
+Working with relational databases—designing schemas, writing queries, building migrations, optimizing performance, or managing backups. Applies to SQLite, PostgreSQL, MySQL, and SQL 服务器.
 
-## Quick Reference
+## 快速参考
 
-| Topic | File |
+| Topic | 文件 |
 |-------|------|
 | Query patterns | `patterns.md` |
 | Schema design | `schemas.md` |
@@ -45,42 +45,42 @@ Working with relational databases—designing schemas, writing queries, building
 
 ## Core Rules
 
-### 1. Choose the Right Database
+### 1. Choose the Right 数据库
 
-| Use Case | Database | Why |
+| Use Case | 数据库 | Why |
 |----------|----------|-----|
-| Local/embedded | SQLite | Zero setup, single file |
-| General production | PostgreSQL | Best standards, JSONB, extensions |
-| Legacy/hosting | MySQL | Wide hosting support |
-| Enterprise/.NET | SQL Server | Windows integration |
+| 本地/embedded | SQLite | Zero 设置, single 文件 |
+| General 生产环境 | PostgreSQL | Best standards, JSONB, extensions |
+| Legacy/托管 | MySQL | Wide 托管 support |
+| Enterprise/.NET | SQL 服务器 | Windows integration |
 
 ### 2. Always Parameterize Queries
 
-```python
-# ❌ NEVER
-cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
+```Python
+# ❌ never
+游标.execute(f"SELECT * FROM users WHERE id = {user_id}")
 
 # ✅ ALWAYS
-cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+游标.execute("SELECT * FROM users WHERE id = ?", (user_id,))
 ```
 
 ### 3. Index Your Filters
 
-Any column in WHERE, JOIN ON, or ORDER BY on large tables needs an index.
+any column in WHERE, 加入 ON, or ORDER BY on large tables needs an index.
 
 ### 4. Use Transactions
 
 ```sql
 BEGIN;
-UPDATE accounts SET balance = balance - 100 WHERE id = 1;
-UPDATE accounts SET balance = balance + 100 WHERE id = 2;
-COMMIT;
+更新 accounts 集合 balance = balance - 100 WHERE id = 1;
+更新 accounts 集合 balance = balance + 100 WHERE id = 2;
+提交;
 ```
 
-### 5. Prefer EXISTS Over IN
+### 5. Prefer EXISTS Over in
 
 ```sql
--- ✅ Faster (stops at first match)
+-- ✅ Faster (stops at first 匹配)
 SELECT * FROM orders o WHERE EXISTS (
   SELECT 1 FROM users u WHERE u.id = o.user_id AND u.active
 );
@@ -88,37 +88,37 @@ SELECT * FROM orders o WHERE EXISTS (
 
 ---
 
-## Quick Start
+## 快速开始
 
 ### SQLite
 
-```bash
-sqlite3 mydb.sqlite                              # Create/open
-sqlite3 mydb.sqlite "SELECT * FROM users;"       # Query
-sqlite3 -header -csv mydb.sqlite "SELECT *..." > out.csv
-sqlite3 mydb.sqlite "PRAGMA journal_mode=WAL;"   # Better concurrency
+```Bash
+sqlite3 mydb.SQLite                              # Create/open
+sqlite3 mydb.SQLite "SELECT * FROM users;"       # Query
+sqlite3 -请求头 -csv mydb.SQLite "SELECT *..." > out.csv
+sqlite3 mydb.SQLite "PRAGMA journal_mode=WAL;"   # Better 并发
 ```
 
 ### PostgreSQL
 
-```bash
-psql -h localhost -U myuser -d mydb              # Connect
+```Bash
+psql -h localhost -U myuser -d mydb              # 连接
 psql -c "SELECT NOW();" mydb                     # Query
-psql -f migration.sql mydb                       # Run file
-\dt  \d+ users  \di+                             # List tables/indexes
+psql -f 迁移.sql mydb                       # 运行 文件
+\dt  \d+ users  \di+                             # 列表 tables/indexes
 ```
 
 ### MySQL
 
-```bash
-mysql -h localhost -u root -p mydb               # Connect
-mysql -e "SELECT NOW();" mydb                    # Query
+```Bash
+MySQL -h localhost -u root -p mydb               # 连接
+MySQL -e "SELECT NOW();" mydb                    # Query
 ```
 
-### SQL Server
+### SQL 服务器
 
-```bash
-sqlcmd -S localhost -U myuser -d mydb            # Connect
+```Bash
+sqlcmd -S localhost -U myuser -d mydb            # 连接
 sqlcmd -Q "SELECT GETDATE()"                     # Query
 sqlcmd -S localhost -d mydb -E                   # Windows auth
 ```
@@ -128,19 +128,19 @@ sqlcmd -S localhost -d mydb -E                   # Windows auth
 ## Common Traps
 
 ### NULL Traps
-- `NOT IN (subquery)` returns empty if subquery has NULL → use `NOT EXISTS`
+- `NOT in (subquery)` returns empty if subquery has NULL → use `NOT EXISTS`
 - `NULL = NULL` is NULL, not true → use `IS NULL`
 - `COUNT(column)` excludes NULLs, `COUNT(*)` counts all
 
 ### Index Killers
 - Functions on columns → `WHERE YEAR(date) = 2024` scans full table
-- Type conversion → `WHERE varchar_col = 123` skips index
+- 类型 conversion → `WHERE varchar_col = 123` skips index
 - `LIKE '%term'` can't use index → only `LIKE 'term%'` works
-- Composite `(a, b)` won't help filtering only on `b`
+- 组合 `(a, b)` won't help filtering only on `b`
 
-### Join Traps
-- LEFT JOIN with WHERE on right table becomes INNER JOIN
-- Missing JOIN condition = Cartesian product
+### 加入 Traps
+- LEFT 加入 with WHERE on right table becomes INNER 加入
+- Missing 加入 条件 = Cartesian product
 - Multiple LEFT JOINs can multiply rows
 
 ---
@@ -155,44 +155,44 @@ EXPLAIN (ANALYZE, BUFFERS) SELECT * FROM orders WHERE user_id = 5;
 EXPLAIN QUERY PLAN SELECT * FROM orders WHERE user_id = 5;
 ```
 
-**Red flags:**
-- `Seq Scan` on large tables → needs index
-- `Rows Removed by Filter` high → index doesn't cover filter
-- Actual vs estimated rows differ → run `ANALYZE tablename;`
+**Red 标志:**
+- `Seq 扫描` on large tables → needs index
+- `Rows Removed by 过滤` high → index doesn't cover 过滤
+- Actual vs estimated rows differ → 运行 `ANALYZE tablename;`
 
 ---
 
-## Index Strategy
+## Index 策略
 
 ```sql
--- Composite index (equality first, range last)
-CREATE INDEX idx_orders ON orders(user_id, status);
+-- 组合 index (equality first, range last)
+CREATE INDEX idx_orders ON orders(user_id, 状态);
 
 -- Covering index (avoids table lookup)
 CREATE INDEX idx_orders ON orders(user_id) INCLUDE (total);
 
--- Partial index (smaller, faster)
-CREATE INDEX idx_pending ON orders(user_id) WHERE status = 'pending';
+-- 偏函数 index (smaller, faster)
+CREATE INDEX idx_pending ON orders(user_id) WHERE 状态 = 'pending';
 ```
 
 ---
 
 ## Portability
 
-| Feature | PostgreSQL | MySQL | SQLite | SQL Server |
+| Feature | PostgreSQL | MySQL | SQLite | SQL 服务器 |
 |---------|------------|-------|--------|------------|
-| LIMIT | LIMIT n | LIMIT n | LIMIT n | TOP n |
-| UPSERT | ON CONFLICT | ON DUPLICATE KEY | ON CONFLICT | MERGE |
-| Boolean | true/false | 1/0 | 1/0 | 1/0 |
+| 限制 | 限制 n | 限制 n | 限制 n | 进程 n |
+| UPSERT | ON 冲突 | ON DUPLICATE KEY | ON 冲突 | 合并 |
+| 布尔值 | true/false | 1/0 | 1/0 | 1/0 |
 | Concat | \|\| | CONCAT() | \|\| | + |
 
 ---
 
-## Related Skills
-Install with `clawhub install <slug>` if user confirms:
-- `prisma` — Node.js ORM
-- `sqlite` — SQLite-specific patterns
-- `analytics` — data analysis queries
+## 相关 Skills
+Install with `clawhub install <slug>` if 用户 confirms:
+- `prisma` — 节点.js ORM
+- `SQLite` — SQLite-specific patterns
+- `分析` — data analysis queries
 
 ## Feedback
 

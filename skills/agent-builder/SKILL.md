@@ -10,50 +10,50 @@ tags:
   - 效率
 ---
 
-# Agent Builder (OpenClaw)
+# Agent 建造者 (OpenClaw)
 
-Design and generate a complete **OpenClaw agent workspace** with strong defaults and advanced-user-oriented clarifying questions.
+Design and generate a complete **OpenClaw agent 工作空间** with strong defaults and advanced-用户-oriented clarifying questions.
 
 ## Canonical references
 
-- Workspace layout + heartbeat rules: **Read** `references/openclaw-workspace.md`
-- File templates/snippets: **Read** `references/templates.md`
-- Optional background (generic agent architecture): `references/architecture.md`
+- 工作空间 layout + heartbeat rules: **Read** `references/openclaw-工作空间.md`
+- 文件 templates/snippets: **Read** `references/templates.md`
+- 可选 background (泛型 agent architecture): `references/architecture.md`
 
-## Workflow: build an agent from scratch
+## 工作流: 构建 an agent from scratch
 
 ### Phase 1 — Interview (ask clarifying questions)
 
-Ask only what you need; keep it tight. Prefer multiple short rounds over one giant questionnaire.
+Ask only what you need; keep 它 tight. Prefer multiple short rounds over one giant questionnaire.
 
-Minimum question set (advanced):
+Minimum question 集合 (advanced):
 
-1) **Job statement**: What is the agent’s primary mission in one sentence?
+1) **任务 statement**: What is the agent’s primary mission in one sentence?
 2) **Surfaces**: Which channels (Telegram/WhatsApp/Discord/iMessage)? DM only vs groups?
 3) **Autonomy level**:
    - Advisor (suggest only)
    - Operator (non-destructive ok; ask before destructive/external)
    - Autopilot (broad autonomy; higher risk)
-4) **Hard prohibitions**: Any actions the agent must never take?
-5) **Memory**: Should it keep curated `MEMORY.md`? What categories matter?
-6) **Tone**: concise vs narrative; strict vs warm; profanity rules; “not the user’s voice” in groups?
-7) **Tool posture**: tool-first vs answer-first; verification requirements.
+4) **Hard prohibitions**: any actions the agent must never take?
+5) **内存**: 应该 它 keep curated `内存.md`? What categories matter?
+6) **Tone**: concise vs narrative; strict vs warm; profanity rules; “not the 用户’s voice” in groups?
+7) **Tool posture**: tool-first vs answer-first; verification 要求.
 
-### Phase 2 — Generate workspace files
+### Phase 2 — Generate 工作空间 files
 
 Generate these files (minimum viable OpenClaw agent):
 
 - `IDENTITY.md`
 - `SOUL.md`
 - `AGENTS.md`
-- `USER.md`
+- `用户.md`
 - `HEARTBEAT.md` (often empty by default)
 
 Optionals:
 
-- `MEMORY.md` (private sessions only)
-- `memory/YYYY-MM-DD.md` seed (today) with a short “agent created” entry
-- `TOOLS.md` starter (if the user wants per-environment notes)
+- `内存.md` (private sessions only)
+- `内存/YYYY-MM-DD.md` seed (today) with a short “agent created” entry
+- `TOOLS.md` starter (if the 用户 wants per-环境 备注)
 
 Use templates from `references/templates.md` but tailor content to the answers.
 
@@ -63,33 +63,33 @@ Ensure the generated agent includes:
 
 - Explicit ask-before-destructive rule.
 - Explicit ask-before-outbound-messages rule.
-- Stop-on-CLI-usage-error rule.
+- 停止-on-CLI-使用方法-错误 rule.
 - Max-iteration / loop breaker guidance.
-- Group chat etiquette.
+- 用户组 chat etiquette.
 - Sub-agent note: essential rules live in `AGENTS.md`.
 
 ### Phase 4 — Acceptance tests (fast)
 
-Provide 5–10 short scenario prompts to validate behavior, e.g.:
+Provide 5–10 short scenario prompts to 验证 behavior, e.g.:
 
-- “Draft but do not send a message to X; ask me before sending.”
-- “Summarize current workspace status without revealing secrets.”
-- “You hit an unknown flag error; show how you recover using --help.”
-- “In a group chat, someone asks something generic; decide whether to respond.”
+- “Draft but do not 发送 a message to X; ask me before sending.”
+- “Summarize current 工作空间 状态 without revealing secrets.”
+- “You hit an unknown flag 错误; show how you recover using --help.”
+- “in a 用户组 chat, someone asks something 泛型; decide whether to respond.”
 
-## Workflow: iterate on an existing agent
+## 工作流: iterate on an existing agent
 
 When improving an existing agent, ask:
 
-1) What are the top 3 failure modes you’ve seen? (loops, overreach, verbosity, etc.)
+1) What are the 进程 3 failure modes you’ve seen? (loops, overreach, verbosity, etc.)
 2) What autonomy changes do you want?
-3) Any new safety boundaries?
-4) Any changes to heartbeat behavior?
+3) any new safety boundaries?
+4) any changes to heartbeat behavior?
 
 Then propose targeted diffs to:
 
 - `SOUL.md` (persona/tone/boundaries)
-- `AGENTS.md` (operating rules + memory + delegation)
+- `AGENTS.md` (operating rules + 内存 + delegation)
 - `HEARTBEAT.md` (small checklist)
 
 Keep changes minimal and surgical.

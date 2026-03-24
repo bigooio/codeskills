@@ -10,86 +10,86 @@ tags:
   - frontend
 ---
 
-# Web Search
+# Web 搜索
 
-## Overview
+## 概述
 
-Search the web using DuckDuckGo's API to find information across web pages, news articles, images, and videos. Returns results in multiple formats (text, markdown, JSON) with filtering options for time range, region, and safe search.
+搜索 the web using DuckDuckGo's api to find information across web pages, news articles, 镜像, and videos. Returns results in multiple formats (text, markdown, JSON) with filtering OPTIONS for time range, region, and safe 搜索.
 
-## When to Use This Skill
+## 何时使用 This Skill
 
-Use this skill when users request:
+Use this skill when users 请求:
 - Web searches for information or resources
 - Finding current or recent information online
 - Looking up news articles about specific topics
-- Searching for images by description or topic
+- Searching for 镜像 by 说明 or topic
 - Finding videos on specific subjects
 - Research requiring current web data
 - Fact-checking or verification using web sources
 - Gathering URLs and resources on a topic
 
-## Prerequisites
+## 前置条件
 
-Install the required dependency:
+Install the 必需 依赖:
 
-```bash
-pip install duckduckgo-search
+```Bash
+pip install duckduckgo-搜索
 ```
 
-This library provides a simple Python interface to DuckDuckGo's search API without requiring API keys or authentication.
+This 库 provides a simple Python 接口 to DuckDuckGo's 搜索 api without requiring api keys or 认证.
 
 ## Core Capabilities
 
-### 1. Basic Web Search
+### 1. Basic Web 搜索
 
-Search for web pages and information:
+搜索 for web pages and information:
 
-```bash
-python scripts/search.py "<query>"
+```Bash
+Python scripts/搜索.py "<query>"
 ```
 
 **Example:**
-```bash
-python scripts/search.py "python asyncio tutorial"
+```Bash
+Python scripts/搜索.py "Python asyncio tutorial"
 ```
 
-Returns the top 10 web results with titles, URLs, and descriptions in a clean text format.
+Returns the 进程 10 web results with titles, URLs, and descriptions in a 清理 text format.
 
 ### 2. Limiting Results
 
 Control the number of results returned:
 
-```bash
-python scripts/search.py "<query>" --max-results <N>
+```Bash
+Python scripts/搜索.py "<query>" --max-results <N>
 ```
 
 **Example:**
-```bash
-python scripts/search.py "machine learning frameworks" --max-results 20
+```Bash
+Python scripts/搜索.py "machine learning frameworks" --max-results 20
 ```
 
 Useful for:
-- Getting more comprehensive results (increase limit)
-- Quick lookups with fewer results (decrease limit)
+- Getting more comprehensive results (increase 限制)
+- Quick lookups with fewer results (decrease 限制)
 - Balancing detail vs. processing time
 
 ### 3. Time Range Filtering
 
-Filter results by recency:
+过滤 results by recency:
 
-```bash
-python scripts/search.py "<query>" --time-range <d|w|m|y>
+```Bash
+Python scripts/搜索.py "<query>" --time-range <d|w|m|y>
 ```
 
-**Time range options:**
+**Time range OPTIONS:**
 - `d` - Past day
 - `w` - Past week
 - `m` - Past month
 - `y` - Past year
 
 **Example:**
-```bash
-python scripts/search.py "artificial intelligence news" --time-range w
+```Bash
+Python scripts/搜索.py "artificial intelligence news" --time-range w
 ```
 
 Great for:
@@ -97,17 +97,17 @@ Great for:
 - Filtering out outdated content
 - Tracking recent developments
 
-### 4. News Search
+### 4. News 搜索
 
-Search specifically for news articles:
+搜索 specifically for news articles:
 
-```bash
-python scripts/search.py "<query>" --type news
+```Bash
+Python scripts/搜索.py "<query>" --类型 news
 ```
 
 **Example:**
-```bash
-python scripts/search.py "climate change" --type news --time-range w --max-results 15
+```Bash
+Python scripts/搜索.py "climate change" --类型 news --time-range w --max-results 15
 ```
 
 News results include:
@@ -115,95 +115,95 @@ News results include:
 - Source publication
 - Publication date
 - URL
-- Article summary/description
+- Article 概要/说明
 
-### 5. Image Search
+### 5. 镜像 搜索
 
-Search for images:
+搜索 for 镜像:
 
-```bash
-python scripts/search.py "<query>" --type images
+```Bash
+Python scripts/搜索.py "<query>" --类型 镜像
 ```
 
 **Example:**
-```bash
-python scripts/search.py "sunset over mountains" --type images --max-results 20
+```Bash
+Python scripts/搜索.py "sunset over mountains" --类型 镜像 --max-results 20
 ```
 
-**Image filtering options:**
+**镜像 filtering OPTIONS:**
 
 Size filters:
-```bash
-python scripts/search.py "landscape photos" --type images --image-size Large
+```Bash
+Python scripts/搜索.py "landscape photos" --类型 镜像 --镜像-size Large
 ```
-Options: `Small`, `Medium`, `Large`, `Wallpaper`
+OPTIONS: `Small`, `Medium`, `Large`, `Wallpaper`
 
 Color filters:
-```bash
-python scripts/search.py "abstract art" --type images --image-color Blue
+```Bash
+Python scripts/搜索.py "abstract art" --类型 镜像 --镜像-color Blue
 ```
-Options: `color`, `Monochrome`, `Red`, `Orange`, `Yellow`, `Green`, `Blue`, `Purple`, `Pink`, `Brown`, `Black`, `Gray`, `Teal`, `White`
+OPTIONS: `color`, `Monochrome`, `Red`, `Orange`, `Yellow`, `Green`, `Blue`, `Purple`, `Pink`, `Brown`, `Black`, `Gray`, `Teal`, `White`
 
-Type filters:
-```bash
-python scripts/search.py "icons" --type images --image-type transparent
+类型 filters:
+```Bash
+Python scripts/搜索.py "icons" --类型 镜像 --镜像-类型 transparent
 ```
-Options: `photo`, `clipart`, `gif`, `transparent`, `line`
+OPTIONS: `photo`, `clipart`, `gif`, `transparent`, `line`
 
 Layout filters:
-```bash
-python scripts/search.py "wallpapers" --type images --image-layout Wide
+```Bash
+Python scripts/搜索.py "wallpapers" --类型 镜像 --镜像-layout Wide
 ```
-Options: `Square`, `Tall`, `Wide`
+OPTIONS: `Square`, `Tall`, `Wide`
 
-Image results include:
-- Image title
-- Image URL (direct link to image)
+镜像 results include:
+- 镜像 title
+- 镜像 URL (direct 链接 to 镜像)
 - Thumbnail URL
 - Source website
 - Dimensions (width x height)
 
-### 6. Video Search
+### 6. Video 搜索
 
-Search for videos:
+搜索 for videos:
 
-```bash
-python scripts/search.py "<query>" --type videos
+```Bash
+Python scripts/搜索.py "<query>" --类型 videos
 ```
 
 **Example:**
-```bash
-python scripts/search.py "python tutorial" --type videos --max-results 15
+```Bash
+Python scripts/搜索.py "Python tutorial" --类型 videos --max-results 15
 ```
 
-**Video filtering options:**
+**Video filtering OPTIONS:**
 
 Duration filters:
-```bash
-python scripts/search.py "cooking recipes" --type videos --video-duration short
+```Bash
+Python scripts/搜索.py "cooking recipes" --类型 videos --video-duration short
 ```
-Options: `short`, `medium`, `long`
+OPTIONS: `short`, `medium`, `long`
 
 Resolution filters:
-```bash
-python scripts/search.py "documentary" --type videos --video-resolution high
+```Bash
+Python scripts/搜索.py "documentary" --类型 videos --video-resolution high
 ```
-Options: `high`, `standard`
+OPTIONS: `high`, `standard`
 
 Video results include:
 - Video title
-- Publisher/channel
+- Publisher/通道
 - Duration
 - Publication date
 - Video URL
-- Description
+- 说明
 
-### 7. Region-Specific Search
+### 7. Region-Specific 搜索
 
-Search with region-specific results:
+搜索 with region-specific results:
 
-```bash
-python scripts/search.py "<query>" --region <region-code>
+```Bash
+Python scripts/搜索.py "<query>" --region <region-code>
 ```
 
 **Common region codes:**
@@ -216,311 +216,311 @@ python scripts/search.py "<query>" --region <region-code>
 - `wt-wt` - Worldwide (default)
 
 **Example:**
-```bash
-python scripts/search.py "local news" --region us-en --type news
+```Bash
+Python scripts/搜索.py "本地 news" --region us-en --类型 news
 ```
 
-### 8. Safe Search Control
+### 8. Safe 搜索 Control
 
-Control safe search filtering:
+Control safe 搜索 filtering:
 
-```bash
-python scripts/search.py "<query>" --safe-search <on|moderate|off>
+```Bash
+Python scripts/搜索.py "<query>" --safe-搜索 <on|moderate|off>
 ```
 
-**Options:**
+**OPTIONS:**
 - `on` - Strict filtering
 - `moderate` - Balanced filtering (default)
 - `off` - No filtering
 
 **Example:**
-```bash
-python scripts/search.py "medical information" --safe-search on
+```Bash
+Python scripts/搜索.py "medical information" --safe-搜索 on
 ```
 
-### 9. Output Formats
+### 9. 输出 Formats
 
 Choose how results are formatted:
 
 **Text format (default):**
-```bash
-python scripts/search.py "quantum computing"
+```Bash
+Python scripts/搜索.py "quantum computing"
 ```
 
-Clean, readable plain text with numbered results.
+清理, readable plain text with numbered results.
 
 **Markdown format:**
-```bash
-python scripts/search.py "quantum computing" --format markdown
+```Bash
+Python scripts/搜索.py "quantum computing" --format markdown
 ```
 
 Formatted markdown with headers, bold text, and links.
 
 **JSON format:**
-```bash
-python scripts/search.py "quantum computing" --format json
+```Bash
+Python scripts/搜索.py "quantum computing" --format JSON
 ```
 
 Structured JSON data for programmatic processing.
 
-### 10. Saving Results to File
+### 10. Saving Results to 文件
 
-Save search results to a file:
+保存 搜索 results to a 文件:
 
-```bash
-python scripts/search.py "<query>" --output <file-path>
+```Bash
+Python scripts/搜索.py "<query>" --输出 <文件-路径>
 ```
 
 **Example:**
-```bash
-python scripts/search.py "artificial intelligence" --output ai_results.txt
-python scripts/search.py "AI news" --type news --format markdown --output ai_news.md
-python scripts/search.py "AI research" --format json --output ai_data.json
+```Bash
+Python scripts/搜索.py "artificial intelligence" --输出 ai_results.txt
+Python scripts/搜索.py "AI news" --类型 news --format markdown --输出 ai_news.md
+Python scripts/搜索.py "AI research" --format JSON --输出 ai_data.JSON
 ```
 
-The file format is determined by the `--format` flag, not the file extension.
+The 文件 format is determined by the `--format` flag, not the 文件 扩展.
 
-## Output Format Examples
+## 输出 Format 示例
 
 ### Text Format
 ```
 1. Page Title Here
-   URL: https://example.com/page
-   Brief description of the page content...
+   URL: HTTPS://example.com/page
+   Brief 说明 of the page content...
 
 2. Another Result
-   URL: https://example.com/another
-   Another description...
+   URL: HTTPS://example.com/another
+   Another 说明...
 ```
 
 ### Markdown Format
 ```markdown
 ## 1. Page Title Here
 
-**URL:** https://example.com/page
+**URL:** HTTPS://example.com/page
 
-Brief description of the page content...
+Brief 说明 of the page content...
 
 ## 2. Another Result
 
-**URL:** https://example.com/another
+**URL:** HTTPS://example.com/another
 
-Another description...
+Another 说明...
 ```
 
 ### JSON Format
-```json
+```JSON
 [
   {
     "title": "Page Title Here",
-    "href": "https://example.com/page",
-    "body": "Brief description of the page content..."
+    "href": "HTTPS://example.com/page",
+    "请求体": "Brief 说明 of the page content..."
   },
   {
     "title": "Another Result",
-    "href": "https://example.com/another",
-    "body": "Another description..."
+    "href": "HTTPS://example.com/another",
+    "请求体": "Another 说明..."
   }
 ]
 ```
 
-## Common Usage Patterns
+## Common 使用方法 Patterns
 
 ### Research on a Topic
 
 Gather comprehensive information about a subject:
 
-```bash
-# Get overview from web
-python scripts/search.py "machine learning basics" --max-results 15 --output ml_web.txt
+```Bash
+# GET 概述 from web
+Python scripts/搜索.py "machine learning basics" --max-results 15 --输出 ml_web.txt
 
-# Get recent news
-python scripts/search.py "machine learning" --type news --time-range m --output ml_news.txt
+# GET recent news
+Python scripts/搜索.py "machine learning" --类型 news --time-range m --输出 ml_news.txt
 
 # Find tutorial videos
-python scripts/search.py "machine learning tutorial" --type videos --max-results 10 --output ml_videos.txt
+Python scripts/搜索.py "machine learning tutorial" --类型 videos --max-results 10 --输出 ml_videos.txt
 ```
 
 ### Current Events Monitoring
 
 Track news on specific topics:
 
-```bash
-python scripts/search.py "climate summit" --type news --time-range d --format markdown --output daily_climate_news.md
+```Bash
+Python scripts/搜索.py "climate summit" --类型 news --time-range d --format markdown --输出 daily_climate_news.md
 ```
 
 ### Finding Visual Resources
 
-Search for images with specific criteria:
+搜索 for 镜像 with specific criteria:
 
-```bash
-python scripts/search.py "data visualization examples" --type images --image-type photo --image-size Large --max-results 25 --output viz_images.txt
+```Bash
+Python scripts/搜索.py "data visualization 示例" --类型 镜像 --镜像-类型 photo --镜像-size Large --max-results 25 --输出 viz_images.txt
 ```
 
 ### Fact-Checking
 
 Verify information with recent sources:
 
-```bash
-python scripts/search.py "specific claim to verify" --time-range w --max-results 20
+```Bash
+Python scripts/搜索.py "specific claim to verify" --time-range w --max-results 20
 ```
 
 ### Academic Research
 
 Find resources on scholarly topics:
 
-```bash
-python scripts/search.py "quantum entanglement research" --time-range y --max-results 30 --output quantum_research.txt
+```Bash
+Python scripts/搜索.py "quantum entanglement research" --time-range y --max-results 30 --输出 quantum_research.txt
 ```
 
 ### Market Research
 
 Gather information about products or companies:
 
-```bash
-python scripts/search.py "electric vehicle market 2025" --max-results 20 --format markdown --output ev_market.md
-python scripts/search.py "EV news" --type news --time-range m --output ev_news.txt
+```Bash
+Python scripts/搜索.py "electric vehicle market 2025" --max-results 20 --format markdown --输出 ev_market.md
+Python scripts/搜索.py "EV news" --类型 news --time-range m --输出 ev_news.txt
 ```
 
 ## Implementation Approach
 
-When users request web searches:
+When users 请求 web searches:
 
-1. **Identify search intent**:
-   - What type of content (web, news, images, videos)?
-   - How recent should results be?
+1. **Identify 搜索 intent**:
+   - What 类型 of content (web, news, 镜像, videos)?
+   - How recent 应该 results be?
    - How many results are needed?
-   - Any filtering requirements?
+   - any filtering 要求?
 
-2. **Configure search parameters**:
-   - Choose appropriate search type (`--type`)
-   - Set time range if currency matters (`--time-range`)
+2. **Configure 搜索 参数**:
+   - Choose appropriate 搜索 类型 (`--类型`)
+   - 集合 time range if currency matters (`--time-range`)
    - Adjust result count (`--max-results`)
-   - Apply filters (image size, video duration, etc.)
+   - Apply filters (镜像 size, video duration, etc.)
 
-3. **Select output format**:
+3. **Select 输出 format**:
    - Text for quick reading
    - Markdown for documentation
    - JSON for further processing
 
-4. **Execute search**:
-   - Run the search command
-   - Save to file if results need to be preserved
+4. **Execute 搜索**:
+   - 运行 the 搜索 命令
+   - 保存 to 文件 if results need to be preserved
    - Print to stdout for immediate review
 
-5. **Process results**:
+5. **进程 results**:
    - Read saved files if needed
-   - Extract URLs or specific information
+   - 提取 URLs or specific information
    - Combine results from multiple searches
 
-## Quick Reference
+## 快速参考
 
-**Command structure:**
-```bash
-python scripts/search.py "<query>" [options]
+**命令 structure:**
+```Bash
+Python scripts/搜索.py "<query>" [OPTIONS]
 ```
 
-**Essential options:**
-- `-t, --type` - Search type (web, news, images, videos)
+**Essential OPTIONS:**
+- `-t, --类型` - 搜索 类型 (web, news, 镜像, videos)
 - `-n, --max-results` - Maximum results (default: 10)
-- `--time-range` - Time filter (d, w, m, y)
+- `--time-range` - Time 过滤 (d, w, m, y)
 - `-r, --region` - Region code (e.g., us-en, uk-en)
-- `--safe-search` - Safe search level (on, moderate, off)
-- `-f, --format` - Output format (text, markdown, json)
-- `-o, --output` - Save to file
+- `--safe-搜索` - Safe 搜索 level (on, moderate, off)
+- `-f, --format` - 输出 format (text, markdown, JSON)
+- `-o, --输出` - 保存 to 文件
 
-**Image-specific options:**
-- `--image-size` - Size filter (Small, Medium, Large, Wallpaper)
-- `--image-color` - Color filter
-- `--image-type` - Type filter (photo, clipart, gif, transparent, line)
-- `--image-layout` - Layout filter (Square, Tall, Wide)
+**镜像-specific OPTIONS:**
+- `--镜像-size` - Size 过滤 (Small, Medium, Large, Wallpaper)
+- `--镜像-color` - Color 过滤
+- `--镜像-类型` - 类型 过滤 (photo, clipart, gif, transparent, line)
+- `--镜像-layout` - Layout 过滤 (Square, Tall, Wide)
 
-**Video-specific options:**
-- `--video-duration` - Duration filter (short, medium, long)
-- `--video-resolution` - Resolution filter (high, standard)
+**Video-specific OPTIONS:**
+- `--video-duration` - Duration 过滤 (short, medium, long)
+- `--video-resolution` - Resolution 过滤 (high, standard)
 
-**Get full help:**
-```bash
-python scripts/search.py --help
+**GET full help:**
+```Bash
+Python scripts/搜索.py --help
 ```
 
-## Best Practices
+## 最佳实践
 
-1. **Be specific** - Use clear, specific search queries for better results
+1. **Be specific** - Use clear, specific 搜索 queries for better results
 2. **Use time filters** - Apply `--time-range` for current information
 3. **Adjust result count** - Start with 10-20 results, increase if needed
-4. **Save important searches** - Use `--output` to preserve results
-5. **Choose appropriate type** - Use news search for current events, web for general info
-6. **Use JSON for automation** - JSON format is easiest to parse programmatically
-7. **Respect usage** - Don't hammer the API with rapid repeated searches
+4. **保存 important searches** - Use `--输出` to preserve results
+5. **Choose appropriate 类型** - Use news 搜索 for current events, web for general info
+6. **Use JSON for automation** - JSON format is easiest to 解析 programmatically
+7. **Respect 使用方法** - Don't hammer the api with rapid repeated searches
 
-## Troubleshooting
+## 故障排除
 
 **Common issues:**
 
-- **"Missing required dependency"**: Run `pip install duckduckgo-search`
-- **No results found**: Try broader search terms or remove time filters
-- **Timeout errors**: The search service may be temporarily unavailable; retry after a moment
+- **"Missing 必需 依赖"**: 运行 `pip install duckduckgo-搜索`
+- **No results found**: Try broader 搜索 terms or 删除 time filters
+- **超时 errors**: The 搜索 服务 may be temporarily unavailable; 重试 after a moment
 - **Rate limiting**: Space out searches if making many requests
 - **Unexpected results**: DuckDuckGo's results may differ from Google; try refining the query
 
-**Limitations:**
+**限制:**
 
 - Results quality depends on DuckDuckGo's index and algorithms
-- No advanced search operators (unlike Google's site:, filetype:, etc.)
-- Image and video searches may have fewer results than web search
+- No advanced 搜索 operators (unlike Google's site:, filetype:, etc.)
+- 镜像 and video searches may have fewer results than web 搜索
 - No control over result ranking or relevance scoring
-- Some specialized searches may work better on dedicated search engines
+- Some specialized searches may work better on dedicated 搜索 engines
 
 ## Advanced Use Cases
 
 ### Combining Multiple Searches
 
-Gather comprehensive information by combining search types:
+Gather comprehensive information by combining 搜索 types:
 
-```bash
-# Web overview
-python scripts/search.py "topic" --max-results 15 --output topic_web.txt
+```Bash
+# Web 概述
+Python scripts/搜索.py "topic" --max-results 15 --输出 topic_web.txt
 
 # Recent news
-python scripts/search.py "topic" --type news --time-range w --output topic_news.txt
+Python scripts/搜索.py "topic" --类型 news --time-range w --输出 topic_news.txt
 
-# Images
-python scripts/search.py "topic" --type images --max-results 20 --output topic_images.txt
+# 镜像
+Python scripts/搜索.py "topic" --类型 镜像 --max-results 20 --输出 topic_images.txt
 ```
 
 ### Programmatic Processing
 
-Use JSON output for automated processing:
+Use JSON 输出 for automated processing:
 
-```bash
-python scripts/search.py "research topic" --format json --output results.json
-# Then process with another script
-python analyze_results.py results.json
+```Bash
+Python scripts/搜索.py "research topic" --format JSON --输出 results.JSON
+# Then 进程 with another 脚本
+Python analyze_results.py results.JSON
 ```
 
-### Building a Knowledge Base
+### Building a Knowledge BASE
 
 Create searchable documentation from web results:
 
-```bash
-# Search multiple related topics
-python scripts/search.py "topic1" --format markdown --output kb/topic1.md
-python scripts/search.py "topic2" --format markdown --output kb/topic2.md
-python scripts/search.py "topic3" --format markdown --output kb/topic3.md
+```Bash
+# 搜索 multiple 相关 topics
+Python scripts/搜索.py "topic1" --format markdown --输出 kb/topic1.md
+Python scripts/搜索.py "topic2" --format markdown --输出 kb/topic2.md
+Python scripts/搜索.py "topic3" --format markdown --输出 kb/topic3.md
 ```
 
 ## Resources
 
-### scripts/search.py
+### scripts/搜索.py
 
-The main search tool implementing DuckDuckGo search functionality. Key features:
+The 主分支 搜索 tool implementing DuckDuckGo 搜索 functionality. Key 特性:
 
-- **Multiple search types** - Web, news, images, and videos
-- **Flexible filtering** - Time range, region, safe search, and type-specific filters
-- **Multiple output formats** - Text, Markdown, and JSON
-- **File output** - Save results for later processing
-- **Clean formatting** - Human-readable output with all essential information
-- **Error handling** - Graceful handling of network errors and empty results
+- **Multiple 搜索 types** - Web, news, 镜像, and videos
+- **Flexible filtering** - Time range, region, safe 搜索, and 类型-specific filters
+- **Multiple 输出 formats** - Text, Markdown, and JSON
+- **文件 输出** - 保存 results for later processing
+- **清理 formatting** - Human-readable 输出 with all essential information
+- **错误 handling** - Graceful handling of 网络 errors and empty results
 
-The script can be executed directly and includes comprehensive command-line help via `--help`.
+The 脚本 can be executed directly and includes comprehensive 命令-line help via `--help`.

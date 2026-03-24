@@ -10,57 +10,57 @@ tags:
   - 工具
 ---
 
-# Security Scanner
+# 安全 Scanner
 
-Automated security scanning toolkit for penetration testing and vulnerability assessment.
+Automated 安全 scanning toolkit for penetration testing and 漏洞 assessment.
 
-## Quick Start
+## 快速开始
 
-### Port Scan
-```bash
-nmap -sV -sC -oN scan.txt TARGET
+### 端口 扫描
+```Bash
+Nmap -sV -sC -oN 扫描.txt TARGET
 ```
 
-### Vulnerability Scan
-```bash
+### 漏洞 扫描
+```Bash
 nuclei -u TARGET -o results.txt
 ```
 
 ### SSL Check
-```bash
+```Bash
 sslscan TARGET
 ```
 
-## Scan Types
+## 扫描 Types
 
 ### 1. Quick Recon
-Fast initial scan for live hosts and open ports:
-```bash
-nmap -sn -T4 SUBNET  # Host discovery
-nmap -F TARGET       # Fast port scan (top 100)
+Fast initial 扫描 for live hosts and open ports:
+```Bash
+Nmap -sn -T4 子网  # host discovery
+Nmap -F TARGET       # Fast 端口 扫描 (进程 100)
 ```
 
-### 2. Full Port Scan
-Comprehensive port and service detection:
-```bash
-nmap -p- -sV -sC -A TARGET -oN full_scan.txt
+### 2. Full 端口 扫描
+Comprehensive 端口 and 服务 detection:
+```Bash
+Nmap -p- -sV -sC -A TARGET -oN full_scan.txt
 ```
 
-### 3. Web Application Scan
-```bash
-nuclei -u https://TARGET -t cves/ -t vulnerabilities/ -o web_vulns.txt
-nikto -h TARGET -o nikto_report.txt
+### 3. Web Application 扫描
+```Bash
+nuclei -u HTTPS://TARGET -t cves/ -t vulnerabilities/ -o web_vulns.txt
+Nikto -h TARGET -o nikto_report.txt
 ```
 
 ### 4. SSL/TLS Analysis
-```bash
+```Bash
 sslscan TARGET
 testssl.sh TARGET
 ```
 
-## Output
+## 输出
 
-Save reports to `reports/security-scan-YYYY-MM-DD.md` with:
+保存 reports to `reports/安全-扫描-YYYY-MM-DD.md` with:
 - Target information
 - Open ports and services
 - Vulnerabilities found (severity rated)
@@ -68,7 +68,7 @@ Save reports to `reports/security-scan-YYYY-MM-DD.md` with:
 
 ## Ethics
 
-- Only scan authorized targets
-- Get written permission before testing
+- Only 扫描 authorized targets
+- GET written 权限 before testing
 - Report vulnerabilities responsibly
-- Never exploit without authorization
+- never exploit without 授权

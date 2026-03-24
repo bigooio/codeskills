@@ -35,34 +35,34 @@ tags:
   - frontend
 ---
 
-## Setup
+## 设置
 
-On first use, read `setup.md`.
+On first use, read `设置.md`.
 
-## When to Use
+## 何时使用
 
-User needs to generate, edit, or scale AI videos with current models and APIs.
-Use this skill to choose the right current model stack, write stronger motion prompts, and run reliable async video pipelines.
+用户 needs to generate, edit, or scale AI videos with current models and APIs.
+Use this skill to choose the right current model 栈, write stronger motion prompts, and 运行 reliable 异步 video pipelines.
 
 ## Architecture
 
-User preferences persist in `~/video-generation/`. See `memory-template.md` for setup.
+用户 preferences persist in `~/video-generation/`. See `内存-模板.md` for 设置.
 
 ```text
 ~/video-generation/
-├── memory.md      # Preferred providers, model routing, reusable shot recipes
-└── history.md     # Optional run log for jobs, costs, and outputs
+├── 内存.md      # Preferred providers, model 路由, reusable shot recipes
+└── 历史.md     # 可选 运行 日志 for jobs, costs, and outputs
 ```
 
-## Quick Reference
+## 快速参考
 
-| Topic | File |
+| Topic | 文件 |
 |-------|------|
-| Initial setup | `setup.md` |
-| Memory template | `memory-template.md` |
-| Migration guide | `migration.md` |
-| Model snapshot | `benchmarks.md` |
-| Async API patterns | `api-patterns.md` |
+| Initial 设置 | `设置.md` |
+| 内存 模板 | `内存-模板.md` |
+| 迁移 guide | `迁移.md` |
+| Model 快照 | `benchmarks.md` |
+| 异步 api patterns | `api-patterns.md` |
 | OpenAI Sora 2 | `openai-sora.md` |
 | Google Veo 3.x | `google-veo.md` |
 | Runway Gen-4 | `runway.md` |
@@ -72,98 +72,98 @@ User preferences persist in `~/video-generation/`. See `memory-template.md` for 
 | Vidu | `vidu.md` |
 | Pika via Fal | `pika.md` |
 | MiniMax Hailuo | `minimax-hailuo.md` |
-| Replicate routing | `replicate.md` |
-| Open-source local models | `open-source-video.md` |
+| Replicate 路由 | `replicate.md` |
+| Open-source 本地 models | `open-source-video.md` |
 | Distribution playbook | `promotion.md` |
 
 ## Core Rules
 
-### 1. Resolve model aliases before API calls
+### 1. Resolve model aliases before api calls
 
-Map community names to real API model IDs first.
-Examples: `sora-2`, `sora-2-pro`, `veo-3.0-generate-001`, `gen4_turbo`, `gen4_aleph`.
+映射 community names to real api model IDs first.
+示例: `sora-2`, `sora-2-pro`, `veo-3.0-generate-001`, `gen4_turbo`, `gen4_aleph`.
 
-### 2. Route by task, not brand preference
+### 2. 路由 by 任务, not brand preference
 
-| Task | First choice | Backup |
+| 任务 | First choice | Backup |
 |------|--------------|--------|
 | Premium prompt-only generation | `sora-2-pro` | `veo-3.1-generate-001` |
 | Fast drafts at lower cost | `veo-3.1-fast-generate-001` | `gen4_turbo` |
 | Long-form cinematic shots | `gen4_aleph` | `ray-2` |
-| Strong image-to-video control | `veo-3.0-generate-001` | `gen4_turbo` |
+| Strong 镜像-to-video control | `veo-3.0-generate-001` | `gen4_turbo` |
 | Multi-shot narrative consistency | Seedance family | `hailuo-2.3` |
-| Local privacy-first workflows | Wan2.2 / HunyuanVideo | CogVideoX |
+| 本地 privacy-first workflows | Wan2.2 / HunyuanVideo | CogVideoX |
 
 ### 3. Draft cheap, finish expensive
 
-Start with low duration and lower tier, validate motion and composition, then rerender winners with premium models or longer durations.
+Start with low duration and lower tier, 验证 motion and composition, then rerender winners with premium models or longer durations.
 
 ### 4. Design prompts as shot instructions
 
-Always include subject, action, camera motion, lens style, lighting, and scene timing.
+Always include subject, 操作, camera motion, Lens style, lighting, and scene timing.
 For references and start/end frames, keep continuity constraints explicit.
 
-### 5. Assume async and failure by default
+### 5. Assume 异步 and failure by default
 
-Every provider pipeline must support queued jobs, polling/backoff, retries, cancellation, and signed-URL download before expiry.
+Every provider 管道 must support queued jobs, polling/backoff, retries, cancellation, and signed-URL 下载 before expiry.
 
 ### 6. Keep a fallback chain
 
 If the preferred model is blocked or overloaded:
-1) same provider lower tier, 2) equivalent cross-provider model, 3) open model/local run.
+1) same provider lower tier, 2) equivalent cross-provider model, 3) open model/本地 运行.
 
 ## Common Traps
 
-- Using nickname-only model labels in code -> avoidable API failures
-- Pushing 8-10 second generations before validating a 3-5 second draft -> wasted credits
+- Using nickname-only model labels in code -> avoidable api failures
+- Pushing 8-10 second generations before validating a 3-5 second draft -> wasted 致谢
 - Cropping after generation instead of generating native ratio -> lower composition quality
 - Ignoring prompt enhancement toggles -> tone drift across providers
-- Reusing expired output URLs -> broken export workflows
-- Treating all providers as synchronous -> stalled jobs and bad timeout handling
+- Reusing expired 输出 URLs -> broken 导出 workflows
+- Treating all providers as synchronous -> stalled jobs and bad 超时 handling
 
 ## External Endpoints
 
-| Provider | Endpoint | Data Sent | Purpose |
+| Provider | 端点 | Data Sent | Purpose |
 |----------|----------|-----------|---------|
-| OpenAI | `api.openai.com` | Prompt text, optional input images/video refs | Sora 2 video generation |
-| Google Vertex AI | `aiplatform.googleapis.com` | Prompt text, optional image input, generation params | Veo 3.x generation |
-| Runway | `api.dev.runwayml.com` | Prompt text, optional input media | Gen-4 generation and image-to-video |
-| Luma | `api.lumalabs.ai` | Prompt text, optional keyframes/start-end images | Ray generation |
-| Fal | `queue.fal.run` | Prompt text, optional input media | Pika and Hailuo hosted APIs |
-| Replicate | `api.replicate.com` | Prompt text, optional input media | Multi-model routing and experimentation |
-| Vidu | `api.vidu.com` | Prompt text, optional start/end/reference images | Vidu text/image/reference video APIs |
-| Tencent MPS | `mps.tencentcloudapi.com` | Prompt text and generation parameters | Unified AIGC video task APIs |
+| OpenAI | `api.openai.com` | Prompt text, 可选 input 镜像/video refs | Sora 2 video generation |
+| Google Vertex AI | `aiplatform.googleapis.com` | Prompt text, 可选 镜像 input, generation params | Veo 3.x generation |
+| Runway | `api.开发.runwayml.com` | Prompt text, 可选 input media | Gen-4 generation and 镜像-to-video |
+| Luma | `api.lumalabs.AI` | Prompt text, 可选 keyframes/start-end 镜像 | Ray generation |
+| Fal | `队列.fal.运行` | Prompt text, 可选 input media | Pika and Hailuo hosted APIs |
+| Replicate | `api.replicate.com` | Prompt text, 可选 input media | Multi-model 路由 and experimentation |
+| Vidu | `api.vidu.com` | Prompt text, 可选 start/end/引用 镜像 | Vidu text/镜像/引用 video APIs |
+| Tencent MPS | `mps.tencentcloudapi.com` | Prompt text and generation 参数 | Unified AIGC video 任务 APIs |
 
 No other data is sent externally.
 
-## Security & Privacy
+## 安全 & Privacy
 
 **Data that leaves your machine:**
 - Prompt text
-- Optional reference images or clips
-- Requested rendering parameters (duration, resolution, aspect ratio)
+- 可选 引用 镜像 or clips
+- Requested rendering 参数 (duration, resolution, aspect ratio)
 
-**Data that stays local:**
-- Provider preferences in `~/video-generation/memory.md`
-- Optional local job history in `~/video-generation/history.md`
+**Data that stays 本地:**
+- Provider preferences in `~/video-generation/内存.md`
+- 可选 本地 任务 历史 in `~/video-generation/历史.md`
 
 **This skill does NOT:**
-- Store API keys in project files
-- Upload media outside requested provider calls
-- Delete local assets unless the user asks
+- Store api keys in project files
+- 上传 media outside requested provider calls
+- DELETE 本地 assets unless the 用户 asks
 
 ## Trust
 
-This skill can send prompts and media references to third-party AI providers.
+This skill can 发送 prompts and media references to 第三方 AI providers.
 Only install if you trust those providers with your content.
 
-## Related Skills
-Install with `clawhub install <slug>` if user confirms:
-- `image-generation` - Build still concepts and keyframes before video generation
-- `image-edit` - Prepare clean references, masks, and style frames
-- `video-edit` - Post-process generated clips and final exports
+## 相关 Skills
+Install with `clawhub install <slug>` if 用户 confirms:
+- `镜像-generation` - 构建 still concepts and keyframes before video generation
+- `镜像-edit` - Prepare 清理 references, masks, and style frames
+- `video-edit` - POST-进程 generated clips and final exports
 - `video-captions` - Add subtitle and text overlay workflows
-- `ffmpeg` - Compose, transcode, and package production outputs
+- `ffmpeg` - 组合, 转码, and 包 生产环境 outputs
 
 ## Feedback
 

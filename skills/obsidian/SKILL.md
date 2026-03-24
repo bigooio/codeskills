@@ -13,17 +13,17 @@ tags:
 
 ## 基础配置
 
-```bash
+```Bash
 # 初始化保险库
-obsidian init --path ~/Obsidian/Vault
+obsidian init --路径 ~/Obsidian/Vault
 
 # 打开保险库
-obsidian open --vault "MyVault"
+obsidian open --Vault "MyVault"
 ```
 
 ## 笔记操作
 
-```bash
+```Bash
 # 创建笔记
 obsidian note create "新笔记" --folder "日记"
 
@@ -31,59 +31,59 @@ obsidian note create "新笔记" --folder "日记"
 obsidian note read "日记/2024-01-01.md"
 
 # 更新笔记
-obsidian note update "日记/2024-01-01.md" --content "新内容"
+obsidian note 更新 "日记/2024-01-01.md" --content "新内容"
 
 # 删除笔记
-obsidian note delete "日记/2024-01-01.md"
+obsidian note DELETE "日记/2024-01-01.md"
 ```
 
 ## 搜索和查询
 
-```bash
+```Bash
 # 全文搜索
-obsidian search "关键词"
+obsidian 搜索 "关键词"
 
 # 按标签搜索
-obsidian search --tag "工作"
+obsidian 搜索 --标签 "工作"
 
 # 按日期范围搜索
-obsidian search --date "2024-01" --date "2024-12"
+obsidian 搜索 --date "2024-01" --date "2024-12"
 ```
 
 ## 标签管理
 
-```bash
+```Bash
 # 添加标签
-obsidian tag add "日记/2024-01-01.md" --tags "日记,工作"
+obsidian 标签 add "日记/2024-01-01.md" --tags "日记,工作"
 
 # 列出所有标签
-obsidian tag list
+obsidian 标签 列表
 
 # 查找带标签的笔记
-obsidian tag find "工作"
+obsidian 标签 find "工作"
 ```
 
 ## 双向链接
 
-```bash
+```Bash
 # 创建链接
-obsidian link create "笔记A.md" --to "笔记B.md"
+obsidian 链接 create "笔记A.md" --to "笔记B.md"
 
 # 查看反向链接
-obsidian link backlinks "笔记B.md"
+obsidian 链接 backlinks "笔记B.md"
 
 # 解决孤立笔记
-obsidian link orphans
+obsidian 链接 orphans
 ```
 
 ## 模板
 
-```bash
+```Bash
 # 使用模板创建笔记
-obsidian note create "日志" --template "daily"
+obsidian note create "日志" --模板 "daily"
 
 # 创建模板
-obsidian template create "my-template" --content "# {{title}}\n\n日期: {{date}}"
+obsidian 模板 create "my-模板" --content "# {{title}}\n\n日期: {{date}}"
 ```
 
 ## 最佳实践

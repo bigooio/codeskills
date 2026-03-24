@@ -22,89 +22,89 @@ tags:
   - frontend
 ---
 
-## When to Use
+## 何时使用
 
-User needs Vue expertise — from Composition API patterns to production optimization. Agent handles reactivity, component design, state management, and performance.
+用户 needs Vue expertise — from Composition api patterns to 生产环境 optimization. Agent handles reactivity, 组件 design, 状态 management, and performance.
 
-## Quick Reference
+## 快速参考
 
-| Topic | File |
+| Topic | 文件 |
 |-------|------|
 | Reactivity patterns | `reactivity.md` |
-| Component patterns | `components.md` |
+| 组件 patterns | `components.md` |
 | Composables design | `composables.md` |
 | Performance optimization | `performance.md` |
 
-## Composition API Philosophy
+## Composition api Philosophy
 
-- Composition API is not about replacing Options API—it's about better code organization
-- Group code by feature, not by option type—related logic stays together
-- Extract reusable logic into composables—the main win of Composition API
-- `<script setup>` is the recommended syntax—cleaner and better performance
+- Composition api is not about replacing OPTIONS api—它's about better code organization
+- 用户组 code by feature, not by option 类型—相关 logic stays together
+- 提取 reusable logic into composables—the 主分支 win of Composition api
+- `<脚本 设置>` is the recommended 语法—cleaner and better performance
 
 ## Reactivity Traps
 
-- `ref` for primitives—access with `.value` in script, auto-unwrapped in template
-- `reactive` can't reassign whole object—`state = {...}` breaks reactivity
-- Destructuring `reactive` loses reactivity—use `toRefs(state)` to preserve
-- Array index assignment reactive in Vue 3—`arr[0] = x` works, unlike Vue 2
+- `ref` for primitives—access with `.value` in 脚本, auto-unwrapped in 模板
+- `reactive` can't reassign whole 对象—`状态 = {...}` breaks reactivity
+- Destructuring `reactive` loses reactivity—use `toRefs(状态)` to preserve
+- 数组 index assignment reactive in Vue 3—`arr[0] = x` works, unlike Vue 2
 - Nested refs unwrap inside reactive—`reactive({count: ref(0)}).count` is number, not ref
 
 ## Watch vs Computed
 
-- `computed` for derived state—cached, recalculates only when dependencies change
-- `watch` for side effects—when you need to DO something in response to changes
-- `computed` should be pure—no side effects, no async
-- `watchEffect` for immediate reaction with auto-tracked dependencies
+- `computed` for derived 状态—cached, recalculates only when 依赖 change
+- `watch` for side effects—when you need to DO something in 响应 to changes
+- `computed` 应该 be pure—no side effects, no 异步
+- `watchEffect` for immediate reaction with auto-tracked 依赖
 
 ## Watch Traps
 
-- Watching reactive object needs `deep: true`—or watch a getter function
-- `watch` is lazy by default—use `immediate: true` for initial run
-- Watch callback receives old/new—`watch(source, (newVal, oldVal) => {})`
+- Watching reactive 对象 needs `deep: true`—or watch a getter 函数
+- `watch` is 懒惰 by default—use `immediate: true` for initial 运行
+- Watch 回调 receives old/new—`watch(source, (newVal, oldVal) => {})`
 - `watchEffect` can't access old value—use `watch` if you need old/new comparison
-- Stop watchers with returned function—`const stop = watch(...); stop()`
+- 停止 watchers with returned 函数—`const 停止 = watch(...); 停止()`
 
-## Props and Emits Traps
+## 属性 and Emits Traps
 
-- `defineProps` for type-safe props—`defineProps<{ msg: string }>()`
-- Props are readonly—don't mutate, emit event to parent
-- `defineEmits` for type-safe events—`defineEmits<{ (e: 'update', val: string): void }>()`
-- `v-model` is `:modelValue` + `@update:modelValue`—custom v-model with `defineModel()`
-- Default value for objects must be factory function—`default: () => ({})`
+- `defineProps` for 类型-safe 属性—`defineProps<{ msg: 字符串 }>()`
+- 属性 are 只读—don't mutate, emit 事件 to parent
+- `defineEmits` for 类型-safe events—`defineEmits<{ (e: '更新', val: 字符串): void }>()`
+- `v-model` is `:modelValue` + `@更新:modelValue`—custom v-model with `defineModel()`
+- Default value for objects must be 工厂 函数—`default: () => ({})`
 
-## Template Ref Traps
+## 模板 Ref Traps
 
-- `ref="name"` + `const name = ref(null)`—names must match exactly
-- Template refs available after mount—access in `onMounted`, not during setup
-- `ref` on component gives component instance—`ref` on element gives DOM element
-- Template ref with `v-for` becomes array of refs
+- `ref="name"` + `const name = ref(null)`—names must 匹配 exactly
+- 模板 refs available after mount—access in `onMounted`, not during 设置
+- `ref` on 组件 gives 组件 instance—`ref` on element gives DOM element
+- 模板 ref with `v-for` becomes 数组 of refs
 
 ## Lifecycle Traps
 
-- `onMounted` for DOM access—component mounted to DOM
-- `onUnmounted` for cleanup—subscriptions, timers, event listeners
+- `onMounted` for DOM access—组件 mounted to DOM
+- `onUnmounted` for cleanup—subscriptions, timers, 事件 listeners
 - `onBeforeMount` runs before DOM insert—rarely needed but exists
-- Hooks must be called synchronously in setup—not inside callbacks or conditionals
-- Async setup needs `<Suspense>` wrapper
+- Hooks must be called synchronously in 设置—not inside callbacks or conditionals
+- 异步 设置 needs `<Suspense>` 包装器
 
 ## Provide/Inject Traps
 
 - `provide('key', value)` in parent—`inject('key')` in any descendant
-- Reactive if value is ref/reactive—otherwise static snapshot
-- Default value: `inject('key', defaultVal)`—third param for factory function
-- Symbol keys for type safety—avoid string key collisions
+- Reactive if value is ref/reactive—otherwise 静态 快照
+- Default value: `inject('key', defaultVal)`—third param for 工厂 函数
+- Symbol keys for 类型 safety—avoid 字符串 key collisions
 
-## Vue Router Traps
+## Vue 路由 Traps
 
-- `useRoute` for current route—reactive, use in setup
-- `useRouter` for navigation—`router.push('/path')`
-- Navigation guards: `beforeEach`, `beforeResolve`, `afterEach`—return `false` to cancel
-- `<RouterView>` with named views—multiple views per route
+- `useRoute` for current 路由—reactive, use in 设置
+- `useRouter` for 导航—`路由.推送('/路径')`
+- 导航 guards: `beforeEach`, `beforeResolve`, `afterEach`—return `false` to cancel
+- `<RouterView>` with named views—multiple views per 路由
 
 ## Common Mistakes
 
 - `v-if` vs `v-show`—v-if removes from DOM, v-show toggles display
-- Key on `v-for` required—`v-for="item in items" :key="item.id"`
-- Event modifiers order matters—`.prevent.stop` vs `.stop.prevent`
-- Teleport for modals—`<Teleport to="body">` renders outside component tree
+- Key on `v-for` 必需—`v-for="item in items" :key="item.id"`
+- 事件 modifiers order matters—`.prevent.停止` vs `.停止.prevent`
+- Teleport for modals—`<Teleport to="请求体">` renders outside 组件 tree

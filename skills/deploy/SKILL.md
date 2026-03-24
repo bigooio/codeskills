@@ -17,80 +17,80 @@ tags:
   - ai
 ---
 
-# Deployment Rules
+# 部署 Rules
 
-## Pre-Deploy Checklist
-- Tests passing in CI — never deploy with failing tests
-- Environment variables set in target — missing secrets cause silent failures
-- Database migrations run before code deploy — new code expecting new schema fails
-- Rollback plan ready — know exactly how to revert before you need to
+## Pre-部署 Checklist
+- Tests passing in CI — never 部署 with failing tests
+- 环境变量 集合 in target — missing secrets cause silent failures
+- 数据库 migrations 运行 before code 部署 — new code expecting new schema fails
+- 回滚 plan ready — know exactly how to 撤销 before you need to
 
-## Deployment Strategies
-- **Rolling**: update instances one by one — safe, slower, no extra resources
-- **Blue-green**: full parallel environment, instant switch — fast rollback, 2x resources
-- **Canary**: route percentage to new version — catch issues early, complex routing
+## 部署 Strategies
+- **Rolling**: 更新 instances one by one — safe, slower, no extra resources
+- **Blue-green**: full parallel 环境, instant 交换机 — fast 回滚, 2x resources
+- **Canary**: 路由 percentage to new 版本 — 捕获 issues early, complex 路由
 - Choose based on risk tolerance and resources — no universal best
 
 ## Zero-Downtime Deploys
 - Health checks must pass before traffic routes — unhealthy instances stay out
 - Graceful shutdown: finish in-flight requests before terminating
-- Database changes must be backwards compatible — old code still running during deploy
-- Session handling: sticky sessions or external session store — don't lose user state
+- 数据库 changes must be backwards compatible — old code still running during 部署
+- 会话 handling: sticky sessions or external 会话 store — don't lose 用户 状态
 
-## CI/CD Pipeline
-- Build once, deploy everywhere — same artifact to staging and prod
-- Cache dependencies between builds — save minutes per deploy
-- Parallel steps where possible — tests, linting, security scans
-- Fail fast: quick checks first — don't wait for slow tests to catch typos
-- Pin action versions with SHA — tags can change unexpectedly
+## CI/CD 管道
+- 构建 once, 部署 everywhere — same 制品 to 暂存 and prod
+- 缓存 依赖 between builds — 保存 minutes per 部署
+- Parallel steps where possible — tests, linting, 安全 scans
+- Fail fast: quick checks first — don't wait for slow tests to 捕获 typos
+- Pin 操作 versions with SHA — tags can change unexpectedly
 
-## Environment Management
-- Staging mirrors prod — different configs cause "works in staging" bugs
-- Secrets in secret manager, not environment files — rotation without redeploy
-- Feature flags decouple deploy from release — ship dark, enable later
-- Config as code in version control — except secrets
+## 环境 Management
+- 暂存 mirrors prod — different configs cause "works in 暂存" bugs
+- Secrets in 密钥 管理节点, not 环境 files — rotation without redeploy
+- Feature 标志 decouple 部署 from 发布 — ship dark, enable later
+- 配置 as code in 版本 control — except secrets
 
-## Database Migrations
-- Migrations must be backwards compatible during deploy window
+## 数据库 Migrations
+- Migrations must be backwards compatible during 部署 窗口
 - Add columns nullable first, then backfill, then add constraint
-- Never rename columns in one step — add new, migrate data, remove old
-- Test migrations on prod-size data — 10 rows is fast, 10 million isn't
-- Rollback script for every migration
+- never rename columns in one 步骤 — add new, migrate data, 删除 old
+- 测试 migrations on prod-size data — 10 rows is fast, 10 million isn't
+- 回滚 脚本 for every 迁移
 
-## Rollback
-- Automated rollback on health check failure
-- Keep previous version artifacts available — can't rollback what you deleted
-- Database rollbacks are hard — design migrations to not need them
-- Feature flags for instant rollback of functionality without deploy
-- Document rollback procedure — panic time is not learning time
+## 回滚
+- Automated 回滚 on 健康检查 failure
+- Keep previous 版本 artifacts available — can't 回滚 what you deleted
+- 数据库 rollbacks are hard — design migrations to not need them
+- Feature 标志 for instant 回滚 of functionality without 部署
+- Document 回滚 procedure — panic time is not learning time
 
-## Monitoring Post-Deploy
-- Watch error rates for 15 minutes after deploy — most issues surface quickly
-- Compare key metrics to pre-deploy baseline
-- Alerting on anomalies: latency spike, error rate increase
-- Log correlation: trace requests through systems
-- User-facing smoke tests after deploy
+## Monitoring POST-部署
+- Watch 错误 rates for 15 minutes after 部署 — most issues surface quickly
+- Compare key metrics to pre-部署 baseline
+- Alerting on anomalies: 延迟 spike, 错误 rate increase
+- 日志 correlation: trace requests through systems
+- 用户-facing smoke tests after 部署
 
 ## Platform-Specific
 
-### Containers
-- Image tagged with git SHA — know exactly what's running
-- Health check endpoint that verifies dependencies
-- Resource limits set — prevent runaway containers
+### 容器
+- 镜像 tagged with git SHA — know exactly what's running
+- 健康检查 端点 that verifies 依赖
+- Resource limits 集合 — prevent runaway 容器
 
-### Serverless
+### 无服务器
 - Cold start optimization — keep bundles small
-- Provisioned concurrency for latency-sensitive paths
-- Timeout set appropriately — default is often too short
+- Provisioned 并发 for 延迟-sensitive paths
+- 超时 集合 appropriately — default is often too short
 
-### Static Sites
-- CDN cache invalidation after deploy
-- Immutable assets with content hashes — cache forever
+### 静态 Sites
+- CDN 缓存 invalidation after 部署
+- Immutable assets with content hashes — 缓存 forever
 - Preview deploys for PRs
 
 ## Common Mistakes
 - Deploying Friday afternoon — issues surface when nobody's watching
-- No rollback plan — hoping nothing goes wrong isn't a strategy
-- Mixing code and migration deploys — one thing at a time
-- Manual deploy steps — if it's not automated, it's wrong sometimes
-- Deploying without monitoring — you won't know it's broken until users complain
+- No 回滚 plan — hoping nothing goes wrong isn't a 策略
+- Mixing code and 迁移 deploys — one thing at a time
+- Manual 部署 steps — if 它's not automated, 它's wrong sometimes
+- Deploying without monitoring — you won't know 它's broken until users complain

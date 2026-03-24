@@ -16,15 +16,15 @@ Create professional charts, graphs, and statistical visualizations using Python'
 
 ## Libraries & Use Cases
 
-**matplotlib** - Static plots, publication-quality, full control
+**matplotlib** - 静态 plots, publication-quality, full control
 - Bar, line, scatter, pie, histogram, heatmap
 - Multi-panel figures, subplots
 - Custom styling, annotations
-- Export: PNG, SVG, PDF
+- 导出: PNG, SVG, PDF
 
 **seaborn** - Statistical visualizations, beautiful defaults
 - Distribution plots (violin, box, kde, histogram)
-- Categorical plots (bar, count, swarm, box)
+- Categorical plots (bar, count, Swarm, box)
 - Relationship plots (scatter, line, regression)
 - Matrix plots (heatmap, clustermap)
 - Built on matplotlib, integrates seamlessly
@@ -32,25 +32,25 @@ Create professional charts, graphs, and statistical visualizations using Python'
 **plotly** - Interactive charts, web-friendly
 - Hover tooltips, zoom, pan
 - 3D plots, animations
-- Dashboards via Dash framework
-- Export: HTML, PNG (requires kaleido)
+- Dashboards via Dash 框架
+- 导出: HTML, PNG (requires kaleido)
 
-## Quick Start
+## 快速开始
 
-### Setup Environment
+### 设置 环境
 
-```bash
-cd skills/python-dataviz
-python3 -m venv .venv
-source .venv/bin/activate
+```Bash
+cd skills/Python-dataviz
+python3 -m 虚拟环境 .虚拟环境
+source .虚拟环境/bin/activate
 pip install .
 ```
 
 ### Create a Chart
 
-```python
-import matplotlib.pyplot as plt
-import numpy as np
+```Python
+导入 matplotlib.pyplot as plt
+导入 numpy as np
 
 # Data
 x = np.linspace(0, 10, 100)
@@ -65,70 +65,70 @@ plt.ylabel('Y Axis')
 plt.grid(alpha=0.3)
 plt.tight_layout()
 
-# Export
-plt.savefig('output.png', dpi=300, bbox_inches='tight')
-plt.savefig('output.svg', bbox_inches='tight')
+# 导出
+plt.savefig('输出.png', dpi=300, bbox_inches='tight')
+plt.savefig('输出.svg', bbox_inches='tight')
 ```
 
 ## Chart Selection Guide
 
 **Distribution/Statistical:**
-- Histogram → `plt.hist()` or `sns.histplot()`
-- Box plot → `sns.boxplot()`
-- Violin plot → `sns.violinplot()`
-- KDE → `sns.kdeplot()`
+- Histogram → `plt.hist()` or `SNS.histplot()`
+- Box plot → `SNS.boxplot()`
+- Violin plot → `SNS.violinplot()`
+- KDE → `SNS.kdeplot()`
 
 **Comparison:**
-- Bar chart → `plt.bar()` or `sns.barplot()`
-- Grouped bar → `sns.barplot(hue=...)`
-- Horizontal bar → `plt.barh()` or `sns.barplot(orient='h')`
+- Bar Chart → `plt.bar()` or `SNS.barplot()`
+- Grouped bar → `SNS.barplot(hue=...)`
+- Horizontal bar → `plt.barh()` or `SNS.barplot(orient='h')`
 
 **Relationship:**
-- Scatter → `plt.scatter()` or `sns.scatterplot()`
-- Line → `plt.plot()` or `sns.lineplot()`
-- Regression → `sns.regplot()` or `sns.lmplot()`
+- Scatter → `plt.scatter()` or `SNS.scatterplot()`
+- Line → `plt.plot()` or `SNS.lineplot()`
+- Regression → `SNS.regplot()` or `SNS.lmplot()`
 
 **Heatmaps:**
-- Correlation matrix → `sns.heatmap(df.corr())`
-- 2D data → `plt.imshow()` or `sns.heatmap()`
+- Correlation matrix → `SNS.heatmap(df.corr())`
+- 2D data → `plt.imshow()` or `SNS.heatmap()`
 
 **Interactive:**
-- Any plotly chart → `plotly.express` or `plotly.graph_objects`
-- See references/plotly-examples.md
+- any plotly Chart → `plotly.express` or `plotly.graph_objects`
+- See references/plotly-示例.md
 
-## Best Practices
+## 最佳实践
 
 ### 1. Figure Size & DPI
-```python
+```Python
 plt.figure(figsize=(10, 6))  # Width x Height in inches
-plt.savefig('output.png', dpi=300)  # Publication: 300 dpi, Web: 72-150 dpi
+plt.savefig('输出.png', dpi=300)  # Publication: 300 dpi, Web: 72-150 dpi
 ```
 
 ### 2. Color Palettes
-```python
+```Python
 # Seaborn palettes (works with matplotlib too)
-import seaborn as sns
-sns.set_palette("husl")  # Colorful
-sns.set_palette("muted")  # Soft
-sns.set_palette("deep")  # Bold
+导入 seaborn as SNS
+SNS.set_palette("husl")  # Colorful
+SNS.set_palette("muted")  # Soft
+SNS.set_palette("deep")  # Bold
 
 # Custom colors
 colors = ['#667eea', '#764ba2', '#f6ad55', '#4299e1']
 ```
 
 ### 3. Styling
-```python
+```Python
 # Use seaborn styles even for matplotlib
-import seaborn as sns
-sns.set_theme()  # Better defaults
-sns.set_style("whitegrid")  # Options: whitegrid, darkgrid, white, dark, ticks
+导入 seaborn as SNS
+SNS.set_theme()  # Better defaults
+SNS.set_style("whitegrid")  # OPTIONS: whitegrid, darkgrid, white, dark, ticks
 
 # Or matplotlib styles
-plt.style.use('ggplot')  # Options: ggplot, seaborn, bmh, fivethirtyeight
+plt.style.use('ggplot')  # OPTIONS: ggplot, seaborn, bmh, fivethirtyeight
 ```
 
 ### 4. Multiple Subplots
-```python
+```Python
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 axes[0, 0].plot(x, y1)
 axes[0, 1].plot(x, y2)
@@ -136,18 +136,18 @@ axes[0, 1].plot(x, y2)
 plt.tight_layout()  # Prevent label overlap
 ```
 
-### 5. Export Formats
-```python
+### 5. 导出 Formats
+```Python
 # PNG for sharing/embedding (raster)
-plt.savefig('chart.png', dpi=300, bbox_inches='tight', transparent=False)
+plt.savefig('Chart.png', dpi=300, bbox_inches='tight', transparent=False)
 
 # SVG for editing/scaling (vector)
-plt.savefig('chart.svg', bbox_inches='tight')
+plt.savefig('Chart.svg', bbox_inches='tight')
 
 # For plotly (interactive)
-import plotly.express as px
+导入 plotly.express as px
 fig = px.scatter(df, x='col1', y='col2')
-fig.write_html('chart.html')
+fig.write_html('Chart.html')
 ```
 
 ## Advanced Topics
@@ -156,12 +156,12 @@ See references/ for detailed guides:
 
 - **Color theory & palettes**: references/colors.md
 - **Statistical plots**: references/statistical.md
-- **Plotly interactive charts**: references/plotly-examples.md
+- **Plotly interactive charts**: references/plotly-示例.md
 - **Multi-panel layouts**: references/layouts.md
 
 ## Example Scripts
 
-See scripts/ for ready-to-use examples:
+See scripts/ for ready-to-use 示例:
 
 - `scripts/bar_chart.py` - Bar and grouped bar charts
 - `scripts/line_chart.py` - Line plots with multiple series
@@ -173,77 +173,77 @@ See scripts/ for ready-to-use examples:
 ## Common Patterns
 
 ### Data from CSV
-```python
-import pandas as pd
+```Python
+导入 pandas as pd
 df = pd.read_csv('data.csv')
 
 # Plot with pandas (uses matplotlib)
 df.plot(x='date', y='value', kind='line', figsize=(10, 6))
-plt.savefig('output.png', dpi=300)
+plt.savefig('输出.png', dpi=300)
 
 # Or with seaborn for better styling
-sns.lineplot(data=df, x='date', y='value')
-plt.savefig('output.png', dpi=300)
+SNS.lineplot(data=df, x='date', y='value')
+plt.savefig('输出.png', dpi=300)
 ```
 
 ### Dictionary Data
-```python
+```Python
 data = {'Category A': 25, 'Category B': 40, 'Category C': 15}
 
 # Matplotlib
-plt.bar(data.keys(), data.values())
-plt.savefig('output.png', dpi=300)
+plt.bar(data.keys(), data.Values())
+plt.savefig('输出.png', dpi=300)
 
 # Seaborn (convert to DataFrame)
-import pandas as pd
-df = pd.DataFrame(list(data.items()), columns=['Category', 'Value'])
-sns.barplot(data=df, x='Category', y='Value')
-plt.savefig('output.png', dpi=300)
+导入 pandas as pd
+df = pd.DataFrame(列表(data.items()), columns=['Category', 'Value'])
+SNS.barplot(data=df, x='Category', y='Value')
+plt.savefig('输出.png', dpi=300)
 ```
 
 ### NumPy Arrays
-```python
-import numpy as np
+```Python
+导入 numpy as np
 
 x = np.linspace(0, 10, 100)
 y = np.sin(x)
 
 plt.plot(x, y)
-plt.savefig('output.png', dpi=300)
+plt.savefig('输出.png', dpi=300)
 ```
 
-## Troubleshooting
+## 故障排除
 
-**"No module named matplotlib"**
-```bash
-cd skills/python-dataviz
-source .venv/bin/activate
-pip install -r requirements.txt
+**"No 模块 named matplotlib"**
+```Bash
+cd skills/Python-dataviz
+source .虚拟环境/bin/activate
+pip install -r 要求.txt
 ```
 
-**Blank output / "Figure is empty"**
+**Blank 输出 / "Figure is empty"**
 - Check that `plt.savefig()` comes AFTER plotting commands
-- Use `plt.show()` for interactive viewing during development
+- Use `plt.show()` for interactive viewing during 开发环境
 
 **Labels cut off**
-```python
+```Python
 plt.tight_layout()  # Add before plt.savefig()
 # Or
-plt.savefig('output.png', bbox_inches='tight')
+plt.savefig('输出.png', bbox_inches='tight')
 ```
 
-**Low resolution output**
-```python
-plt.savefig('output.png', dpi=300)  # Not 72 or 100
+**Low resolution 输出**
+```Python
+plt.savefig('输出.png', dpi=300)  # Not 72 or 100
 ```
 
-## Environment
+## 环境
 
-The skill includes a venv with all dependencies. Always activate before use:
+The skill includes a 虚拟环境 with all 依赖. Always activate before use:
 
-```bash
-cd /home/matt/.openclaw/workspace/skills/python-dataviz
-source .venv/bin/activate
+```Bash
+cd /home/matt/.openclaw/工作空间/skills/Python-dataviz
+source .虚拟环境/bin/activate
 ```
 
-Dependencies: matplotlib, seaborn, plotly, pandas, numpy, kaleido (for plotly static export)
+依赖: matplotlib, seaborn, plotly, pandas, numpy, kaleido (for plotly 静态 导出)

@@ -24,38 +24,38 @@ tags:
 
 # SQL Toolkit
 
-Work with relational databases directly from the command line. Covers SQLite, PostgreSQL, and MySQL with patterns for schema design, querying, migrations, indexing, and operations.
+Work with relational databases directly from the 命令行. Covers SQLite, PostgreSQL, and MySQL with patterns for schema design, querying, migrations, indexing, and operations.
 
-## When to Use
+## 何时使用
 
-- Creating or modifying database schemas
-- Writing complex queries (joins, aggregations, window functions, CTEs)
-- Building migration scripts
+- Creating or modifying 数据库 schemas
+- Writing complex queries (joins, aggregations, 窗口 functions, CTEs)
+- Building 迁移 scripts
 - Optimizing slow queries with indexes and EXPLAIN
 - Backing up and restoring databases
-- Quick data exploration with SQLite (zero setup)
+- Quick data exploration with SQLite (zero 设置)
 
-## SQLite (Zero Setup)
+## SQLite (Zero 设置)
 
-SQLite is included with Python and available on every system. Use it for local data, prototyping, and single-file databases.
+SQLite is included with Python and available on every system. Use 它 for 本地 data, prototyping, and single-文件 databases.
 
-### Quick Start
+### 快速开始
 
-```bash
-# Create/open a database
-sqlite3 mydb.sqlite
+```Bash
+# Create/open a 数据库
+sqlite3 mydb.SQLite
 
-# Import CSV directly
-sqlite3 mydb.sqlite ".mode csv" ".import data.csv mytable" "SELECT COUNT(*) FROM mytable;"
+# 导入 CSV directly
+sqlite3 mydb.SQLite ".mode csv" ".导入 data.csv mytable" "SELECT COUNT(*) FROM mytable;"
 
 # One-liner queries
-sqlite3 mydb.sqlite "SELECT * FROM users WHERE created_at > '2026-01-01' LIMIT 10;"
+sqlite3 mydb.SQLite "SELECT * FROM users WHERE created_at > '2026-01-01' 限制 10;"
 
-# Export to CSV
-sqlite3 -header -csv mydb.sqlite "SELECT * FROM orders;" > orders.csv
+# 导出 to CSV
+sqlite3 -请求头 -csv mydb.SQLite "SELECT * FROM orders;" > orders.csv
 
 # Interactive mode with headers and columns
-sqlite3 -header -column mydb.sqlite
+sqlite3 -请求头 -column mydb.SQLite
 ```
 
 ### Schema Operations
@@ -63,7 +63,7 @@ sqlite3 -header -column mydb.sqlite
 ```sql
 -- Create table
 CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id 整数 PRIMARY KEY AUTOINCREMENT,
     email TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL,
     created_at TEXT DEFAULT (datetime('now')),
@@ -72,10 +72,10 @@ CREATE TABLE users (
 
 -- Create with foreign key
 CREATE TABLE orders (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id 整数 PRIMARY KEY AUTOINCREMENT,
+    user_id 整数 NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     total REAL NOT NULL CHECK(total >= 0),
-    status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending','paid','shipped','cancelled')),
+    状态 TEXT NOT NULL DEFAULT 'pending' CHECK(状态 in ('pending','paid','shipped','cancelled')),
     created_at TEXT DEFAULT (datetime('now'))
 );
 
@@ -93,22 +93,22 @@ CREATE UNIQUE INDEX idx_users_email ON users(email);
 
 ## PostgreSQL
 
-### Connection
+### 连接
 
-```bash
-# Connect
+```Bash
+# 连接
 psql -h localhost -U myuser -d mydb
 
-# Connection string
-psql "postgresql://user:pass@localhost:5432/mydb?sslmode=require"
+# 连接 字符串
+psql "PostgreSQL://用户:pass@localhost:5432/mydb?sslmode=require"
 
-# Run single query
+# 运行 single query
 psql -h localhost -U myuser -d mydb -c "SELECT NOW();"
 
-# Run SQL file
-psql -h localhost -U myuser -d mydb -f migration.sql
+# 运行 SQL 文件
+psql -h localhost -U myuser -d mydb -f 迁移.sql
 
-# List databases
+# 列表 databases
 psql -l
 ```
 
@@ -116,47 +116,47 @@ psql -l
 
 ```sql
 -- Use UUIDs for distributed-friendly primary keys
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE 扩展 IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     email TEXT NOT NULL,
     name TEXT NOT NULL,
     password_hash TEXT NOT NULL,
-    role TEXT NOT NULL DEFAULT 'user' CHECK(role IN ('user','admin','moderator')),
+    角色 TEXT NOT NULL DEFAULT '用户' CHECK(角色 in ('用户','管理员','moderator')),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT users_email_unique UNIQUE(email)
 );
 
--- Auto-update updated_at
-CREATE OR REPLACE FUNCTION update_modified_column()
-RETURNS TRIGGER AS $$
+-- Auto-更新 updated_at
+CREATE OR 替换 函数 update_modified_column()
+RETURNS 触发器 as $$
 BEGIN
     NEW.updated_at = NOW();
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_users_modtime
-    BEFORE UPDATE ON users
-    FOR EACH ROW EXECUTE FUNCTION update_modified_column();
+CREATE 触发器 update_users_modtime
+    BEFORE 更新 ON users
+    FOR EACH ROW EXECUTE 函数 update_modified_column();
 
--- Enum type (PostgreSQL-specific)
-CREATE TYPE order_status AS ENUM ('pending', 'paid', 'shipped', 'delivered', 'cancelled');
+-- 枚举 类型 (PostgreSQL-specific)
+CREATE 类型 order_status as 枚举 ('pending', 'paid', 'shipped', 'delivered', 'cancelled');
 
 CREATE TABLE orders (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    status order_status NOT NULL DEFAULT 'pending',
+    状态 order_status NOT NULL DEFAULT 'pending',
     total NUMERIC(10,2) NOT NULL CHECK(total >= 0),
     metadata JSONB DEFAULT '{}',
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Partial index (only index active orders — smaller, faster)
+-- 偏函数 index (only index active orders — smaller, faster)
 CREATE INDEX idx_orders_active ON orders(user_id, created_at)
-    WHERE status NOT IN ('delivered', 'cancelled');
+    WHERE 状态 NOT in ('delivered', 'cancelled');
 
 -- GIN index for JSONB queries
 CREATE INDEX idx_orders_metadata ON orders USING GIN(metadata);
@@ -167,24 +167,24 @@ CREATE INDEX idx_orders_metadata ON orders USING GIN(metadata);
 ```sql
 -- Store JSON
 INSERT INTO orders (user_id, total, metadata)
-VALUES ('...', 99.99, '{"source": "web", "coupon": "SAVE10", "items": [{"sku": "A1", "qty": 2}]}');
+Values ('...', 99.99, '{"source": "web", "coupon": "SAVE10", "items": [{"sku": "A1", "qty": 2}]}');
 
 -- Query JSON fields
 SELECT * FROM orders WHERE metadata->>'source' = 'web';
 SELECT * FROM orders WHERE metadata->'items' @> '[{"sku": "A1"}]';
-SELECT metadata->>'coupon' AS coupon, COUNT(*) FROM orders GROUP BY 1;
+SELECT metadata->>'coupon' as coupon, COUNT(*) FROM orders 用户组 BY 1;
 
--- Update JSON field
-UPDATE orders SET metadata = jsonb_set(metadata, '{source}', '"mobile"') WHERE id = '...';
+-- 更新 JSON field
+更新 orders 集合 metadata = jsonb_set(metadata, '{source}', '"mobile"') WHERE id = '...';
 ```
 
 ## MySQL
 
-### Connection
+### 连接
 
-```bash
-mysql -h localhost -u root -p mydb
-mysql -h localhost -u root -p -e "SELECT NOW();" mydb
+```Bash
+MySQL -h localhost -u root -p mydb
+MySQL -h localhost -u root -p -e "SELECT NOW();" mydb
 ```
 
 ### Key Differences from PostgreSQL
@@ -196,10 +196,10 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON 更新 CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- JSON type (MySQL 5.7+)
+-- JSON 类型 (MySQL 5.7+)
 CREATE TABLE orders (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT UNSIGNED NOT NULL,
@@ -218,119 +218,119 @@ SELECT * FROM orders WHERE metadata->>'$.source' = 'web';
 ### Joins
 
 ```sql
--- Inner join (only matching rows)
-SELECT u.name, o.total, o.status
+-- Inner 加入 (only matching rows)
+SELECT u.name, o.total, o.状态
 FROM users u
-INNER JOIN orders o ON o.user_id = u.id
+INNER 加入 orders o ON o.user_id = u.id
 WHERE o.created_at > '2026-01-01';
 
--- Left join (all users, even without orders)
-SELECT u.name, COUNT(o.id) AS order_count, COALESCE(SUM(o.total), 0) AS total_spent
+-- Left 加入 (all users, even without orders)
+SELECT u.name, COUNT(o.id) as order_count, COALESCE(SUM(o.total), 0) as total_spent
 FROM users u
-LEFT JOIN orders o ON o.user_id = u.id
-GROUP BY u.id, u.name;
+LEFT 加入 orders o ON o.user_id = u.id
+用户组 BY u.id, u.name;
 
--- Self-join (find users with same email domain)
-SELECT a.name, b.name, SPLIT_PART(a.email, '@', 2) AS domain
+-- Self-加入 (find users with same email 域名)
+SELECT a.name, b.name, SPLIT_PART(a.email, '@', 2) as 域名
 FROM users a
-JOIN users b ON SPLIT_PART(a.email, '@', 2) = SPLIT_PART(b.email, '@', 2)
+加入 users b ON SPLIT_PART(a.email, '@', 2) = SPLIT_PART(b.email, '@', 2)
 WHERE a.id < b.id;
 ```
 
 ### Aggregations
 
 ```sql
--- Group by with having
-SELECT status, COUNT(*) AS cnt, SUM(total) AS revenue
+-- 用户组 by with having
+SELECT 状态, COUNT(*) as cnt, SUM(total) as revenue
 FROM orders
-GROUP BY status
+用户组 BY 状态
 HAVING COUNT(*) > 10
 ORDER BY revenue DESC;
 
--- Running total (window function)
+-- Running total (窗口 函数)
 SELECT date, revenue,
-    SUM(revenue) OVER (ORDER BY date) AS cumulative_revenue
+    SUM(revenue) OVER (ORDER BY date) as cumulative_revenue
 FROM daily_sales;
 
 -- Rank within groups
 SELECT user_id, total,
-    RANK() OVER (PARTITION BY user_id ORDER BY total DESC) AS rank
+    RANK() OVER (分区 BY user_id ORDER BY total DESC) as rank
 FROM orders;
 
 -- Moving average (last 7 entries)
 SELECT date, revenue,
-    AVG(revenue) OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS ma_7
+    AVG(revenue) OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) as ma_7
 FROM daily_sales;
 ```
 
 ### Common Table Expressions (CTEs)
 
 ```sql
--- Readable multi-step queries
-WITH monthly_revenue AS (
-    SELECT DATE_TRUNC('month', created_at) AS month,
-           SUM(total) AS revenue
+-- Readable multi-步骤 queries
+with monthly_revenue as (
+    SELECT DATE_TRUNC('month', created_at) as month,
+           SUM(total) as revenue
     FROM orders
-    WHERE status = 'paid'
-    GROUP BY 1
+    WHERE 状态 = 'paid'
+    用户组 BY 1
 ),
-growth AS (
+growth as (
     SELECT month, revenue,
-           LAG(revenue) OVER (ORDER BY month) AS prev_revenue,
+           LAG(revenue) OVER (ORDER BY month) as prev_revenue,
            ROUND((revenue - LAG(revenue) OVER (ORDER BY month)) /
-                 NULLIF(LAG(revenue) OVER (ORDER BY month), 0) * 100, 1) AS growth_pct
+                 NULLIF(LAG(revenue) OVER (ORDER BY month), 0) * 100, 1) as growth_pct
     FROM monthly_revenue
 )
 SELECT * FROM growth ORDER BY month;
 
--- Recursive CTE (org chart / tree traversal)
-WITH RECURSIVE org_tree AS (
-    SELECT id, name, manager_id, 0 AS depth
+-- Recursive CTE (org Chart / tree traversal)
+with RECURSIVE org_tree as (
+    SELECT id, name, manager_id, 0 as depth
     FROM employees
     WHERE manager_id IS NULL
-    UNION ALL
+    联合类型 ALL
     SELECT e.id, e.name, e.manager_id, t.depth + 1
     FROM employees e
-    JOIN org_tree t ON e.manager_id = t.id
+    加入 org_tree t ON e.manager_id = t.id
 )
-SELECT REPEAT('  ', depth) || name AS org_chart FROM org_tree ORDER BY depth, name;
+SELECT REPEAT('  ', depth) || name as org_chart FROM org_tree ORDER BY depth, name;
 ```
 
 ## Migrations
 
-### Manual Migration Script Pattern
+### Manual 迁移 脚本 模式
 
-```bash
-#!/bin/bash
-# migrate.sh - Run numbered SQL migration files
-DB_URL="${1:?Usage: migrate.sh <db-url>}"
+```Bash
+#!/bin/Bash
+# migrate.sh - 运行 numbered SQL 迁移 files
+DB_URL="${1:?使用方法: migrate.sh <db-URL>}"
 MIGRATIONS_DIR="./migrations"
 
 # Create tracking table
 psql "$DB_URL" -c "CREATE TABLE IF NOT EXISTS schema_migrations (
-    version TEXT PRIMARY KEY,
+    版本 TEXT PRIMARY KEY,
     applied_at TIMESTAMPTZ DEFAULT NOW()
 );"
 
-# Run pending migrations in order
-for file in $(ls "$MIGRATIONS_DIR"/*.sql | sort); do
-    version=$(basename "$file" .sql)
-    already=$(psql "$DB_URL" -tAc "SELECT 1 FROM schema_migrations WHERE version='$version';")
+# 运行 pending migrations in order
+for 文件 in $(ls "$MIGRATIONS_DIR"/*.sql | 排序); do
+    版本=$(basename "$文件" .sql)
+    already=$(psql "$DB_URL" -tAc "SELECT 1 FROM schema_migrations WHERE 版本='$版本';")
     if [ "$already" = "1" ]; then
-        echo "SKIP: $version (already applied)"
+        echo "SKIP: $版本 (already applied)"
         continue
     fi
-    echo "APPLY: $version"
-    psql "$DB_URL" -f "$file" && \
-    psql "$DB_URL" -c "INSERT INTO schema_migrations (version) VALUES ('$version');" || {
-        echo "FAILED: $version"
+    echo "APPLY: $版本"
+    psql "$DB_URL" -f "$文件" && \
+    psql "$DB_URL" -c "INSERT INTO schema_migrations (版本) Values ('$版本');" || {
+        echo "FAILED: $版本"
         exit 1
     }
 done
 echo "All migrations applied."
 ```
 
-### Migration File Convention
+### 迁移 文件 Convention
 
 ```
 migrations/
@@ -340,7 +340,7 @@ migrations/
   004_add_orders_metadata_index.sql
 ```
 
-Each file:
+Each 文件:
 ```sql
 -- 003_add_users_phone.sql
 -- Up
@@ -355,34 +355,34 @@ ALTER TABLE users ADD COLUMN phone TEXT;
 
 ```sql
 -- Show query plan
-EXPLAIN SELECT * FROM orders WHERE user_id = '...' AND status = 'paid';
+EXPLAIN SELECT * FROM orders WHERE user_id = '...' AND 状态 = 'paid';
 
 -- Show actual execution times
 EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)
-SELECT * FROM orders WHERE user_id = '...' AND status = 'paid';
+SELECT * FROM orders WHERE user_id = '...' AND 状态 = 'paid';
 ```
 
 **What to look for:**
-- `Seq Scan` on large tables → needs an index
-- `Nested Loop` with large row counts → consider `Hash Join` (may need more `work_mem`)
-- `Rows Removed by Filter` being high → index doesn't cover the filter
-- Actual rows far from estimated → run `ANALYZE tablename;` to update statistics
+- `Seq 扫描` on large tables → needs an index
+- `Nested Loop` with large row counts → consider `哈希 加入` (may need more `work_mem`)
+- `Rows Removed by 过滤` being high → index doesn't cover the 过滤
+- Actual rows far from estimated → 运行 `ANALYZE tablename;` to 更新 statistics
 
-### Index Strategy
+### Index 策略
 
 ```sql
 -- Single column (most common)
 CREATE INDEX idx_orders_user_id ON orders(user_id);
 
--- Composite (for queries filtering on both columns)
-CREATE INDEX idx_orders_user_status ON orders(user_id, status);
--- Column ORDER matters: put equality filters first, range filters last
+-- 组合 (for queries filtering on both columns)
+CREATE INDEX idx_orders_user_status ON orders(user_id, 状态);
+-- Column ORDER matters: PUT equality filters first, range filters last
 
 -- Covering index (includes data columns to avoid table lookup)
-CREATE INDEX idx_orders_covering ON orders(user_id, status) INCLUDE (total, created_at);
+CREATE INDEX idx_orders_covering ON orders(user_id, 状态) INCLUDE (total, created_at);
 
--- Partial index (smaller, faster — only index what you query)
-CREATE INDEX idx_orders_pending ON orders(user_id) WHERE status = 'pending';
+-- 偏函数 index (smaller, faster — only index what you query)
+CREATE INDEX idx_orders_pending ON orders(user_id) WHERE 状态 = 'pending';
 
 -- Check unused indexes
 SELECT schemaname, tablename, indexname, idx_scan
@@ -395,58 +395,58 @@ ORDER BY pg_relation_size(indexrelid) DESC;
 
 ```sql
 EXPLAIN QUERY PLAN SELECT * FROM orders WHERE user_id = 5;
--- Look for: SCAN (bad) vs SEARCH USING INDEX (good)
+-- Look for: 扫描 (bad) vs 搜索 USING INDEX (good)
 ```
 
 ## Backup & Restore
 
 ### PostgreSQL
 
-```bash
+```Bash
 # Full dump (custom format, compressed)
 pg_dump -Fc -h localhost -U myuser mydb > backup.dump
 
 # Restore
-pg_restore -h localhost -U myuser -d mydb --clean --if-exists backup.dump
+pg_restore -h localhost -U myuser -d mydb --清理 --if-exists backup.dump
 
 # SQL dump (portable, readable)
 pg_dump -h localhost -U myuser mydb > backup.sql
 
 # Dump specific tables
-pg_dump -h localhost -U myuser -t users -t orders mydb > partial.sql
+pg_dump -h localhost -U myuser -t users -t orders mydb > 偏函数.sql
 
-# Copy table to CSV
-psql -c "\copy (SELECT * FROM users) TO 'users.csv' CSV HEADER"
+# 复制 table to CSV
+psql -c "\复制 (SELECT * FROM users) TO 'users.csv' CSV 请求头"
 ```
 
 ### SQLite
 
-```bash
-# Backup (just copy the file, but use .backup for consistency)
-sqlite3 mydb.sqlite ".backup backup.sqlite"
+```Bash
+# Backup (just 复制 the 文件, but use .backup for consistency)
+sqlite3 mydb.SQLite ".backup backup.SQLite"
 
 # Dump to SQL
-sqlite3 mydb.sqlite .dump > backup.sql
+sqlite3 mydb.SQLite .dump > backup.sql
 
 # Restore from SQL
-sqlite3 newdb.sqlite < backup.sql
+sqlite3 newdb.SQLite < backup.sql
 ```
 
 ### MySQL
 
-```bash
+```Bash
 # Dump
 mysqldump -h localhost -u root -p mydb > backup.sql
 
 # Restore
-mysql -h localhost -u root -p mydb < backup.sql
+MySQL -h localhost -u root -p mydb < backup.sql
 ```
 
 ## Tips
 
-- Always use parameterized queries in application code — never concatenate user input into SQL
+- Always use parameterized queries in application code — never concatenate 用户 input into SQL
 - Use `TIMESTAMPTZ` (not `TIMESTAMP`) in PostgreSQL for timezone-aware dates
-- Set `PRAGMA journal_mode=WAL;` in SQLite for concurrent read performance
+- 集合 `PRAGMA journal_mode=WAL;` in SQLite for concurrent read performance
 - Use `EXPLAIN` before deploying any query that runs on large tables
 - PostgreSQL: `\d+ tablename` shows columns, indexes, and size. `\di+` lists all indexes with sizes
-- For quick data exploration, import any CSV into SQLite: `sqlite3 :memory: ".mode csv" ".import file.csv t" "SELECT ..."`
+- For quick data exploration, 导入 any CSV into SQLite: `sqlite3 :内存: ".mode csv" ".导入 文件.csv t" "SELECT ..."`

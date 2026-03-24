@@ -10,52 +10,52 @@ tags:
   - security
 ---
 
-# Security Checker
+# 安全 Checker
 
-Security scan Python skills before publishing to ensure code safety.
+安全 扫描 Python skills before publishing to ensure code safety.
 
-## Quick Start
+## 快速开始
 
-```bash
+```Bash
 security_scan.py <file_or_directory>
 ```
 
-**Examples:**
-```bash
-# Scan a single Python file
+**示例:**
+```Bash
+# 扫描 a single Python 文件
 security_scan.py scripts/my_script.py
 
-# Scan an entire skill directory
-security_scan.py /path/to/skill-folder
+# 扫描 an entire skill directory
+security_scan.py /路径/to/skill-folder
 
-# Scan multiple skills
+# 扫描 multiple skills
 security_scan.py skills/
 ```
 
-## What It Checks
+## What 它 Checks
 
 ### Dangerous Imports
 Detects imports that could be used maliciously:
 - `os` - System-level operations
-- `subprocess` - Command execution
-- `shutil` - File operations
-- `socket` - Network operations
+- `subprocess` - 命令 execution
+- `shutil` - 文件 operations
+- `套接字` - 网络 operations
 - `urllib` / `requests` - HTTP requests
 
-**Why dangerous?** These imports enable system command execution, file manipulation, and network access that could be exploited.
+**Why dangerous?** These imports enable system 命令 execution, 文件 manipulation, and 网络 access that could be exploited.
 
 ### Dangerous Functions
-Detects potentially unsafe function calls:
-- `os.system()` - Executes shell commands
-- `subprocess.call()`, `subprocess.run()`, `subprocess.Popen()` - Command execution
+Detects potentially unsafe 函数 calls:
+- `os.system()` - Executes Shell commands
+- `subprocess.call()`, `subprocess.运行()`, `subprocess.Popen()` - 命令 execution
 - `eval()` - Executes arbitrary code
-- `exec()` - Executes arbitrary code
+- `执行()` - Executes arbitrary code
 
-**Why dangerous?** These can execute arbitrary commands or code, leading to remote code execution vulnerabilities.
+**Why dangerous?** These can execute arbitrary commands or code, leading to 远程 code execution vulnerabilities.
 
 ### Hardcoded Secrets
 Detects tokens, keys, and passwords:
-- API keys
+- api keys
 - Auth tokens (including ClawHub tokens)
 - Passwords
 - Private keys
@@ -63,160 +63,160 @@ Detects tokens, keys, and passwords:
 
 **Why dangerous?** Secrets leaked in published code can be stolen and abused.
 
-### Unsafe File Operations
-Detects risky file access patterns:
-- Absolute file paths outside expected directories
+### Unsafe 文件 Operations
+Detects risky 文件 access patterns:
+- Absolute 文件 paths outside expected directories
 - Parent directory traversal (`..`)
 - Writing to system directories
 
-**Why dangerous?** Could lead to unintended file access, data loss, or system modification.
+**Why dangerous?** Could lead to unintended 文件 access, data loss, or system modification.
 
-## Usage Pattern: Pre-Publish Checklist
+## 使用方法 模式: Pre-Publish Checklist
 
 Before publishing any skill:
 
-```bash
-# 1. Run security scan
-security_scan.py /path/to/skill
+```Bash
+# 1. 运行 安全 扫描
+security_scan.py /路径/to/skill
 
-# 2. Review any warnings
-# If warnings appear, fix the code or document why it's safe
+# 2. Review any 警告
+# If 警告 appear, fix the code or document why 它's safe
 
-# 3. Re-scan after fixes
-security_scan.py /path/to/skill
+# 3. Re-扫描 after fixes
+security_scan.py /路径/to/skill
 
-# 4. Only publish if scan passes
-clawhub publish /path/to/skill --slug my-skill ...
+# 4. Only publish if 扫描 passes
+clawhub publish /路径/to/skill --slug my-skill ...
 ```
 
 ## Interpretation of Results
 
-### ✅ "No security issues found"
+### ✅ "No 安全 issues found"
 Code appears safe. Proceed with publishing.
 
 ### ⚠️  "Warning" (Yellow)
-Potentially risky pattern detected. Review the specific line and decide:
-- **Is it legitimate?** Document why in code comments or SKILL.md
-- **Can it be avoided?** Refactor to safer alternatives
-- **Is it necessary?** Clearly document the risk and purpose
+Potentially risky 模式 detected. Review the specific line and decide:
+- **Is 它 legitimate?** Document why in code comments or SKILL.md
+- **Can 它 be avoided?** Refactor to safer alternatives
+- **Is 它 necessary?** Clearly document the risk and purpose
 
-### 🔴 "Possible hardcoded secret"
-Secret detected. Before publishing:
-- Remove the secret
-- Use environment variables instead: `os.getenv('API_KEY')`
-- Document required env variables in SKILL.md
-- Never commit real secrets
+### 🔴 "Possible hardcoded 密钥"
+密钥 detected. Before publishing:
+- 删除 the 密钥
+- Use 环境变量 instead: `os.getenv('API_KEY')`
+- Document 必需 env variables in SKILL.md
+- never 提交 real secrets
 
-## Examples
+## 示例
 
-### Legitimate os module usage (documented)
-```python
-import os  # Used only for path.join() - safe file path construction
-workspace = os.path.join(os.path.expanduser("~"), ".openclaw", "workspace")
+### Legitimate os 模块 使用方法 (documented)
+```Python
+导入 os  # Used only for 路径.加入() - safe 文件 路径 construction
+工作空间 = os.路径.加入(os.路径.expanduser("~"), ".openclaw", "工作空间")
 ```
 
-**Scan result:** ⚠️ Warning about os import
-**Action:** Document safe usage pattern in code comments
+**扫描 result:** ⚠️ Warning about os 导入
+**操作:** Document safe 使用方法 模式 in code comments
 
-### Hardcoded secret (must fix)
-```python
+### Hardcoded 密钥 (must fix)
+```Python
 API_KEY = "sk-1234567890abcdef"  # DON'T DO THIS
 ```
 
-**Scan result:** 🔴 Possible hardcoded secret
-**Action:** Remove and use environment variable:
-```python
+**扫描 result:** 🔴 Possible hardcoded 密钥
+**操作:** 删除 and use 环境 变量:
+```Python
 API_KEY = os.getenv("MY_SKILL_API_KEY")
-# Document in SKILL.md: Requires MY_SKILL_API_KEY environment variable
+# Document in SKILL.md: Requires MY_SKILL_API_KEY 环境 变量
 ```
 
-### Safe pattern (no issues)
-```python
-# JSON storage for local data only
-data = {"notes": [], "metadata": {}}
-with open("data.json", "w") as f:
-    json.dump(data, f)
+### Safe 模式 (no issues)
+```Python
+# JSON 存储 for 本地 data only
+data = {"备注": [], "metadata": {}}
+with open("data.JSON", "w") as f:
+    JSON.dump(data, f)
 ```
 
-**Scan result:** ✅ No issues
+**扫描 result:** ✅ No issues
 
-## Best Practices
+## 最佳实践
 
-1. **Always scan before publishing** - Make it part of your workflow
-2. **Review warnings manually** - The scanner can't judge context
-3. **Use environment variables for secrets** - Never hardcode
-4. **Prefer json over eval** - Safe parsing vs code execution
-5. **Document necessary risks** - If dangerous code is required, explain why
+1. **Always 扫描 before publishing** - Make 它 part of your 工作流
+2. **Review 警告 manually** - The scanner can't judge 上下文
+3. **Use 环境变量 for secrets** - never hardcode
+4. **Prefer JSON over eval** - Safe parsing vs code execution
+5. **Document necessary risks** - If dangerous code is 必需, explain why
 6. **Minimize dangerous imports** - Only use what's truly necessary
 7. **Keep code simple** - Complex code is harder to audit
 
-## Integration with Development Workflow
+## Integration with 开发环境 工作流
 
 ### Before committing to repo
-```bash
-# Pre-commit hook concept
-python3 /path/to/security_scan.py scripts/
+```Bash
+# Pre-提交 钩子 concept
+python3 /路径/to/security_scan.py scripts/
 if [ $? -ne 0 ]; then
-    echo "❌ Security scan failed. Fix issues before committing."
+    echo "❌ 安全 扫描 failed. Fix issues before committing."
     exit 1
 fi
 ```
 
 ### Automated pre-publish check
-```bash
-#!/bin/bash
+```Bash
+#!/bin/Bash
 # publish-safe.sh
 
 SKILL_PATH=$1
 
-echo "🔒 Running security scan..."
-python3 /path/to/security_scan.py "$SKILL_PATH"
+echo "🔒 Running 安全 扫描..."
+python3 /路径/to/security_scan.py "$SKILL_PATH"
 
 if [ $? -ne 0 ]; then
-    echo "❌ Cannot publish: Security scan failed"
+    echo "❌ Cannot publish: 安全 扫描 failed"
     exit 1
 fi
 
-echo "✅ Security scan passed"
+echo "✅ 安全 扫描 passed"
 clawhub publish "$SKILL_PATH"
 ```
 
-## Limitations
+## 限制
 
 This scanner:
-- **Can't judge context** - Some dangerous code may be legitimate
-- **Static analysis only** - Doesn't execute code
+- **Can't judge 上下文** - Some dangerous code may be legitimate
+- **静态 analysis only** - Doesn't execute code
 - **Python-focused** - Other languages need different tools
 - **Basic patterns** - Sophisticated obfuscation may evade detection
 
 **Complement with:**
-- Manual code review
-- Testing in isolated environment
+- Manual 代码审查
+- Testing in isolated 环境
 - Reading through all code before publishing
 - Using additional tools: `bandit`, `safety`
 
 ## Trust Building
 
-Publishing skills that pass security scans builds trust in the community:
+Publishing skills that pass 安全 scans builds trust in the community:
 - Users know you care about safety
 - Your reputation improves
-- Skills get adopted more readily
+- Skills GET adopted more readily
 - ClawHub may highlight safe skills
 
-## Examples of Published Skills (All Scanned)
+## 示例 of Published Skills (All Scanned)
 
-```bash
+```Bash
 # research-assistant
-security_scan.py /home/ubuntu/.openclaw/workspace/skills/research-assistant
+security_scan.py /home/ubuntu/.openclaw/工作空间/skills/research-assistant
 # ✅ All clear
 
-# task-runner  
-security_scan.py /home/ubuntu/.openclaw/workspace/skills/task-runner
+# 任务-运行器  
+security_scan.py /home/ubuntu/.openclaw/工作空间/skills/任务-运行器
 # ✅ All clear
 
-# security-checker
-security_scan.py /home/ubuntu/.openclaw/workspace/skills/security-checker
+# 安全-checker
+security_scan.py /home/ubuntu/.openclaw/工作空间/skills/安全-checker
 # ✅ All clear
 ```
 
-All three skills passed security scans before publishing to ClawHub.
+All three skills passed 安全 scans before publishing to ClawHub.

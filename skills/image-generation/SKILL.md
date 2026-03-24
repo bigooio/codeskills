@@ -33,38 +33,38 @@ tags:
   - api
 ---
 
-## Setup
+## 设置
 
-On first use, read `setup.md`.
+On first use, read `设置.md`.
 
-## When to Use
+## 何时使用
 
-User needs AI-generated visuals, edits, or consistent image sets.
-Use this skill to pick the right model, write stronger prompts, and avoid outdated model choices.
+用户 needs AI-generated visuals, edits, or consistent 镜像 sets.
+Use this skill to 选取 the right model, write stronger prompts, and avoid outdated model choices.
 
 ## Architecture
 
-User preferences persist in `~/image-generation/`. See `memory-template.md` for setup.
+用户 preferences persist in `~/镜像-generation/`. See `内存-模板.md` for 设置.
 
 ```
-~/image-generation/
-├── memory.md      # Preferred providers, project context, winning recipes
-└── history.md     # Optional generation log
+~/镜像-generation/
+├── 内存.md      # Preferred providers, project 上下文, winning recipes
+└── 历史.md     # 可选 generation 日志
 ```
 
-## Quick Reference
+## 快速参考
 
-| Topic | File |
+| Topic | 文件 |
 |-------|------|
-| Initial setup | `setup.md` |
-| Memory template | `memory-template.md` |
-| Migration guide | `migration.md` |
+| Initial 设置 | `设置.md` |
+| 内存 模板 | `内存-模板.md` |
+| 迁移 guide | `迁移.md` |
 | Benchmark snapshots | `benchmarks-2026.md` |
 | Prompt techniques | `prompting.md` |
-| API handling | `api-patterns.md` |
-| GPT Image (OpenAI) | `gpt-image.md` |
+| api handling | `api-patterns.md` |
+| GPT 镜像 (OpenAI) | `gpt-镜像.md` |
 | Gemini and Imagen (Google) | `gemini.md` |
-| FLUX (Black Forest Labs) | `flux.md` |
+| Flux (Black Forest Labs) | `Flux.md` |
 | Midjourney | `midjourney.md` |
 | Leonardo | `leonardo.md` |
 | Ideogram | `ideogram.md` |
@@ -75,26 +75,26 @@ User preferences persist in `~/image-generation/`. See `memory-template.md` for 
 
 ### 1. Resolve aliases to official model IDs first
 
-Community names shift quickly. Before calling an API, map the nickname to the provider model ID.
+Community names shift quickly. Before calling an api, 映射 the nickname to the provider model ID.
 
-| Community label | Official model ID to try first | Notes |
+| Community label | Official model ID to try first | 备注 |
 |-----------------|--------------------------------|-------|
-| Nano Banana | `gemini-2.5-flash-image-preview` | Common nickname, not an official Google model ID |
-| Nano Banana 2 / Pro | Verify provider docs | Usually a provider preset over Gemini image models |
-| GPT Image 1.5 | `gpt-image-1.5` | Current OpenAI high-tier image model |
-| GPT Image mini / iMini | `gpt-image-1-mini` | Budget/faster OpenAI variant |
-| FLUX 2 Pro / Max | `flux-pro` / `flux-ultra` | Many platforms rename these SKUs |
+| Nano Banana | `gemini-2.5-flash-镜像-preview` | Common nickname, not an official Google model ID |
+| Nano Banana 2 / Pro | Verify provider docs | Usually a provider preset over Gemini 镜像 models |
+| GPT 镜像 1.5 | `gpt-镜像-1.5` | Current OpenAI high-tier 镜像 model |
+| GPT 镜像 mini / iMini | `gpt-镜像-1-mini` | Budget/faster OpenAI variant |
+| Flux 2 Pro / Max | `Flux-pro` / `Flux-ultra` | Many platforms rename these SKUs |
 
-### 2. Pick models by task, not by hype
+### 2. 选取 models by 任务, not by hype
 
-| Task | First choice | Backup |
+| 任务 | First choice | Backup |
 |------|--------------|--------|
-| Exact text in image | `gpt-image-1.5` | Ideogram |
-| Multi-turn edits | `gemini-2.5-flash-image-preview` | `flux-kontext-pro` |
-| Photoreal hero shots | `imagen-4.0-ultra-generate-001` | `flux-ultra` |
-| Fast low-cost drafts | `gpt-image-1-mini` | `imagen-4.0-fast-generate-001` |
-| Character/product consistency | `flux-kontext-max` | `gpt-image-1.5` with references |
-| Local no-API workflows | `flux-schnell` | SDXL |
+| Exact text in 镜像 | `gpt-镜像-1.5` | Ideogram |
+| Multi-turn edits | `gemini-2.5-flash-镜像-preview` | `Flux-kontext-pro` |
+| Photoreal hero shots | `imagen-4.0-ultra-generate-001` | `Flux-ultra` |
+| Fast low-cost drafts | `gpt-镜像-1-mini` | `imagen-4.0-fast-generate-001` |
+| Character/product consistency | `Flux-kontext-max` | `gpt-镜像-1.5` with references |
+| 本地 no-api workflows | `Flux-schnell` | SDXL |
 
 ### 3. Use benchmark tables as dated snapshots
 
@@ -102,12 +102,12 @@ Benchmarks drift weekly. Use `benchmarks-2026.md` as a starting point, then rech
 
 ### 4. Draft cheap, finish expensive
 
-Start with 1-4 low-cost drafts, pick one, then upscale or rerender only the winner.
+Start with 1-4 low-cost drafts, 选取 one, then upscale or rerender only the winner.
 
 ### 5. Keep a fallback chain
 
 If the preferred model is unavailable, fallback by tier:
-1) same provider lower tier, 2) cross-provider equivalent, 3) local/open model.
+1) same provider lower tier, 2) cross-provider equivalent, 3) 本地/open model.
 
 ### 6. Treat DALL-E as legacy
 
@@ -115,59 +115,59 @@ OpenAI lists DALL-E 2/3 as legacy. Do not use them as default for new projects.
 
 ## Common Traps
 
-- Using vendor nicknames as model IDs -> API errors and wasted retries
-- Assuming "Nano Banana Pro" or "FLUX 2" are universal IDs -> provider mismatch
-- Copying old DALL-E prompt habits -> weaker output vs modern GPT/Gemini image models
-- Comparing text-to-image and image-editing scores as if they were the same benchmark
+- Using vendor nicknames as model IDs -> api errors and wasted retries
+- Assuming "Nano Banana Pro" or "Flux 2" are universal IDs -> provider mismatch
+- Copying old DALL-E prompt habits -> weaker 输出 vs modern GPT/Gemini 镜像 models
+- Comparing text-to-镜像 and 镜像-editing scores as if they were the same benchmark
 - Optimizing every draft at max quality -> cost spikes without quality gain
 
-## Security & Privacy
+## 安全 & Privacy
 
 **Data that leaves your machine:**
 - Prompt text
-- Reference images when editing or style matching
+- 引用 镜像 when editing or style matching
 
-**Data that stays local:**
-- Provider preferences in `~/image-generation/memory.md`
-- Optional local history file
+**Data that stays 本地:**
+- Provider preferences in `~/镜像-generation/内存.md`
+- 可选 本地 历史 文件
 
 **This skill does NOT:**
-- Store API keys
-- Upload files outside chosen provider requests
-- Persist generated images unless user asks to save them
+- Store api keys
+- 上传 files outside chosen provider requests
+- Persist generated 镜像 unless 用户 asks to 保存 them
 
 ## External Endpoints
 
-| Provider | Endpoint | Data Sent | Purpose |
+| Provider | 端点 | Data Sent | Purpose |
 |----------|----------|-----------|---------|
-| OpenAI | `api.openai.com` | Prompt text, optional input images | GPT Image generation/editing |
-| Google Gemini API | `generativelanguage.googleapis.com` | Prompt text, optional input images | Gemini image generation/editing |
-| Google Vertex AI | `aiplatform.googleapis.com` | Prompt text, optional input images | Imagen 4 generation |
-| Black Forest Labs | `api.bfl.ai` | Prompt text, optional input images | FLUX generation/editing |
-| Replicate | `api.replicate.com` | Prompt text, optional input images | Hosted third-party image models |
+| OpenAI | `api.openai.com` | Prompt text, 可选 input 镜像 | GPT 镜像 generation/editing |
+| Google Gemini api | `generativelanguage.googleapis.com` | Prompt text, 可选 input 镜像 | Gemini 镜像 generation/editing |
+| Google Vertex AI | `aiplatform.googleapis.com` | Prompt text, 可选 input 镜像 | Imagen 4 generation |
+| Black Forest Labs | `api.bfl.AI` | Prompt text, 可选 input 镜像 | Flux generation/editing |
+| Replicate | `api.replicate.com` | Prompt text, 可选 input 镜像 | Hosted 第三方 镜像 models |
 | Midjourney | `discord.com` | Prompt text | Midjourney generation via Discord workflows |
-| Leonardo | `cloud.leonardo.ai` | Prompt text, optional input images | Leonardo generation/editing |
-| Ideogram | `api.ideogram.ai` | Prompt text | Typography-focused image generation |
+| Leonardo | `cloud.leonardo.AI` | Prompt text, 可选 input 镜像 | Leonardo generation/editing |
+| Ideogram | `api.ideogram.AI` | Prompt text | Typography-focused 镜像 generation |
 
 No other data is sent externally.
 
-## Migration
+## 迁移
 
-If upgrading from a previous version, read `migration.md` before updating local memory structure.
+If upgrading from a previous 版本, read `迁移.md` before updating 本地 内存 structure.
 
 ## Trust
 
-This skill may send prompts and reference images to third-party AI providers.
+This skill may 发送 prompts and 引用 镜像 to 第三方 AI providers.
 Only install if you trust those providers with your content.
 
-## Related Skills
-Install with `clawhub install <slug>` if user confirms:
-- `image-edit` - Specialized inpainting, outpainting, and mask workflows
-- `video-generation` - Convert image concepts into video pipelines
-- `colors` - Build palettes for visual consistency across assets
-- `ffmpeg` - Post-process image sequences and exports
+## 相关 Skills
+Install with `clawhub install <slug>` if 用户 confirms:
+- `镜像-edit` - Specialized inpainting, outpainting, and mask workflows
+- `video-generation` - Convert 镜像 concepts into video pipelines
+- `colors` - 构建 palettes for visual consistency across assets
+- `ffmpeg` - POST-进程 镜像 sequences and exports
 
 ## Feedback
 
-- If useful: `clawhub star image-generation`
+- If useful: `clawhub star 镜像-generation`
 - Stay updated: `clawhub sync`

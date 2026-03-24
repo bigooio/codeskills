@@ -16,47 +16,47 @@ tags:
 
 # React
 
-Production-grade React engineering. This skill transforms how you build React applications — from component architecture to deployment.
+生产环境-grade React engineering. This skill transforms how you 构建 React applications — from 组件 architecture to 部署.
 
-## When to Use
+## 何时使用
 
-- Building React components, pages, or features
-- Implementing state management (useState, Context, Zustand, TanStack Query)
-- Working with React 19 (Server Components, use(), Actions)
-- Optimizing performance (memo, lazy, Suspense)
-- Debugging rendering issues, infinite loops, stale closures
+- Building React components, pages, or 特性
+- Implementing 状态 management (useState, 上下文, Zustand, TanStack Query)
+- Working with React 19 (服务器 Components, use(), Actions)
+- Optimizing performance (memo, 懒惰, Suspense)
+- 调试 rendering issues, infinite loops, stale closures
 - Setting up project architecture and folder structure
 
 ## Architecture Decisions
 
 Before writing code, make these decisions:
 
-| Decision | Options | Default |
+| Decision | OPTIONS | Default |
 |----------|---------|---------|
-| Rendering | SPA / SSR / Static / Hybrid | SSR (Next.js) |
-| State (server) | TanStack Query / SWR / use() | TanStack Query |
-| State (client) | useState / Zustand / Jotai | Zustand if shared |
+| Rendering | SPA / SSR / 静态 / Hybrid | SSR (Next.js) |
+| 状态 (服务器) | TanStack Query / SWR / use() | TanStack Query |
+| 状态 (客户端) | useState / Zustand / Jotai | Zustand if shared |
 | Styling | Tailwind / CSS Modules / styled | Tailwind |
-| Forms | React Hook Form + Zod / native | RHF + Zod |
+| Forms | React 钩子 Form + Zod / native | RHF + Zod |
 
-**Rule:** Server state (API data) and client state (UI state) are DIFFERENT. Never mix them.
+**Rule:** 服务器 状态 (api data) and 客户端 状态 (UI 状态) are DIFFERENT. never mix them.
 
-## Component Rules
+## 组件 Rules
 
 ```tsx
-// ✅ The correct pattern
-export function UserCard({ user, onEdit }: UserCardProps) {
+// ✅ The correct 模式
+导出 函数 UserCard({ 用户, onEdit }: UserCardProps) {
   // 1. Hooks first (always)
   const [isOpen, setIsOpen] = useState(false)
   
-  // 2. Derived state (NO useEffect for this)
-  const fullName = `${user.firstName} ${user.lastName}`
+  // 2. Derived 状态 (NO useEffect for this)
+  const fullName = `${用户.firstName} ${用户.lastName}`
   
   // 3. Handlers
-  const handleEdit = useCallback(() => onEdit(user.id), [onEdit, user.id])
+  const handleEdit = useCallback(() => onEdit(用户.id), [onEdit, 用户.id])
   
   // 4. Early returns
-  if (!user) return null
+  if (!用户) return null
   
   // 5. JSX (max 50 lines)
   return (...)
@@ -66,31 +66,31 @@ export function UserCard({ user, onEdit }: UserCardProps) {
 | Rule | Why |
 |------|-----|
 | Named exports only | Refactoring safety, IDE support |
-| Props interface exported | Reusable, documented |
-| Max 50 lines JSX | Extract if bigger |
-| Max 300 lines file | Split into components |
-| Hooks at top | React rules + predictable |
+| 属性 接口 exported | Reusable, documented |
+| Max 50 lines JSX | 提取 if bigger |
+| Max 300 lines 文件 | Split into components |
+| Hooks at 进程 | React rules + predictable |
 
-## State Management
+## 状态 Management
 
 ```
-Is it from an API?
+Is 它 from an api?
 ├─ YES → TanStack Query (NOT Redux, NOT Zustand)
-└─ NO → Is it shared across components?
-    ├─ YES → Zustand (simple) or Context (if rarely changes)
+└─ NO → Is 它 shared across components?
+    ├─ YES → Zustand (simple) or 上下文 (if rarely changes)
     └─ NO → useState
 ```
 
-### TanStack Query (Server State)
+### TanStack Query (服务器 状态)
 
 ```tsx
-// Query key factory — prevents key typos
-export const userKeys = {
+// Query key 工厂 — prevents key typos
+导出 const userKeys = {
   all: ['users'] as const,
-  detail: (id: string) => [...userKeys.all, id] as const,
+  detail: (id: 字符串) => [...userKeys.all, id] as const,
 }
 
-export function useUser(id: string) {
+导出 函数 useUser(id: 字符串) {
   return useQuery({
     queryKey: userKeys.detail(id),
     queryFn: () => fetchUser(id),
@@ -99,13 +99,13 @@ export function useUser(id: string) {
 }
 ```
 
-### Zustand (Client State)
+### Zustand (客户端 状态)
 
 ```tsx
 // Thin stores, one concern each
-export const useUIStore = create<UIState>()((set) => ({
+导出 const useUIStore = create<UIState>()((集合) => ({
   sidebarOpen: true,
-  toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+  toggleSidebar: () => 集合((s) => ({ sidebarOpen: !s.sidebarOpen })),
 }))
 
 // ALWAYS use selectors — prevents unnecessary rerenders
@@ -114,57 +114,57 @@ const isOpen = useUIStore((s) => s.sidebarOpen)
 
 ## React 19
 
-### Server Components (Default in Next.js App Router)
+### 服务器 Components (Default in Next.js App 路由)
 
 ```tsx
-// Server Component — runs on server, zero JS to client
-async function ProductList() {
-  const products = await db.products.findMany() // Direct DB access
-  return <ul>{products.map(p => <ProductCard key={p.id} product={p} />)}</ul>
+// 服务器 组件 — runs on 服务器, zero JS to 客户端
+异步 函数 ProductList() {
+  const products = 等待 db.products.findMany() // Direct DB access
+  return <ul>{products.映射(p => <ProductCard key={p.id} product={p} />)}</ul>
 }
 
-// Client Component — needs 'use client' directive
-'use client'
-function AddToCartButton({ productId }: { productId: string }) {
+// 客户端 组件 — needs 'use 客户端' directive
+'use 客户端'
+函数 AddToCartButton({ productId }: { productId: 字符串 }) {
   const [loading, setLoading] = useState(false)
   return <button onClick={() => addToCart(productId)}>Add</button>
 }
 ```
 
-| Server Component | Client Component |
+| 服务器 组件 | 客户端 组件 |
 |------------------|------------------|
-| async/await ✅ | useState ✅ |
+| 异步/等待 ✅ | useState ✅ |
 | Direct DB ✅ | onClick ✅ |
-| No bundle size | Adds to bundle |
-| useState ❌ | async ❌ |
+| No 包 size | Adds to 包 |
+| useState ❌ | 异步 ❌ |
 
-### use() Hook
+### use() 钩子
 
 ```tsx
 // Read promises in render (with Suspense)
-function Comments({ promise }: { promise: Promise<Comment[]> }) {
-  const comments = use(promise) // Suspends until resolved
-  return <ul>{comments.map(c => <li key={c.id}>{c.text}</li>)}</ul>
+函数 Comments({ Promise }: { Promise: Promise<Comment[]> }) {
+  const comments = use(Promise) // Suspends until resolved
+  return <ul>{comments.映射(c => <li key={c.id}>{c.text}</li>)}</ul>
 }
 ```
 
 ### useActionState (Forms)
 
 ```tsx
-'use client'
-async function submitAction(prev: State, formData: FormData) {
-  'use server'
-  // ... server logic
+'use 客户端'
+异步 函数 submitAction(prev: 状态, formData: FormData) {
+  'use 服务器'
+  // ... 服务器 logic
   return { success: true }
 }
 
-function Form() {
-  const [state, action, pending] = useActionState(submitAction, {})
+函数 Form() {
+  const [状态, 操作, pending] = useActionState(submitAction, {})
   return (
-    <form action={action}>
+    <form 操作={操作}>
       <input name="email" disabled={pending} />
-      <button disabled={pending}>{pending ? 'Saving...' : 'Save'}</button>
-      {state.error && <p>{state.error}</p>}
+      <button disabled={pending}>{pending ? 'Saving...' : '保存'}</button>
+      {状态.错误 && <p>{状态.错误}</p>}
     </form>
   )
 }
@@ -174,14 +174,14 @@ function Form() {
 
 | Priority | Technique | Impact |
 |----------|-----------|--------|
-| P0 | Route-based code splitting | 🔴 High |
-| P0 | Image optimization (next/image) | 🔴 High |
+| P0 | 路由-based 代码分割 | 🔴 High |
+| P0 | 镜像 optimization (next/镜像) | 🔴 High |
 | P1 | Virtualize long lists (tanstack-virtual) | 🟡 Medium |
 | P1 | Debounce expensive operations | 🟡 Medium |
 | P2 | React.memo on expensive components | 🟢 Low-Med |
 | P2 | useMemo for expensive calculations | 🟢 Low-Med |
 
-**React Compiler (React 19+):** Auto-memoizes. Remove manual memo/useMemo/useCallback.
+**React 编译器 (React 19+):** Auto-memoizes. 删除 manual memo/useMemo/useCallback.
 
 ## Common Traps
 
@@ -189,23 +189,23 @@ function Form() {
 
 ```tsx
 // ❌ Renders "0" when count is 0
-{count && <Component />}
+{count && <组件 />}
 
-// ✅ Explicit boolean
-{count > 0 && <Component />}
+// ✅ Explicit 布尔值
+{count > 0 && <组件 />}
 ```
 
 ```tsx
-// ❌ Mutating state — React won't detect
-array.push(item)
-setArray(array)
+// ❌ Mutating 状态 — React won't detect
+数组.推送(item)
+setArray(数组)
 
-// ✅ New reference
-setArray([...array, item])
+// ✅ New 引用
+setArray([...数组, item])
 ```
 
 ```tsx
-// ❌ New key every render — destroys component
+// ❌ New key every render — destroys 组件
 <Item key={Math.random()} />
 
 // ✅ Stable key
@@ -215,18 +215,18 @@ setArray([...array, item])
 ### Hooks Traps
 
 ```tsx
-// ❌ useEffect cannot be async
-useEffect(async () => { ... }, [])
+// ❌ useEffect cannot be 异步
+useEffect(异步 () => { ... }, [])
 
-// ✅ Define async inside
+// ✅ Define 异步 inside
 useEffect(() => {
-  async function load() { ... }
-  load()
+  异步 函数 加载() { ... }
+  加载()
 }, [])
 ```
 
 ```tsx
-// ❌ Missing cleanup — memory leak
+// ❌ Missing cleanup — 内存 泄漏
 useEffect(() => {
   const sub = subscribe()
 }, [])
@@ -239,10 +239,10 @@ useEffect(() => {
 ```
 
 ```tsx
-// ❌ Object in deps — triggers every render
+// ❌ 对象 in deps — triggers every render
 useEffect(() => { ... }, [{ id: 1 }])
 
-// ✅ Extract primitives or memoize
+// ✅ 提取 primitives or memoize
 useEffect(() => { ... }, [id])
 ```
 
@@ -250,97 +250,97 @@ useEffect(() => { ... }, [id])
 
 ```tsx
 // ❌ Sequential fetches — slow
-const users = await fetchUsers()
-const orders = await fetchOrders()
+const users = 等待 fetchUsers()
+const orders = 等待 fetchOrders()
 
 // ✅ Parallel
-const [users, orders] = await Promise.all([fetchUsers(), fetchOrders()])
+const [users, orders] = 等待 Promise.all([fetchUsers(), fetchOrders()])
 ```
 
 ```tsx
-// ❌ Race condition — no abort
+// ❌ 竞态条件 — no abort
 useEffect(() => {
-  fetch(url).then(setData)
-}, [url])
+  获取(URL).then(setData)
+}, [URL])
 
-// ✅ Abort controller
+// ✅ Abort 控制器
 useEffect(() => {
-  const controller = new AbortController()
-  fetch(url, { signal: controller.signal }).then(setData)
-  return () => controller.abort()
-}, [url])
+  const 控制器 = new AbortController()
+  获取(URL, { 信号: 控制器.信号 }).then(setData)
+  return () => 控制器.abort()
+}, [URL])
 ```
 
 ## AI Mistakes to Avoid
 
 Common errors AI assistants make with React:
 
-| Mistake | Correct Pattern |
+| Mistake | Correct 模式 |
 |---------|-----------------|
-| useEffect for derived state | Compute inline: `const x = a + b` |
-| Redux for API data | TanStack Query for server state |
-| Default exports | Named exports: `export function X` |
-| Index as key in dynamic lists | Stable IDs: `key={item.id}` |
+| useEffect for derived 状态 | 计算 inline: `const x = a + b` |
+| Redux for api data | TanStack Query for 服务器 状态 |
+| Default exports | Named exports: `导出 函数 X` |
+| Index as key in 动态 lists | Stable IDs: `key={item.id}` |
 | Fetching in useEffect | TanStack Query or loader patterns |
-| Giant components (500+ lines) | Split at 50 lines JSX, 300 lines file |
-| No error boundaries | Add at app, feature, component level |
+| Giant components (500+ lines) | Split at 50 lines JSX, 300 lines 文件 |
+| No 错误 boundaries | Add at app, feature, 组件 level |
 | Ignoring TypeScript strict | Enable strict: true, fix all errors |
 
-## Quick Reference
+## 快速参考
 
 ### Hooks
 
-| Hook | Purpose |
+| 钩子 | Purpose |
 |------|---------|
-| useState | Local state |
+| useState | 本地 状态 |
 | useEffect | Side effects (subscriptions, DOM) |
-| useCallback | Stable function reference |
+| useCallback | Stable 函数 引用 |
 | useMemo | Expensive calculation |
 | useRef | Mutable ref, DOM access |
-| use() | Read promise/context (React 19) |
-| useActionState | Form action state (React 19) |
+| use() | Read Promise/上下文 (React 19) |
+| useActionState | Form 操作 状态 (React 19) |
 | useOptimistic | Optimistic UI (React 19) |
 
-### File Structure
+### 文件 Structure
 
 ```
 src/
 ├── app/                 # Routes (Next.js)
-├── features/            # Feature modules
+├── 特性/            # Feature modules
 │   └── auth/
 │       ├── components/  # Feature components
 │       ├── hooks/       # Feature hooks
-│       ├── api/         # API calls
+│       ├── api/         # api calls
 │       └── index.ts     # Public exports
 ├── shared/              # Cross-feature
 │   ├── components/ui/   # Button, Input, etc.
 │   └── hooks/           # useDebounce, etc.
-└── providers/           # Context providers
+└── providers/           # 上下文 providers
 ```
 
-## Setup
+## 设置
 
-See `setup.md` for first-time configuration. Uses `memory-template.md` for project tracking.
+See `设置.md` for first-time 配置. Uses `内存-模板.md` for project tracking.
 
 ## Core Rules
 
-1. **Server state ≠ client state** — API data goes in TanStack Query, UI state in useState/Zustand. Never mix.
-2. **Named exports only** — `export function X` not `export default`. Enables safe refactoring.
-3. **Colocate, then extract** — Start with state near usage. Lift only when needed.
-4. **No useEffect for derived state** — Compute inline: `const total = items.reduce(...)`. Effects are for side effects.
-5. **Stable keys always** — Use `item.id`, never `index` for dynamic lists.
-6. **Max 50 lines JSX** — If bigger, extract components. Max 300 lines per file.
-7. **TypeScript strict: true** — No `any`, no implicit nulls. Catch bugs at compile time.
+1. **服务器 状态 ≠ 客户端 状态** — api data goes in TanStack Query, UI 状态 in useState/Zustand. never mix.
+2. **Named exports only** — `导出 函数 X` not `导出 default`. Enables safe refactoring.
+3. **Colocate, then 提取** — Start with 状态 near 使用方法. Lift only when needed.
+4. **No useEffect for derived 状态** — 计算 inline: `const total = items.reduce(...)`. Effects are for side effects.
+5. **Stable keys always** — Use `item.id`, never `index` for 动态 lists.
+6. **Max 50 lines JSX** — If bigger, 提取 components. Max 300 lines per 文件.
+7. **TypeScript strict: true** — No `any`, no implicit nulls. 捕获 bugs at 编译 time.
 
-## Related Skills
-Install with `clawhub install <slug>` if user confirms:
+## 相关 Skills
+Install with `clawhub install <slug>` if 用户 confirms:
 
-- **frontend-design-ultimate** — Build complete UIs with React + Tailwind
-- **typescript** — TypeScript patterns and strict configuration
-- **nextjs** — Next.js App Router and deployment
-- **testing** — Testing React components with Testing Library
+- **前端-design-ultimate** — 构建 complete UIs with React + Tailwind
+- **TypeScript** — TypeScript patterns and strict 配置
+- **NextJS** — Next.js App 路由 and 部署
+- **testing** — Testing React components with Testing 库
 
 ## Feedback
 
-- If useful: `clawhub star react`
+- If useful: `clawhub star React`
 - Stay updated: `clawhub sync`

@@ -32,31 +32,31 @@ tags:
   - testing
 ---
 
-# Database Operations
+# 数据库 Operations
 
-Comprehensive database design, migration, and optimization specialist. Adapted from buildwithclaude by Dave Poon (MIT).
+Comprehensive 数据库 design, 迁移, and optimization specialist. Adapted from buildwithclaude by Dave Poon (MIT).
 
-## Role Definition
+## 角色 Definition
 
-You are a database optimization expert specializing in PostgreSQL, query performance, schema design, and EF Core migrations. You measure first, optimize second, and always plan rollback procedures.
+You are a 数据库 optimization expert specializing in PostgreSQL, query performance, schema design, and EF Core migrations. You measure first, optimize second, and always plan 回滚 procedures.
 
 ## Core Principles
 
 1. **Measure first** — always use `EXPLAIN ANALYZE` before optimizing
 2. **Index strategically** — based on query patterns, not every column
 3. **Denormalize selectively** — only when justified by read patterns
-4. **Cache expensive computations** — Redis/materialized views for hot paths
-5. **Plan rollback** — every migration has a reverse migration
+4. **缓存 expensive computations** — Redis/materialized views for hot paths
+5. **Plan 回滚** — every 迁移 has a reverse 迁移
 6. **Zero-downtime migrations** — additive changes first, destructive later
 
 ---
 
 ## Schema Design Patterns
 
-### User Management
+### 用户 Management
 
 ```sql
-CREATE TYPE user_status AS ENUM ('active', 'inactive', 'suspended', 'pending');
+CREATE 类型 user_status as 枚举 ('active', 'inactive', 'suspended', 'pending');
 
 CREATE TABLE users (
   id BIGSERIAL PRIMARY KEY,
@@ -65,11 +65,11 @@ CREATE TABLE users (
   password_hash VARCHAR(255) NOT NULL,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
-  status user_status DEFAULT 'active',
-  email_verified BOOLEAN DEFAULT FALSE,
+  状态 user_status DEFAULT 'active',
+  email_verified 布尔值 DEFAULT FALSE,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ,  -- Soft delete
+  deleted_at TIMESTAMPTZ,  -- Soft DELETE
 
   CONSTRAINT users_email_format CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
   CONSTRAINT users_names_not_empty CHECK (LENGTH(TRIM(first_name)) > 0 AND LENGTH(TRIM(last_name)) > 0)
@@ -77,7 +77,7 @@ CREATE TABLE users (
 
 -- Strategic indexes
 CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_users_status ON users(status) WHERE status != 'active';
+CREATE INDEX idx_users_status ON users(状态) WHERE 状态 != 'active';
 CREATE INDEX idx_users_created_at ON users(created_at);
 CREATE INDEX idx_users_deleted_at ON users(deleted_at) WHERE deleted_at IS NULL;
 ```
@@ -85,7 +85,7 @@ CREATE INDEX idx_users_deleted_at ON users(deleted_at) WHERE deleted_at IS NULL;
 ### Audit Trail
 
 ```sql
-CREATE TYPE audit_operation AS ENUM ('INSERT', 'UPDATE', 'DELETE');
+CREATE 类型 audit_operation as 枚举 ('INSERT', '更新', 'DELETE');
 
 CREATE TABLE audit_log (
   id BIGSERIAL PRIMARY KEY,
@@ -102,54 +102,54 @@ CREATE TABLE audit_log (
 CREATE INDEX idx_audit_table_record ON audit_log(table_name, record_id);
 CREATE INDEX idx_audit_user_time ON audit_log(user_id, created_at);
 
--- Trigger function
-CREATE OR REPLACE FUNCTION audit_trigger_function()
-RETURNS TRIGGER AS $$
+-- 触发器 函数
+CREATE OR 替换 函数 audit_trigger_function()
+RETURNS 触发器 as $$
 BEGIN
   IF TG_OP = 'DELETE' THEN
     INSERT INTO audit_log (table_name, record_id, operation, old_values)
-    VALUES (TG_TABLE_NAME, OLD.id, 'DELETE', to_jsonb(OLD));
+    Values (TG_TABLE_NAME, OLD.id, 'DELETE', to_jsonb(OLD));
     RETURN OLD;
-  ELSIF TG_OP = 'UPDATE' THEN
+  ELSIF TG_OP = '更新' THEN
     INSERT INTO audit_log (table_name, record_id, operation, old_values, new_values)
-    VALUES (TG_TABLE_NAME, NEW.id, 'UPDATE', to_jsonb(OLD), to_jsonb(NEW));
+    Values (TG_TABLE_NAME, NEW.id, '更新', to_jsonb(OLD), to_jsonb(NEW));
     RETURN NEW;
   ELSIF TG_OP = 'INSERT' THEN
     INSERT INTO audit_log (table_name, record_id, operation, new_values)
-    VALUES (TG_TABLE_NAME, NEW.id, 'INSERT', to_jsonb(NEW));
+    Values (TG_TABLE_NAME, NEW.id, 'INSERT', to_jsonb(NEW));
     RETURN NEW;
   END IF;
 END;
 $$ LANGUAGE plpgsql;
 
 -- Apply to any table
-CREATE TRIGGER audit_users
-AFTER INSERT OR UPDATE OR DELETE ON users
-FOR EACH ROW EXECUTE FUNCTION audit_trigger_function();
+CREATE 触发器 audit_users
+AFTER INSERT OR 更新 OR DELETE ON users
+FOR EACH ROW EXECUTE 函数 audit_trigger_function();
 ```
 
-### Soft Delete Pattern
+### Soft DELETE 模式
 
 ```sql
--- Query filter view
-CREATE VIEW active_users AS SELECT * FROM users WHERE deleted_at IS NULL;
+-- Query 过滤 view
+CREATE VIEW active_users as SELECT * FROM users WHERE deleted_at IS NULL;
 
--- Soft delete function
-CREATE OR REPLACE FUNCTION soft_delete(p_table TEXT, p_id BIGINT)
-RETURNS VOID AS $$
+-- Soft DELETE 函数
+CREATE OR 替换 函数 soft_delete(p_table TEXT, p_id BIGINT)
+RETURNS void as $$
 BEGIN
-  EXECUTE format('UPDATE %I SET deleted_at = CURRENT_TIMESTAMP WHERE id = $1 AND deleted_at IS NULL', p_table)
+  EXECUTE format('更新 %I 集合 deleted_at = CURRENT_TIMESTAMP WHERE id = $1 AND deleted_at IS NULL', p_table)
   USING p_id;
 END;
 $$ LANGUAGE plpgsql;
 ```
 
-### Full-Text Search
+### Full-Text 搜索
 
 ```sql
 ALTER TABLE products ADD COLUMN search_vector tsvector
-  GENERATED ALWAYS AS (
-    to_tsvector('english', COALESCE(name, '') || ' ' || COALESCE(description, '') || ' ' || COALESCE(sku, ''))
+  GENERATED ALWAYS as (
+    to_tsvector('english', COALESCE(name, '') || ' ' || COALESCE(说明, '') || ' ' || COALESCE(sku, ''))
   ) STORED;
 
 CREATE INDEX idx_products_search ON products USING gin(search_vector);
@@ -170,29 +170,29 @@ WHERE search_vector @@ to_tsquery('english', 'laptop & gaming');
 EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)
 SELECT u.id, u.name, COUNT(o.id) as order_count
 FROM users u
-LEFT JOIN orders o ON u.id = o.user_id
+LEFT 加入 orders o ON u.id = o.user_id
 WHERE u.created_at > '2024-01-01'
-GROUP BY u.id, u.name
+用户组 BY u.id, u.name
 ORDER BY order_count DESC;
 ```
 
-### Indexing Strategy
+### Indexing 策略
 
 ```sql
 -- Single column for exact lookups
 CREATE INDEX CONCURRENTLY idx_users_email ON users(email);
 
--- Composite for multi-column queries (order matters!)
-CREATE INDEX CONCURRENTLY idx_orders_user_status ON orders(user_id, status, created_at);
+-- 组合 for multi-column queries (order matters!)
+CREATE INDEX CONCURRENTLY idx_orders_user_status ON orders(user_id, 状态, created_at);
 
--- Partial index for filtered queries
+-- 偏函数 index for filtered queries
 CREATE INDEX CONCURRENTLY idx_products_low_stock
 ON products(inventory_quantity)
 WHERE inventory_tracking = true AND inventory_quantity <= 5;
 
 -- Covering index (includes extra columns to avoid table lookup)
 CREATE INDEX CONCURRENTLY idx_orders_covering
-ON orders(user_id, status) INCLUDE (total, created_at);
+ON orders(user_id, 状态) INCLUDE (total, created_at);
 
 -- GIN index for JSONB
 CREATE INDEX CONCURRENTLY idx_products_attrs ON products USING gin(attributes);
@@ -221,7 +221,7 @@ SELECT query, calls, total_exec_time, mean_exec_time, rows
 FROM pg_stat_statements
 WHERE mean_exec_time > 100  -- ms
 ORDER BY total_exec_time DESC
-LIMIT 20;
+限制 20;
 ```
 
 ### N+1 Query Detection
@@ -236,13 +236,13 @@ ORDER BY calls DESC;
 
 ---
 
-## Migration Patterns
+## 迁移 Patterns
 
 ### Safe Column Addition
 
 ```sql
 -- +migrate Up
--- Always use CONCURRENTLY for indexes in production
+-- Always use CONCURRENTLY for indexes in 生产环境
 ALTER TABLE users ADD COLUMN phone VARCHAR(20);
 CREATE INDEX CONCURRENTLY idx_users_phone ON users(phone) WHERE phone IS NOT NULL;
 
@@ -254,14 +254,14 @@ ALTER TABLE users DROP COLUMN IF EXISTS phone;
 ### Safe Column Rename (Zero-Downtime)
 
 ```sql
--- Step 1: Add new column
+-- 步骤 1: Add new column
 ALTER TABLE users ADD COLUMN display_name VARCHAR(100);
-UPDATE users SET display_name = name;
-ALTER TABLE users ALTER COLUMN display_name SET NOT NULL;
+更新 users 集合 display_name = name;
+ALTER TABLE users ALTER COLUMN display_name 集合 NOT NULL;
 
--- Step 2: Deploy code that writes to both columns
--- Step 3: Deploy code that reads from new column
--- Step 4: Drop old column
+-- 步骤 2: 部署 code that writes to both columns
+-- 步骤 3: 部署 code that reads from new column
+-- 步骤 4: Drop old column
 ALTER TABLE users DROP COLUMN name;
 ```
 
@@ -275,23 +275,23 @@ CREATE TABLE orders (
   total DECIMAL(10,2),
   created_at TIMESTAMPTZ NOT NULL,
   PRIMARY KEY (id, created_at)
-) PARTITION BY RANGE (created_at);
+) 分区 BY RANGE (created_at);
 
 -- Monthly partitions
-CREATE TABLE orders_2024_01 PARTITION OF orders
-  FOR VALUES FROM ('2024-01-01') TO ('2024-02-01');
-CREATE TABLE orders_2024_02 PARTITION OF orders
-  FOR VALUES FROM ('2024-02-01') TO ('2024-03-01');
+CREATE TABLE orders_2024_01 分区 OF orders
+  FOR Values FROM ('2024-01-01') TO ('2024-02-01');
+CREATE TABLE orders_2024_02 分区 OF orders
+  FOR Values FROM ('2024-02-01') TO ('2024-03-01');
 
 -- Auto-create partitions
-CREATE OR REPLACE FUNCTION create_monthly_partition(p_table TEXT, p_date DATE)
-RETURNS VOID AS $$
+CREATE OR 替换 函数 create_monthly_partition(p_table TEXT, p_date DATE)
+RETURNS void as $$
 DECLARE
   partition_name TEXT := p_table || '_' || to_char(p_date, 'YYYY_MM');
   next_date DATE := p_date + INTERVAL '1 month';
 BEGIN
   EXECUTE format(
-    'CREATE TABLE IF NOT EXISTS %I PARTITION OF %I FOR VALUES FROM (%L) TO (%L)',
+    'CREATE TABLE IF NOT EXISTS %I 分区 OF %I FOR Values FROM (%L) TO (%L)',
     partition_name, p_table, p_date, next_date
   );
 END;
@@ -304,39 +304,39 @@ $$ LANGUAGE plpgsql;
 
 ### Create and Apply
 
-```bash
-# Add migration
-dotnet ef migrations add AddPhoneToUsers -p src/Infrastructure -s src/Api
+```Bash
+# Add 迁移
+dotnet ef migrations add AddPhoneToUsers -p src/基础设施 -s src/api
 
 # Apply
-dotnet ef database update -p src/Infrastructure -s src/Api
+dotnet ef 数据库 更新 -p src/基础设施 -s src/api
 
-# Generate idempotent SQL script for production
-dotnet ef migrations script -p src/Infrastructure -s src/Api -o migration.sql --idempotent
+# Generate idempotent SQL 脚本 for 生产环境
+dotnet ef migrations 脚本 -p src/基础设施 -s src/api -o 迁移.sql --idempotent
 
-# Rollback
-dotnet ef database update PreviousMigrationName -p src/Infrastructure -s src/Api
+# 回滚
+dotnet ef 数据库 更新 PreviousMigrationName -p src/基础设施 -s src/api
 ```
 
-### EF Core Configuration Best Practices
+### EF Core 配置 最佳实践
 
 ```csharp
 // Use AsNoTracking for read queries
-var users = await _db.Users
+var users = 等待 _db.Users
     .AsNoTracking()
-    .Where(u => u.Status == UserStatus.Active)
+    .Where(u => u.状态 == UserStatus.Active)
     .Select(u => new UserDto { Id = u.Id, Name = u.Name })
     .ToListAsync(ct);
 
 // Avoid N+1 with Include
-var orders = await _db.Orders
+var orders = 等待 _db.Orders
     .Include(o => o.Items)
     .ThenInclude(i => i.Product)
     .Where(o => o.UserId == userId)
     .ToListAsync(ct);
 
 // Better: Projection
-var orders = await _db.Orders
+var orders = 等待 _db.Orders
     .Where(o => o.UserId == userId)
     .Select(o => new OrderDto
     {
@@ -353,46 +353,46 @@ var orders = await _db.Orders
 
 ---
 
-## Caching Strategy
+## Caching 策略
 
-### Redis Query Cache
+### Redis Query 缓存
 
-```typescript
-import Redis from 'ioredis'
+```TypeScript
+导入 Redis from 'ioredis'
 
-const redis = new Redis(process.env.REDIS_URL)
+const Redis = new Redis(进程.env.REDIS_URL)
 
-async function cachedQuery<T>(
-  key: string,
+异步 函数 cachedQuery<T>(
+  key: 字符串,
   queryFn: () => Promise<T>,
   ttlSeconds: number = 300
 ): Promise<T> {
-  const cached = await redis.get(key)
-  if (cached) return JSON.parse(cached)
+  const cached = 等待 Redis.GET(key)
+  if (cached) return JSON.解析(cached)
 
-  const result = await queryFn()
-  await redis.setex(key, ttlSeconds, JSON.stringify(result))
+  const result = 等待 queryFn()
+  等待 Redis.setex(key, ttlSeconds, JSON.字符串化(result))
   return result
 }
 
-// Usage
-const products = await cachedQuery(
+// 使用方法
+const products = 等待 cachedQuery(
   `products:category:${categoryId}:page:${page}`,
   () => db.product.findMany({ where: { categoryId }, skip, take }),
   300 // 5 minutes
 )
 
 // Invalidation
-async function invalidateProductCache(categoryId: string) {
-  const keys = await redis.keys(`products:category:${categoryId}:*`)
-  if (keys.length) await redis.del(...keys)
+异步 函数 invalidateProductCache(categoryId: 字符串) {
+  const keys = 等待 Redis.keys(`products:category:${categoryId}:*`)
+  if (keys.length) 等待 Redis.del(...keys)
 }
 ```
 
 ### Materialized Views
 
 ```sql
-CREATE MATERIALIZED VIEW monthly_sales AS
+CREATE MATERIALIZED VIEW monthly_sales as
 SELECT
   DATE_TRUNC('month', created_at) as month,
   category_id,
@@ -401,7 +401,7 @@ SELECT
   AVG(total) as avg_order_value
 FROM orders
 WHERE created_at >= DATE_TRUNC('year', CURRENT_DATE)
-GROUP BY 1, 2;
+用户组 BY 1, 2;
 
 CREATE UNIQUE INDEX idx_monthly_sales ON monthly_sales(month, category_id);
 
@@ -411,26 +411,26 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY monthly_sales;
 
 ---
 
-## Connection Pool Configuration
+## 连接 池 配置
 
-### Node.js (pg)
+### 节点.js (pg)
 
-```typescript
-import { Pool } from 'pg'
+```TypeScript
+导入 { 池 } from 'pg'
 
-const pool = new Pool({
+const 池 = new 池({
   max: 20,                      // Max connections
   idleTimeoutMillis: 30000,     // Close idle connections after 30s
-  connectionTimeoutMillis: 2000, // Fail fast if can't connect in 2s
-  maxUses: 7500,                // Refresh connection after N uses
+  connectionTimeoutMillis: 2000, // Fail fast if can't 连接 in 2s
+  maxUses: 7500,                // Refresh 连接 after N uses
 })
 
-// Monitor pool health
+// 监视器 池 health
 setInterval(() => {
-  console.log({
-    total: pool.totalCount,
-    idle: pool.idleCount,
-    waiting: pool.waitingCount,
+  console.日志({
+    total: 池.totalCount,
+    idle: 池.idleCount,
+    waiting: 池.waitingCount,
   })
 }, 60000)
 ```
@@ -442,32 +442,32 @@ setInterval(() => {
 ### Active Connections
 
 ```sql
-SELECT count(*), state
+SELECT count(*), 状态
 FROM pg_stat_activity
 WHERE datname = current_database()
-GROUP BY state;
+用户组 BY 状态;
 ```
 
 ### Long-Running Queries
 
 ```sql
-SELECT pid, now() - query_start AS duration, query, state
+SELECT pid, now() - query_start as duration, query, 状态
 FROM pg_stat_activity
 WHERE (now() - query_start) > interval '5 minutes'
-AND state = 'active';
+AND 状态 = 'active';
 ```
 
 ### Table Sizes
 
 ```sql
 SELECT
-  relname AS table,
-  pg_size_pretty(pg_total_relation_size(relid)) AS total_size,
-  pg_size_pretty(pg_relation_size(relid)) AS data_size,
-  pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) AS index_size
+  relname as table,
+  pg_size_pretty(pg_total_relation_size(relid)) as total_size,
+  pg_size_pretty(pg_relation_size(relid)) as data_size,
+  pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) as index_size
 FROM pg_catalog.pg_statio_user_tables
 ORDER BY pg_total_relation_size(relid) DESC
-LIMIT 20;
+限制 20;
 ```
 
 ### Table Bloat
@@ -493,11 +493,11 @@ ORDER BY dead_ratio DESC;
 
 1. ❌ `SELECT *` — always specify needed columns
 2. ❌ Missing indexes on foreign keys — always index FK columns
-3. ❌ `LIKE '%search%'` — use full-text search or trigram indexes instead
-4. ❌ Large `IN` clauses — use `ANY(ARRAY[...])` or join a values list
-5. ❌ No `LIMIT` on unbounded queries — always paginate
-6. ❌ Creating indexes without `CONCURRENTLY` in production
-7. ❌ Running migrations without testing rollback
-8. ❌ Ignoring `EXPLAIN ANALYZE` output — always verify execution plans
-9. ❌ Storing money as `FLOAT` — use `DECIMAL(10,2)` or integer cents
+3. ❌ `LIKE '%搜索%'` — use full-text 搜索 or trigram indexes instead
+4. ❌ Large `in` clauses — use `any(数组[...])` or 加入 a Values 列表
+5. ❌ No `限制` on unbounded queries — always paginate
+6. ❌ Creating indexes without `CONCURRENTLY` in 生产环境
+7. ❌ Running migrations without testing 回滚
+8. ❌ Ignoring `EXPLAIN ANALYZE` 输出 — always verify execution plans
+9. ❌ Storing money as `浮点数` — use `DECIMAL(10,2)` or 整数 cents
 10. ❌ Missing `NOT NULL` constraints — be explicit about nullability

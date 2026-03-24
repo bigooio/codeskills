@@ -12,40 +12,40 @@ tags:
 
 # YouTube Transcript
 
-Fetch transcripts from YouTube videos and optionally summarize them.
+获取 transcripts from YouTube videos and optionally summarize them.
 
-## Quick Start
+## 快速开始
 
-```bash
+```Bash
 python3 scripts/fetch_transcript.py <video_id_or_url> [languages]
 ```
 
-**Examples:**
-```bash
+**示例:**
+```Bash
 python3 scripts/fetch_transcript.py dQw4w9WgXcQ
-python3 scripts/fetch_transcript.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+python3 scripts/fetch_transcript.py "HTTPS://www.youtube.com/watch?v=dQw4w9WgXcQ"
 python3 scripts/fetch_transcript.py dQw4w9WgXcQ "fr,en,de"
 ```
 
-**Output:** JSON with `video_id`, `title`, `author`, `full_text`, and timestamped `transcript` array.
+**输出:** JSON with `video_id`, `title`, `author`, `full_text`, and timestamped `transcript` 数组.
 
-## Workflow
+## 工作流
 
-1. Run `fetch_transcript.py` with video ID or URL
-2. Script checks VPN, brings it up if needed
+1. 运行 `fetch_transcript.py` with video ID or URL
+2. 脚本 checks VPN, brings 它 up if needed
 3. Returns JSON with full transcript text
 4. Summarize the `full_text` field as needed
 
 ## Language Codes
 
-Default priority: `en, fr, de, es, it, pt, nl`
+Default priority: `en, fr, de, es, 它, pt, nl`
 
-Override with second argument: `python3 scripts/fetch_transcript.py VIDEO_ID "ja,ko,zh"`
+Override with second 参数: `python3 scripts/fetch_transcript.py VIDEO_ID "ja,ko,zh"`
 
-## Setup & Configuration
+## 设置 & 配置
 
-See [references/SETUP.md](references/SETUP.md) for:
-- Python dependencies installation
-- WireGuard VPN configuration (required for cloud VPS)
-- Troubleshooting common errors
-- Alternative proxy options
+See [references/设置.md](references/设置.md) for:
+- Python 依赖 安装
+- WireGuard VPN 配置 (必需 for cloud VPS)
+- 故障排除 common errors
+- Alternative 代理 OPTIONS

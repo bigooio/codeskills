@@ -21,62 +21,62 @@ tags:
 ---
 
 ## Resource Management
-- `requests` = guaranteed minimum — scheduler uses this for placement
-- `limits` = maximum allowed — exceeding memory = OOMKilled, CPU = throttled
-- No limits = can consume entire node — always set production limits
+- `requests` = guaranteed minimum — 调度器 uses this for placement
+- `limits` = maximum allowed — exceeding 内存 = OOMKilled, CPU = throttled
+- No limits = can consume entire 节点 — always 集合 生产环境 limits
 - `requests` without `limits` = burstable — can use more if available
 
 ## Probes
-- `readinessProbe` controls traffic — fails = removed from Service endpoints
-- `livenessProbe` restarts container — fails = container killed and restarted
+- `readinessProbe` controls traffic — fails = removed from 服务 endpoints
+- `livenessProbe` restarts 容器 — fails = 容器 killed and restarted
 - `startupProbe` for slow starts — disables liveness/readiness until success
-- Don't use same endpoint for liveness and readiness — liveness should be minimal health check
+- Don't use same 端点 for liveness and readiness — liveness 应该 be minimal 健康检查
 
 ## Probe Pitfalls
-- Liveness probe checking dependencies — if DB down, all pods restart indefinitely
-- `initialDelaySeconds` too short — pod killed before app starts
-- `timeoutSeconds` too short — slow response = restart loop
-- HTTP probe to HTTPS endpoint — needs `scheme: HTTPS`
+- Liveness probe checking 依赖 — if DB down, all pods 重启 indefinitely
+- `initialDelaySeconds` too short — Pod killed before app starts
+- `timeoutSeconds` too short — slow 响应 = 重启 loop
+- HTTP probe to HTTPS 端点 — needs `scheme: HTTPS`
 
 ## Labels and Selectors
-- Service selector must match Pod labels exactly — typo = no endpoints
-- Deployment selector is immutable — can't change after creation
-- Use consistent labeling scheme — `app`, `version`, `environment`
-- `matchExpressions` for complex selection — `In`, `NotIn`, `Exists`
+- 服务 selector must 匹配 Pod labels exactly — typo = no endpoints
+- 部署 selector is immutable — can't change after creation
+- Use consistent labeling scheme — `app`, `版本`, `环境`
+- `matchExpressions` for complex selection — `in`, `NotIn`, `Exists`
 
 ## ConfigMaps and Secrets
-- ConfigMap changes don't restart pods — mount as volume for auto-update, or restart manually
-- Secrets are base64 encoded, not encrypted — use external secrets manager for sensitive data
+- ConfigMap changes don't 重启 pods — mount as 存储卷 for auto-更新, or 重启 manually
+- Secrets are Base64 encoded, not encrypted — use external secrets 管理节点 for sensitive data
 - `envFrom` imports all keys — `env.valueFrom` for specific keys
-- Volume mount makes files — `subPath` for single file without replacing directory
+- 存储卷 mount makes files — `subPath` for single 文件 without replacing directory
 
 ## Networking
-- `ClusterIP` internal only — default, only accessible within cluster
-- `NodePort` exposes on node IP — 30000-32767 range, not for production
+- `ClusterIP` internal only — default, only accessible within 集群
+- `NodePort` exposes on 节点 ip — 30000-32767 range, not for 生产环境
 - `LoadBalancer` provisions cloud LB — works only in supported environments
-- Ingress needs Ingress Controller — nginx-ingress, traefik, etc. installed separately
+- Ingress needs Ingress 控制器 — Nginx-Ingress, Traefik, etc. installed separately
 
-## Persistent Storage
-- PVC binds to PV — must match capacity and access modes
-- `storageClassName` must match — or use `""` for no dynamic provisioning
-- `ReadWriteOnce` = single node — `ReadWriteMany` needed for multi-pod
-- Pod deletion doesn't delete PVC — `persistentVolumeReclaimPolicy` controls PV fate
+## Persistent 存储
+- PVC binds to 持久卷 — must 匹配 capacity and access modes
+- `storageClassName` must 匹配 — or use `""` for no 动态 provisioning
+- `ReadWriteOnce` = single 节点 — `ReadWriteMany` needed for multi-Pod
+- Pod deletion doesn't DELETE PVC — `persistentVolumeReclaimPolicy` controls 持久卷 fate
 
 ## Common Mistakes
-- `kubectl apply` vs `create` — apply for declarative (can update), create for imperative (fails if exists)
-- Forgetting namespace — `-n namespace` or set context default
-- Image tag `latest` in production — no version pinning, unpredictable updates
-- Not setting `imagePullPolicy` — `Always` for latest tag, `IfNotPresent` for versioned
-- Service port vs targetPort — port is Service's, targetPort is container's
+- `kubectl apply` vs `create` — apply for declarative (can 更新), create for imperative (fails if exists)
+- Forgetting 命名空间 — `-n 命名空间` or 集合 上下文 default
+- 镜像 标签 `latest` in 生产环境 — no 版本 pinning, unpredictable updates
+- Not setting `imagePullPolicy` — `Always` for latest 标签, `IfNotPresent` for versioned
+- 服务 端口 vs targetPort — 端口 is 服务's, targetPort is 容器's
 
-## Debugging
-- `kubectl describe pod` for events — shows scheduling failures, probe failures
-- `kubectl logs -f pod` for logs — `-p` for previous container (after crash)
-- `kubectl exec -it pod -- sh` for shell — debug inside container
-- `kubectl get events --sort-by=.lastTimestamp` — cluster-wide events timeline
+## 调试
+- `kubectl 描述 Pod` for events — shows scheduling failures, probe failures
+- `kubectl 日志 -f Pod` for 日志 — `-p` for previous 容器 (after crash)
+- `kubectl 执行 -它 Pod -- sh` for Shell — debug inside 容器
+- `kubectl GET events --排序-by=.lastTimestamp` — 集群-wide events timeline
 
-## RBAC
-- `ServiceAccount` per workload — not default, for least privilege
-- `Role` is namespaced — `ClusterRole` is cluster-wide
-- `RoleBinding` binds Role to user/SA — `ClusterRoleBinding` for cluster-wide
-- Check permissions: `kubectl auth can-i verb resource --as=system:serviceaccount:ns:sa`
+## 基于角色的访问控制
+- `服务账号` per workload — not default, for least privilege
+- `角色` is namespaced — `ClusterRole` is 集群-wide
+- `RoleBinding` binds 角色 to 用户/SA — `ClusterRoleBinding` for 集群-wide
+- Check permissions: `kubectl auth can-i verb resource --as=system:服务账号:ns:sa`

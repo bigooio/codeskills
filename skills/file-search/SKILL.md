@@ -27,40 +27,40 @@ tags:
   - bash
 ---
 
-# File Search Skill
+# 文件 搜索 Skill
 
-Fast file-name and content search using `fd` and `rg` (ripgrep).
+Fast 文件-name and content 搜索 using `fd` and `rg` (ripgrep).
 
 ## Find Files by Name
 
-Search for files matching a pattern:
+搜索 for files matching a 模式:
 
-```bash
+```Bash
 fd "\.rs$" /home/xrx/projects
 ```
 
 Find files by exact name:
 
-```bash
-fd -g "Cargo.toml" /home/xrx/projects
+```Bash
+fd -g "Cargo.TOML" /home/xrx/projects
 ```
 
-## Search File Contents
+## 搜索 文件 Contents
 
-Search for a regex pattern across files:
+搜索 for a 正则表达式 模式 across files:
 
-```bash
+```Bash
 rg "TODO|FIXME" /home/xrx/projects
 ```
 
-Search with context lines:
+搜索 with 上下文 lines:
 
-```bash
-rg -C 3 "fn main" /home/xrx/projects --type rust
+```Bash
+rg -C 3 "fn 主分支" /home/xrx/projects --类型 rust
 ```
 
 ## Install
 
-```bash
+```Bash
 sudo dnf install fd-find ripgrep
 ```

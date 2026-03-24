@@ -12,44 +12,44 @@ tags:
 
 # Scraper
 
-Turn messy public pages into clean, reusable data.
+Turn messy public pages into 清理, reusable data.
 
 ## Core Purpose
-Scraper is a safe extraction skill for public, user-authorized pages.
-It helps the agent:
-- fetch page content from a URL
-- extract readable text
+Scraper is a safe extraction skill for public, 用户-authorized pages.
+它 helps the agent:
+- 获取 page content from a URL
+- 提取 readable text
 - strip boilerplate where possible
-- save clean output locally
+- 保存 清理 输出 locally
 - prepare content for later summarization or analysis
 
 ## Safety Boundaries
-- Only use on public or user-authorized pages
+- Only use on public or 用户-authorized pages
 - Do not bypass logins, paywalls, captchas, robots restrictions, or rate limits
-- Do not request or store credentials
+- Do not 请求 or store credentials
 - Do not perform stealth scraping, account creation, or identity evasion
-- Save outputs locally only
+- 保存 outputs locally only
 
-## Runtime Requirements
+## 运行时 要求
 - Python 3 must be available as `python3`
-- No external packages required
+- No external 包 必需
 
-## Local Storage
+## 本地 存储
 All outputs are stored locally under:
-- `~/.openclaw/workspace/memory/scraper/jobs.json`
-- `~/.openclaw/workspace/memory/scraper/output/`
+- `~/.openclaw/工作空间/内存/scraper/jobs.JSON`
+- `~/.openclaw/工作空间/内存/scraper/输出/`
 
 ## Key Workflows
-- **Capture a page**: `fetch_page.py --url "https://example.com"`
-- **Extract readable text**: `extract_text.py --url "https://example.com"`
-- **Save cleaned content**: `save_output.py --url "https://example.com" --title "Example"`
-- **List prior jobs**: `list_jobs.py`
+- **Capture a page**: `fetch_page.py --URL "HTTPS://example.com"`
+- **提取 readable text**: `extract_text.py --URL "HTTPS://example.com"`
+- **保存 cleaned content**: `save_output.py --URL "HTTPS://example.com" --title "Example"`
+- **列表 prior jobs**: `list_jobs.py`
 
 ## Scripts
-| Script | Purpose |
+| 脚本 | Purpose |
 |---|---|
-| `init_storage.py` | Initialize scraper storage |
-| `fetch_page.py` | Download a page with standard headers |
+| `init_storage.py` | Initialize scraper 存储 |
+| `fetch_page.py` | 下载 a page with standard headers |
 | `extract_text.py` | Convert HTML into cleaned plain text |
-| `save_output.py` | Save extracted output and register a job |
+| `save_output.py` | 保存 extracted 输出 and register a 任务 |
 | `list_jobs.py` | Show past scraping jobs |

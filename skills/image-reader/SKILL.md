@@ -16,67 +16,67 @@ tags:
   - backend
 ---
 
-# Image Reader Skill
+# 镜像 Reader Skill
 
-Image recognition and understanding tool that leverages Doubao multimodal models to analyze image content.
-
----
-
-## Features
-
-- **Text Extraction (OCR)**: Extract text from images, suitable for documents, screenshots, posters, menus, etc.
-- **Image Description**: Generate detailed descriptions of images, suitable for photos, illustrations, memes, UI screens, etc.
-- **General Analysis**: Automatically choose the best analysis strategy based on the image type.
+镜像 recognition and understanding tool that leverages Doubao multimodal models to analyze 镜像 content.
 
 ---
 
-## API Configuration
+## 特性
+
+- **Text Extraction (OCR)**: 提取 text from 镜像, suitable for documents, screenshots, posters, menus, etc.
+- **镜像 说明**: Generate detailed descriptions of 镜像, suitable for photos, illustrations, memes, UI screens, etc.
+- **General Analysis**: Automatically choose the best analysis 策略 based on the 镜像 类型.
+
+---
+
+## api 配置
 
 | Item | Value |
 |------|------|
-| API Endpoint | `https://ark.cn-beijing.volces.com/api/coding/v3` |
+| api 端点 | `HTTPS://ark.cn-beijing.volces.com/api/coding/v3` |
 | Model | `doubao-seed-2.0-pro` |
-| Authentication | API Key (configured in config.yaml) |
+| 认证 | api Key (configured in 配置.YAML) |
 
 ---
 
-## Usage
+## 使用方法
 
-### Command Line
+### 命令行
 
-```bash
+```Bash
 # General analysis
-python image_reader.py /path/to/image.png
+Python image_reader.py /路径/to/镜像.png
 
-# Extract text (OCR)
-python image_reader.py /path/to/image.png -p "Extract all text from the image"
+# 提取 text (OCR)
+Python image_reader.py /路径/to/镜像.png -p "提取 all text from the 镜像"
 
-# Describe the image
-python image_reader.py /path/to/image.png -p "Describe this image in detail"
+# 描述 the 镜像
+Python image_reader.py /路径/to/镜像.png -p "描述 this 镜像 in detail"
 ```
 
 ### OpenClaw Skill Invocation
 
-Once installed, you can invoke it using natural language:
+Once installed, you can invoke 它 using natural language:
 
-```yaml
-Analyze this image
-Extract the text from the image
-Describe this screenshot
+```YAML
+Analyze this 镜像
+提取 the text from the 镜像
+描述 this screenshot
 ```
 
 ---
 
-## Output
+## 输出
 
-- **Text-heavy images**: Returns all extracted text, preserving original formatting.
-- **Non-text images**: Returns a detailed scene description, including objects, people, colors, style, etc.
-- **Mixed content**: Provides both text extraction and a visual description.
+- **Text-heavy 镜像**: Returns all extracted text, preserving original formatting.
+- **Non-text 镜像**: Returns a detailed scene 说明, including objects, people, colors, style, etc.
+- **Mixed content**: Provides both text extraction and a visual 说明.
 
 ---
 
 ## Technical Details
 
-- Uses an OpenAI-compatible API to call Doubao multimodal models
-- Images are sent as base64-encoded data
-- The system prompt adapts to the image type to select the most appropriate analysis strategy
+- Uses an OpenAI-compatible api to call Doubao multimodal models
+- 镜像 are sent as Base64-encoded data
+- The system prompt adapts to the 镜像 类型 to select the most appropriate analysis 策略

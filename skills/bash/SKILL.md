@@ -20,46 +20,46 @@ tags:
   - bash
 ---
 
-## Quick Reference
+## 快速参考
 
-| Topic | File |
+| Topic | 文件 |
 |-------|------|
 | Arrays and loops | `arrays.md` |
 | Parameter expansion | `expansion.md` |
-| Error handling patterns | `errors.md` |
+| 错误 handling patterns | `errors.md` |
 | Testing and conditionals | `testing.md` |
 
 ## Quoting Traps
 
 - Always quote variables—`"$var"` not `$var`, spaces break unquoted
-- `"${arr[@]}"` preserves elements—`${arr[*]}` joins into single string
-- Single quotes are literal—`'$var'` doesn't expand
-- Quote command substitution—`"$(command)"` not `$(command)`
+- `"${arr[@]}"` preserves elements—`${arr[*]}` joins into single 字符串
+- Single quotes are 字面量类型—`'$var'` doesn't expand
+- Quote 命令 substitution—`"$(命令)"` not `$(命令)`
 
 ## Word Splitting and Globbing
 
-- Unquoted `$var` splits on whitespace—`file="my file.txt"; cat $file` fails
-- Unquoted `*` expands to files—quote or escape if literal: `"*"` or `\*`
-- `set -f` disables globbing—or quote everything properly
+- Unquoted `$var` splits on whitespace—`文件="my 文件.txt"; cat $文件` fails
+- Unquoted `*` expands to files—quote or 转义 if 字面量类型: `"*"` or `\*`
+- `集合 -f` disables globbing—or quote everything properly
 
-## Test Brackets
+## 测试 Brackets
 
-- `[[ ]]` preferred over `[ ]`—no word splitting, supports `&&`, `||`, regex
-- `[[ $var == pattern* ]]`—glob patterns without quotes on right side
-- `[[ $var =~ regex ]]`—regex match, don't quote the regex
+- `[[ ]]` preferred over `[ ]`—no word splitting, supports `&&`, `||`, 正则表达式
+- `[[ $var == 模式* ]]`—glob patterns without quotes on right side
+- `[[ $var =~ 正则表达式 ]]`—正则表达式 匹配, don't quote the 正则表达式
 - `-z` is empty, `-n` is non-empty—`[[ -z "$var" ]]` tests if empty
 
 ## Subshell Traps
 
-- Pipes create subshells—`cat file | while read; do ((count++)); done`—count lost
-- Use `while read < file` or process substitution—`while read; do ...; done < <(command)`
-- `( )` is subshell, `{ }` is same shell—variables in `( )` don't persist
+- Pipes create subshells—`cat 文件 | while read; do ((count++)); done`—count lost
+- Use `while read < 文件` or 进程 substitution—`while read; do ...; done < <(命令)`
+- `( )` is subshell, `{ }` is same Shell—variables in `( )` don't persist
 
 ## Exit Handling
 
-- `set -e` exits on error—but not in `if`, `||`, `&&` conditions
-- `set -u` errors on undefined vars—catches typos
-- `set -o pipefail`—pipeline fails if any command fails, not just last
+- `集合 -e` exits on 错误—but not in `if`, `||`, `&&` conditions
+- `集合 -u` errors on undefined vars—catches typos
+- `集合 -o pipefail`—管道 fails if any 命令 fails, not just last
 - `trap cleanup EXIT`—runs on any exit, even errors
 
 ## Arrays
@@ -73,9 +73,9 @@ tags:
 
 - Default value: `${var:-default}`—use default if unset/empty
 - Assign default: `${var:=default}`—also assigns to var
-- Error if unset: `${var:?error message}`—exits with message
+- 错误 if unset: `${var:?错误 message}`—exits with message
 - Substring: `${var:0:5}`—first 5 chars
-- Remove prefix: `${var#pattern}`—`##` for greedy
+- 删除 prefix: `${var#模式}`—`##` for 贪婪
 
 ## Arithmetic
 
@@ -86,7 +86,7 @@ tags:
 ## Common Mistakes
 
 - `[ $var = "value" ]` fails if var empty—use `[ "$var" = "value" ]` or `[[ ]]`
-- `if [ -f $file ]` with spaces—always quote: `if [[ -f "$file" ]]`
-- `local` in functions—without it, variables are global
+- `if [ -f $文件 ]` with spaces—always quote: `if [[ -f "$文件" ]]`
+- `本地` in functions—without 它, variables are 全局
 - `read` without `-r`—backslashes interpreted as escapes
 - `echo` portability—use `printf` for reliable formatting

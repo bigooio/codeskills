@@ -28,15 +28,15 @@ skill-name/
 
 ## SKILL.md 格式
 
-```yaml
+```YAML
 ---
 name: skill-name
-description: 描述这个技能的作用和使用场景（最大1024字符）
-license: MIT-0
+说明: 描述这个技能的作用和使用场景（最大1024字符）
+许可: MIT-0
 compatibility: 环境要求（如需要）
 metadata:
   author: 作者名
-  version: "1.0"
+  版本: "1.0"
 ---
 
 # 技能名称
@@ -55,9 +55,9 @@ metadata:
 - 不能以连字符开头或结尾
 - 必须与文件夹名称一致
 
-## Description 编写技巧
+## 说明 编写技巧
 
-好的 description 应该：
+好的 说明 应该：
 1. 描述技能**做什么**
 2. 说明**何时使用**
 3. 包含帮助 AI 识别的关键词
@@ -72,17 +72,17 @@ metadata:
 
 ## 脚本编写
 
-```bash
-#!/bin/bash
+```Bash
+#!/bin/Bash
 # scripts/install.sh
 
-set -e
+集合 -e
 
 echo "安装技能..."
 
 # 检查依赖
-if ! command -v required-tool &> /dev/null; then
-    echo "错误: 需要 required-tool"
+if ! 命令 -v 必需-tool &> /开发/null; then
+    echo "错误: 需要 必需-tool"
     exit 1
 fi
 
@@ -99,7 +99,7 @@ echo "技能安装完成"
 
 ## 验证你的 Skill
 
-```bash
+```Bash
 # 使用 skills-ref 验证
-npx skills-ref validate ./my-skill
+npx skills-ref 验证 ./my-skill
 ```

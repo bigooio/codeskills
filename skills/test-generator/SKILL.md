@@ -12,34 +12,34 @@ tags:
   - testing
 ---
 
-# Test Generator — Automated Test Case Generation
+# 测试 生成器 — Automated 测试用例 Generation
 
-> Generate high-quality test code in seconds, stop writing boilerplate by hand
+> Generate high-quality 测试 code in seconds, 停止 writing boilerplate by hand
 
 ## Why Use This?
 
 - Writing tests is tedious → auto-generate templates, fill in business logic
-- Missing edge cases → `edge` command systematically generates boundary tests
-- Mock setup is verbose → standardized mock patterns, ready to copy-paste
+- Missing 边缘 cases → `边缘` 命令 systematically generates boundary tests
+- 模拟 设置 is verbose → standardized 模拟 patterns, ready to 复制-paste
 
-## Command Reference
+## 命令 引用
 
 ```
-unit <lang> <function>       → Unit test template
-integration <lang> <module>  → Integration test template
-e2e <lang> <flow>            → End-to-end test flow
-mock <lang> <target>         → Mock/Stub objects
-fixture <lang> <type>        → Test fixtures
-coverage <lang>              → Coverage config and tips
-edge <type> <range>          → Edge case generation
-benchmark <lang> <target>    → Performance benchmark test
+unit <lang> <函数>       → 单元测试 模板
+integration <lang> <模块>  → 集成测试 模板
+e2e <lang> <flow>            → End-to-end 测试 flow
+模拟 <lang> <target>         → 模拟/桩 objects
+夹具 <lang> <类型>        → 测试 fixtures
+覆盖率 <lang>              → 覆盖率 配置 and tips
+边缘 <类型> <range>          → 边缘 case generation
+benchmark <lang> <target>    → Performance benchmark 测试
 ```
 
 ## Supported Frameworks
 
-| Language | Test Framework |
+| Language | 测试 框架 |
 |----------|---------------|
-| Python | pytest, unittest |
+| Python | pytest, Unittest |
 | JavaScript | Jest, Mocha, Vitest |
 | Go | testing, testify |
 | Bash | bats |
@@ -48,7 +48,7 @@ benchmark <lang> <target>    → Performance benchmark test
 
 Name tests as `test_<feature>_<scenario>_<expected>` for instant readability.
 ---
-💬 Feedback & Feature Requests: https://bytesagain.com/feedback
+💬 Feedback & Feature Requests: HTTPS://bytesagain.com/feedback
 Powered by BytesAgain | bytesagain.com
 
 ## Commands
@@ -56,8 +56,8 @@ Powered by BytesAgain | bytesagain.com
 - `unit` — Unit
 - `integration` — Integration
 - `e2e` — E2E
-- `mock` — Mock
-- `fixture` — Fixture
-- `coverage` — Coverage
-- `edge` — Edge
+- `模拟` — 模拟
+- `夹具` — 夹具
+- `覆盖率` — 覆盖率
+- `边缘` — 边缘
 - `benchmark` — Benchmark

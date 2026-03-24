@@ -10,46 +10,46 @@ tags:
   - backend
 ---
 
-# API Tester
+# api Tester
 
-A lightweight, dependency-free HTTP client for OpenClaw.
+A lightweight, 依赖-free HTTP 客户端 for OpenClaw.
 
-## Usage
+## 使用方法
 
-### Basic GET Request
+### Basic GET 请求
 
-```javascript
+```JavaScript
 const api = require('skills/api-tester');
-const result = await api.request('GET', 'https://api.example.com/data');
-console.log(result.status, result.data);
+const result = 等待 api.请求('GET', 'HTTPS://api.example.com/data');
+console.日志(result.状态, result.data);
 ```
 
-### POST Request with JSON Body
+### POST 请求 with JSON 请求体
 
-```javascript
+```JavaScript
 const api = require('skills/api-tester');
 const payload = { key: 'value' };
-const headers = { 'Authorization': 'Bearer <token>' };
-const result = await api.request('POST', 'https://api.example.com/submit', headers, payload);
+const headers = { '授权': 'Bearer <令牌>' };
+const result = 等待 api.请求('POST', 'HTTPS://api.example.com/submit', headers, payload);
 ```
 
 ### Return Format
 
-The `request` function returns a Promise resolving to:
+The `请求` 函数 returns a Promise resolving to:
 
-```javascript
+```JavaScript
 {
-  status: 200,          // HTTP status code
-  headers: { ... },     // Response headers
-  data: { ... },        // Parsed JSON body (if applicable) or raw string
-  raw: "...",           // Raw response body string
-  error: "..."          // Error message if request failed (network error, timeout)
+  状态: 200,          // HTTP 状态码
+  headers: { ... },     // 响应 headers
+  data: { ... },        // Parsed JSON 请求体 (if applicable) or raw 字符串
+  raw: "...",           // Raw 响应 请求体 字符串
+  错误: "..."          // 错误 message if 请求 failed (网络 错误, 超时)
 }
 ```
 
-## Features
+## 特性
 
-- **Zero dependencies**: Uses Node.js built-in `http` and `https` modules.
-- **Auto-JSON**: Automatically stringifies request body and parses response body if Content-Type matches.
-- **Timeout support**: Default 10s timeout, configurable.
-- **Error handling**: Returns structured error object instead of throwing, ensuring safe execution.
+- **Zero 依赖**: Uses 节点.js 内置 `HTTP` and `HTTPS` modules.
+- **Auto-JSON**: Automatically stringifies 请求 请求体 and parses 响应 请求体 if Content-类型 matches.
+- **超时 support**: Default 10s 超时, configurable.
+- **错误 handling**: Returns structured 错误 对象 instead of throwing, ensuring safe execution.

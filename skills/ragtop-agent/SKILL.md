@@ -21,32 +21,32 @@ tags:
 
 本 Skill 允许 AI 通过 `curl` 调用 RAGTOP 后端接口。AI 必须根据用户请求的性质，在“简单指令”与“深度调研”两种模式间切换。
 
-## Configuration
+## 配置
 
-The following environment variables are required:
+The following 环境变量 are 必需:
 
-- `RAGTOP_API_URL`: RAGTOP API base URL. Defaults to `http://10.71.10.71:9380` if not set.
-- `RAGTOP_API_TOKEN`: Your RAGTOP API access token. Can be configured via the OpenClaw Web UI.
+- `RAGTOP_API_URL`: RAGTOP api BASE URL. Defaults to `HTTP://10.71.10.71:9380` if not 集合.
+- `RAGTOP_API_TOKEN`: Your RAGTOP api access 令牌. Can be configured via the OpenClaw Web UI.
 
-## 1. 核心工具构建指南 (How to build curl)
+## 1. 核心工具构建指南 (How to 构建 curl)
 
-在调用以下接口前，请确保已获取环境变量 `${RAGTOP_API_URL}` 和 `${RAGTOP_API_TOKEN}`。如果 `${RAGTOP_API_URL}` 为空，请使用默认值 `http://10.71.10.71:9380`。
+在调用以下接口前，请确保已获取环境变量 `${RAGTOP_API_URL}` 和 `${RAGTOP_API_TOKEN}`。如果 `${RAGTOP_API_URL}` 为空，请使用默认值 `HTTP://10.71.10.71:9380`。
 
 ### A. 列出知识库 (list_kb)
 用于获取所有可用的 `knowledge_id`。
-```bash
+```Bash
 curl -L -X POST "${RAGTOP_API_URL}/api/v1/ragtop/tool/list_kb" \
-     -H "Authorization: Bearer ${RAGTOP_API_TOKEN}" \
-     -H "Content-Type: application/json"
+     -H "授权: Bearer ${RAGTOP_API_TOKEN}" \
+     -H "Content-类型: application/JSON"
 ```
 
 ### B. 列出文档 (list_doc)
 用于获取特定知识库内的 `doc_id` 列表，以便缩小检索范围。
-- **Payload**: `{"knowledge_id": "string"}`
-```bash
+- **Payload**: `{"knowledge_id": "字符串"}`
+```Bash
 curl -L -X POST "${RAGTOP_API_URL}/api/v1/ragtop/tool/list_doc" \
-     -H "Authorization: Bearer ${RAGTOP_API_TOKEN}" \
-     -H "Content-Type: application/json" \
+     -H "授权: Bearer ${RAGTOP_API_TOKEN}" \
+     -H "Content-类型: application/JSON" \
      -d '{"knowledge_id": "YOUR_KB_ID"}'
 ```
 
@@ -58,10 +58,10 @@ curl -L -X POST "${RAGTOP_API_URL}/api/v1/ragtop/tool/list_doc" \
   - `queries`: 字符串数组（多查询，推荐用于复杂任务）。
   - `doc_ids`: 数组（可选，限定文件范围）。
   - `retrieval_setting`: `{"top_k": 16, "score_threshold": 0.3}`
-```bash
+```Bash
 curl -L -X POST "${RAGTOP_API_URL}/api/v1/ragtop/tool/retrieval" \
-     -H "Authorization: Bearer ${RAGTOP_API_TOKEN}" \
-     -H "Content-Type: application/json" \
+     -H "授权: Bearer ${RAGTOP_API_TOKEN}" \
+     -H "Content-类型: application/JSON" \
      -d '{
        "knowledge_id": "YOUR_KB_ID",
        "queries": ["查询1", "查询2"],
@@ -80,7 +80,7 @@ curl -L -X POST "${RAGTOP_API_URL}/api/v1/ragtop/tool/retrieval" \
 ### 情况 B：深度调研 (Deep Investigation / Agentic RAG)
 **适用场景**: 用户提出具体业务问题、对比分析或需要跨文档总结。
 **执行逻辑**:
-1. **参考 [references/workflow.md](references/workflow.md)** 执行“分析-分解-检索-综合”流程。
+1. **参考 [references/工作流.md](references/工作流.md)** 执行“分析-分解-检索-综合”流程。
 2. **多步编排**:
    - 第一步：调用 `list_kb` 确定相关的知识库 ID。
    - 第二步（可选）：调用 `list_doc` 锁定相关文件。
@@ -90,4 +90,4 @@ curl -L -X POST "${RAGTOP_API_URL}/api/v1/ragtop/tool/retrieval" \
 ## 3. 运行规范
 - **严禁**提及 `ragflow`，统一使用 `ragtop`。
 - **引用必填**: 所有深度调研的回答必须注明引用的文档名称。
-- **错误处理**: 如果 `curl` 返回非 SUCCESS，应检查 Token 有效性并告知用户。
+- **错误处理**: 如果 `curl` 返回非 SUCCESS，应检查 令牌 有效性并告知用户。

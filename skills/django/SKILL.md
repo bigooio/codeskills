@@ -21,28 +21,28 @@ tags:
   - frontend
 ---
 
-## Quick Reference
+## 快速参考
 
-| Topic | File |
+| Topic | 文件 |
 |-------|------|
-| QuerySet lazy eval, N+1, transactions | `orm.md` |
-| Request handling, middleware, context | `views.md` |
-| Validation, CSRF, file uploads | `forms.md` |
+| QuerySet 懒惰 eval, N+1, transactions | `orm.md` |
+| 请求 handling, 中间件, 上下文 | `views.md` |
+| Validation, CSRF, 文件 uploads | `forms.md` |
 | Migrations, signals, managers | `models.md` |
-| XSS, CSRF, SQL injection, auth | `security.md` |
-| Async views, ORM in async, channels | `async.md` |
+| XSS, CSRF, SQL 注入, auth | `安全.md` |
+| 异步 views, ORM in 异步, channels | `异步.md` |
 
 ## Critical Rules
 
-- QuerySets are lazy — iterating twice hits DB twice, use `list()` to cache
+- QuerySets are 懒惰 — iterating twice hits DB twice, use `列表()` to 缓存
 - `select_related` for FK/O2O, `prefetch_related` for M2M — or N+1 queries
-- `update()` skips `save()` — no signals fire, no `auto_now` update
-- `F()` for atomic updates — `F('count') + 1` avoids race conditions
-- `get()` raises `DoesNotExist` or `MultipleObjectsReturned` — use `filter().first()` for safe
-- `DEBUG=False` requires `ALLOWED_HOSTS` — 400 Bad Request without it
+- `更新()` skips `保存()` — no signals fire, no `auto_now` 更新
+- `F()` for 原子操作 updates — `F('count') + 1` avoids race conditions
+- `GET()` raises `DoesNotExist` or `MultipleObjectsReturned` — use `过滤().first()` for safe
+- `DEBUG=False` requires `ALLOWED_HOSTS` — 400 Bad 请求 without 它
 - Forms need `{% csrf_token %}` — or 403 Forbidden on POST
-- `auto_now` can't be overridden — use `default=timezone.now` if need manual set
-- `exclude(field=None)` excludes NULL — use `filter(field__isnull=True)` for NULL
-- Circular imports in models — use string reference: `ForeignKey('app.Model')`
-- `transaction.atomic()` doesn't catch exceptions — errors still propagate
-- `sync_to_async` for ORM in async views — ORM is sync-only
+- `auto_now` can't be overridden — use `default=timezone.now` if need manual 集合
+- `exclude(field=空值)` excludes NULL — use `过滤(field__isnull=True)` for NULL
+- Circular imports in models — use 字符串 引用: `ForeignKey('app.Model')`
+- `transaction.原子操作()` doesn't 捕获 exceptions — errors still propagate
+- `sync_to_async` for ORM in 异步 views — ORM is sync-only

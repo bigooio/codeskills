@@ -14,116 +14,116 @@ TypeScript 提供了一系列内置工具类型，能帮我们快速转换类型
 
 ## 常用工具类型
 
-### Partial<T> - 将所有属性变为可选
+### 偏函数<T> - 将所有属性变为可选
 
-```typescript
-interface User {
+```TypeScript
+接口 用户 {
   id: number;
-  name: string;
-  email: string;
+  name: 字符串;
+  email: 字符串;
 }
 
 // 所有属性变为可选
-type PartialUser = Partial<User>;
+类型 PartialUser = 偏函数<用户>;
 // 等价于:
-// { id?: number; name?: string; email?: string; }
+// { id?: number; name?: 字符串; email?: 字符串; }
 ```
 
-### Required<T> - 将所有属性变为必需
+### 必需<T> - 将所有属性变为必需
 
-```typescript
-type RequiredUser = Required<PartialUser>;
+```TypeScript
+类型 RequiredUser = 必需<PartialUser>;
 // 恢复所有必需属性
 ```
 
-### Pick<T, K> - 选取部分属性
+### 选取<T, K> - 选取部分属性
 
-```typescript
+```TypeScript
 // 只选取 id 和 name
-type UserPreview = Pick<User, 'id' | 'name'>;
-// { id: number; name: string; }
+类型 UserPreview = 选取<用户, 'id' | 'name'>;
+// { id: number; name: 字符串; }
 ```
 
-### Omit<T, K> - 排除部分属性
+### 省略<T, K> - 排除部分属性
 
-```typescript
+```TypeScript
 // 排除 email
-type UserWithoutEmail = Omit<User, 'email'>;
-// { id: number; name: string; }
+类型 UserWithoutEmail = 省略<用户, 'email'>;
+// { id: number; name: 字符串; }
 ```
 
-### Record<K, V> - 创建键值对类型
+### 记录<K, V> - 创建键值对类型
 
-```typescript
-type UserRole = 'admin' | 'user' | 'guest';
+```TypeScript
+类型 UserRole = '管理员' | '用户' | 'guest';
 
-type RolePermissions = Record<UserRole, string[]>;
+类型 RolePermissions = 记录<UserRole, 字符串[]>;
 // {
-//   admin: string[];
-//   user: string[];
-//   guest: string[];
+//   管理员: 字符串[];
+//   用户: 字符串[];
+//   guest: 字符串[];
 // }
 ```
 
 ### Exclude<T, U> - 排除联合类型
 
-```typescript
-type Status = 'pending' | 'success' | 'error';
+```TypeScript
+类型 状态 = 'pending' | 'success' | '错误';
 
-// 排除 error
-type NonErrorStatus = Exclude<Status, 'error'>;
+// 排除 错误
+类型 NonErrorStatus = Exclude<状态, '错误'>;
 // 'pending' | 'success'
 ```
 
-### Extract<T, U> - 提取联合类型
+### 提取<T, U> - 提取联合类型
 
-```typescript
-type Status = 'pending' | 'success' | 'error' | 'loading';
+```TypeScript
+类型 状态 = 'pending' | 'success' | '错误' | 'loading';
 
 // 只提取成功状态
-type SuccessStatus = Extract<Status, 'success' | 'error'>;
-// 'success' | 'error'
+类型 SuccessStatus = 提取<状态, 'success' | '错误'>;
+// 'success' | '错误'
 ```
 
 ### NonNullable<T> - 移除 null 和 undefined
 
-```typescript
-type MaybeUser = User | null | undefined;
+```TypeScript
+类型 MaybeUser = 用户 | null | undefined;
 
-type DefiniteUser = NonNullable<MaybeUser>;
-// User
+类型 DefiniteUser = NonNullable<MaybeUser>;
+// 用户
 ```
 
 ## 实际应用
 
-### 1. 更新表单（Partial）
+### 1. 更新表单（偏函数）
 
-```typescript
-function updateUser(id: number, updates: Partial<User>) {
+```TypeScript
+函数 updateUser(id: number, updates: 偏函数<用户>) {
   // 只更新提供的字段
 }
 ```
 
-### 2. 创建只读版本（Readonly）
+### 2. 创建只读版本（只读）
 
-```typescript
-type ImmutableUser = Readonly<User>;
+```TypeScript
+类型 ImmutableUser = 只读<用户>;
 ```
 
-### 3. 函数参数类型（Parameters）
+### 3. 函数参数类型（参数）
 
-```typescript
-function createUser(name: string, email: string, age: number) {
+```TypeScript
+函数 createUser(name: 字符串, email: 字符串, age: number) {
   return { name, email, age };
 }
 
-type CreateUserArgs = Parameters<typeof createUser>;
-// [name: string, email: string, age: number]
+类型 CreateUserArgs = 参数<typeof createUser>;
+// [name: 字符串, email: 字符串, age: number]
 ```
 
 ## 最佳实践
 
-1. 用 `Partial` 处理更新函数
-2. 用 `Omit` 排除不需要的字段
-3. 用 `Pick` 选择需要的字段
-4. 用 `Record` 创建映射类型
+1. 用 `偏函数` 处理更新函数
+2. 用 `省略` 排除不需要的字段
+3. 用 `选取` 选择需要的字段
+4. 用 `记录` 创建映射类型

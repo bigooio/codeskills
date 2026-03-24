@@ -4,11 +4,11 @@ description: Write, run, and manage unit, integration, and E2E tests across Type
 tags:
   - Testing
 ---
-# test-runner
+# 测试-运行器
 
-Write and run tests across languages and frameworks.
+Write and 运行 tests across languages and frameworks.
 
-## Framework Selection
+## 框架 Selection
 
 | Language | Unit Tests | Integration | E2E |
 |----------|-----------|-------------|-----|
@@ -16,182 +16,182 @@ Write and run tests across languages and frameworks.
 | Python | pytest | pytest + httpx | Playwright |
 | Swift | XCTest | XCTest | XCUITest |
 
-## Quick Start by Framework
+## 快速开始 by 框架
 
 ### Vitest (TypeScript / JavaScript)
-```bash
-npm install -D vitest @testing-library/react @testing-library/jest-dom
+```Bash
+npm install -D Vitest @testing-库/React @testing-库/Jest-dom
 ```
 
-```typescript
-// vitest.config.ts
-import { defineConfig } from 'vitest/config'
-export default defineConfig({
-  test: {
+```TypeScript
+// Vitest.配置.ts
+导入 { defineConfig } from 'Vitest/配置'
+导出 default defineConfig({
+  测试: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: './tests/setup.ts',
+    环境: 'JSDOM',
+    setupFiles: './tests/设置.ts',
   },
 })
 ```
 
-```bash
-npx vitest              # Watch mode
-npx vitest run          # Single run
-npx vitest --coverage   # With coverage
+```Bash
+npx Vitest              # Watch mode
+npx Vitest 运行          # Single 运行
+npx Vitest --覆盖率   # with 覆盖率
 ```
 
 ### Jest
-```bash
-npm install -D jest @types/jest ts-jest
+```Bash
+npm install -D Jest @types/Jest ts-Jest
 ```
 
-```bash
-npx jest                # Run all
-npx jest --watch        # Watch mode
-npx jest --coverage     # With coverage
-npx jest path/to/test   # Single file
+```Bash
+npx Jest                # 运行 all
+npx Jest --watch        # Watch mode
+npx Jest --覆盖率     # with 覆盖率
+npx Jest 路径/to/测试   # Single 文件
 ```
 
 ### pytest (Python)
-```bash
+```Bash
 uv pip install pytest pytest-cov pytest-asyncio httpx
 ```
 
-```bash
-pytest                          # Run all
+```Bash
+pytest                          # 运行 all
 pytest -v                       # Verbose
-pytest -x                       # Stop on first failure
-pytest --cov=app                # With coverage
-pytest tests/test_api.py -k "test_login"  # Specific test
+pytest -x                       # 停止 on first failure
+pytest --cov=app                # with 覆盖率
+pytest tests/test_api.py -k "test_login"  # Specific 测试
 pytest --tb=short               # Short tracebacks
 ```
 
 ### XCTest (Swift)
-```bash
-swift test                      # Run all tests
-swift test --filter MyTests     # Specific test suite
-swift test --parallel           # Parallel execution
+```Bash
+swift 测试                      # 运行 all tests
+swift 测试 --过滤 MyTests     # Specific 测试套件
+swift 测试 --parallel           # Parallel execution
 ```
 
 ### Playwright (E2E)
-```bash
-npm install -D @playwright/test
-npx playwright install
+```Bash
+npm install -D @Playwright/测试
+npx Playwright install
 ```
 
-```bash
-npx playwright test                    # Run all
-npx playwright test --headed           # With browser visible
-npx playwright test --debug            # Debug mode
-npx playwright test --project=chromium # Specific browser
-npx playwright show-report             # View HTML report
+```Bash
+npx Playwright 测试                    # 运行 all
+npx Playwright 测试 --headed           # with browser visible
+npx Playwright 测试 --debug            # Debug mode
+npx Playwright 测试 --project=chromium # Specific browser
+npx Playwright show-report             # View HTML report
 ```
 
-## TDD Workflow
+## TDD 工作流
 
-1. **Red** — Write a failing test that describes the desired behavior.
-2. **Green** — Write the minimum code to make the test pass.
-3. **Refactor** — Clean up the code while keeping tests green.
+1. **Red** — Write a failing 测试 that describes the desired behavior.
+2. **Green** — Write the minimum code to make the 测试 pass.
+3. **Refactor** — 清理 up the code while keeping tests green.
 
 ```
 ┌─────────┐     ┌─────────┐     ┌──────────┐
 │  Write   │────▶│  Write  │────▶│ Refactor │──┐
-│  Test    │     │  Code   │     │  Code    │  │
+│  测试    │     │  Code   │     │  Code    │  │
 │  (Red)   │     │ (Green) │     │          │  │
 └─────────┘     └─────────┘     └──────────┘  │
      ▲                                          │
      └──────────────────────────────────────────┘
 ```
 
-## Test Patterns
+## 测试 Patterns
 
-### Arrange-Act-Assert
-```typescript
-test('calculates total with tax', () => {
+### Arrange-Act-断言
+```TypeScript
+测试('calculates total with tax', () => {
   // Arrange
   const cart = new Cart([{ price: 100, qty: 2 }]);
 
   // Act
   const total = cart.totalWithTax(0.08);
 
-  // Assert
-  expect(total).toBe(216);
+  // 断言
+  期望(total).toBe(216);
 });
 ```
 
-### Testing Async Code
-```typescript
-test('fetches user data', async () => {
-  const user = await getUser('123');
-  expect(user.name).toBe('Colt');
+### Testing 异步 Code
+```TypeScript
+测试('fetches 用户 data', 异步 () => {
+  const 用户 = 等待 getUser('123');
+  期望(用户.name).toBe('Colt');
 });
 ```
 
 ### Mocking
-```typescript
-import { vi } from 'vitest';
+```TypeScript
+导入 { vi } from 'Vitest';
 
 const mockFetch = vi.fn().mockResolvedValue({
-  json: () => Promise.resolve({ id: 1, name: 'Test' }),
+  JSON: () => Promise.resolve({ id: 1, name: '测试' }),
 });
-vi.stubGlobal('fetch', mockFetch);
+vi.stubGlobal('获取', mockFetch);
 ```
 
-### Testing API Endpoints (Python)
-```python
-import pytest
-from httpx import AsyncClient
-from app.main import app
+### Testing api Endpoints (Python)
+```Python
+导入 pytest
+from httpx 导入 AsyncClient
+from app.主分支 导入 app
 
 @pytest.mark.asyncio
-async def test_get_users():
-    async with AsyncClient(app=app, base_url="http://test") as client:
-        response = await client.get("/users")
-    assert response.status_code == 200
-    assert isinstance(response.json(), list)
+异步 def test_get_users():
+    异步 with AsyncClient(app=app, base_url="HTTP://测试") as 客户端:
+        响应 = 等待 客户端.GET("/users")
+    断言 响应.status_code == 200
+    断言 isinstance(响应.JSON(), 列表)
 ```
 
 ### Testing React Components
-```typescript
-import { render, screen, fireEvent } from '@testing-library/react';
-import { Button } from './Button';
+```TypeScript
+导入 { render, screen, fireEvent } from '@testing-库/React';
+导入 { Button } from './Button';
 
-test('calls onClick when clicked', () => {
+测试('calls onClick when clicked', () => {
   const handleClick = vi.fn();
   render(<Button onClick={handleClick}>Click me</Button>);
   fireEvent.click(screen.getByText('Click me'));
-  expect(handleClick).toHaveBeenCalledOnce();
+  期望(handleClick).toHaveBeenCalledOnce();
 });
 ```
 
-## Coverage Commands
+## 覆盖率 Commands
 
-```bash
+```Bash
 # JavaScript/TypeScript
-npx vitest --coverage          # Vitest (uses v8 or istanbul)
-npx jest --coverage            # Jest
+npx Vitest --覆盖率          # Vitest (uses v8 or Istanbul)
+npx Jest --覆盖率            # Jest
 
 # Python
 pytest --cov=app --cov-report=html    # HTML report
-pytest --cov=app --cov-report=term    # Terminal output
+pytest --cov=app --cov-report=term    # 终端 输出
 pytest --cov=app --cov-fail-under=80  # Fail if < 80%
 
-# View HTML coverage report
-open coverage/index.html       # macOS
+# View HTML 覆盖率 report
+open 覆盖率/index.html       # macOS
 open htmlcov/index.html        # Python
 ```
 
-## What to Test
+## What to 测试
 
-**Always test:**
-- Public API / exported functions
-- Edge cases: empty input, null, boundary values
-- Error handling: invalid input, network failures
-- Business logic: calculations, state transitions
+**Always 测试:**
+- Public api / exported functions
+- 边缘 cases: empty input, null, boundary Values
+- 错误 handling: invalid input, 网络 failures
+- Business logic: calculations, 状态 transitions
 
 **Don't bother testing:**
 - Private implementation details
-- Framework internals (React rendering, Express routing)
+- 框架 internals (React rendering, Express 路由)
 - Trivial getters/setters
-- Third-party library behavior
+- 第三方 库 behavior
