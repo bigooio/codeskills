@@ -1,63 +1,2264 @@
 [
   {
-    "id": "1",
-    "slug": "react-useeffect-cleanup",
-    "title": "React useEffect 正确清理副作用",
-    "description": "避免 useEffect 内存泄漏和不必要的重复请求",
-    "content": "useEffect 的清理函数非常重要，它能确保组件卸载时清理副作用，避免内存泄漏。\n\n```tsx\nuseEffect(() => {\n  const controller = new AbortController();\n  \n  fetch('/api/data', { signal: controller.signal })\n    .then(res => res.json())\n    .then(data => setData(data));\n\n  return () => controller.abort();\n}, []);\n```",
-    "tags": ["React", "JavaScript", "前端"],
-    "source": "original",
-    "createdAt": "2026-03-23"
-  },
-  {
-    "id": "2",
-    "slug": "typescript-utility-types",
-    "title": "TypeScript 内置工具类型",
-    "description": "Partial、Required、Pick、Omit 等常用工具类型详解",
-    "content": "TypeScript 提供了一系列内置工具类型，能帮我们快速转换类型。\n\n```typescript\ninterface User {\n  id: number;\n  name: string;\n  email: string;\n}\n\n// 可选类型\ntype PartialUser = Partial<User>;\n\n// 选取部分属性\ntype UserPreview = Pick<User, 'id' | 'name'>;\n\n// 排除部分属性\ntype UserWithoutEmail = Omit<User, 'email'>;\n```",
-    "tags": ["TypeScript", "前端"],
-    "source": "original",
-    "createdAt": "2026-03-22"
-  },
-  {
-    "id": "3",
-    "slug": "github-cli-tool",
-    "title": "gh CLI - GitHub 命令行工具",
-    "description": "告别网页，直接在终端管理 GitHub",
-    "content": "gh 是 GitHub 官方命令行工具，可以完成大部分 GitHub 网页操作。\n\n```bash\n# 安装\nbrew install gh\n\n# 登录\ngh auth login\n\n# 创建 PR\ngh pr create --title \"feat: new feature\" --body \"description\"\n\n# 查看 PR 状态\ngh pr status\n```",
-    "tags": ["工具", "GitHub"],
+    "id": "agent-autonomy-kit",
+    "slug": "agent-autonomy-kit",
+    "title": "Stop waiting for prompts. Keep working.",
+    "description": "Stop waiting for prompts. Keep working.",
+    "content": "# Agent Autonomy Kit\n\nTransform your agent from reactive to proactive.\n\n## Quick Start\n\n1. Create `tasks/QUEUE.md` with Ready/In Progress/Blocked/Done sections\n2. Update `HEARTBEAT.md` to pull from queue and do work\n3. Set up cron jobs for overnight work and daily reports\n4. Watch work happen withou",
+    "tags": [
+      "React",
+      "AI",
+      "提示词",
+      "智能体"
+    ],
     "source": "github",
-    "sourceUrl": "https://github.com/cli/cli",
-    "createdAt": "2026-03-21"
+    "sourceUrl": "https://github.com/itskai-dev/agent-autonomy-kit",
+    "createdAt": "2026-03-24"
   },
   {
-    "id": "4",
-    "slug": "python-fastapi-crud",
-    "title": "FastAPI 快速 CRUD 教程",
-    "description": "使用 FastAPI 和 SQLAlchemy 构建 RESTful API",
-    "content": "FastAPI 是一个现代、快速的 Python Web 框架。\n\n```python\nfrom fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass Item(BaseModel):\n    name: str\n    description: str | None = None\n\nitems = {}\n\n@app.post(\"/items/\")\nasync def create_item(item: Item):\n    items[item.name] = item\n    return item\n```",
-    "tags": ["Python", "后端", "API"],
-    "source": "original",
-    "createdAt": "2026-03-20"
+    "id": "agent-builder",
+    "slug": "agent-builder",
+    "title": "Build high-performing OpenClaw agents end-to-end. Use when you want to design a new agent (persona +",
+    "description": "Build high-performing OpenClaw agents end-to-end. Use when you want to design a new agent (persona + operating rules) and generate the required OpenClaw workspace files (SOUL.md, IDENTITY.md, AGENTS.md, USER.md, HEARTBEAT.md, optional MEMORY.md + memory/YYYY-MM-DD.md). Also use to iterate on an existing agent’s behavior, guardrails, autonomy model, heartbeat plan, and skill roster.",
+    "content": "# Agent Builder (OpenClaw)\n\nDesign and generate a complete **OpenClaw agent workspace** with strong defaults and advanced-user-oriented clarifying questions.\n\n## Canonical references\n\n- Workspace layout + heartbeat rules: **Read** `references/openclaw-workspace.md`\n- File templates/snippets: **Read*",
+    "tags": [
+      "CLI",
+      "AI",
+      "测试",
+      "提示词",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
   },
   {
-    "id": "5",
+    "id": "agent-content-pipeline",
+    "slug": "agent-content-pipeline",
+    "title": "Safe content workflow (drafts/reviewed/revised/approved/posted) with human-in-the-loop approval, plu",
+    "description": "Safe content workflow (drafts/reviewed/revised/approved/posted) with human-in-the-loop approval, plus CLI to list/move/review and post to LinkedIn/X. Use when setting up a content pipeline, drafting content, managing review threads, or posting approved content.",
+    "content": "# Content Pipeline Skill\n\nSafe content automation with human-in-the-loop approval. Draft → Review → Approve → Post.\n\n## Setup\n\n```bash\nnpm install -g agent-content-pipeline\ncontent init . # Creates folders + global config (in current directory)\n```\n\nFor cryptographic approval signatures (password-pr",
+    "tags": [
+      "CLI",
+      "API",
+      "AI",
+      "安全",
+      "Bash",
+      "浏览器"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "agent-memory",
+    "slug": "agent-memory",
+    "title": "Persistent memory for AI agents to store facts, learn from actions, recall information, and track en",
+    "description": "Persistent memory for AI agents to store facts, learn from actions, recall information, and track entities across sessions.",
+    "content": "# AgentMemory Skill\n\nPersistent memory system for AI agents. Remember facts, learn from experience, and track entities across sessions.\n\n## Installation\n\n```bash\nclawdhub install agent-memory\n```\n\n## Usage\n\n```python\nfrom src.memory import AgentMemory\n\nmem = AgentMemory()\n\n# Remember facts\nmem.remem",
+    "tags": [
+      "AI",
+      "Agent"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "agent-orchestrator",
+    "slug": "agent-orchestrator",
+    "title": "Meta-agent skill for orchestrating complex tasks through autonomous sub-agents. Decomposes macro tas",
+    "description": "Meta-agent skill for orchestrating complex tasks through autonomous sub-agents. Decomposes macro tasks into subtasks, spawns specialized sub-agents with dynamically generated SKILL.md files, coordinates file-based communication, consolidates results, and dissolves agents upon completion.\n\nMANDATORY TRIGGERS: orchestrate, multi-agent, decompose task, spawn agents, sub-agents, parallel agents, agent coordination, task breakdown, meta-agent, agent factory, delegate tasks\n",
+    "content": "# Agent Orchestrator\n\nOrchestrate complex tasks by decomposing them into subtasks, spawning autonomous sub-agents, and consolidating their work.\n\n## Core Workflow\n\n### Phase 1: Task Decomposition\n\nAnalyze the macro task and break it into independent, parallelizable subtasks:\n\n```\n1. Identify the end",
+    "tags": [
+      "Python",
+      "前端",
+      "AI",
+      "测试",
+      "Bash",
+      "提示词"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "ai-image-generation",
+    "slug": "ai-image-generation",
+    "title": "Generate AI images with FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI. Mode",
+    "description": "Generate AI images with FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI. Models: FLUX Dev LoRA, FLUX.2 Klein LoRA, Gemini 3 Pro Image, Grok Imagine, Seedream 4.5, Reve, ImagineArt. Capabilities: text-to-image, image-to-image, inpainting, LoRA, image editing, upscaling, text rendering. Use for: AI art, product mockups, concept art, social media graphics, marketing visuals, illustrations. Triggers: flux, image generation, ai image, text to image, stable diffusion, generate image, ai art, midjourney alternative, dall-e alternative, text2img, t2i, image generator, ai picture, create image with ai, generative ai, ai illustration, grok image, gemini image",
+    "content": "# AI Image Generation\n\nGenerate images with 50+ AI models via [inference.sh](https://inference.sh) CLI.\n\n![AI Image Generation](https://cloud.inference.sh/app/files/u/4mg21r6ta37mpaz6ktzwtt8krr/01kg0v0nz7wv0qwqjtq1cam52z.jpeg)\n\n## Quick Start\n\n```bash\n# Install CLI\ncurl -fsSL https://cli.inference.s",
+    "tags": [
+      "CLI",
+      "AI",
+      "测试",
+      "Bash",
+      "图片",
+      "视频"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "ai-video-script",
+    "slug": "ai-video-script",
+    "title": "AI视频脚本生成器。根据用户输入的主题/关键词，生成完整的视频脚本，包含分镜描述、画面提示词、配音文案。适用于短视频创作者、AI视频制作者、内容营销人员。触发词：视频脚本、分镜、AI视频、短视频文案、",
+    "description": "AI视频脚本生成器。根据用户输入的主题/关键词，生成完整的视频脚本，包含分镜描述、画面提示词、配音文案。适用于短视频创作者、AI视频制作者、内容营销人员。触发词：视频脚本、分镜、AI视频、短视频文案、视频策划。",
+    "content": "# AI 视频脚本生成器\n\n快速生成 AI 视频脚本的工具，包含分镜、提示词、配音文案。\n\n## 快速开始\n\n### 基本用法\n\n```\n输入：主题或关键词\n输出：完整视频脚本\n```\n\n### 脚本结构\n\n每个脚本包含：\n\n1. **视频概述**\n   - 标题\n   - 时长\n   - 风格定位\n   - 目标受众\n\n2. **分镜表**\n   - 场次\n   - 画面描述\n   - 镜头运动\n   - 时长\n\n3. **画面提示词**\n   - AI 绘画/视频提示词\n   - 适配主流工具（CogVideoX、Midjourney、SD）\n\n4. **配音文案**\n   - 旁白文本\n",
+    "tags": [
+      "AI",
+      "视频"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "api-gateway",
+    "slug": "api-gateway",
+    "title": "通过托管 OAuth 连接 100+ API（Google Workspace、Microsoft 365、GitHub、Notion、Slack、Airtable、HubSpot 等）。当用户想要连",
+    "description": "通过托管 OAuth 连接 100+ API（Google Workspace、Microsoft 365、GitHub、Notion、Slack、Airtable、HubSpot 等）。当用户想要连接各种服务时使用。",
+    "content": "# API Gateway - API 集成\n\n通过统一接口连接各种第三方 API。\n\n## 支持的服务\n\n### Google Workspace\n- Gmail\n- Calendar\n- Drive\n- Contacts\n- Sheets\n- Docs\n\n### Microsoft 365\n- Outlook\n- Teams\n- SharePoint\n- OneDrive\n\n### 开发工具\n- GitHub\n- GitLab\n- Jira\n- Linear\n\n### 协作工具\n- Notion\n- Slack\n- Discord\n- Airtable\n\n### CRM & 营销\n- Hu",
+    "tags": [
+      "Git",
+      "GitHub",
+      "API",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "api-tester",
+    "slug": "api-tester",
+    "title": "Perform structured HTTP/HTTPS requests (GET, POST, PUT, DELETE) with custom headers and JSON body su",
+    "description": "Perform structured HTTP/HTTPS requests (GET, POST, PUT, DELETE) with custom headers and JSON body support. Use for API testing, health checks, or interacting with REST services programmatically without relying on curl.",
+    "content": "# API Tester\n\nA lightweight, dependency-free HTTP client for OpenClaw.\n\n## Usage\n\n### Basic GET Request\n\n```javascript\nconst api = require('skills/api-tester');\nconst result = await api.request('GET', 'https://api.example.com/data');\nconsole.log(result.status, result.data);\n```\n\n### POST Request wit",
+    "tags": [
+      "JavaScript",
+      "Java",
+      "CLI",
+      "API",
+      "AI",
+      "测试"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "appdeploy",
+    "slug": "appdeploy",
+    "title": "Deploy web apps with backend APIs, database, file storage, AI operations, authentication, realtime, ",
+    "description": "Deploy web apps with backend APIs, database, file storage, AI operations, authentication, realtime, and cron jobs. Use when the user asks to deploy or publish a website or web app and wants a public URL. Uses HTTP API via curl.",
+    "content": "# AppDeploy Skill\n\nDeploy web apps to AppDeploy via HTTP API.\n\n## Setup (First Time Only)\n\n1. **Check for existing API key:**\n   - Look for a `.appdeploy` file in the project root\n   - If it exists and contains a valid `api_key`, skip to Usage\n\n2. **If no API key exists, register and get one:**\n   `",
+    "tags": [
+      "React",
+      "Git",
+      "CLI",
+      "API",
+      "前端",
+      "后端"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "automation-workflows",
+    "slug": "automation-workflows",
+    "title": "设计和实施自动化工作流，帮助个体创业者节省时间、扩展业务。涵盖自动化机会识别、工作流设计、工具选型（Zapier/Make/n8n）、测试与维护。",
+    "description": "设计和实施自动化工作流，帮助个体创业者节省时间、扩展业务。涵盖自动化机会识别、工作流设计、工具选型（Zapier/Make/n8n）、测试与维护。",
+    "content": "# Automation Workflows - 自动化工作流\n\n帮助设计和实施自动化工作流。\n\n## 何时使用\n\n当用户提到以下场景时：\n- \"automate\"、\"automation\"、\"workflow automation\"\n- \"save time\"、\"reduce manual work\"\n- \"automate my business\"、\"no-code automation\"\n- 识别重复任务\n- 跨工具搭建流程\n- 配置触发器与动作\n- 优化现有自动化\n\n## 识别自动化机会\n\n```markdown\n问以下问题：\n\n1. 这个任务多久执行一次？\n2. 是否涉及多个系统/工",
+    "tags": [
+      "API",
+      "前端"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "aws",
+    "slug": "AWS | Amazon Web Services",
+    "title": "Architect, deploy, and optimize AWS infrastructure avoiding cost explosions and security pitfalls.",
+    "description": "Architect, deploy, and optimize AWS infrastructure avoiding cost explosions and security pitfalls.",
+    "content": "## Setup\n\nOn first use, read `setup.md` for integration options. The skill works immediately — setup is optional for personalization.\n\n## When to Use\n\nUser needs AWS infrastructure guidance. Agent handles architecture decisions, service selection, cost optimization, security hardening, and deploymen",
+    "tags": [
+      "Docker",
+      "CLI",
+      "API",
+      "SQL",
+      "PostgreSQL",
+      "Redis"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/aws",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "azure",
+    "slug": "Azure",
+    "title": "Deploy, monitor, and manage Azure services with battle-tested patterns.",
+    "description": "Deploy, monitor, and manage Azure services with battle-tested patterns.",
+    "content": "# Azure Production Rules\n\n## Cost Traps\n- Stopped VMs still pay for attached disks and public IPs — deallocate fully with `az vm deallocate` not just stop from portal\n- Premium SSD default on VM creation — switch to Standard SSD for dev/test, saves 50%+\n- Log Analytics workspace retention defaults t",
+    "tags": [
+      "CLI",
+      "API",
+      "SQL",
+      "Redis",
+      "后端",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "baidu-search",
+    "slug": "baidu-search",
+    "title": "使用百度 AI 搜索引擎搜索网页，获取实时信息、文档资料或研究主题。适合中文网络搜索。",
+    "description": "使用百度 AI 搜索引擎搜索网页，获取实时信息、文档资料或研究主题。适合中文网络搜索。",
+    "content": "# 百度搜索\n\n使用百度 AI 搜索引擎获取中文网络信息。\n\n## 基础用法\n\n```bash\n# 搜索网页\nbaidu \"关键词\"\n\n# 限制结果数\nbaidu \"关键词\" --limit 10\n```\n\n## 搜索类型\n\n```bash\n# 新闻搜索\nbaidu \"关键词\" --type news\n\n# 图片搜索\nbaidu \"关键词\" --type image\n\n# 视频搜索\nbaidu \"关键词\" --type video\n\n# 学术搜索\nbaidu \"关键词\" --type scholar\n```\n\n## 高级搜索\n\n```bash\n# 站内搜索\nbaidu \"关键词 site:gi",
+    "tags": [
+      "Git",
+      "GitHub",
+      "API",
+      "AI",
+      "Bash",
+      "图片"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "bash",
+    "slug": "Bash",
+    "title": "Write reliable Bash scripts with proper quoting, error handling, and parameter expansion.",
+    "description": "Write reliable Bash scripts with proper quoting, error handling, and parameter expansion.",
+    "content": "## Quick Reference\n\n| Topic | File |\n|-------|------|\n| Arrays and loops | `arrays.md` |\n| Parameter expansion | `expansion.md` |\n| Error handling patterns | `errors.md` |\n| Testing and conditionals | `testing.md` |\n\n## Quoting Traps\n\n- Always quote variables—`\"$var\"` not `$var`, spaces break unquot",
+    "tags": [
+      "AI",
+      "测试",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "browser-use",
+    "slug": "browser-use",
+    "title": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use ",
+    "description": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with web pages, fill forms, take screenshots, or extract information from web pages.",
+    "content": "# Browser Automation with browser-use CLI\n\nThe `browser-use` command provides fast, persistent browser automation. It maintains browser sessions across commands, enabling complex multi-step workflows.\n\n## Prerequisites\n\nBefore using this skill, `browser-use` must be installed and configured. Run dia",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Java",
+      "Git",
+      "GitHub",
+      "CLI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "cloud",
+    "slug": "Cloud",
+    "title": "Choose, organize, sync, share, and back up personal files across iCloud, Google Drive, Dropbox, and ",
+    "description": "Choose, organize, sync, share, and back up personal files across iCloud, Google Drive, Dropbox, and OneDrive.",
+    "content": "## Triggers\n\nActivate on: iCloud full, cloud storage, backup photos, sync between devices, share folder, Google Drive help, Dropbox issues, \"where are my files\", storage plan comparison.\n\n## Scope\n\nThis skill covers **consumer cloud storage** — the services regular people use for photos, documents, ",
+    "tags": [
+      "Docker",
+      "API",
+      "AI",
+      "安全",
+      "RAG"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "code",
+    "slug": "Code",
+    "title": "Coding workflow with planning, implementation, verification, and testing for clean software developm",
+    "description": "Coding workflow with planning, implementation, verification, and testing for clean software development.",
+    "content": "## When to Use\n\nUser explicitly requests code implementation. Agent provides planning, execution guidance, and verification workflows.\n\n## Architecture\n\nUser preferences stored in `~/code/` when user explicitly requests.\n\n```\n~/code/\n  - memory.md    # User-provided preferences only\n```\n\nCreate on f",
+    "tags": [
+      "AI",
+      "安全",
+      "测试",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/code",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "code-docs-search-exa",
+    "slug": "code-docs-search-exa",
+    "title": "Search real code snippets and documentation from GitHub, docs sites, and Stack Overflow for accurate",
+    "description": "Search real code snippets and documentation from GitHub, docs sites, and Stack Overflow for accurate syntax and usage examples.",
+    "content": "# Code Docs Search by Exa\n\nUp-to-date code docs and examples for AI, powered by Exa. Finds real code snippets and docs from GitHub, docs sites, and Stack Overflow.\n\n## Setup\nConnect MCP server:\n`https://mcp.exa.ai/mcp`\n\nNo API key needed.\n\n## Tool\n`get_code_context_exa`\n\n## What it does\nFinds real c",
+    "tags": [
+      "Search",
+      "Code",
+      "Documentation"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "code-mentor",
+    "slug": "code-mentor",
+    "title": "Comprehensive AI programming tutor for all levels. Teaches programming through interactive lessons, ",
+    "description": "Comprehensive AI programming tutor for all levels. Teaches programming through interactive lessons, code review, debugging guidance, algorithm practice, project mentoring, and design pattern exploration. Use when the user wants to: learn a programming language, debug code, understand algorithms, review their code, learn design patterns, practice data structures, prepare for coding interviews, understand best practices, build projects, or get help with homework. Supports Python and JavaScript.",
+    "content": "# Code Mentor - Your AI Programming Tutor\n\nWelcome! I'm your comprehensive programming tutor, designed to help you learn, debug, and master software development through interactive teaching, guided problem-solving, and hands-on practice.\n\n## Before Starting\n\nTo provide the most effective learning ex",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Java",
+      "Git",
+      "API",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "code-qc",
+    "slug": "code-qc",
+    "title": "Run a structured quality control audit on any codebase. Use when asked to QC, audit, review, or chec",
+    "description": "Run a structured quality control audit on any codebase. Use when asked to QC, audit, review, or check code quality for a project. Supports Python, TypeScript, GDScript, and general projects. Produces a standardized report with PASS/WARN/FAIL verdict, covering tests, imports, type checking, static analysis, smoke tests, and documentation. Also use when asked to compare QC results over time.",
+    "content": "# Code QC\n\nStructured quality control audit for codebases. Delegates static analysis to proper tools (ruff, eslint, gdlint) and focuses on what AI adds: semantic understanding, cross-module consistency, and dynamic smoke test generation.\n\n## Quick Start\n\n1. Detect project type (read the profile for ",
+    "tags": [
+      "Python",
+      "TypeScript",
+      "React",
+      "Vue",
+      "Git",
+      "CLI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "code-review",
+    "slug": "code-review",
+    "title": "Systematic code review patterns covering security, performance, maintainability, correctness, and te",
+    "description": "Systematic code review patterns covering security, performance, maintainability, correctness, and testing — with severity levels, structured feedback guidance, review process, and anti-patterns to avoid. Use when reviewing PRs, establishing review standards, or improving review quality.",
+    "content": "# Code Review Checklist\n\nThorough, structured approach to reviewing code. Work through each dimension systematically rather than scanning randomly.\n\n\n## Installation\n\n### OpenClaw / Moltbot / Clawbot\n\n```bash\nnpx clawhub@latest install code-review\n```\n\n\n---\n\n## Review Dimensions\n\n| Dimension | Focus",
+    "tags": [
+      "Rust",
+      "API",
+      "SQL",
+      "Redis",
+      "前端",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "code-stats",
+    "slug": "code-stats",
+    "title": "Visualizes repository complexity by counting files, lines of code, and grouping by extension. Use to",
+    "description": "Visualizes repository complexity by counting files, lines of code, and grouping by extension. Use to assess project size or growth.",
+    "content": "# Code Stats\n\nAnalyzes the current workspace to provide development metrics.\n\n## Usage\n\n```bash\nnode skills/code-stats/index.js [path]\n```\n\nDefaults to current working directory if path is omitted.\n\n## Output\n\nJSON object with:\n- `files`: Total file count.\n- `lines`: Total line count (approximate).\n",
+    "tags": [
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "cpp",
+    "slug": "C++",
+    "title": "Write safe C++ avoiding memory leaks, dangling pointers, undefined behavior, and ownership confusion",
+    "description": "Write safe C++ avoiding memory leaks, dangling pointers, undefined behavior, and ownership confusion.",
+    "content": "## Quick Reference\n\n| Topic | File |\n|-------|------|\n| RAII, smart pointers, new/delete | `memory.md` |\n| Raw pointers, references, nullptr | `pointers.md` |\n| Rule of 3/5/0, inheritance, virtual | `classes.md` |\n| Containers, iterators, algorithms | `stl.md` |\n| Templates, SFINAE, concepts | `temp",
+    "tags": [
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "crawl-for-ai",
+    "slug": "crawl-for-ai",
+    "title": "Web scraping using local Crawl4AI instance. Use for fetching full page content with JavaScript rende",
+    "description": "Web scraping using local Crawl4AI instance. Use for fetching full page content with JavaScript rendering. Better than Tavily for complex pages. Unlimited usage.",
+    "content": "# Crawl4AI Web Scraper\n\nLocal Crawl4AI instance for full web page extraction with JavaScript rendering.\n\n## Endpoints\n\n**Proxy (port 11234)** — Clean output, OpenWebUI-compatible\n- Returns: `[{page_content, metadata}]`\n- Use for: Simple content extraction\n\n**Direct (port 11235)** — Full output with ",
+    "tags": [
+      "JavaScript",
+      "Java",
+      "API",
+      "前端",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "data-analysis",
+    "slug": "Data Analysis",
+    "title": "Data analysis and visualization. Query databases, generate reports, automate spreadsheets, and turn ",
+    "description": "Data analysis and visualization. Query databases, generate reports, automate spreadsheets, and turn raw data into clear, actionable insights. Use when (1) you need to analyze, visualize, or explain data; (2) the user wants reports, dashboards, or metrics turned into a decision; (3) the work involves SQL, Python, spreadsheets, BI tools, or notebooks; (4) you need to compare segments, cohorts, funnels, experiments, or time periods; (5) the user explicitly installs or references the skill for the current task.",
+    "content": "## When to Use\n\nUse this skill when the user needs to analyze, explain, or visualize data from SQL, spreadsheets, notebooks, dashboards, exports, or ad hoc tables.\n\nUse it for KPI debugging, experiment readouts, funnel or cohort analysis, anomaly reviews, executive reporting, and quality checks on m",
+    "tags": [
+      "Python",
+      "React",
+      "SQL",
+      "AI",
+      "安全",
+      "测试"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/data-analysis",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "data-analyst",
+    "slug": "data-analyst",
+    "title": "Data visualization, report generation, SQL queries, and spreadsheet automation. Transform your AI ag",
+    "description": "Data visualization, report generation, SQL queries, and spreadsheet automation. Transform your AI agent into a data-savvy analyst that turns raw data into actionable insights.",
+    "content": "# Data Analyst Skill 📊\n\n**Turn your AI agent into a data analysis powerhouse.**\n\nQuery databases, analyze spreadsheets, create visualizations, and generate insights that drive decisions.\n\n---\n\n## What This Skill Does\n\n✅ **SQL Queries** — Write and execute queries against databases\n✅ **Spreadsheet A",
+    "tags": [
+      "Python",
+      "API",
+      "SQL",
+      "PostgreSQL",
+      "MySQL",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "database-operations",
+    "slug": "database-operations",
+    "title": "Use when designing database schemas, writing migrations, optimizing SQL queries, fixing N+1 problems",
+    "description": "Use when designing database schemas, writing migrations, optimizing SQL queries, fixing N+1 problems, creating indexes, setting up PostgreSQL, configuring EF Core, implementing caching, partitioning tables, or any database performance question.",
+    "content": "# Database Operations\n\nComprehensive database design, migration, and optimization specialist. Adapted from buildwithclaude by Dave Poon (MIT).\n\n## Role Definition\n\nYou are a database optimization expert specializing in PostgreSQL, query performance, schema design, and EF Core migrations. You measure",
+    "tags": [
+      "TypeScript",
+      "API",
+      "SQL",
+      "PostgreSQL",
+      "Redis",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "deploy",
+    "slug": "Deploy",
+    "title": "Ship applications reliably with CI/CD, rollback strategies, and zero-downtime deployment patterns.",
+    "description": "Ship applications reliably with CI/CD, rollback strategies, and zero-downtime deployment patterns.",
+    "content": "# Deployment Rules\n\n## Pre-Deploy Checklist\n- Tests passing in CI — never deploy with failing tests\n- Environment variables set in target — missing secrets cause silent failures\n- Database migrations run before code deploy — new code expecting new schema fails\n- Rollback plan ready — know exactly ho",
+    "tags": [
+      "Git",
+      "AI",
+      "安全",
+      "测试",
+      "部署",
+      "图片"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "deploy-kit",
+    "slug": "deploy-kit",
+    "title": "Simplifies web app deployment on Vercel, Railway and Supabase via their CLIs. Auto-detects project, ",
+    "description": "Simplifies web app deployment on Vercel, Railway and Supabase via their CLIs. Auto-detects project, validates CLIs, recommends platform and executes deployment.",
+    "content": "# Deploy Kit — Skill de Déploiement Web\n\nSimplifie le déploiement d'apps web sur **Vercel**, **Railway** et **Supabase** via leurs CLIs.\n\n## Quand utiliser ce skill\n\nL'utilisateur demande de déployer une app, créer une base de données, configurer un hébergement, ou gérer des variables d'environnemen",
+    "tags": [
+      "DevOps",
+      "Deploy"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "django",
+    "slug": "Django",
+    "title": "Build secure Django apps avoiding ORM pitfalls, N+1 queries, and common security traps.",
+    "description": "Build secure Django apps avoiding ORM pitfalls, N+1 queries, and common security traps.",
+    "content": "## Quick Reference\n\n| Topic | File |\n|-------|------|\n| QuerySet lazy eval, N+1, transactions | `orm.md` |\n| Request handling, middleware, context | `views.md` |\n| Validation, CSRF, file uploads | `forms.md` |\n| Migrations, signals, managers | `models.md` |\n| XSS, CSRF, SQL injection, auth | `securi",
+    "tags": [
+      "SQL",
+      "AI",
+      "安全"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "docker",
+    "slug": "Docker",
+    "title": "Docker containers, images, Compose stacks, networking, volumes, debugging, production hardening, and",
+    "description": "Docker containers, images, Compose stacks, networking, volumes, debugging, production hardening, and the commands that keep real environments stable. Use when (1) the task touches Docker, Dockerfiles, images, containers, or Compose; (2) build reliability, runtime behavior, logs, ports, volumes, or security matter; (3) the agent needs Docker guidance and should apply it by default.",
+    "content": "## When to Use\n\nUse when the task involves Docker, Dockerfiles, container builds, Compose, image publishing, networking, volumes, logs, debugging, or production container operations. This skill is stateless and should be applied directly whenever Docker work appears.\n\n## Quick Reference\n\n| Topic | F",
+    "tags": [
+      "Python",
+      "Docker",
+      "DevOps",
+      "AI",
+      "安全",
+      "测试"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/docker",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "docker-compose",
+    "slug": "Docker Compose",
+    "title": "Define multi-container applications with proper dependency handling, networking, and volume manageme",
+    "description": "Define multi-container applications with proper dependency handling, networking, and volume management.",
+    "content": "## depends_on Ready Condition\n\n- `depends_on:` alone only waits for container start—service likely not ready yet\n- Add healthcheck + condition for actual readiness:\n```yaml\ndepends_on:\n  db:\n    condition: service_healthy\n```\n- Without healthcheck defined on target service, `service_healthy` fails\n\n",
+    "tags": [
+      "Java",
+      "Docker",
+      "Git",
+      "AI",
+      "安全",
+      "测试"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "docker-debug-container",
     "slug": "docker-debug-container",
-    "title": "Docker 容器调试技巧",
-    "description": "进入容器、检查日志、排查网络问题",
-    "content": "容器化应用出问题怎么办？这些命令帮你快速定位。\n\n```bash\n# 进入运行中的容器\ndocker exec -it <container_id> /bin/bash\n\n# 查看容器日志\ndocker logs -f <container_id>\n\n# 检查容器网络\ndocker network inspect <network_name>\n\n# 查看容器资源使用\ndocker stats\n```",
-    "tags": ["Docker", "DevOps", "工具"],
-    "source": "original",
-    "createdAt": "2026-03-19"
+    "title": "Docker 容器调试技巧。适用于排查容器问题、检查日志、进入容器内部、网络诊断、监控资源等场景。",
+    "description": "Docker 容器调试技巧。适用于排查容器问题、检查日志、进入容器内部、网络诊断、监控资源等场景。",
+    "content": "# Docker 容器调试技巧\n\n容器化应用出问题怎么办？这些命令帮你快速定位。\n\n## 进入容器\n\n```bash\n# 进入运行中的容器（bash）\ndocker exec -it <container_id> /bin/bash\n\n# 进入运行中的容器（sh，适合轻量镜像）\ndocker exec -it <container_id> /bin/sh\n\n# 以 root 身份进入\ndocker exec -it --privileged <container_id> /bin/bash\n\n# 在容器中执行单个命令\ndocker exec <container_id> ls -la /app",
+    "tags": [
+      "Docker",
+      "API",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
   },
   {
-    "id": "6",
+    "id": "e2e-testing-patterns",
+    "slug": "e2e-testing-patterns",
+    "title": "Build reliable, fast E2E test suites with Playwright and Cypress. Critical user journey coverage, fl",
+    "description": "Build reliable, fast E2E test suites with Playwright and Cypress. Critical user journey coverage, flaky test elimination, CI/CD integration.",
+    "content": "# E2E Testing Patterns\n\n> Test what users do, not how code works. E2E tests prove the system works as a whole — they're your confidence to ship.\n\n\n## Installation\n\n### OpenClaw / Moltbot / Clawbot\n\n```bash\nnpx clawhub@latest install e2e-testing-patterns\n```\n\n\n---\n\n## WHAT This Skill Does\n\nProvides p",
+    "tags": [
+      "TypeScript",
+      "Git",
+      "GitHub",
+      "CLI",
+      "API",
+      "前端"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "fastapi",
+    "slug": "FastAPI",
+    "title": "Build fast, production-ready Python APIs with type hints, validation, and async support.",
+    "description": "Build fast, production-ready Python APIs with type hints, validation, and async support.",
+    "content": "# FastAPI Patterns\n\n## Async Traps\n- Mixing sync database drivers (psycopg2, PyMySQL) in async endpoints blocks the event loop — use async drivers (asyncpg, aiomysql) or run sync code in `run_in_executor`\n- `time.sleep()` in async endpoints blocks everything — use `await asyncio.sleep()` instead\n- C",
+    "tags": [
+      "Python",
+      "Git",
+      "CLI",
+      "API",
+      "SQL",
+      "MySQL"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "file-manager",
+    "slug": "file-manager",
+    "title": "OpenClaw自动化文件管理助手，用于批量文件操作、智能分类、重复文件清理、文件重命名、目录同步等任务。当用户需要整理文件、批量重命名、清理重复文件、同步目录或自动化文件工作流时使用此技能。",
+    "description": "OpenClaw自动化文件管理助手，用于批量文件操作、智能分类、重复文件清理、文件重命名、目录同步等任务。当用户需要整理文件、批量重命名、清理重复文件、同步目录或自动化文件工作流时使用此技能。",
+    "content": "# File Manager - OpenClaw 自动化文件管理\n\n## 核心功能\n\n### 1. 智能文件分类 (`organize`)\n按文件类型、日期、大小或自定义规则自动分类文件。\n\n```bash\n# 按文件类型分类\npython scripts/organize.py <source_dir> --by-type\n\n# 按日期分类 (年/月/日)\npython scripts/organize.py <source_dir> --by-date --date-format year/month\n\n# 按文件大小分类\npython scripts/organize.py <sour",
+    "tags": [
+      "Python",
+      "Git",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "file-organizer-zh",
+    "slug": "file-organizer-zh",
+    "title": "文件整理器，按类型自动分类（中文版）",
+    "description": "文件整理器，按类型自动分类（中文版）",
+    "content": "# file-organizer-zh - 文件整理器\n\n自动按类型分类整理文件。\n\n## 功能\n1. **按类型分类** - 图片/文档/代码/视频/音频/压缩包\n2. **智能归类** - 根据文件内容智能分类\n3. **清理重复** - 识别并清理重复文件\n\n## 触发关键词\n- 整理\n- 分类\n- 整理文件\n- 分类文件\n\n## 文件类型映射\n- images: .jpg, .jpeg, .png, .gif, .bmp, .webp, .svg\n- documents: .doc, .docx, .pdf, .txt, .md, .xls, .xlsx, .ppt, .pptx\n- ",
+    "tags": [
+      "文件",
+      "整理",
+      "效率",
+      "工具",
+      "中文"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "file-search",
+    "slug": "file-search",
+    "title": "Fast file-name and content search using `fd` and `rg` (ripgrep).",
+    "description": "Fast file-name and content search using `fd` and `rg` (ripgrep).",
+    "content": "# File Search Skill\n\nFast file-name and content search using `fd` and `rg` (ripgrep).\n\n## Find Files by Name\n\nSearch for files matching a pattern:\n\n```bash\nfd \"\\.rs$\" /home/xrx/projects\n```\n\nFind files by exact name:\n\n```bash\nfd -g \"Cargo.toml\" /home/xrx/projects\n```\n\n## Search File Contents\n\nSearch",
+    "tags": [
+      "Rust",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "file-summary",
+    "slug": "file-summary",
+    "title": "Local document summary tool. Activate when user mentions summarize file, analyze document or provide",
+    "description": "Local document summary tool. Activate when user mentions summarize file, analyze document or provides a local file path.",
+    "content": "---\r\nname: file-summary\r\ndescription: |\r\n  Local document summary tool. Activate when user mentions \"总结文件\", \"帮我总结\", \"总结文档\", \"分析文档\" or provides a local file path (txt/docx/pdf/xlsx/xls).\r\n---\r\n\r\n# File Summary Tool\r\n\r\nSingle tool `file_summary` for local document text extraction and summary.\r\n\r\n## To",
+    "tags": [
+      "Tool"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "filesystem-mcp",
+    "slug": "filesystem-mcp",
+    "title": "Official Filesystem MCP Server for secure file operations with configurable access controls. Read, w",
+    "description": "Official Filesystem MCP Server for secure file operations with configurable access controls. Read, write, create, delete, move, search files and directories. List directory contents, get file info, edit text files, and manage file permissions. Built-in security sandbox prevents unauthorized access. Essential for agents working with local files, project management, log analysis, content generation, and file organization. Use when agents need filesystem access, file manipulation, directory navigation, or content management.",
+    "content": "# Filesystem MCP Server\n\n> **Secure File Operations for AI Agents**\n\nOfficial MCP reference implementation providing safe, sandboxed filesystem access with fine-grained permission controls.\n\n## Why Filesystem MCP?\n\n### 🔒 Security-First Design\n- **Sandboxed Access**: Agents can only access explicitl",
+    "tags": [
+      "Python",
+      "React",
+      "Git",
+      "GitHub",
+      "CLI",
+      "API"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "flask",
+    "slug": "Flask",
+    "title": "Avoid common Flask mistakes — context errors, circular imports, session configuration, and productio",
+    "description": "Avoid common Flask mistakes — context errors, circular imports, session configuration, and production gotchas.",
+    "content": "## Application Context\n- `current_app` only works inside request or with `app.app_context()` — \"working outside application context\" error\n- `g` is per-request storage — lost after request ends, use for db connections\n- Background tasks need context — `with app.app_context():` or pass data, not prox",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Java",
+      "CLI",
+      "API",
+      "SQL"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "gcp",
+    "slug": "Google Cloud",
+    "title": "Deploy, monitor, and manage GCP services with battle-tested patterns.",
+    "description": "Deploy, monitor, and manage GCP services with battle-tested patterns.",
+    "content": "# Google Cloud Production Rules\n\n## Cost Traps\n- Stopped Compute Engine VMs still pay for persistent disks and static IPs — delete disks or use snapshots for long-term storage\n- Cloud NAT charges per VM and per GB processed — use Private Google Access for GCP API traffic instead\n- BigQuery on-demand",
+    "tags": [
+      "Git",
+      "GitHub",
+      "API",
+      "SQL",
+      "AI",
+      "安全"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "git",
+    "slug": "Git",
+    "title": "Git commits, branches, rebases, merges, conflict resolution, history recovery, team workflows, and t",
+    "description": "Git commits, branches, rebases, merges, conflict resolution, history recovery, team workflows, and the commands needed for safe day-to-day version control. Use when (1) the task touches Git, a repository, commits, branches, merges, rebases, or pull requests; (2) history safety, collaboration, or recovery matter; (3) the agent should automatically apply Git discipline instead of improvising.",
+    "content": "## When to Use\n\nUse when the task involves Git repositories, branches, commits, merges, rebases, pull requests, conflict resolution, history inspection, or recovery. This skill is stateless and should be applied by default whenever Git work is part of the job.\n\n## Quick Reference\n\n| Topic | File |\n|",
+    "tags": [
+      "Docker",
+      "Git",
+      "AI",
+      "测试",
+      "Linux",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/git",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "git-essentials",
+    "slug": "git-essentials",
+    "title": "Essential Git commands and workflows for version control, branching, and collaboration.",
+    "description": "Essential Git commands and workflows for version control, branching, and collaboration.",
+    "content": "# Git Essentials\n\nEssential Git commands for version control and collaboration.\n\n## Initial Setup\n\n```bash\n# Configure user\ngit config --global user.name \"Your Name\"\ngit config --global user.email \"your@email.com\"\n\n# Initialize repository\ngit init\n\n# Clone repository\ngit clone https://github.com/use",
+    "tags": [
+      "Git",
+      "GitHub",
+      "AI",
+      "测试",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "https://git-scm.com/",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "git-interactive-rebase",
     "slug": "git-interactive-rebase",
-    "title": "Git 交互式 rebase 整理提交",
-    "description": "合并commit、修改message、删除冗余提交",
-    "content": "git rebase -i 是整理提交历史的利器。\n\n```bash\n# 整理最近3个提交\ngit rebase -i HEAD~3\n\n# 交互式界面命令：\n# pick - 保留提交\n# squash - 合并到上一个提交\n# reword - 修改提交信息\n# drop - 删除提交\n```",
-    "tags": ["Git", "工具"],
-    "source": "original",
-    "createdAt": "2026-03-18"
+    "title": "Git 交互式 rebase 整理提交历史。适用于合并 commits、修改提交信息、删除冗余提交、整理 PR 提交等场景。",
+    "description": "Git 交互式 rebase 整理提交历史。适用于合并 commits、修改提交信息、删除冗余提交、整理 PR 提交等场景。",
+    "content": "# Git 交互式 rebase 整理提交\n\ngit rebase -i 是整理提交历史的利器。\n\n## 基本用法\n\n```bash\n# 整理最近 3 个提交\ngit rebase -i HEAD~3\n\n# 整理从 HEAD 到指定提交\ngit rebase -i <commit_hash>\n```\n\n## 交互式命令\n\n在打开的编辑器中，每个提交前有以下命令：\n\n| 命令 | 说明 |\n|------|------|\n| `pick` | 保留提交 |\n| `squash` | 合并到上一个提交 |\n| `fixup` | 合并到上一个提交（丢弃此提交的消息） |\n| `reword` | ",
+    "tags": [
+      "Git",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "git-workflows",
+    "slug": "git-workflows",
+    "title": "Advanced git operations beyond add/commit/push. Use when rebasing, bisecting bugs, using worktrees f",
+    "description": "Advanced git operations beyond add/commit/push. Use when rebasing, bisecting bugs, using worktrees for parallel development, recovering with reflog, managing subtrees/submodules, resolving merge conflicts, cherry-picking across branches, or working with monorepos.",
+    "content": "# Git Workflows\n\nAdvanced git operations for real-world development. Covers interactive rebase, bisect, worktree, reflog recovery, subtrees, submodules, sparse checkout, conflict resolution, and monorepo patterns.\n\n## When to Use\n\n- Cleaning up commit history before merging (interactive rebase)\n- Fi",
+    "tags": [
+      "Git",
+      "GitHub",
+      "AI",
+      "测试",
+      "Bash",
+      "RAG"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "gitflow",
+    "slug": "gitflow",
+    "title": "Automatically monitor CI/CD pipeline status of new push across GitHub and GitLab in one place. Auto ",
+    "description": "Automatically monitor CI/CD pipeline status of new push across GitHub and GitLab in one place. Auto DevOps this is the way 🦞!",
+    "content": "# GitFlow — OpenClaw Skill\n\n## Overview\n**GitFlow** is an OpenClaw skill that automates code pushes and provides real-time CI/CD pipeline status monitoring for GitHub and GitLab repositories. It streamlines developer workflows by reducing context switching between repositories and pipeline dashboard",
+    "tags": [
+      "Git",
+      "GitHub",
+      "CLI",
+      "DevOps",
+      "AI",
+      "测试"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "github",
+    "slug": "github",
+    "title": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues,",
+    "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
+    "content": "# GitHub Skill\n\nUse the `gh` CLI to interact with GitHub. Always specify `--repo owner/repo` when not in a git directory, or use URLs directly.\n\n## Pull Requests\n\nCheck CI status on a PR:\n```bash\ngh pr checks 55 --repo owner/repo\n```\n\nList recent workflow runs:\n```bash\ngh run list --repo owner/repo ",
+    "tags": [
+      "Git",
+      "GitHub",
+      "CLI",
+      "API",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "github-ai-trends",
+    "slug": "github-ai-trends",
+    "title": "Generate GitHub AI trending project reports as formatted text leaderboards. Fetches top-starred AI/M",
+    "description": "Generate GitHub AI trending project reports as formatted text leaderboards. Fetches top-starred AI/ML/LLM repos by daily, weekly, or monthly period and renders a styled leaderboard. Use when the user asks for AI project trends, GitHub trending, AI leaderboard, or wants to see popular AI repos.",
+    "content": "# GitHub AI Trends\n\nGenerate formatted leaderboard of trending AI projects on GitHub, output directly to chat.\n\n## Usage\n\nRun the script and paste its stdout as the reply:\n\n```bash\npython3 scripts/fetch_trends.py --period weekly --limit 20\n```\n\n## Parameters\n\n- `--period`: `daily` | `weekly` | `mont",
+    "tags": [
+      "Python",
+      "Git",
+      "GitHub",
+      "API",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "github-api",
+    "slug": "github",
+    "title": "GitHub API integration with managed OAuth. Access repositories, issues, pull requests, commits, bran",
+    "description": "GitHub API integration with managed OAuth. Access repositories, issues, pull requests, commits, branches, and users.\nUse this skill when users want to interact with GitHub repositories, manage issues and PRs, search code, or automate workflows.\nFor other third party apps, use the api-gateway skill (https://clawhub.ai/byungkyu/api-gateway).\n",
+    "content": "# GitHub\n\nAccess the GitHub REST API with managed OAuth authentication. Manage repositories, issues, pull requests, commits, branches, users, and more.\n\n## Quick Start\n\n```bash\n# Get authenticated user\npython <<'EOF'\nimport urllib.request, os, json\nreq = urllib.request.Request('https://gateway.maton",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "React",
+      "Java",
+      "Git",
+      "GitHub"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "github-cli",
+    "slug": "github-cli",
+    "title": "使用 gh CLI 与 GitHub 交互。通过 gh issue、gh pr、gh run 和 gh api 管理议题、PR、CI 运行及高级查询。适用于需要操作 GitHub 仓库、管理 PR、查",
+    "description": "使用 gh CLI 与 GitHub 交互。通过 gh issue、gh pr、gh run 和 gh api 管理议题、PR、CI 运行及高级查询。适用于需要操作 GitHub 仓库、管理 PR、查看 CI 状态、查询 Issues 等场景。",
+    "content": "# GitHub CLI 工具\n\n使用 `gh` CLI 与 GitHub 交互。操作仓库时建议指定 `--repo owner/repo`，或在 git 目录中自动识别。\n\n## 基础配置\n\n```bash\n# 登录 GitHub\ngh auth login\n\n# 验证登录状态\ngh auth status\n```\n\n## PR 管理\n\n```bash\n# 查看 PR 状态\ngh pr status\n\n# 查看特定 PR 详情\ngh pr view 123\n\n# 创建 PR\ngh pr create --title \"feat: 新功能\" --body \"描述\"\n\n# 查看 CI 状态\ngh",
+    "tags": [
+      "Git",
+      "GitHub",
+      "CLI",
+      "API",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "github-cli-tool",
+    "slug": "github-cli-tool",
+    "title": "GitHub 官方命令行工具 gh CLI。适用于通过终端管理 GitHub 仓库、创建 PR、审查代码、管理 Issues 等，无需打开浏览器。",
+    "description": "GitHub 官方命令行工具 gh CLI。适用于通过终端管理 GitHub 仓库、创建 PR、审查代码、管理 Issues 等，无需打开浏览器。",
+    "content": "# gh CLI - GitHub 命令行工具\n\ngh 是 GitHub 官方命令行工具，可以完成大部分 GitHub 网页操作。\n\n## 安装\n\n```bash\n# macOS\nbrew install gh\n\n# Linux\nsudo apt install gh\n\n# Windows\nwinget install GitHub.cli\n```\n\n## 登录认证\n\n```bash\n# 交互式登录\ngh auth login\n\n# 或使用 token 登录\ngh auth login --with-token < token.txt\n```\n\n## 常用命令\n\n### PR 管理\n\n```b",
+    "tags": [
+      "Git",
+      "GitHub",
+      "CLI",
+      "API",
+      "Linux",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "gmail",
+    "slug": "gmail",
+    "title": "Gmail API integration with managed OAuth. Read, send, and manage emails, threads, labels, and drafts",
+    "description": "Gmail API integration with managed OAuth. Read, send, and manage emails, threads, labels, and drafts. Use this skill when users want to interact with Gmail. For other third party apps, use the api-gateway skill (https://clawhub.ai/byungkyu/api-gateway).\n",
+    "content": "# Gmail\n\nAccess the Gmail API with managed OAuth authentication. Read, send, and manage emails, threads, labels, and drafts.\n\n## Quick Start\n\n```bash\n# List messages\npython <<'EOF'\nimport urllib.request, os, json\nreq = urllib.request.Request('https://gateway.maton.ai/google-mail/gmail/v1/users/me/me",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Java",
+      "API",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "go",
+    "slug": "Go",
+    "title": "Write reliable Go code avoiding goroutine leaks, interface traps, and common concurrency bugs.",
+    "description": "Write reliable Go code avoiding goroutine leaks, interface traps, and common concurrency bugs.",
+    "content": "## Quick Reference\n\n| Topic | File |\n|-------|------|\n| Concurrency patterns | `concurrency.md` |\n| Interface and type system | `interfaces.md` |\n| Slices, maps, strings | `collections.md` |\n| Error handling patterns | `errors.md` |\n\n## Goroutine Leaks\n\n- Goroutine blocked on channel with no sender ",
+    "tags": [
+      "AI",
+      "测试",
+      "Linux"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "golang",
+    "slug": "golang",
+    "title": "Build, test, lint, and format Go projects with integrated dev tooling. Use when compiling binaries, ",
+    "description": "Build, test, lint, and format Go projects with integrated dev tooling. Use when compiling binaries, running tests, linting code, or formatting files.",
+    "content": "# Golang\n\nDeveloper toolkit for checking, validating, generating, formatting, linting, converting, and managing Go development entries. All operations are logged with timestamps and stored locally for full traceability.\n\n## Commands\n\n| Command | Usage | Description |\n|---------|-------|-------------",
+    "tags": [
+      "golang",
+      "tool",
+      "utility"
+    ],
+    "source": "github",
+    "sourceUrl": "https://bytesagain.com",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "image",
+    "slug": "Image",
+    "title": "Create, inspect, process, and optimize image files and visual assets with reliable format choice, re",
+    "description": "Create, inspect, process, and optimize image files and visual assets with reliable format choice, resizing, compression, color-profile, metadata, and platform-export checks. Use when (1) the task is about images, screenshots, logos, product photos, or graphics; (2) resizing, converting, compressing, cropping, metadata, or export specs matter; (3) the asset must survive web, social, ecommerce, or print delivery without quality or format mistakes.",
+    "content": "## When to Use\n\nUse when the main artifact is an image file or visual asset, especially when format choice, resizing, cropping, compression, metadata, transparency, color profile, responsive delivery, social specs, marketplace requirements, or print readiness matter.\n\nIf the task is destination-spec",
+    "tags": [
+      "CLI",
+      "前端",
+      "AI",
+      "图片",
+      "浏览器",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/image",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "image-edit",
+    "slug": "Image Editing",
+    "title": "Edit images with AI inpainting, outpainting, background removal, upscaling, and restoration tools.",
+    "description": "Edit images with AI inpainting, outpainting, background removal, upscaling, and restoration tools.",
+    "content": "# AI Image Editing\n\nHelp users edit and enhance images with AI tools.\n\n**Rules:**\n- Ask what edit they need: remove objects, extend canvas, upscale, fix faces, change background\n- Check technique files: `inpainting.md`, `outpainting.md`, `background-removal.md`, `upscaling.md`, `restoration.md`, `st",
+    "tags": [
+      "CLI",
+      "AI",
+      "图片",
+      "提示词"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "image-generation",
+    "slug": "AI Image Generation",
+    "title": "Create AI images with GPT Image, Gemini Nano Banana, FLUX, Imagen, and top providers using prompt en",
+    "description": "Create AI images with GPT Image, Gemini Nano Banana, FLUX, Imagen, and top providers using prompt engineering, style control, and smart editing.",
+    "content": "## Setup\n\nOn first use, read `setup.md`.\n\n## When to Use\n\nUser needs AI-generated visuals, edits, or consistent image sets.\nUse this skill to pick the right model, write stronger prompts, and avoid outdated model choices.\n\n## Architecture\n\nUser preferences persist in `~/image-generation/`. See `memo",
+    "tags": [
+      "Rust",
+      "API",
+      "AI",
+      "安全",
+      "图片",
+      "视频"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/image-generation",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "image-ocr",
+    "slug": "image-ocr",
+    "title": "Extract text from images using Tesseract OCR",
+    "description": "Extract text from images using Tesseract OCR",
+    "content": "# Image OCR\n\nExtract text from images using Tesseract OCR. Supports multiple languages and image formats including PNG, JPEG, TIFF, and BMP.\n\n## Commands\n\n```bash\n# Extract text from an image (default: English)\nimage-ocr \"screenshot.png\"\n\n# Extract text with a specific language\nimage-ocr \"document.j",
+    "tags": [
+      "Bash",
+      "图片"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "image-reader",
+    "slug": "image-reader",
+    "title": "Image recognition and understanding tool. Uses a multimodal model (e.g. doubao-seed-2.0-pro, kimi-k2",
+    "description": "Image recognition and understanding tool. Uses a multimodal model (e.g. doubao-seed-2.0-pro, kimi-k2.5) to analyze image content and supports OCR text extraction and image description. Use this skill when a user sends a screenshot or image and needs the text extracted or the image content understood.\n",
+    "content": "# Image Reader Skill\n\nImage recognition and understanding tool that leverages Doubao multimodal models to analyze image content.\n\n---\n\n## Features\n\n- **Text Extraction (OCR)**: Extract text from images, suitable for documents, screenshots, posters, menus, etc.\n- **Image Description**: Generate detai",
+    "tags": [
+      "Python",
+      "API",
+      "AI",
+      "Bash",
+      "图片",
+      "提示词"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "image-vision",
+    "slug": "vision-analyze",
+    "title": "Image analysis using multimodal vision models. Use when user needs to describe images, extract text ",
+    "description": "Image analysis using multimodal vision models. Use when user needs to describe images, extract text (OCR), analyze visual content, compare images, or answer questions about images. Supports JPG PNG GIF WebP formats.",
+    "content": "# Vision Analyze\n\nAnalyze images using the built-in vision capabilities of multimodal AI models.\n\n## Quick Start\n\n### Analyze an Image\n\nDescribe what's in an image:\n\n```python\n# The agent will automatically use vision when you provide an image path\nimage(\"/path/to/image.jpg\", prompt=\"Describe what's",
+    "tags": [
+      "AI",
+      "Vision"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "imagemagick",
+    "slug": "imagemagick",
+    "title": "Comprehensive ImageMagick operations for image manipulation. Covers background removal, resizing, fo",
+    "description": "Comprehensive ImageMagick operations for image manipulation. Covers background removal, resizing, format conversion, corner rounding, watermarking and color adjustments.",
+    "content": "# ImageMagick Moltbot Skill\n\nComprehensive ImageMagick operations for image manipulation in Moltbot.\n\n## Installation\n\n**macOS:**\n```bash\nbrew install imagemagick\n```\n\n**Linux:**\n```bash\nsudo apt install imagemagick  # Debian/Ubuntu\nsudo dnf install ImageMagick  # Fedora\n```\n\n**Verify:**\n```bash\ncon",
+    "tags": [
+      "Image"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "imap-smtp-email",
+    "slug": "imap-smtp-email",
+    "title": "Read and send email via IMAP/SMTP. Check for new/unread messages, fetch content, search mailboxes, m",
+    "description": "Read and send email via IMAP/SMTP. Check for new/unread messages, fetch content, search mailboxes, mark as read/unread, and send emails with attachments. Supports multiple accounts. Works with any IMAP/SMTP server including Gmail, Outlook, 163.com, vip.163.com, 126.com, vip.126.com, 188.com, and vip.188.com.",
+    "content": "# IMAP/SMTP Email Tool\n\nRead, search, and manage email via IMAP protocol. Send email via SMTP. Supports Gmail, Outlook, 163.com, vip.163.com, 126.com, vip.126.com, 188.com, vip.188.com, and any standard IMAP/SMTP server.\n\n## Configuration\n\nRun the setup script to configure your email account:\n\n```ba",
+    "tags": [
+      "Git",
+      "前端",
+      "AI",
+      "安全",
+      "测试",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "javascript",
+    "slug": "JavaScript",
+    "title": "Write robust JavaScript with async patterns, type coercion handling, and modern ES2023+ features.",
+    "description": "Write robust JavaScript with async patterns, type coercion handling, and modern ES2023+ features.",
+    "content": "## When to Use\n\nUser needs JavaScript expertise — from core language features to modern patterns. Agent handles async/await, closures, module systems, and ES2023+ features.\n\n## Quick Reference\n\n| Topic | File |\n|-------|------|\n| Async patterns | `async.md` |\n| Type coercion rules | `coercion.md` |\n",
+    "tags": [
+      "JavaScript",
+      "TypeScript",
+      "Java",
+      "AI",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "k8s",
+    "slug": "Kubernetes",
+    "title": "Avoid common Kubernetes mistakes — resource limits, probe configuration, selector mismatches, and RB",
+    "description": "Avoid common Kubernetes mistakes — resource limits, probe configuration, selector mismatches, and RBAC pitfalls.",
+    "content": "## Resource Management\n- `requests` = guaranteed minimum — scheduler uses this for placement\n- `limits` = maximum allowed — exceeding memory = OOMKilled, CPU = throttled\n- No limits = can consume entire node — always set production limits\n- `requests` without `limits` = burstable — can use more if a",
+    "tags": [
+      "Kubernetes",
+      "AI",
+      "测试",
+      "部署",
+      "图片",
+      "RAG"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "kubernetes",
+    "slug": "cluster-agent-swarm",
+    "title": "Complete Platform Agent Swarm — A coordinated multi-agent system for Kubernetes and OpenShift  platf",
+    "description": "Complete Platform Agent Swarm — A coordinated multi-agent system for Kubernetes and OpenShift  platform operations. Includes Orchestrator (Jarvis), Cluster Ops (Atlas), GitOps (Flow),  Security (Shield), Observability (Pulse), Artifacts (Cache), and Developer Experience (Desk).\n",
+    "content": "# Cluster Agent Swarm — Complete Platform Operations\n\nThis is the complete cluster-agent-swarm skill package. When you add this skill, you get \naccess to ALL 7 specialized agents working together as a coordinated swarm.\n\n## Installation Options\n\n### Install All Skills (Recommended)\n```bash\nnpx skill",
+    "tags": [
+      "Kubernetes",
+      "Git",
+      "GitHub",
+      "AI",
+      "安全",
+      "部署"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "linux",
+    "slug": "Linux",
+    "title": "Operate Linux systems avoiding permission traps, silent failures, and common admin mistakes.",
+    "description": "Operate Linux systems avoiding permission traps, silent failures, and common admin mistakes.",
+    "content": "# Linux Gotchas\n\n## Permission Traps\n- `chmod 777` fixes nothing, breaks everything — find the actual owner/group issue\n- Setuid on scripts is ignored for security — only works on binaries\n- `chown -R` follows symlinks outside target directory — use `--no-dereference`\n- Default umask 022 makes files",
+    "tags": [
+      "Rust",
+      "Docker",
+      "AI",
+      "安全",
+      "Linux",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "markdown-converter",
+    "slug": "markdown-converter",
+    "title": "Convert documents and files to Markdown using markitdown. Use when converting PDF, Word (.docx), Pow",
+    "description": "Convert documents and files to Markdown using markitdown. Use when converting PDF, Word (.docx), PowerPoint (.pptx), Excel (.xlsx, .xls), HTML, CSV, JSON, XML, images (with EXIF/OCR), audio (with transcription), ZIP archives, YouTube URLs, or EPubs to Markdown format for LLM processing or text analysis.",
+    "content": "# Markdown Converter\n\nConvert files to Markdown using `uvx markitdown` — no installation required.\n\n## Basic Usage\n\n```bash\n# Convert to stdout\nuvx markitdown input.pdf\n\n# Save to file\nuvx markitdown input.pdf -o output.md\nuvx markitdown input.docx > output.md\n\n# From stdin\ncat input.pdf | uvx marki",
+    "tags": [
+      "前端",
+      "AI",
+      "Bash",
+      "图片",
+      "音频",
+      "PDF"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "mongodb",
+    "slug": "MongoDB",
+    "title": "Design MongoDB schemas with proper embedding, indexing, aggregation, and production-ready patterns.",
+    "description": "Design MongoDB schemas with proper embedding, indexing, aggregation, and production-ready patterns.",
+    "content": "## When to Use\n\nUser needs MongoDB expertise — from schema design to production optimization. Agent handles document modeling, indexing strategies, aggregation pipelines, consistency patterns, and scaling.\n\n## Quick Reference\n\n| Topic | File |\n|-------|------|\n| Schema design patterns | `schema.md` ",
+    "tags": [
+      "MongoDB",
+      "AI",
+      "安全",
+      "测试",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "multi-search-engine",
+    "slug": "multi-search-engine",
+    "title": "集成 17 个搜索引擎（8 个国内 + 9 个国际），支持高级搜索语法、时间筛选、站点搜索、隐私搜索引擎及 WolframAlpha 知识查询。无需 API 密钥。",
+    "description": "集成 17 个搜索引擎（8 个国内 + 9 个国际），支持高级搜索语法、时间筛选、站点搜索、隐私搜索引擎及 WolframAlpha 知识查询。无需 API 密钥。",
+    "content": "# 多搜索引擎集成\n\n集成 17 个搜索引擎，方便获取不同来源的信息。\n\n## 国内搜索引擎\n\n1. 百度搜索\n2. 搜狗搜索\n3. 360 搜索\n4. 神马搜索\n5. 必应搜索（国内版）\n6. 头条搜索\n7. 微博搜索\n8. 微信搜索\n\n## 国际搜索引擎\n\n1. Google\n2. Bing\n3. DuckDuckGo\n4. Yahoo\n5. Ask\n6. AOL\n7. WolframAlpha\n8. Brave\n9. Startpage\n\n## 基础用法\n\n```bash\n# 默认搜索（使用所有引擎）\nsearch \"查询内容\"\n\n# 使用特定引擎\nsearch --engine goo",
+    "tags": [
+      "Git",
+      "GitHub",
+      "API",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "mysql",
+    "slug": "MySQL",
+    "title": "Write correct MySQL queries with proper character sets, indexing, transactions, and production patte",
+    "description": "Write correct MySQL queries with proper character sets, indexing, transactions, and production patterns.",
+    "content": "## Quick Reference\n\n| Topic | File |\n|-------|------|\n| Index design deep dive | `indexes.md` |\n| Transactions and locking | `transactions.md` |\n| Query optimization | `queries.md` |\n| Production config | `production.md` |\n\n## Character Set Traps\n\n- `utf8` is broken—only 3 bytes, can't store emoji; ",
+    "tags": [
+      "SQL",
+      "PostgreSQL",
+      "MySQL",
+      "AI",
+      "RAG"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "nano-pdf",
+    "slug": "nano-pdf",
+    "title": "使用 nano-pdf CLI 通过自然语言指令编辑 PDF 文件。支持提取文本、填写表单、合并文件等操作。",
+    "description": "使用 nano-pdf CLI 通过自然语言指令编辑 PDF 文件。支持提取文本、填写表单、合并文件等操作。",
+    "content": "# Nano PDF - PDF 处理工具\n\n通过自然语言指令处理 PDF 文件。\n\n## 基础配置\n\n```bash\n# 安装\nnpm install -g nano-pdf\n\n# 查看帮助\nnano-pdf --help\n```\n\n## 文本提取\n\n```bash\n# 提取所有文本\nnano-pdf extract \"document.pdf\"\n\n# 提取指定页面\nnano-pdf extract \"document.pdf\" --pages 1-5\n\n# 提取到文件\nnano-pdf extract \"document.pdf\" --output text.txt\n```\n\n## 表单处",
+    "tags": [
+      "CLI",
+      "AI",
+      "测试",
+      "Bash",
+      "PDF"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "nextjs",
+    "slug": "NextJS",
+    "title": "Build Next.js 15 apps with App Router, server components, caching, auth, and production patterns.",
+    "description": "Build Next.js 15 apps with App Router, server components, caching, auth, and production patterns.",
+    "content": "## Setup\n\nOn first use, read `setup.md` for project integration.\n\n## When to Use\n\nUser needs Next.js expertise — routing, data fetching, caching, authentication, or deployment. Agent handles App Router patterns, server/client boundaries, and production optimization.\n\n## Architecture\n\nProject pattern",
+    "tags": [
+      "TypeScript",
+      "React",
+      "Node.js",
+      "CLI",
+      "API",
+      "后端"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/nextjs",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "nginx",
+    "slug": "Nginx",
+    "title": "Configure Nginx for reverse proxy, load balancing, SSL termination, and high-performance static serv",
+    "description": "Configure Nginx for reverse proxy, load balancing, SSL termination, and high-performance static serving.",
+    "content": "## When to Use\n\nUser needs Nginx expertise — from basic server blocks to production configurations. Agent handles reverse proxy, SSL, caching, and performance tuning.\n\n## Quick Reference\n\n| Topic | File |\n|-------|------|\n| Reverse proxy patterns | `proxy.md` |\n| SSL/TLS configuration | `ssl.md` |\n|",
+    "tags": [
+      "CLI",
+      "API",
+      "后端",
+      "AI",
+      "测试",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "nodejs",
+    "slug": "NodeJS",
+    "title": "Write reliable Node.js avoiding event loop blocking, async pitfalls, ESM gotchas, and memory leaks.",
+    "description": "Write reliable Node.js avoiding event loop blocking, async pitfalls, ESM gotchas, and memory leaks.",
+    "content": "## Quick Reference\n\n| Topic | File |\n|-------|------|\n| Callbacks, Promises, async/await, event loop | `async.md` |\n| CommonJS vs ESM, require vs import | `modules.md` |\n| Error handling, uncaught exceptions | `errors.md` |\n| Readable, Writable, Transform, backpressure | `streams.md` |\n| Memory leak",
+    "tags": [
+      "AI",
+      "安全",
+      "测试"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "notion",
+    "slug": "notion",
+    "title": "Notion API，用于创建和管理页面、数据库及区块。支持笔记整理、知识库构建、任务管理等工作流。",
+    "description": "Notion API，用于创建和管理页面、数据库及区块。支持笔记整理、知识库构建、任务管理等工作流。",
+    "content": "# Notion 集成\n\n通过 API 操作 Notion 页面、数据库和区块。\n\n## 基础配置\n\n```bash\n# 设置 API 密钥\nnotion auth --token ntn_xxxxx\n\n# 验证连接\nnotion status\n```\n\n## 页面操作\n\n```bash\n# 创建页面\nnotion page create --parent \"database_id\" --title \"新页面\"\n\n# 获取页面\nnotion page get \"page_id\"\n\n# 更新页面\nnotion page update \"page_id\" --title \"新标题\" --conte",
+    "tags": [
+      "JavaScript",
+      "Java",
+      "API",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "nuxt",
+    "slug": "Nuxt",
+    "title": "Build Vue 3 SSR/SSG applications with proper data fetching, hydration, and server patterns.",
+    "description": "Build Vue 3 SSR/SSG applications with proper data fetching, hydration, and server patterns.",
+    "content": "# Nuxt 3 Patterns\n\n## Data Fetching\n- `useFetch` deduplicates and caches requests during SSR — use it in components, not `$fetch` which fetches twice (server + client)\n- `$fetch` is for event handlers and server routes only — in `<script setup>` it causes hydration mismatches\n- `useFetch` runs on se",
+    "tags": [
+      "React",
+      "Vue",
+      "CLI",
+      "API",
+      "AI",
+      "部署"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "obsidian",
+    "slug": "obsidian",
+    "title": "操作 Obsidian 保险库（纯 Markdown 笔记）并通过 obsidian-cli 自动化。支持笔记创建、搜索、标签管理、双向链接等功能。",
+    "description": "操作 Obsidian 保险库（纯 Markdown 笔记）并通过 obsidian-cli 自动化。支持笔记创建、搜索、标签管理、双向链接等功能。",
+    "content": "# Obsidian 集成\n\n操作 Obsidian 保险库中的 Markdown 笔记。\n\n## 基础配置\n\n```bash\n# 初始化保险库\nobsidian init --path ~/Obsidian/Vault\n\n# 打开保险库\nobsidian open --vault \"MyVault\"\n```\n\n## 笔记操作\n\n```bash\n# 创建笔记\nobsidian note create \"新笔记\" --folder \"日记\"\n\n# 读取笔记\nobsidian note read \"日记/2024-01-01.md\"\n\n# 更新笔记\nobsidian note update \"日记",
+    "tags": [
+      "CLI",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "ontology",
+    "slug": "ontology",
+    "title": "类型化知识图谱，用于结构化 AI Agent 记忆和可组合技能。支持创建/查询实体（人员、项目、任务、事件、文档）及关联关系。",
+    "description": "类型化知识图谱，用于结构化 AI Agent 记忆和可组合技能。支持创建/查询实体（人员、项目、任务、事件、文档）及关联关系。",
+    "content": "# Ontology - 知识图谱\n\n结构化的记忆系统，帮助 AI Agent 记住和组织信息。\n\n## 支持的实体类型\n\n- **Person** - 人员\n- **Project** - 项目\n- **Task** - 任务\n- **Event** - 事件\n- **Document** - 文档\n- **Organization** - 组织\n- **Location** - 地点\n- **Concept** - 概念\n\n## 基础操作\n\n```bash\n# 创建实体\nontology create person --name \"张三\" --role \"开发者\"\n\n# 查询实体\nonto",
+    "tags": [
+      "JavaScript",
+      "Java",
+      "AI",
+      "Bash",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "openai-whisper",
+    "slug": "openai-whisper",
+    "title": "本地语音转文字工具，使用 Whisper CLI，无需 API 密钥。支持多种语言，包括中文。",
+    "description": "本地语音转文字工具，使用 Whisper CLI，无需 API 密钥。支持多种语言，包括中文。",
+    "content": "# OpenAI Whisper - 语音识别\n\n本地运行的语音转文字工具。\n\n## 安装\n\n```bash\n# macOS\nbrew install whisper\n\n# 或使用 pip\npip install whisper-cli\n\n# 验证安装\nwhisper --version\n```\n\n## 基础用法\n\n```bash\n# 转录音频文件\nwhisper \"audio.mp3\"\n\n# 指定语言\nwhisper \"audio.mp3\" --language Chinese\n\n# 输出到文件\nwhisper \"audio.mp3\" --output transcript.txt\n```\n",
+    "tags": [
+      "CLI",
+      "API",
+      "AI",
+      "Bash",
+      "音频"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "pdf",
+    "slug": "pdf",
+    "title": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/sp",
+    "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale.",
+    "content": "# PDF Processing Guide\n\n## Overview\n\nThis guide covers essential PDF processing operations using Python libraries and command-line tools. For advanced features, JavaScript libraries, and detailed examples, see reference.md. If you need to fill out a PDF form, read forms.md and follow its instruction",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Java",
+      "AI",
+      "Bash",
+      "图片"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "pdf-tools",
+    "slug": "pdf-tools",
+    "title": "View, extract, edit, and manipulate PDF files. Supports text extraction, text editing (overlay and r",
+    "description": "View, extract, edit, and manipulate PDF files. Supports text extraction, text editing (overlay and replacement), merging, splitting, rotating pages, and getting PDF metadata. Use when working with PDF documents for reading content, adding/editing text, reorganizing pages, combining files, or extracting information.",
+    "content": "# PDF Tools\n\nTools for viewing, extracting, and editing PDF files using Python libraries (pdfplumber and PyPDF2).\n\n## Quick Start\n\nAll scripts require dependencies:\n```bash\npip3 install pdfplumber PyPDF2\n```\n\n## Core Operations\n\n### Extract Text\n\nExtract text from PDF (all pages or specific pages):\n",
+    "tags": [
+      "Python",
+      "AI",
+      "Bash",
+      "图片",
+      "PDF"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "playwright",
+    "slug": "Playwright (Automation + MCP + Scraper)",
+    "title": "Browser automation via Playwright MCP. Navigate websites, click elements, fill forms, take screensho",
+    "description": "Browser automation via Playwright MCP. Navigate websites, click elements, fill forms, take screenshots, extract data, and debug real browser workflows. Use when (1) you need a real browser, not static fetch; (2) the task involves Playwright MCP, browser tools, Playwright tests, scripts, or JS-rendered pages; (3) the user wants navigation, forms, screenshots, PDFs, downloads, or browser-driven extraction turned into a reliable outcome.",
+    "content": "## When to Use\n\nUse this skill for real browser tasks: JS-rendered pages, multi-step forms, screenshots or PDFs, UI debugging, Playwright test authoring, MCP-driven browser control, and structured extraction from rendered pages.\n\nPrefer it when static fetch is insufficient or when the task depends o",
+    "tags": [
+      "JavaScript",
+      "Rust",
+      "Java",
+      "CLI",
+      "API",
+      "前端"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/playwright",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "playwright-scraper",
+    "slug": "playwright-scraper",
+    "title": "High-performance Playwright-based web scraper with stealth mode to bypass bot detection, supporting ",
+    "description": "High-performance Playwright-based web scraper with stealth mode to bypass bot detection, supporting dynamic JS content and customizable viewport and User-Agent.",
+    "content": "# Playwright Stealth Scraper\r\n\r\nA high-performance MCP skill for OpenClaw that bypasses anti-bot measures using Playwright Extra and Stealth plugin.\r\n\r\n## Features\r\n- **Stealth Mode**: Uses `puppeteer-extra-plugin-stealth` to mimic real browser behavior.\r\n- **Dynamic Content**: Full JavaScript execu",
+    "tags": [
+      "Browser",
+      "Scraping"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "prompt-crafter",
+    "slug": "prompt-crafter",
+    "title": "Build AI prompts that actually work — for ChatGPT, Claude, Gemini, or any LLM. Covers 4 frameworks (",
+    "description": "Build AI prompts that actually work — for ChatGPT, Claude, Gemini, or any LLM. Covers 4 frameworks (RACE, Chain-of-Thought, Constraint-Stacking, Few-Shot) with decision logic, 12 real examples, troubleshooting for bad outputs, and production safety rules. Not for image generation (Midjourney/DALL-E) — visual prompting is a different beast.",
+    "content": "> **AI Disclosure:** This skill is 100% created and maintained by Forge, an autonomous AI CEO powered by OpenClaw. Built from writing ~400+ prompts while running a real business. Full transparency — always. 🦞\n\n# Prompt Crafter\n\nYour prompts suck because they're vague. I know because mine did too — ",
+    "tags": [
+      "Git",
+      "AI",
+      "测试",
+      "图片",
+      "PDF",
+      "提示词"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "prompt-engineering-expert",
+    "slug": "prompt-engineering-expert",
+    "title": "Advanced expert in prompt engineering, custom instructions design, and prompt optimization for AI ag",
+    "description": "Advanced expert in prompt engineering, custom instructions design, and prompt optimization for AI agents",
+    "content": "# Prompt Engineering Expert Skill\n\nThis skill equips Claude with deep expertise in prompt engineering, custom instructions design, and prompt optimization. It provides comprehensive guidance on crafting effective AI prompts, designing agent instructions, and iteratively improving prompt performance.",
+    "tags": [
+      "AI",
+      "测试",
+      "提示词",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "prompt-enhancer",
+    "slug": "prompt-enhancer",
+    "title": "Automatically rewrites rough user inputs into optimized, structured prompts for dramatically better ",
+    "description": "Automatically rewrites rough user inputs into optimized, structured prompts for dramatically better AI responses. Prefix any message with \"p:\" to activate.",
+    "content": "# Prompt Enhancer\n\nYou have a **Prompt Enhancer** skill. When a user prefixes their message with `p:` or `prompt:`, you must enhance their rough input into a high-quality structured prompt, then execute that enhanced prompt to produce a superior response.\n\nThis is a two-step process: first rewrite t",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "React",
+      "Java",
+      "API",
+      "前端"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "prompt-generator",
+    "slug": "prompt-generator",
+    "title": "AI prompt generator for image and text. AI绘画提示词、AI画图、Midjourney提示词、MJ提示词、Stable Diffusion提示词、SD提示词、D",
+    "description": "AI prompt generator for image and text. AI绘画提示词、AI画图、Midjourney提示词、MJ提示词、Stable Diffusion提示词、SD提示词、DALL-E提示词、AI绘图、AI生图、AI画画、文生图提示词、text-to-image prompt、写作提示词、ChatGPT提示词、Claude提示词、prompt engineering、提示词工程、提示词优化、负面提示词、negative prompt、画风提示词、风格提示词、风格词库、工作流、提示词升级。Generate image prompts for Midjourney/SD/DALL-E and writing prompts for ChatGPT/Claude. Use when: (1) generating AI image/art prompts, (2) creating Midjourney/Stable Diffusion/DALL-E prompts, (3) translating Chinese descriptions to English prompts, (4) enhancing or optimizing existing prompts, (5) batch generating prompt variations, (6) creating writing prompts, (7) browsing style-specific keyword libraries, (8) getting complete negative prompt reference, (9) following complete image generation workflows, (10) upgrading simple descriptions to professional prompts, (11) any AI art or prompt engineering task. 适用场景：生成AI绘画提示词、Midjourney出图、SD出图、中文转英文提示词、优化提示词、批量生成提示词变体、风格词库查询、负面提示词参考、完整出图工作流、提示词升级优化。纯本地模板生成，不依赖外部API。 Triggers on: prompt generator, Image, Chinese, All.",
+    "content": "# Prompt Generator\n\nAI绘画/写作提示词生成器。基于模板+随机组合，纯本地运行。\n\n## 为什么用这个 Skill？ / Why This Skill?\n\n- **平台专属格式**：Midjourney带`--ar --v`参数，SD带quality tags + negative prompt，不是通用提示词\n- **中翻英**：中文描述自动翻译成专业英文提示词，包含风格、光影、质量词\n- **负面提示词**：自动生成negative prompt，避免常见出图问题\n- Compared to asking AI directly: platform-specific f",
+    "tags": [
+      "API",
+      "AI",
+      "Bash",
+      "图片",
+      "提示词"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "prompt-token-counter",
+    "slug": "prompt-token-counter",
+    "title": "Count tokens and estimate costs for 300+ LLM models. Primary use is to audit workspace token consump",
+    "description": "Count tokens and estimate costs for 300+ LLM models. Primary use is to audit workspace token consumption including memory persona and skills.",
+    "content": "---\r\nname: prompt-token-counter\r\nversion: 1.0.10\r\ndescription: \"Count tokens and estimate costs for 300+ LLM models. Primary use: audit OpenClaw workspace token consumption (memory, persona, skills).\"\r\ntrigger: \"token count, cost estimate, prompt length, API cost, OpenClaw audit, workspace token usa",
+    "tags": [
+      "AI",
+      "Tool"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "promptify",
+    "slug": "promptify",
+    "title": "Optimize prompts for clarity and effectiveness. Use when user says \"improve this prompt\", \"optimize ",
+    "description": "Optimize prompts for clarity and effectiveness. Use when user says \"improve this prompt\", \"optimize my prompt\", \"make this clearer\", or provides vague/unstructured prompts. Intelligently routes to sub-agents for codebase research, clarifying questions, or web search as needed.",
+    "content": "# Prompt Optimizer\n\nTransform prompts into clear, effective ones. Model-agnostic.\n\n## Modifiers (parse from ARGUMENTS)\n\n- **+ask** → Force clarifying questions\n- **+deep** → Force codebase exploration\n- **+web** → Force web search\n\nNo modifiers? Auto-detect what's needed.\n\n## Auto-Detection Triggers",
+    "tags": [
+      "API",
+      "前端",
+      "AI",
+      "测试",
+      "图片",
+      "提示词"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "python",
+    "slug": "python",
+    "title": "Python coding guidelines and best practices. Use when writing, reviewing, or refactoring Python code",
+    "description": "Python coding guidelines and best practices. Use when writing, reviewing, or refactoring Python code. Enforces PEP 8 style, syntax validation via py_compile, unit test execution, modern Python versions only (no EOL), uv for dependency management when available, and idiomatic Pythonic patterns.",
+    "content": "# Python Coding Guidelines\n\n## Code Style (PEP 8)\n\n- 4 spaces for indentation (never tabs)\n- Max line length: 88 chars (Black default) or 79 (strict PEP 8)\n- Two blank lines before top-level definitions, one within classes\n- Imports: stdlib → third-party → local, alphabetized within groups\n- Snake_c",
+    "tags": [
+      "Python",
+      "AI",
+      "测试",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "python-dataviz",
+    "slug": "python-dataviz",
+    "title": "Professional data visualization using Python (matplotlib, seaborn, plotly). Create publication-quali",
+    "description": "Professional data visualization using Python (matplotlib, seaborn, plotly). Create publication-quality static charts, statistical visualizations, and interactive plots. Use when generating charts/graphs/plots from data, creating infographics with data components, or producing scientific/statistical visualizations. Supports PNG/SVG (static) and HTML (interactive) export.",
+    "content": "# Python Data Visualization\n\nCreate professional charts, graphs, and statistical visualizations using Python's leading libraries.\n\n## Libraries & Use Cases\n\n**matplotlib** - Static plots, publication-quality, full control\n- Bar, line, scatter, pie, histogram, heatmap\n- Multi-panel figures, subplots\n",
+    "tags": [
+      "Python",
+      "前端",
+      "AI",
+      "Bash",
+      "PDF"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "python-fastapi-crud",
+    "slug": "python-fastapi-crud",
+    "title": "FastAPI 快速构建 CRUD RESTful API。适用于快速创建 Python Web API、处理请求验证、自动生成文档等场景。",
+    "description": "FastAPI 快速构建 CRUD RESTful API。适用于快速创建 Python Web API、处理请求验证、自动生成文档等场景。",
+    "content": "# FastAPI 快速 CRUD 教程\n\nFastAPI 是一个现代、快速的 Python Web 框架。\n\n## 基础设置\n\n```python\nfrom fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel\nfrom typing import Optional\n\napp = FastAPI(title=\"My API\", version=\"1.0.0\")\n\n# Pydantic 模型定义请求体\nclass Item(BaseModel):\n    name: str\n    description: O",
+    "tags": [
+      "Python",
+      "API",
+      "前端",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "python-venv",
+    "slug": "python-venv",
+    "title": "Python environment management skill. Automatically detect project type and existing environments, re",
+    "description": "Python environment management skill. Automatically detect project type and existing environments, recommend based on popularity. Minimize interruptions, only ask when necessary.",
+    "content": "# Python Environment Management Skill\n\n## Core Principles\n\n1. **Reuse Existing Environments** - Don't recreate, reuse existing virtual environments\n2. **Use Project-Type Decision** - Auto-select based on lock files\n3. **Recommend by Popularity** - uv > pip > conda > venv\n4. **Minimize Interruption**",
+    "tags": [
+      "Python",
+      "CLI",
+      "AI",
+      "测试",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "rag-architect",
+    "slug": "rag-architect",
+    "title": "RAG Architect - POWERFUL",
+    "description": "RAG Architect - POWERFUL",
+    "content": "# RAG Architect - POWERFUL\n\n## Overview\n\nThe RAG (Retrieval-Augmented Generation) Architect skill provides comprehensive tools and knowledge for designing, implementing, and optimizing production-grade RAG pipelines. This skill covers the entire RAG ecosystem from document chunking strategies to eva",
+    "tags": [
+      "Rust",
+      "CLI",
+      "API",
+      "SQL",
+      "PostgreSQL",
+      "Redis"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "ragflow",
+    "slug": "ragflow",
+    "title": "Universal Ragflow API client for RAG operations. Create datasets, upload documents, run chat queries",
+    "description": "Universal Ragflow API client for RAG operations. Create datasets, upload documents, run chat queries against knowledge bases. Self-hosted RAG platform integration.",
+    "content": "# Ragflow API Client\n\nUniversal client for Ragflow — self-hosted RAG (Retrieval-Augmented Generation) platform.\n\n## Features\n\n- **Dataset management** — Create, list, delete knowledge bases\n- **Document upload** — Upload files or text content\n- **Chat queries** — Run RAG queries against datasets\n- *",
+    "tags": [
+      "JavaScript",
+      "Java",
+      "CLI",
+      "API",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "raglite",
+    "slug": "raglite",
+    "title": "Local-first RAG cache: distill docs into structured Markdown, then index/query with Chroma (vector) ",
+    "description": "Local-first RAG cache: distill docs into structured Markdown, then index/query with Chroma (vector) + ripgrep (keyword).",
+    "content": "# RAGLite — a local RAG cache (not a memory replacement)\n\nRAGLite is a **local-first RAG cache**.\n\nIt does **not** replace model memory or chat context. It gives your agent a durable place to store and retrieve information the model wasn’t trained on — especially useful for **local/private knowledge",
+    "tags": [
+      "Rust",
+      "Git",
+      "GitHub",
+      "CLI",
+      "前端",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "ragtop-agent",
+    "slug": "ragtop-agent",
+    "title": "高级 RAG 助手，具备 Agentic RAG 思考能力。能够自动化管理 RAGTOP 知识库，并在执行深度调研任务时，调用 RAGTOP 后端接口。使用场景包括：(1) 列出知识库和文档，(2) ",
+    "description": "高级 RAG 助手，具备 Agentic RAG 思考能力。能够自动化管理 RAGTOP 知识库，并在执行深度调研任务时，调用 RAGTOP 后端接口。使用场景包括：(1) 列出知识库和文档，(2) 执行语义检索和深度分析。",
+    "content": "# ragtop-agent Skill\n\n本 Skill 允许 AI 通过 `curl` 调用 RAGTOP 后端接口。AI 必须根据用户请求的性质，在“简单指令”与“深度调研”两种模式间切换。\n\n## Configuration\n\nThe following environment variables are required:\n\n- `RAGTOP_API_URL`: RAGTOP API base URL. Defaults to `http://10.71.10.71:9380` if not set.\n- `RAGTOP_API_TOKEN`: Your RAGTOP API ac",
+    "tags": [
+      "API",
+      "前端",
+      "AI",
+      "Bash",
+      "智能体",
+      "RAG"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "railway-deploy",
+    "slug": "deploy",
+    "title": "This skill should be used when the user wants to push code to Railway, says \"railway up\", \"deploy\", ",
+    "description": "This skill should be used when the user wants to push code to Railway, says \"railway up\", \"deploy\", \"deploy to railway\", \"ship\", or \"push\". For initial setup or creating services, use new skill. For Docker images, use environment skill.",
+    "content": "# Deploy\n\nDeploy code from the current directory to Railway using `railway up`.\n\n## When to Use\n\n- User asks to \"deploy\", \"ship\", \"push code\"\n- User says \"railway up\" or \"deploy to Railway\"\n- User wants to deploy local code changes\n- User says \"deploy and fix any issues\" (use --ci mode)\n\n## Commit M",
+    "tags": [
+      "Docker",
+      "CLI",
+      "后端",
+      "AI",
+      "部署",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "react",
+    "slug": "React",
+    "title": "Full React 19 engineering, architecture, Server Components, hooks, Zustand, TanStack Query, forms, p",
+    "description": "Full React 19 engineering, architecture, Server Components, hooks, Zustand, TanStack Query, forms, performance, testing, production deploy.",
+    "content": "# React\n\nProduction-grade React engineering. This skill transforms how you build React applications — from component architecture to deployment.\n\n## When to Use\n\n- Building React components, pages, or features\n- Implementing state management (useState, Context, Zustand, TanStack Query)\n- Working wit",
+    "tags": [
+      "TypeScript",
+      "React",
+      "CLI",
+      "API",
+      "前端",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/react",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "react-useeffect-cleanup",
+    "slug": "react-useeffect-cleanup",
+    "title": "正确清理 React useEffect 副作用。适用于处理异步请求、事件监听、定时器等需要清理的场景，避免内存泄漏和不必要的重复请求。",
+    "description": "正确清理 React useEffect 副作用。适用于处理异步请求、事件监听、定时器等需要清理的场景，避免内存泄漏和不必要的重复请求。",
+    "content": "# React useEffect 清理函数\n\nuseEffect 的清理函数非常重要，它能确保组件卸载时清理副作用，避免内存泄漏。\n\n## 基础用法\n\n```tsx\nuseEffect(() => {\n  // 设置副作用\n  const controller = new AbortController();\n\n  fetch('/api/data', { signal: controller.signal })\n    .then(res => res.json())\n    .then(data => setData(data))\n    .catch(err => {\n      if",
+    "tags": [
+      "React",
+      "API",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "redis",
+    "slug": "redis",
+    "title": "Connect, query, and monitor Redis instances. Use when checking key health, validating data types, ge",
+    "description": "Connect, query, and monitor Redis instances. Use when checking key health, validating data types, generating backups, formatting results, linting configs.",
+    "content": "# redis\n\nConnect, query, and monitor Redis instances. Use when checking key health, validating data types, generating backups, formatting results, linting configs.\n\n## Commands\n\n### `REDIS_HOST`\n\n(default: 127.0.0.1)\n\n```bash\nscripts/script.sh REDIS_HOST\n```\n\n### `REDIS_PORT`\n\n(default: 6379)\n\n```ba",
+    "tags": [
+      "redis",
+      "tool",
+      "utility"
+    ],
+    "source": "github",
+    "sourceUrl": "https://bytesagain.com",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "rust",
+    "slug": "Rust",
+    "title": "Write idiomatic Rust avoiding ownership pitfalls, lifetime confusion, and common borrow checker batt",
+    "description": "Write idiomatic Rust avoiding ownership pitfalls, lifetime confusion, and common borrow checker battles.",
+    "content": "## Quick Reference\n\n| Topic | File | Key Trap |\n|-------|------|----------|\n| Ownership & Borrowing | `ownership-borrowing.md` | Move semantics catch everyone |\n| Strings & Types | `types-strings.md` | `String` vs `&str`, UTF-8 indexing |\n| Errors & Iteration | `errors-iteration.md` | `unwrap()` in ",
+    "tags": [
+      "Rust",
+      "AI",
+      "测试"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "scrape",
+    "slug": "Scrape",
+    "title": "Legal web scraping with robots.txt compliance, rate limiting, and GDPR/CCPA-aware data handling.",
+    "description": "Legal web scraping with robots.txt compliance, rate limiting, and GDPR/CCPA-aware data handling.",
+    "content": "## Pre-Scrape Compliance Checklist\n\nBefore writing any scraping code:\n\n1. **robots.txt** — Fetch `{domain}/robots.txt`, check if target path is disallowed. If yes, stop.\n2. **Terms of Service** — Check `/terms`, `/tos`, `/legal`. Explicit scraping prohibition = need permission.\n3. **Data type** — Pu",
+    "tags": [
+      "API",
+      "前端",
+      "AI",
+      "浏览器",
+      "智能体",
+      "RAG"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "scraper",
+    "slug": "scraper",
+    "title": "Structured extraction and cleanup for public, user-authorized web pages. Use when the user wants to ",
+    "description": "Structured extraction and cleanup for public, user-authorized web pages. Use when the user wants to collect, clean, summarize, or transform content from accessible pages into reusable text or data. Do not use to bypass logins, paywalls, captchas, robots restrictions, or access controls. Local-only output.",
+    "content": "# Scraper\n\nTurn messy public pages into clean, reusable data.\n\n## Core Purpose\nScraper is a safe extraction skill for public, user-authorized pages.\nIt helps the agent:\n- fetch page content from a URL\n- extract readable text\n- strip boilerplate where possible\n- save clean output locally\n- prepare co",
+    "tags": [
+      "Python",
+      "API",
+      "前端",
+      "AI",
+      "智能体",
+      "RAG"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "security-audit-toolkit",
+    "slug": "security-audit",
+    "title": "Audit codebases and infrastructure for security issues. Use when scanning dependencies for vulnerabi",
+    "description": "Audit codebases and infrastructure for security issues. Use when scanning dependencies for vulnerabilities, detecting hardcoded secrets, checking OWASP top 10 issues, verifying SSL/TLS, auditing file permissions, or reviewing code for injection and auth flaws.",
+    "content": "# Security Audit\n\nScan, detect, and fix security issues in codebases and infrastructure. Covers dependency vulnerabilities, secret detection, OWASP top 10, SSL/TLS verification, file permissions, and secure coding patterns.\n\n## When to Use\n\n- Scanning project dependencies for known vulnerabilities\n-",
+    "tags": [
+      "Python",
+      "Vue",
+      "Go",
+      "Rust",
+      "Java",
+      "Docker"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "security-auditor",
+    "slug": "security-auditor",
+    "title": "Use when reviewing code for security vulnerabilities, implementing authentication flows, auditing OW",
+    "description": "Use when reviewing code for security vulnerabilities, implementing authentication flows, auditing OWASP Top 10, configuring CORS/CSP headers, handling secrets, input validation, SQL injection prevention, XSS protection, or any security-related code review.",
+    "content": "# Security Auditor\n\nComprehensive security audit and secure coding specialist. Adapted from buildwithclaude by Dave Poon (MIT).\n\n## Role Definition\n\nYou are a senior application security engineer specializing in secure coding practices, vulnerability detection, and OWASP compliance. You conduct thor",
+    "tags": [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Rust",
+      "Java",
+      "API"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "security-checker",
+    "slug": "security-checker",
+    "title": "Security scanner for Python skills before publishing to ClawHub. Use before publishing any skill to ",
+    "description": "Security scanner for Python skills before publishing to ClawHub. Use before publishing any skill to check for dangerous imports, hardcoded secrets, unsafe file operations, and dangerous functions like eval/exec/subprocess. Essential for maintaining trust and ensuring published skills are safe for others to install and run.",
+    "content": "# Security Checker\n\nSecurity scan Python skills before publishing to ensure code safety.\n\n## Quick Start\n\n```bash\nsecurity_scan.py <file_or_directory>\n```\n\n**Examples:**\n```bash\n# Scan a single Python file\nsecurity_scan.py scripts/my_script.py\n\n# Scan an entire skill directory\nsecurity_scan.py /path",
+    "tags": [
+      "Python",
+      "Rust",
+      "Git",
+      "API",
+      "AI",
+      "安全"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "security-scanner",
+    "slug": "security-scanner",
+    "title": "Automated security scanning and vulnerability detection for web applications, APIs, and infrastructu",
+    "description": "Automated security scanning and vulnerability detection for web applications, APIs, and infrastructure. Use when you need to scan targets for vulnerabilities, check SSL certificates, find open ports, detect misconfigurations, or perform security audits. Integrates with nmap, nuclei, and other security tools.",
+    "content": "# Security Scanner\n\nAutomated security scanning toolkit for penetration testing and vulnerability assessment.\n\n## Quick Start\n\n### Port Scan\n```bash\nnmap -sV -sC -oN scan.txt TARGET\n```\n\n### Vulnerability Scan\n```bash\nnuclei -u TARGET -o results.txt\n```\n\n### SSL Check\n```bash\nsslscan TARGET\n```\n\n## ",
+    "tags": [
+      "API",
+      "前端",
+      "安全",
+      "测试",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "skill-creator",
+    "slug": "skill-creator",
+    "title": "创建有效 Skills 的指南。当用户希望创建新技能（或更新现有技能）时使用，通过专业知识、工作流或工具集成扩展 AI 能力。",
+    "description": "创建有效 Skills 的指南。当用户希望创建新技能（或更新现有技能）时使用，通过专业知识、工作流或工具集成扩展 AI 能力。",
+    "content": "# Skill Creator - 技能创建指南\n\n本指南帮助你创建有效的 Agent Skills。\n\n## Skill 目录结构\n\n每个 Skill 是一个文件夹，包含：\n\n```\nskill-name/\n├── SKILL.md          # 必需：元数据 + 指令\n├── scripts/          # 可选：可执行脚本\n├── references/       # 可选：参考文档\n├── assets/          # 可选：模板、资源\n└── ...              # 其他文件\n```\n\n## SKILL.md 格式\n\n```yaml\n---\nn",
+    "tags": [
+      "AI",
+      "Bash",
+      "PDF",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "sql",
+    "slug": "SQL",
+    "title": "Master relational databases with SQL. Schema design, queries, performance, migrations for PostgreSQL",
+    "description": "Master relational databases with SQL. Schema design, queries, performance, migrations for PostgreSQL, MySQL, SQLite, SQL Server.",
+    "content": "# SQL\n\nMaster relational databases from the command line. Covers SQLite, PostgreSQL, MySQL, and SQL Server with battle-tested patterns for schema design, querying, migrations, and operations.\n\n## When to Use\n\nWorking with relational databases—designing schemas, writing queries, building migrations, ",
+    "tags": [
+      "Python",
+      "SQL",
+      "PostgreSQL",
+      "MySQL",
+      "AI",
+      "测试"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/sql",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "sql-toolkit",
+    "slug": "sql-toolkit",
+    "title": "Query, design, migrate, and optimize SQL databases. Use when working with SQLite, PostgreSQL, or MyS",
+    "description": "Query, design, migrate, and optimize SQL databases. Use when working with SQLite, PostgreSQL, or MySQL — schema design, writing queries, creating migrations, indexing, backup/restore, and debugging slow queries. No ORMs required.",
+    "content": "# SQL Toolkit\n\nWork with relational databases directly from the command line. Covers SQLite, PostgreSQL, and MySQL with patterns for schema design, querying, migrations, indexing, and operations.\n\n## When to Use\n\n- Creating or modifying database schemas\n- Writing complex queries (joins, aggregations",
+    "tags": [
+      "Python",
+      "SQL",
+      "PostgreSQL",
+      "MySQL",
+      "前端",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "summarize",
+    "slug": "summarize",
+    "title": "Summarize URLs or files with the summarize CLI (web, PDFs, images, audio, YouTube).",
+    "description": "Summarize URLs or files with the summarize CLI (web, PDFs, images, audio, YouTube).",
+    "content": "# Summarize\n\nFast CLI to summarize URLs, local files, and YouTube links.\n\n## Quick start\n\n```bash\nsummarize \"https://example.com\" --model google/gemini-3-flash-preview\nsummarize \"/path/to/file.pdf\" --model google/gemini-3-flash-preview\nsummarize \"https://youtu.be/dQw4w9WgXcQ\" --youtube auto\n```\n\n## ",
+    "tags": [
+      "CLI",
+      "API",
+      "前端",
+      "AI",
+      "Bash",
+      "图片"
+    ],
+    "source": "github",
+    "sourceUrl": "https://summarize.sh",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "test-generator",
+    "slug": "Test Generator",
+    "title": "Automated test case generator. Unit tests, integration tests, end-to-end tests, mock objects, test f",
+    "description": "Automated test case generator. Unit tests, integration tests, end-to-end tests, mock objects, test fixtures, coverage analysis, edge case generation, performance benchmarks. Supports Python, JavaScript, Go. testing, tdd, pytest, jest, vitest, mocha, developer-tools. Use when you need test generator capabilities. Triggers on: test generator.",
+    "content": "# Test Generator — Automated Test Case Generation\n\n> Generate high-quality test code in seconds, stop writing boilerplate by hand\n\n## Why Use This?\n\n- Writing tests is tedious → auto-generate templates, fill in business logic\n- Missing edge cases → `edge` command systematically generates boundary te",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Java",
+      "AI",
+      "测试",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "test-master",
+    "slug": "test-master",
+    "title": "Use when writing tests, creating test strategies, or building automation frameworks. Invoke for unit",
+    "description": "Use when writing tests, creating test strategies, or building automation frameworks. Invoke for unit tests, integration tests, E2E, coverage analysis, performance testing, security testing.",
+    "content": "# Test Master\n\nComprehensive testing specialist ensuring software quality through functional, performance, and security testing.\n\n## Role Definition\n\nYou are a senior QA engineer with 12+ years of testing experience. You think in three testing modes: **[Test]** for functional correctness, **[Perf]**",
+    "tags": [
+      "React",
+      "API",
+      "DevOps",
+      "AI",
+      "安全",
+      "测试"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "test-patterns",
+    "slug": "test-patterns",
+    "title": "Write and run tests across languages and frameworks. Use when setting up test suites, writing unit/i",
+    "description": "Write and run tests across languages and frameworks. Use when setting up test suites, writing unit/integration/E2E tests, measuring coverage, mocking dependencies, or debugging test failures. Covers Node.js (Jest/Vitest), Python (pytest), Go, Rust, and Bash.",
+    "content": "# Test Patterns\n\nWrite, run, and debug tests across languages. Covers unit tests, integration tests, E2E tests, mocking, coverage, and TDD workflows.\n\n## When to Use\n\n- Setting up a test suite for a new project\n- Writing unit tests for functions or modules\n- Writing integration tests for APIs or dat",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Rust",
+      "Java",
+      "CLI",
+      "API"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "test-runner",
+    "slug": "test-runner",
+    "title": "Write, run, and manage unit, integration, and E2E tests across TypeScript, Python, and Swift using r",
+    "description": "Write, run, and manage unit, integration, and E2E tests across TypeScript, Python, and Swift using recommended frameworks.",
+    "content": "# test-runner\n\nWrite and run tests across languages and frameworks.\n\n## Framework Selection\n\n| Language | Unit Tests | Integration | E2E |\n|----------|-----------|-------------|-----|\n| TypeScript/JS | Vitest (preferred), Jest | Supertest | Playwright |\n| Python | pytest | pytest + httpx | Playwrigh",
+    "tags": [
+      "Testing"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "typescript",
+    "slug": "TypeScript",
+    "title": "Write type-safe TypeScript with proper narrowing, inference patterns, and strict mode best practices",
+    "description": "Write type-safe TypeScript with proper narrowing, inference patterns, and strict mode best practices.",
+    "content": "## When to Use\n\nUser needs TypeScript expertise — from basic typing to advanced generics. Agent handles type narrowing, inference, discriminated unions, and strict mode patterns.\n\n## Quick Reference\n\n| Topic | File |\n|-------|------|\n| Generic patterns | `generics.md` |\n| Utility types | `utility-ty",
+    "tags": [
+      "TypeScript",
+      "API",
+      "AI",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "typescript-utility-types",
+    "slug": "typescript-utility-types",
+    "title": "TypeScript 内置工具类型详解。适用于需要转换类型、创建变体类型、选取/排除属性等场景。包含 Partial、Required、Pick、Omit、Record 等常用类型。",
+    "description": "TypeScript 内置工具类型详解。适用于需要转换类型、创建变体类型、选取/排除属性等场景。包含 Partial、Required、Pick、Omit、Record 等常用类型。",
+    "content": "# TypeScript 内置工具类型\n\nTypeScript 提供了一系列内置工具类型，能帮我们快速转换类型。\n\n## 常用工具类型\n\n### Partial<T> - 将所有属性变为可选\n\n```typescript\ninterface User {\n  id: number;\n  name: string;\n  email: string;\n}\n\n// 所有属性变为可选\ntype PartialUser = Partial<User>;\n// 等价于:\n// { id?: number; name?: string; email?: string; }\n```\n\n### Required",
+    "tags": [
+      "TypeScript",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "vercel",
+    "slug": "vercel",
+    "title": "Deploy applications and manage projects with complete CLI reference. Commands for deployments, proje",
+    "description": "Deploy applications and manage projects with complete CLI reference. Commands for deployments, projects, domains, environment variables, and live documentation access.",
+    "content": "# Vercel\n\nComplete Vercel CLI reference and documentation access.\n\n## When to Use\n- Deploying applications to Vercel\n- Managing projects, domains, and environment variables\n- Running local development server\n- Viewing deployment logs and status\n- Looking up Vercel documentation\n\n---\n\n## Documentatio",
+    "tags": [
+      "CLI",
+      "AI",
+      "部署",
+      "Bash",
+      "提示词"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "vercel-deploy",
+    "slug": "vercel-deploy",
+    "title": "Deploy and manage Vercel projects. Use when deploying applications to Vercel, managing environment v",
+    "description": "Deploy and manage Vercel projects. Use when deploying applications to Vercel, managing environment variables, checking deployment status, viewing logs, or performing Vercel operations. Supports production and preview deployments. Practical infrastructure operations - no \"AI will build your app\" magic.",
+    "content": "# Vercel Deployment & Management\n\nDeploy and manage Vercel projects. No \"AI will build your app\" nonsense - just practical Vercel operations.\n\n## Configuration\n\n### Vercel Setup\n\n**Get your token:**\n1. Go to https://vercel.com/account/tokens\n2. Create token (name it \"OpenClaw\")\n3. Set in environment",
+    "tags": [
+      "Git",
+      "API",
+      "AI",
+      "安全",
+      "测试",
+      "部署"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "video-generation",
+    "slug": "AI Video Generation",
+    "title": "Create AI videos with Sora 2, Veo 3, Seedance, Runway, and modern APIs using reliable prompt and ren",
+    "description": "Create AI videos with Sora 2, Veo 3, Seedance, Runway, and modern APIs using reliable prompt and rendering workflows.",
+    "content": "## Setup\n\nOn first use, read `setup.md`.\n\n## When to Use\n\nUser needs to generate, edit, or scale AI videos with current models and APIs.\nUse this skill to choose the right current model stack, write stronger motion prompts, and run reliable async video pipelines.\n\n## Architecture\n\nUser preferences p",
+    "tags": [
+      "Rust",
+      "CLI",
+      "API",
+      "AI",
+      "安全",
+      "图片"
+    ],
+    "source": "github",
+    "sourceUrl": "https://clawic.com/skills/video-generation",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "vue",
+    "slug": "Vue",
+    "title": "Build Vue 3 applications with Composition API, proper reactivity patterns, and production-ready comp",
+    "description": "Build Vue 3 applications with Composition API, proper reactivity patterns, and production-ready components.",
+    "content": "## When to Use\n\nUser needs Vue expertise — from Composition API patterns to production optimization. Agent handles reactivity, component design, state management, and performance.\n\n## Quick Reference\n\n| Topic | File |\n|-------|------|\n| Reactivity patterns | `reactivity.md` |\n| Component patterns | ",
+    "tags": [
+      "React",
+      "Vue",
+      "API",
+      "AI",
+      "智能体"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "web-deploy",
+    "slug": "web-deploy",
+    "title": "Build, preview, and deploy websites, web apps, and APIs using Vercel, Railway, GitHub Pages, or loca",
+    "description": "Build, preview, and deploy websites, web apps, and APIs using Vercel, Railway, GitHub Pages, or local Canvas environments.",
+    "content": "# web-deploy\n\nBuild and deploy websites, web apps, and APIs to production.\n\n## Local Preview Workflow\n\n```bash\n# Static site\nnpx http-server ./dist -p 8080 -c-1\n\n# Next.js\nnpm run dev          # Development (hot reload)\nnpm run build && npm run start  # Production preview\n\n# FastAPI\nuvicorn app.main",
+    "tags": [
+      "DevOps",
+      "Deploy"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "web-design",
+    "slug": "web-design",
+    "title": "CSS implementation patterns for layout, typography, color, spacing, and responsive design. Complemen",
+    "description": "CSS implementation patterns for layout, typography, color, spacing, and responsive design. Complements ui-design (fundamentals) with code-focused examples.",
+    "content": "# Web Design Patterns\n\nCSS implementation patterns for production-grade interfaces. For design fundamentals and decision-making, see `ui-design`. This skill focuses on code.\n\n> **See also:** `ui-design` for typography/color/spacing theory, `frontend-design` for creative aesthetics.\n\n\n## Installation",
+    "tags": [
+      "JavaScript",
+      "Java",
+      "前端",
+      "AI",
+      "测试",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "web-scraper",
+    "slug": "web-scraper",
+    "title": "Web scraping and content comprehension agent — multi-strategy extraction with cascade fallback, news",
+    "description": "Web scraping and content comprehension agent — multi-strategy extraction with cascade fallback, news detection, boilerplate removal, structured metadata, and LLM entity extraction",
+    "content": "# Web Scraper\n\nYou are a senior data engineer specialized in web scraping and content extraction. You extract, clean, and comprehend web page content using a multi-strategy cascade approach: always start with the lightest method and escalate only when needed. You use LLMs exclusively on clean text (",
+    "tags": [
+      "Python",
+      "JavaScript",
+      "Java",
+      "CLI",
+      "API",
+      "前端"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "web-search",
+    "slug": "web-search",
+    "title": "This skill should be used when users need to search the web for information, find current content, l",
+    "description": "This skill should be used when users need to search the web for information, find current content, look up news articles, search for images, or find videos. It uses DuckDuckGo's search API to return results in clean, formatted output (text, markdown, or JSON). Use for research, fact-checking, finding recent information, or gathering web resources.",
+    "content": "# Web Search\n\n## Overview\n\nSearch the web using DuckDuckGo's API to find information across web pages, news articles, images, and videos. Returns results in multiple formats (text, markdown, JSON) with filtering options for time range, region, and safe search.\n\n## When to Use This Skill\n\nUse this sk",
+    "tags": [
+      "Python",
+      "CLI",
+      "API",
+      "前端",
+      "AI",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "web-search-pro",
+    "slug": "web-search-pro",
+    "title": "Agent-first web search and retrieval for live web search, news search, docs lookup, code",
+    "description": "Agent-first web search and retrieval for live web search, news search, docs lookup, code\nlookup, company research, site crawl, site map, and structured evidence packs.\nIncludes a no-key baseline plus optional Tavily, Exa, Querit, Serper, Brave, SerpAPI, You.com,\nSearXNG, and Perplexity / Sonar providers for wider coverage and answer-first routing.\n",
+    "content": "# Web Search Pro 2.1 Core Profile\n\nThis ClawHub package publishes the core retrieval profile of `web-search-pro`.\nIt is a code-backed Node runtime package, not an instruction-only bundle.\n\n## Use This Skill When\n\n- the caller needs live web search or news search\n- the caller needs docs lookup or cod",
+    "tags": [
+      "Python",
+      "API",
+      "前端",
+      "AI",
+      "测试",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "https://github.com/Zjianru/web-search-pro",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "webhook-robot",
+    "slug": "webhook-robot",
+    "title": "Send messages to various webhook-based bots (WeCom, DingTalk, Feishu, etc.).",
+    "description": "Send messages to various webhook-based bots (WeCom, DingTalk, Feishu, etc.).",
+    "content": "# Webhook Robot Skill\n\nA universal skill to send messages to webhook-based chat bots. Currently supports **WeCom (企业微信)**.\n\n## Usage\n\n### WeCom (企业微信)\n\nSend a text message to a WeCom group bot.\n\n```bash\n# Basic usage (requires configuring webhook url or passing it)\nscripts/send_wecom.py --key <YOUR_",
+    "tags": [
+      "API",
+      "前端",
+      "Bash"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "youtube",
+    "slug": "youtube",
+    "title": "Search YouTube videos, get channel info, fetch video details and transcripts using YouTube Data API ",
+    "description": "Search YouTube videos, get channel info, fetch video details and transcripts using YouTube Data API v3 via MCP server or yt-dlp fallback.",
+    "content": "# YouTube Research & Transcription\n\nSearch YouTube, get video/channel info, and fetch transcripts using YouTube Data API v3.\n\n## Features\n\n- 📹 Video details (title, description, stats, publish date)\n- 📝 Transcripts with timestamps\n- 📺 Channel info and recent videos\n- 🔍 Search within YouTube\n- 🎬",
+    "tags": [
+      "Git",
+      "GitHub",
+      "CLI",
+      "API",
+      "前端",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "youtube-search",
+    "slug": "youtube-search",
+    "title": "Search YouTube for videos and channels, search within specific channels, then fetch transcripts. Use",
+    "description": "Search YouTube for videos and channels, search within specific channels, then fetch transcripts. Use when the user asks to \"find videos about X\", \"search YouTube for\", \"look up a channel\", \"who makes videos about\", \"find on youtube\", or wants to discover YouTube content on a topic.",
+    "content": "# YouTube Search\n\nSearch YouTube and fetch transcripts via [TranscriptAPI.com](https://transcriptapi.com).\n\n## Setup\n\nIf `$TRANSCRIPT_API_KEY` is not set, help the user create an account (100 free credits, no card):\n\n**Step 1 — Register:** Ask user for their email.\n\n```bash\nnode ./scripts/tapi-auth.",
+    "tags": [
+      "Python",
+      "Git",
+      "CLI",
+      "API",
+      "前端",
+      "AI"
+    ],
+    "source": "github",
+    "sourceUrl": "https://transcriptapi.com",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "youtube-summarizer",
+    "slug": "youtube-summarizer",
+    "title": "Automatically fetch YouTube video transcripts, generate structured summaries, and send full transcri",
+    "description": "Automatically fetch YouTube video transcripts, generate structured summaries, and send full transcripts to messaging platforms. Detects YouTube URLs and provides metadata, key insights, and downloadable transcripts.",
+    "content": "# YouTube Summarizer Skill\n\nAutomatically fetch transcripts from YouTube videos, generate structured summaries, and deliver full transcripts to messaging platforms.\n\n## When to Use\n\nActivate this skill when:\n- User shares a YouTube URL (youtube.com/watch, youtu.be, youtube.com/shorts)\n- User asks to",
+    "tags": [
+      "youtube",
+      "transcription",
+      "summarization",
+      "video",
+      "telegram"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
+  },
+  {
+    "id": "youtube-transcript",
+    "slug": "youtube-transcript",
+    "title": "Fetch and summarize YouTube video transcripts. Use when asked to summarize, transcribe, or extract c",
+    "description": "Fetch and summarize YouTube video transcripts. Use when asked to summarize, transcribe, or extract content from YouTube videos. Handles transcript fetching via residential IP proxy to bypass YouTube's cloud IP blocks.",
+    "content": "# YouTube Transcript\n\nFetch transcripts from YouTube videos and optionally summarize them.\n\n## Quick Start\n\n```bash\npython3 scripts/fetch_transcript.py <video_id_or_url> [languages]\n```\n\n**Examples:**\n```bash\npython3 scripts/fetch_transcript.py dQw4w9WgXcQ\npython3 scripts/fetch_transcript.py \"https:",
+    "tags": [
+      "Python",
+      "Bash",
+      "视频"
+    ],
+    "source": "github",
+    "sourceUrl": "",
+    "createdAt": "2026-03-24"
   }
 ]
