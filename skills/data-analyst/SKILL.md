@@ -1,8 +1,15 @@
 ---
 name: data-analyst
 version: 1.0.0
-description: "Data visualization, report generation, SQL queries, and spreadsheet automation. Transform your AI agent into a data-savvy analyst that turns raw data into actionable insights."
+description: Data visualization, report generation, SQL queries, and spreadsheet automation. Transform your AI agent into a data-savvy analyst that turns raw data into actionable insights.
 author: openclaw
+tags:
+  - javascript
+  - typescript
+  - python
+  - database
+  - ai
+  - security
 ---
 
 # Data Analyst Skill 📊

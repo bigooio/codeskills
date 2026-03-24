@@ -3,8 +3,15 @@ name: React
 slug: react
 version: 1.0.4
 homepage: https://clawic.com/skills/react
-changelog: "Added React 19 coverage, Server Components, AI Mistakes section, Core Rules, state management patterns, setup system"
+changelog: Added React 19 coverage, Server Components, AI Mistakes section, Core Rules, state management patterns, setup system
 description: Full React 19 engineering, architecture, Server Components, hooks, Zustand, TanStack Query, forms, performance, testing, production deploy.
+tags:
+  - javascript
+  - typescript
+  - react
+  - nextjs
+  - database
+  - ai
 ---
 
 # React

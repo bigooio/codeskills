@@ -2,6 +2,13 @@
 name: github-cli
 description: 使用 gh CLI 与 GitHub 交互。通过 gh issue、gh pr、gh run 和 gh api 管理议题、PR、CI 运行及高级查询。适用于需要操作 GitHub 仓库、管理 PR、查看 CI 状态、查询 Issues 等场景。
 compatibility: 需要安装 gh CLI (brew install gh)
+tags:
+  - javascript
+  - git
+  - devops
+  - ai
+  - api
+  - backend
 ---
 
 # GitHub CLI 工具

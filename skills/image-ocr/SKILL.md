@@ -1,24 +1,22 @@
 ---
 name: image-ocr
-description: "Extract text from images using Tesseract OCR"
+description: Extract text from images using Tesseract OCR
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "👁️",
-        "requires": { "bins": ["tesseract"] },
-        "install":
-          [
-            {
-              "id": "dnf",
-              "kind": "dnf",
-              "package": "tesseract",
-              "bins": ["tesseract"],
-              "label": "Install via dnf",
-            },
-          ],
-      },
-  }
+  openclaw:
+    emoji: 👁️
+    requires:
+      bins:
+        - tesseract
+    install:
+      - id: dnf
+        kind: dnf
+        package: tesseract
+        bins:
+          - tesseract
+        label: Install via dnf
+tags:
+  - typescript
+  - bash
 ---
 
 # Image OCR

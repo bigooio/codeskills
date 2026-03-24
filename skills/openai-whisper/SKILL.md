@@ -2,6 +2,11 @@
 name: openai-whisper
 description: 本地语音转文字工具，使用 Whisper CLI，无需 API 密钥。支持多种语言，包括中文。
 compatibility: 需要 Whisper CLI
+tags:
+  - javascript
+  - ai
+  - bash
+  - 工具
 ---
 
 # OpenAI Whisper - 语音识别

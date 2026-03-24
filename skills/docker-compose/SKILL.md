@@ -1,7 +1,24 @@
 ---
 name: Docker Compose
 description: Define multi-container applications with proper dependency handling, networking, and volume management.
-metadata: {"clawdbot":{"emoji":"🐳","requires":{"anyBins":["docker-compose","docker"]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 🐳
+    requires:
+      anyBins:
+        - docker-compose
+        - docker
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - javascript
+  - typescript
+  - python
+  - docker
+  - git
+  - database
 ---
 
 ## depends_on Ready Condition

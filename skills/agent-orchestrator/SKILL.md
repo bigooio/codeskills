@@ -4,6 +4,13 @@ description: |
   Meta-agent skill for orchestrating complex tasks through autonomous sub-agents. Decomposes macro tasks into subtasks, spawns specialized sub-agents with dynamically generated SKILL.md files, coordinates file-based communication, consolidates results, and dissolves agents upon completion.
 
   MANDATORY TRIGGERS: orchestrate, multi-agent, decompose task, spawn agents, sub-agents, parallel agents, agent coordination, task breakdown, meta-agent, agent factory, delegate tasks
+tags:
+  - javascript
+  - typescript
+  - python
+  - ai
+  - testing
+  - frontend
 ---
 
 # Agent Orchestrator

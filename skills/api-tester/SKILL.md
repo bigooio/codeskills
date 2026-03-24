@@ -1,6 +1,13 @@
 ---
 name: api-tester
 description: Perform structured HTTP/HTTPS requests (GET, POST, PUT, DELETE) with custom headers and JSON body support. Use for API testing, health checks, or interacting with REST services programmatically without relying on curl.
+tags:
+  - javascript
+  - ai
+  - testing
+  - api
+  - frontend
+  - backend
 ---
 
 # API Tester

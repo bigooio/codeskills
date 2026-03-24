@@ -1,6 +1,13 @@
 ---
 name: github-ai-trends
 description: Generate GitHub AI trending project reports as formatted text leaderboards. Fetches top-starred AI/ML/LLM repos by daily, weekly, or monthly period and renders a styled leaderboard. Use when the user asks for AI project trends, GitHub trending, AI leaderboard, or wants to see popular AI repos.
+tags:
+  - javascript
+  - typescript
+  - python
+  - git
+  - ai
+  - api
 ---
 
 # GitHub AI Trends

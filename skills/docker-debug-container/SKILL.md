@@ -2,6 +2,13 @@
 name: docker-debug-container
 description: Docker 容器调试技巧。适用于排查容器问题、检查日志、进入容器内部、网络诊断、监控资源等场景。
 compatibility: 需要 Docker 已安装并运行
+tags:
+  - typescript
+  - docker
+  - ai
+  - api
+  - backend
+  - bash
 ---
 
 # Docker 容器调试技巧

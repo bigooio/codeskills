@@ -3,7 +3,24 @@ name: MongoDB
 slug: mongodb
 version: 1.0.1
 description: Design MongoDB schemas with proper embedding, indexing, aggregation, and production-ready patterns.
-metadata: {"clawdbot":{"emoji":"🍃","requires":{"anyBins":["mongosh","mongo"]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 🍃
+    requires:
+      anyBins:
+        - mongosh
+        - mongo
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - database
+  - ai
+  - security
+  - testing
+  - api
 ---
 
 ## When to Use

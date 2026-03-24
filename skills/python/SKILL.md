@@ -1,6 +1,13 @@
 ---
 name: python
 description: Python coding guidelines and best practices. Use when writing, reviewing, or refactoring Python code. Enforces PEP 8 style, syntax validation via py_compile, unit test execution, modern Python versions only (no EOL), uv for dependency management when available, and idiomatic Pythonic patterns.
+tags:
+  - javascript
+  - typescript
+  - python
+  - docker
+  - database
+  - ai
 ---
 
 # Python Coding Guidelines

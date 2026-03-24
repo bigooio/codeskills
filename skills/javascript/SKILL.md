@@ -3,6 +3,11 @@ name: JavaScript
 slug: javascript
 version: 1.0.3
 description: Write robust JavaScript with async patterns, type coercion handling, and modern ES2023+ features.
+tags:
+  - javascript
+  - typescript
+  - ai
+  - frontend
 ---
 
 ## When to Use

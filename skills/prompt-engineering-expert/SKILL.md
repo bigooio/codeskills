@@ -1,6 +1,12 @@
 ---
 name: prompt-engineering-expert
 description: Advanced expert in prompt engineering, custom instructions design, and prompt optimization for AI agents
+tags:
+  - typescript
+  - ai
+  - testing
+  - frontend
+  - 效率
 ---
 
 # Prompt Engineering Expert Skill

@@ -2,6 +2,10 @@
 name: multi-search-engine
 description: 集成 17 个搜索引擎（8 个国内 + 9 个国际），支持高级搜索语法、时间筛选、站点搜索、隐私搜索引擎及 WolframAlpha 知识查询。无需 API 密钥。
 compatibility: 需要网络连接
+tags:
+  - git
+  - ai
+  - bash
 ---
 
 # 多搜索引擎集成

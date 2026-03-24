@@ -2,6 +2,12 @@
 name: notion
 description: Notion API，用于创建和管理页面、数据库及区块。支持笔记整理、知识库构建、任务管理等工作流。
 compatibility: 需要 Notion API 密钥
+tags:
+  - javascript
+  - database
+  - api
+  - backend
+  - bash
 ---
 
 # Notion 集成

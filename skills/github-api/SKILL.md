@@ -7,12 +7,19 @@ description: |
 compatibility: Requires network access and valid Maton API key
 metadata:
   author: maton
-  version: "1.0"
+  version: '1.0'
   clawdbot:
     emoji: 🧠
     requires:
       env:
         - MATON_API_KEY
+tags:
+  - javascript
+  - typescript
+  - python
+  - react
+  - git
+  - database
 ---
 
 # GitHub

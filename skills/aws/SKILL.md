@@ -5,7 +5,30 @@ version: 1.0.2
 homepage: https://clawic.com/skills/aws
 description: Architect, deploy, and optimize AWS infrastructure avoiding cost explosions and security pitfalls.
 changelog: Complete rewrite with cost traps, security hardening, service selection
-metadata: {"clawdbot":{"emoji":"☁️","requires":{"bins":["aws"]},"install":[{"id":"brew","kind":"brew","formula":"awscli","bins":["aws"],"label":"Install AWS CLI (Homebrew)"}],"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: ☁️
+    requires:
+      bins:
+        - aws
+    install:
+      - id: brew
+        kind: brew
+        formula: awscli
+        bins:
+          - aws
+        label: Install AWS CLI (Homebrew)
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - docker
+  - aws
+  - database
+  - ai
+  - security
 ---
 
 ## Setup

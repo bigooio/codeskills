@@ -1,13 +1,19 @@
 ---
 name: image-reader
-description: >
-  Image recognition and understanding tool. Uses a multimodal model (e.g. doubao-seed-2.0-pro, kimi-k2.5) to analyze image content and supports OCR text extraction and image description.
-  Use this skill when a user sends a screenshot or image and needs the text extracted or the image content understood.
+description: |
+  Image recognition and understanding tool. Uses a multimodal model (e.g. doubao-seed-2.0-pro, kimi-k2.5) to analyze image content and supports OCR text extraction and image description. Use this skill when a user sends a screenshot or image and needs the text extracted or the image content understood.
 compatibility:
   requires:
     - Python 3
     - openai>=1.0.0
     - pyyaml>=6.0
+tags:
+  - typescript
+  - python
+  - ai
+  - api
+  - frontend
+  - backend
 ---
 
 # Image Reader Skill

@@ -1,6 +1,10 @@
 ---
 name: code-stats
 description: Visualizes repository complexity by counting files, lines of code, and grouping by extension. Use to assess project size or growth.
+tags:
+  - javascript
+  - typescript
+  - bash
 ---
 
 # Code Stats

@@ -1,6 +1,13 @@
 ---
 name: code-qc
 description: Run a structured quality control audit on any codebase. Use when asked to QC, audit, review, or check code quality for a project. Supports Python, TypeScript, GDScript, and general projects. Produces a standardized report with PASS/WARN/FAIL verdict, covering tests, imports, type checking, static analysis, smoke tests, and documentation. Also use when asked to compare QC results over time.
+tags:
+  - javascript
+  - typescript
+  - python
+  - react
+  - vue
+  - git
 ---
 
 # Code QC

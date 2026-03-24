@@ -1,16 +1,14 @@
 ---
 name: cluster-agent-swarm
-description: >
-  Complete Platform Agent Swarm — A coordinated multi-agent system for Kubernetes and OpenShift 
-  platform operations. Includes Orchestrator (Jarvis), Cluster Ops (Atlas), GitOps (Flow), 
-  Security (Shield), Observability (Pulse), Artifacts (Cache), and Developer Experience (Desk).
+description: |
+  Complete Platform Agent Swarm — A coordinated multi-agent system for Kubernetes and OpenShift  platform operations. Includes Orchestrator (Jarvis), Cluster Ops (Atlas), GitOps (Flow),  Security (Shield), Observability (Pulse), Artifacts (Cache), and Developer Experience (Desk).
 metadata:
   author: cluster-agent-swarm
   version: 1.0.0
   agent_name: Swarm
   agent_role: Platform Agent Swarm (All Agents)
-  session_key: "agent:platform:swarm"
-  heartbeat: "*/5 * * * *"
+  session_key: agent:platform:swarm
+  heartbeat: '*/5 * * * *'
   platforms:
     - openshift
     - kubernetes
@@ -32,6 +30,13 @@ metadata:
     - jq
     - curl
     - git
+tags:
+  - javascript
+  - typescript
+  - docker
+  - kubernetes
+  - git
+  - ai
 ---
 
 # Cluster Agent Swarm — Complete Platform Operations

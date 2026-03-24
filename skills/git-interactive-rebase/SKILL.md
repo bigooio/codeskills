@@ -1,6 +1,9 @@
 ---
 name: git-interactive-rebase
 description: Git 交互式 rebase 整理提交历史。适用于合并 commits、修改提交信息、删除冗余提交、整理 PR 提交等场景。
+tags:
+  - git
+  - bash
 ---
 
 # Git 交互式 rebase 整理提交

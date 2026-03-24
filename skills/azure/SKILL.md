@@ -1,7 +1,23 @@
 ---
 name: Azure
 description: Deploy, monitor, and manage Azure services with battle-tested patterns.
-metadata: {"clawdbot":{"emoji":"🔷","requires":{"anyBins":["az"]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 🔷
+    requires:
+      anyBins:
+        - az
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - docker
+  - azure
+  - database
+  - ai
+  - security
 ---
 
 # Azure Production Rules

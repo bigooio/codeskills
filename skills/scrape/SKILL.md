@@ -1,6 +1,13 @@
 ---
 name: Scrape
 description: Legal web scraping with robots.txt compliance, rate limiting, and GDPR/CCPA-aware data handling.
+tags:
+  - typescript
+  - python
+  - ai
+  - security
+  - api
+  - backend
 ---
 
 ## Pre-Scrape Compliance Checklist

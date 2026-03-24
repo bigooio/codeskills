@@ -3,7 +3,22 @@ name: Go
 slug: go
 version: 1.0.2
 description: Write reliable Go code avoiding goroutine leaks, interface traps, and common concurrency bugs.
-metadata: {"clawdbot":{"emoji":"🐹","requires":{"bins":["go"]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 🐹
+    requires:
+      bins:
+        - go
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - python
+  - ai
+  - testing
+  - frontend
 ---
 
 ## Quick Reference

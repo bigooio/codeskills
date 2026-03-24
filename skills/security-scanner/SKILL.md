@@ -1,6 +1,13 @@
 ---
 name: security-scanner
 description: Automated security scanning and vulnerability detection for web applications, APIs, and infrastructure. Use when you need to scan targets for vulnerabilities, check SSL certificates, find open ports, detect misconfigurations, or perform security audits. Integrates with nmap, nuclei, and other security tools.
+tags:
+  - typescript
+  - security
+  - testing
+  - frontend
+  - bash
+  - 工具
 ---
 
 # Security Scanner

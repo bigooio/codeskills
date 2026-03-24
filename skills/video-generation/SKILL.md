@@ -5,7 +5,34 @@ version: 1.0.1
 homepage: https://clawic.com/skills/video-generation
 description: Create AI videos with Sora 2, Veo 3, Seedance, Runway, and modern APIs using reliable prompt and rendering workflows.
 changelog: Added current model routing and practical API playbooks for modern AI video generation workflows.
-metadata: {"clawdbot":{"emoji":"🎬","requires":{"bins":[],"env.optional":["OPENAI_API_KEY","GOOGLE_CLOUD_PROJECT","RUNWAY_API_KEY","LUMA_API_KEY","FAL_KEY","REPLICATE_API_TOKEN","VIDU_API_KEY","TENCENTCLOUD_SECRET_ID","TENCENTCLOUD_SECRET_KEY"],"config":["~/video-generation/"]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 🎬
+    requires:
+      bins: []
+      env.optional:
+        - OPENAI_API_KEY
+        - GOOGLE_CLOUD_PROJECT
+        - RUNWAY_API_KEY
+        - LUMA_API_KEY
+        - FAL_KEY
+        - REPLICATE_API_TOKEN
+        - VIDU_API_KEY
+        - TENCENTCLOUD_SECRET_ID
+        - TENCENTCLOUD_SECRET_KEY
+      config:
+        - ~/video-generation/
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - database
+  - ai
+  - security
+  - api
+  - frontend
 ---
 
 ## Setup

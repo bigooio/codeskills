@@ -2,8 +2,18 @@
 name: web-design
 model: standard
 description: CSS implementation patterns for layout, typography, color, spacing, and responsive design. Complements ui-design (fundamentals) with code-focused examples.
-version: "1.1.0"
-related: [ui-design, frontend-design, design-system-patterns]
+version: 1.1.0
+related:
+  - ui-design
+  - frontend-design
+  - design-system-patterns
+tags:
+  - javascript
+  - typescript
+  - docker
+  - database
+  - ai
+  - testing
 ---
 
 # Web Design Patterns

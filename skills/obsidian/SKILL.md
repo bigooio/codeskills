@@ -2,6 +2,9 @@
 name: obsidian
 description: 操作 Obsidian 保险库（纯 Markdown 笔记）并通过 obsidian-cli 自动化。支持笔记创建、搜索、标签管理、双向链接等功能。
 compatibility: 需要 Obsidian 和 obsidian-cli
+tags:
+  - ai
+  - bash
 ---
 
 # Obsidian 集成

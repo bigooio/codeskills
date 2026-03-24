@@ -1,6 +1,12 @@
 ---
 name: skill-creator
 description: 创建有效 Skills 的指南。当用户希望创建新技能（或更新现有技能）时使用，通过专业知识、工作流或工具集成扩展 AI 能力。
+tags:
+  - typescript
+  - ai
+  - frontend
+  - bash
+  - 工具
 ---
 
 # Skill Creator - 技能创建指南

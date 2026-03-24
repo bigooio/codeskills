@@ -1,6 +1,13 @@
 ---
 name: vercel-deploy
 description: Deploy and manage Vercel projects. Use when deploying applications to Vercel, managing environment variables, checking deployment status, viewing logs, or performing Vercel operations. Supports production and preview deployments. Practical infrastructure operations - no "AI will build your app" magic.
+tags:
+  - typescript
+  - git
+  - ai
+  - security
+  - testing
+  - api
 ---
 
 # Vercel Deployment & Management

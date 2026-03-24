@@ -6,7 +6,59 @@ description: |
   Includes a no-key baseline plus optional Tavily, Exa, Querit, Serper, Brave, SerpAPI, You.com,
   SearXNG, and Perplexity / Sonar providers for wider coverage and answer-first routing.
 homepage: https://github.com/Zjianru/web-search-pro
-metadata: {"openclaw":{"emoji":"🔎","requires":{"bins":["node"],"config":["config.json"],"env":{"TAVILY_API_KEY":"optional — premium deep search, news, and extract","EXA_API_KEY":"optional — semantic search and extract fallback","QUERIT_API_KEY":"optional — multilingual AI search with native geo and language filters","SERPER_API_KEY":"optional — Google-like search and news","BRAVE_API_KEY":"optional — structured web search aligned with existing OpenClaw setups","SERPAPI_API_KEY":"optional — multi-engine search including Baidu","YOU_API_KEY":"optional — LLM-ready web search with freshness and locale support","PERPLEXITY_API_KEY":"optional — native Perplexity Sonar access","OPENROUTER_API_KEY":"optional — gateway access to Perplexity/Sonar via OpenRouter","KILOCODE_API_KEY":"optional — gateway access to Perplexity/Sonar via Kilo","PERPLEXITY_GATEWAY_API_KEY":"optional — custom gateway key for Perplexity/Sonar models","PERPLEXITY_BASE_URL":"optional — required with PERPLEXITY_GATEWAY_API_KEY","SEARXNG_INSTANCE_URL":"optional — self-hosted privacy-first metasearch endpoint"},"note":"No API key is required for the baseline. Optional provider credentials or endpoints widen retrieval coverage."}},"clawdbot":{"emoji":"🔎","requires":{"bins":["node"],"config":["config.json"],"note":"No API key is required for the baseline. Optional provider credentials or endpoints widen retrieval coverage."},"install":[{"kind":"node","label":"Bundled Node skill runtime","bins":["node"]}],"config":{"stateDirs":[".cache/web-search-pro"],"example":"{\n  env = {\n    WEB_SEARCH_PRO_CONFIG = \"./config.json\";\n  };\n}"},"cliHelp":"node {baseDir}/scripts/search.mjs --help"}}
+metadata:
+  openclaw:
+    emoji: 🔎
+    requires:
+      bins:
+        - node
+      config:
+        - config.json
+      env:
+        TAVILY_API_KEY: optional — premium deep search, news, and extract
+        EXA_API_KEY: optional — semantic search and extract fallback
+        QUERIT_API_KEY: optional — multilingual AI search with native geo and language filters
+        SERPER_API_KEY: optional — Google-like search and news
+        BRAVE_API_KEY: optional — structured web search aligned with existing OpenClaw setups
+        SERPAPI_API_KEY: optional — multi-engine search including Baidu
+        YOU_API_KEY: optional — LLM-ready web search with freshness and locale support
+        PERPLEXITY_API_KEY: optional — native Perplexity Sonar access
+        OPENROUTER_API_KEY: optional — gateway access to Perplexity/Sonar via OpenRouter
+        KILOCODE_API_KEY: optional — gateway access to Perplexity/Sonar via Kilo
+        PERPLEXITY_GATEWAY_API_KEY: optional — custom gateway key for Perplexity/Sonar models
+        PERPLEXITY_BASE_URL: optional — required with PERPLEXITY_GATEWAY_API_KEY
+        SEARXNG_INSTANCE_URL: optional — self-hosted privacy-first metasearch endpoint
+      note: No API key is required for the baseline. Optional provider credentials or endpoints widen retrieval coverage.
+  clawdbot:
+    emoji: 🔎
+    requires:
+      bins:
+        - node
+      config:
+        - config.json
+      note: No API key is required for the baseline. Optional provider credentials or endpoints widen retrieval coverage.
+    install:
+      - kind: node
+        label: Bundled Node skill runtime
+        bins:
+          - node
+    config:
+      stateDirs:
+        - .cache/web-search-pro
+      example: |-
+        {
+          env = {
+            WEB_SEARCH_PRO_CONFIG = "./config.json";
+          };
+        }
+    cliHelp: node {baseDir}/scripts/search.mjs --help
+tags:
+  - javascript
+  - typescript
+  - python
+  - database
+  - ai
+  - testing
 ---
 
 # Web Search Pro 2.1 Core Profile

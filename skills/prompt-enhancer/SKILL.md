@@ -3,7 +3,17 @@ name: prompt-enhancer
 description: Automatically rewrites rough user inputs into optimized, structured prompts for dramatically better AI responses. Prefix any message with "p:" to activate.
 version: 1.0.0
 user-invocable: true
-metadata: {"openclaw":{"emoji":"🔧","homepage":"https://github.com/openclaw/clawhub"}}
+metadata:
+  openclaw:
+    emoji: 🔧
+    homepage: https://github.com/openclaw/clawhub
+tags:
+  - javascript
+  - typescript
+  - python
+  - react
+  - ai
+  - api
 ---
 
 # Prompt Enhancer

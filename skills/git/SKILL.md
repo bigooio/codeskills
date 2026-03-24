@@ -2,10 +2,26 @@
 name: Git
 slug: git
 version: 1.0.8
-description: "Git commits, branches, rebases, merges, conflict resolution, history recovery, team workflows, and the commands needed for safe day-to-day version control. Use when (1) the task touches Git, a repository, commits, branches, merges, rebases, or pull requests; (2) history safety, collaboration, or recovery matter; (3) the agent should automatically apply Git discipline instead of improvising."
+description: Git commits, branches, rebases, merges, conflict resolution, history recovery, team workflows, and the commands needed for safe day-to-day version control. Use when (1) the task touches Git, a repository, commits, branches, merges, rebases, or pull requests; (2) history safety, collaboration, or recovery matter; (3) the agent should automatically apply Git discipline instead of improvising.
 homepage: https://clawic.com/skills/git
 changelog: Simplified the skill name and kept the stateless activation guidance
-metadata: {"clawdbot":{"emoji":"📚","requires":{"bins":["git"]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 📚
+    requires:
+      bins:
+        - git
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - docker
+  - git
+  - database
+  - devops
+  - ai
 ---
 
 ## When to Use

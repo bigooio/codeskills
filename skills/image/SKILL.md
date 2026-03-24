@@ -3,9 +3,22 @@ name: Image
 slug: image
 version: 1.0.4
 homepage: https://clawic.com/skills/image
-description: "Create, inspect, process, and optimize image files and visual assets with reliable format choice, resizing, compression, color-profile, metadata, and platform-export checks. Use when (1) the task is about images, screenshots, logos, product photos, or graphics; (2) resizing, converting, compressing, cropping, metadata, or export specs matter; (3) the asset must survive web, social, ecommerce, or print delivery without quality or format mistakes."
-changelog: "Expanded the skill with branding, screenshot, accessibility, and richer platform-specific workflows while preserving stronger image-processing guidance."
-metadata: {"clawdbot":{"emoji":"🖼️","os":["linux","darwin","win32"]}}
+description: Create, inspect, process, and optimize image files and visual assets with reliable format choice, resizing, compression, color-profile, metadata, and platform-export checks. Use when (1) the task is about images, screenshots, logos, product photos, or graphics; (2) resizing, converting, compressing, cropping, metadata, or export specs matter; (3) the asset must survive web, social, ecommerce, or print delivery without quality or format mistakes.
+changelog: Expanded the skill with branding, screenshot, accessibility, and richer platform-specific workflows while preserving stronger image-processing guidance.
+metadata:
+  clawdbot:
+    emoji: 🖼️
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - python
+  - database
+  - ai
+  - frontend
+  - bash
 ---
 
 ## When to Use

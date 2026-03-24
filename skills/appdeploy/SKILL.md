@@ -5,7 +5,14 @@ allowed-tools:
   - Bash
 metadata:
   author: appdeploy
-  version: "1.0.7"
+  version: 1.0.7
+tags:
+  - javascript
+  - typescript
+  - react
+  - nextjs
+  - git
+  - ai
 ---
 
 # AppDeploy Skill

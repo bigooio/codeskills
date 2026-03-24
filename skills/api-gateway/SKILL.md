@@ -2,6 +2,13 @@
 name: api-gateway
 description: 通过托管 OAuth 连接 100+ API（Google Workspace、Microsoft 365、GitHub、Notion、Slack、Airtable、HubSpot 等）。当用户想要连接各种服务时使用。
 compatibility: 需要 API Gateway 服务
+tags:
+  - typescript
+  - git
+  - azure
+  - ai
+  - api
+  - backend
 ---
 
 # API Gateway - API 集成

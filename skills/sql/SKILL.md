@@ -2,10 +2,29 @@
 name: SQL
 slug: sql
 version: 1.0.1
-changelog: "Added SQL Server support, schema design patterns, query patterns (CTEs, window functions), operations guide (backup, monitoring, replication)"
+changelog: Added SQL Server support, schema design patterns, query patterns (CTEs, window functions), operations guide (backup, monitoring, replication)
 homepage: https://clawic.com/skills/sql
 description: Master relational databases with SQL. Schema design, queries, performance, migrations for PostgreSQL, MySQL, SQLite, SQL Server.
-metadata: {"clawdbot":{"emoji":"🗄️","requires":{"anyBins":["sqlite3","psql","mysql","sqlcmd"]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 🗄️
+    requires:
+      anyBins:
+        - sqlite3
+        - psql
+        - mysql
+        - sqlcmd
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - javascript
+  - typescript
+  - python
+  - database
+  - ai
+  - testing
 ---
 
 # SQL

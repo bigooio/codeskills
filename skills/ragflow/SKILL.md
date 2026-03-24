@@ -12,9 +12,17 @@ env:
     required: true
 metadata:
   clawdbot:
-    emoji: "📚"
+    emoji: 📚
     requires:
-      bins: ["node"]
+      bins:
+        - node
+tags:
+  - javascript
+  - typescript
+  - ai
+  - api
+  - frontend
+  - backend
 ---
 
 # Ragflow API Client

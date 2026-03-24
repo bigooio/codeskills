@@ -2,6 +2,10 @@
 name: ontology
 description: 类型化知识图谱，用于结构化 AI Agent 记忆和可组合技能。支持创建/查询实体（人员、项目、任务、事件、文档）及关联关系。
 compatibility: 需要存储后端支持
+tags:
+  - javascript
+  - ai
+  - bash
 ---
 
 # Ontology - 知识图谱

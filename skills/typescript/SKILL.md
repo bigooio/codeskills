@@ -3,6 +3,13 @@ name: TypeScript
 slug: typescript
 version: 1.0.2
 description: Write type-safe TypeScript with proper narrowing, inference patterns, and strict mode best practices.
+tags:
+  - javascript
+  - typescript
+  - ai
+  - api
+  - frontend
+  - backend
 ---
 
 ## When to Use

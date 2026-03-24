@@ -3,8 +3,24 @@ name: e2e-testing-patterns
 model: standard
 category: testing
 description: Build reliable, fast E2E test suites with Playwright and Cypress. Critical user journey coverage, flaky test elimination, CI/CD integration.
-version: 1.0
-keywords: [e2e, end-to-end, playwright, cypress, browser testing, integration tests, test automation, flaky tests, visual regression]
+version: 1
+keywords:
+  - e2e
+  - end-to-end
+  - playwright
+  - cypress
+  - browser testing
+  - integration tests
+  - test automation
+  - flaky tests
+  - visual regression
+tags:
+  - javascript
+  - typescript
+  - python
+  - git
+  - database
+  - devops
 ---
 
 # E2E Testing Patterns

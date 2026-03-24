@@ -2,6 +2,13 @@
 name: web-scraper
 description: Web scraping and content comprehension agent — multi-strategy extraction with cascade fallback, news detection, boilerplate removal, structured metadata, and LLM entity extraction
 user-invocable: true
+tags:
+  - javascript
+  - typescript
+  - python
+  - nextjs
+  - nuxt
+  - database
 ---
 
 # Web Scraper

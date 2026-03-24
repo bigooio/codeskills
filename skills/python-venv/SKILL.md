@@ -1,6 +1,13 @@
 ---
 name: python-venv
-description: "Python environment management skill. Automatically detect project type and existing environments, recommend based on popularity. Minimize interruptions, only ask when necessary."
+description: Python environment management skill. Automatically detect project type and existing environments, recommend based on popularity. Minimize interruptions, only ask when necessary.
+tags:
+  - typescript
+  - python
+  - ai
+  - testing
+  - frontend
+  - bash
 ---
 
 # Python Environment Management Skill

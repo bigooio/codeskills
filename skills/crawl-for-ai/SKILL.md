@@ -7,9 +7,17 @@ requiresEnv:
   - CRAWL4AI_URL
 metadata:
   clawdbot:
-    emoji: "🕷️"
+    emoji: 🕷️
     requires:
-      bins: ["node"]
+      bins:
+        - node
+tags:
+  - javascript
+  - typescript
+  - ai
+  - api
+  - frontend
+  - backend
 ---
 
 # Crawl4AI Web Scraper

@@ -1,6 +1,13 @@
 ---
 name: youtube-transcript
 description: Fetch and summarize YouTube video transcripts. Use when asked to summarize, transcribe, or extract content from YouTube videos. Handles transcript fetching via residential IP proxy to bypass YouTube's cloud IP blocks.
+tags:
+  - javascript
+  - typescript
+  - python
+  - frontend
+  - bash
+  - 效率
 ---
 
 # YouTube Transcript

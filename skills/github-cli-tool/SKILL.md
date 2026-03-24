@@ -2,6 +2,12 @@
 name: github-cli-tool
 description: GitHub 官方命令行工具 gh CLI。适用于通过终端管理 GitHub 仓库、创建 PR、审查代码、管理 Issues 等，无需打开浏览器。
 compatibility: 需要安装 gh CLI (brew install gh)，需要已登录 GitHub 账号
+tags:
+  - git
+  - api
+  - backend
+  - bash
+  - 工具
 ---
 
 # gh CLI - GitHub 命令行工具

@@ -1,6 +1,13 @@
 ---
 name: baidu-search
 description: 使用百度 AI 搜索引擎搜索网页，获取实时信息、文档资料或研究主题。适合中文网络搜索。
+tags:
+  - javascript
+  - typescript
+  - git
+  - ai
+  - api
+  - backend
 ---
 
 # 百度搜索

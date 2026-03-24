@@ -3,6 +3,13 @@ name: Nginx
 slug: nginx
 version: 1.0.1
 description: Configure Nginx for reverse proxy, load balancing, SSL termination, and high-performance static serving.
+tags:
+  - javascript
+  - typescript
+  - devops
+  - ai
+  - testing
+  - api
 ---
 
 ## When to Use

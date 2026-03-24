@@ -1,31 +1,30 @@
 ---
 name: file-search
-description: "Fast file-name and content search using `fd` and `rg` (ripgrep)."
+description: Fast file-name and content search using `fd` and `rg` (ripgrep).
 metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "🔍",
-        "requires": { "bins": ["fd", "rg"] },
-        "install":
-          [
-            {
-              "id": "dnf-fd",
-              "kind": "dnf",
-              "package": "fd-find",
-              "bins": ["fd"],
-              "label": "Install fd-find (dnf)",
-            },
-            {
-              "id": "dnf-rg",
-              "kind": "dnf",
-              "package": "ripgrep",
-              "bins": ["rg"],
-              "label": "Install ripgrep (dnf)",
-            },
-          ],
-      },
-  }
+  openclaw:
+    emoji: 🔍
+    requires:
+      bins:
+        - fd
+        - rg
+    install:
+      - id: dnf-fd
+        kind: dnf
+        package: fd-find
+        bins:
+          - fd
+        label: Install fd-find (dnf)
+      - id: dnf-rg
+        kind: dnf
+        package: ripgrep
+        bins:
+          - rg
+        label: Install ripgrep (dnf)
+tags:
+  - typescript
+  - ai
+  - bash
 ---
 
 # File Search Skill

@@ -23,6 +23,13 @@ triggers:
 role: specialist
 scope: implementation
 output-format: code
+tags:
+  - javascript
+  - typescript
+  - database
+  - ai
+  - security
+  - testing
 ---
 
 # Database Operations

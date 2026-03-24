@@ -5,7 +5,32 @@ version: 1.0.3
 homepage: https://clawic.com/skills/image-generation
 description: Create AI images with GPT Image, Gemini Nano Banana, FLUX, Imagen, and top providers using prompt engineering, style control, and smart editing.
 changelog: Updated for 2026 with benchmark-backed model selection and clearer guidance for modern image generation stacks.
-metadata: {"clawdbot":{"emoji":"🎨","requires":{"bins":[],"env.optional":["OPENAI_API_KEY","GEMINI_API_KEY","BFL_API_KEY","GOOGLE_CLOUD_PROJECT","REPLICATE_API_TOKEN","LEONARDO_API_KEY","IDEOGRAM_API_KEY"],"config":["~/image-generation/"]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 🎨
+    requires:
+      bins: []
+      env.optional:
+        - OPENAI_API_KEY
+        - GEMINI_API_KEY
+        - BFL_API_KEY
+        - GOOGLE_CLOUD_PROJECT
+        - REPLICATE_API_TOKEN
+        - LEONARDO_API_KEY
+        - IDEOGRAM_API_KEY
+      config:
+        - ~/image-generation/
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - python
+  - database
+  - ai
+  - security
+  - api
 ---
 
 ## Setup

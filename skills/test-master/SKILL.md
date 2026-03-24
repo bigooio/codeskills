@@ -29,6 +29,13 @@ triggers:
 role: specialist
 scope: testing
 output-format: report
+tags:
+  - typescript
+  - python
+  - react
+  - aws
+  - devops
+  - ai
 ---
 
 # Test Master

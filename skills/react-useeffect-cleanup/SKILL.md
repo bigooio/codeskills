@@ -1,6 +1,13 @@
 ---
 name: react-useeffect-cleanup
 description: 正确清理 React useEffect 副作用。适用于处理异步请求、事件监听、定时器等需要清理的场景，避免内存泄漏和不必要的重复请求。
+tags:
+  - javascript
+  - typescript
+  - react
+  - ai
+  - api
+  - backend
 ---
 
 # React useEffect 清理函数

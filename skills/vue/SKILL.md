@@ -3,7 +3,23 @@ name: Vue
 slug: vue
 version: 1.0.1
 description: Build Vue 3 applications with Composition API, proper reactivity patterns, and production-ready components.
-metadata: {"clawdbot":{"emoji":"💚","requires":{"bins":["node"]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 💚
+    requires:
+      bins:
+        - node
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - react
+  - vue
+  - ai
+  - api
+  - frontend
 ---
 
 ## When to Use

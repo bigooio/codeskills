@@ -1,6 +1,13 @@
 ---
 name: filesystem-mcp
 description: Official Filesystem MCP Server for secure file operations with configurable access controls. Read, write, create, delete, move, search files and directories. List directory contents, get file info, edit text files, and manage file permissions. Built-in security sandbox prevents unauthorized access. Essential for agents working with local files, project management, log analysis, content generation, and file organization. Use when agents need filesystem access, file manipulation, directory navigation, or content management.
+tags:
+  - javascript
+  - typescript
+  - python
+  - react
+  - git
+  - database
 ---
 
 # Filesystem MCP Server

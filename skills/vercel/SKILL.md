@@ -1,7 +1,20 @@
 ---
 name: vercel
 description: Deploy applications and manage projects with complete CLI reference. Commands for deployments, projects, domains, environment variables, and live documentation access.
-metadata: {"clawdbot":{"emoji":"▲","requires":{"bins":["vercel","curl"]}}}
+metadata:
+  clawdbot:
+    emoji: ▲
+    requires:
+      bins:
+        - vercel
+        - curl
+tags:
+  - javascript
+  - typescript
+  - database
+  - ai
+  - frontend
+  - backend
 ---
 
 # Vercel

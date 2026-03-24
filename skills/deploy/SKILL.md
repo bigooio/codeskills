@@ -1,7 +1,20 @@
 ---
 name: Deploy
 description: Ship applications reliably with CI/CD, rollback strategies, and zero-downtime deployment patterns.
-metadata: {"clawdbot":{"emoji":"🚀","os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: 🚀
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - typescript
+  - docker
+  - git
+  - database
+  - devops
+  - ai
 ---
 
 # Deployment Rules

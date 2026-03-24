@@ -3,7 +3,21 @@ name: Bash
 slug: bash
 version: 1.0.2
 description: Write reliable Bash scripts with proper quoting, error handling, and parameter expansion.
-metadata: {"clawdbot":{"emoji":"🖥️","requires":{"bins":["bash"]},"os":["linux","darwin"]}}
+metadata:
+  clawdbot:
+    emoji: 🖥️
+    requires:
+      bins:
+        - bash
+    os:
+      - linux
+      - darwin
+tags:
+  - typescript
+  - ai
+  - testing
+  - frontend
+  - bash
 ---
 
 ## Quick Reference

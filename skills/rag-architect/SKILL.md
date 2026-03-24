@@ -1,6 +1,13 @@
 ---
-name: "rag-architect"
-description: "RAG Architect - POWERFUL"
+name: rag-architect
+description: RAG Architect - POWERFUL
+tags:
+  - typescript
+  - database
+  - ai
+  - security
+  - testing
+  - api
 ---
 
 # RAG Architect - POWERFUL

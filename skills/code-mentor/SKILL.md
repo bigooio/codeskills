@@ -1,13 +1,20 @@
 ---
 name: code-mentor
-description: "Comprehensive AI programming tutor for all levels. Teaches programming through interactive lessons, code review, debugging guidance, algorithm practice, project mentoring, and design pattern exploration. Use when the user wants to: learn a programming language, debug code, understand algorithms, review their code, learn design patterns, practice data structures, prepare for coding interviews, understand best practices, build projects, or get help with homework. Supports Python and JavaScript."
+description: 'Comprehensive AI programming tutor for all levels. Teaches programming through interactive lessons, code review, debugging guidance, algorithm practice, project mentoring, and design pattern exploration. Use when the user wants to: learn a programming language, debug code, understand algorithms, review their code, learn design patterns, practice data structures, prepare for coding interviews, understand best practices, build projects, or get help with homework. Supports Python and JavaScript.'
 license: MIT
 compatibility: Requires Python 3.8+ for optional script functionality (scripts enhance but are not required)
 metadata:
-  author: "Samuel Kahessay"
-  version: "1.0.1"
-  tags: "programming,computer-science,coding,education,tutor,debugging,algorithms,data-structures,code-review,design-patterns,best-practices,python,javascript,java,cpp,typescript,web-development,leetcode,interview-prep,project-guidance,refactoring,testing,oop,functional-programming,clean-code,beginner-friendly,advanced-topics,full-stack,career-development"
-  category: "education"
+  author: Samuel Kahessay
+  version: 1.0.1
+  tags: programming,computer-science,coding,education,tutor,debugging,algorithms,data-structures,code-review,design-patterns,best-practices,python,javascript,java,cpp,typescript,web-development,leetcode,interview-prep,project-guidance,refactoring,testing,oop,functional-programming,clean-code,beginner-friendly,advanced-topics,full-stack,career-development
+  category: education
+tags:
+  - javascript
+  - typescript
+  - python
+  - git
+  - database
+  - ai
 ---
 
 # Code Mentor - Your AI Programming Tutor

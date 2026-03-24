@@ -2,6 +2,13 @@
 name: python-fastapi-crud
 description: FastAPI 快速构建 CRUD RESTful API。适用于快速创建 Python Web API、处理请求验证、自动生成文档等场景。
 compatibility: 需要 Python 3.7+，建议使用 uv 或 pip 安装依赖
+tags:
+  - typescript
+  - python
+  - database
+  - ai
+  - api
+  - frontend
 ---
 
 # FastAPI 快速 CRUD 教程

@@ -1,7 +1,19 @@
 ---
 name: webhook-robot
 description: Send messages to various webhook-based bots (WeCom, DingTalk, Feishu, etc.).
-metadata: { "openclaw": { "emoji": "🤖", "requires": { "bins": ["python3"] } } }
+metadata:
+  openclaw:
+    emoji: 🤖
+    requires:
+      bins:
+        - python3
+tags:
+  - javascript
+  - typescript
+  - python
+  - api
+  - frontend
+  - backend
 ---
 
 # Webhook Robot Skill

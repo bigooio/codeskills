@@ -1,14 +1,22 @@
 ---
 name: raglite
 version: 1.0.8
-description: "Local-first RAG cache: distill docs into structured Markdown, then index/query with Chroma (vector) + ripgrep (keyword)."
+description: 'Local-first RAG cache: distill docs into structured Markdown, then index/query with Chroma (vector) + ripgrep (keyword).'
 metadata:
-  {
-    "openclaw": {
-      "emoji": "🔎",
-      "requires": { "bins": ["python3", "pip", "rg"] }
-    }
-  }
+  openclaw:
+    emoji: 🔎
+    requires:
+      bins:
+        - python3
+        - pip
+        - rg
+tags:
+  - javascript
+  - typescript
+  - python
+  - git
+  - database
+  - ai
 ---
 
 # RAGLite — a local RAG cache (not a memory replacement)

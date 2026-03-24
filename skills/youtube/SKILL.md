@@ -1,7 +1,22 @@
 ---
 name: youtube
 description: Search YouTube videos, get channel info, fetch video details and transcripts using YouTube Data API v3 via MCP server or yt-dlp fallback.
-metadata: {"clawdbot":{"emoji":"📹","requires":{"bins":["yt-dlp"],"npm":["zubeid-youtube-mcp-server"]},"primaryEnv":"YOUTUBE_API_KEY"}}
+metadata:
+  clawdbot:
+    emoji: 📹
+    requires:
+      bins:
+        - yt-dlp
+      npm:
+        - zubeid-youtube-mcp-server
+    primaryEnv: YOUTUBE_API_KEY
+tags:
+  - javascript
+  - typescript
+  - python
+  - git
+  - gcp
+  - database
 ---
 
 # YouTube Research & Transcription

@@ -3,11 +3,18 @@ name: imap-smtp-email
 description: Read and send email via IMAP/SMTP. Check for new/unread messages, fetch content, search mailboxes, mark as read/unread, and send emails with attachments. Supports multiple accounts. Works with any IMAP/SMTP server including Gmail, Outlook, 163.com, vip.163.com, 126.com, vip.126.com, 188.com, and vip.188.com.
 metadata:
   openclaw:
-    emoji: "📧"
+    emoji: 📧
     requires:
       bins:
         - node
         - npm
+tags:
+  - javascript
+  - typescript
+  - git
+  - ai
+  - security
+  - testing
 ---
 
 # IMAP/SMTP Email Tool

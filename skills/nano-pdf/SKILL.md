@@ -2,6 +2,11 @@
 name: nano-pdf
 description: 使用 nano-pdf CLI 通过自然语言指令编辑 PDF 文件。支持提取文本、填写表单、合并文件等操作。
 compatibility: 需要 nano-pdf CLI
+tags:
+  - ai
+  - testing
+  - bash
+  - 工具
 ---
 
 # Nano PDF - PDF 处理工具

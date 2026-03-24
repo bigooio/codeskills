@@ -24,6 +24,13 @@ triggers:
 role: specialist
 scope: review
 output-format: structured
+tags:
+  - javascript
+  - typescript
+  - react
+  - aws
+  - database
+  - ai
 ---
 
 # Security Auditor

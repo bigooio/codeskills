@@ -4,7 +4,22 @@ slug: nextjs
 version: 1.1.0
 homepage: https://clawic.com/skills/nextjs
 description: Build Next.js 15 apps with App Router, server components, caching, auth, and production patterns.
-metadata: {"clawdbot":{"emoji":"⚡","requires":{"bins":[]},"os":["linux","darwin","win32"]}}
+metadata:
+  clawdbot:
+    emoji: ⚡
+    requires:
+      bins: []
+    os:
+      - linux
+      - darwin
+      - win32
+tags:
+  - javascript
+  - typescript
+  - react
+  - nextjs
+  - database
+  - ai
 ---
 
 ## Setup

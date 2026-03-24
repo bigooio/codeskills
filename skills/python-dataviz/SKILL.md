@@ -1,6 +1,13 @@
 ---
 name: python-dataviz
 description: Professional data visualization using Python (matplotlib, seaborn, plotly). Create publication-quality static charts, statistical visualizations, and interactive plots. Use when generating charts/graphs/plots from data, creating infographics with data components, or producing scientific/statistical visualizations. Supports PNG/SVG (static) and HTML (interactive) export.
+tags:
+  - typescript
+  - python
+  - ai
+  - frontend
+  - bash
+  - 工具
 ---
 
 # Python Data Visualization

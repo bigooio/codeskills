@@ -1,6 +1,11 @@
 ---
 name: typescript-utility-types
 description: TypeScript 内置工具类型详解。适用于需要转换类型、创建变体类型、选取/排除属性等场景。包含 Partial、Required、Pick、Omit、Record 等常用类型。
+tags:
+  - typescript
+  - ai
+  - frontend
+  - 工具
 ---
 
 # TypeScript 内置工具类型

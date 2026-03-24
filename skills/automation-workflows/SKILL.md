@@ -1,6 +1,11 @@
 ---
 name: automation-workflows
 description: 设计和实施自动化工作流，帮助个体创业者节省时间、扩展业务。涵盖自动化机会识别、工作流设计、工具选型（Zapier/Make/n8n）、测试与维护。
+tags:
+  - api
+  - backend
+  - 效率
+  - 工具
 ---
 
 # Automation Workflows - 自动化工作流

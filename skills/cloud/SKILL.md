@@ -1,6 +1,13 @@
 ---
 name: Cloud
-description: "Choose, organize, sync, share, and back up personal files across iCloud, Google Drive, Dropbox, and OneDrive."
+description: Choose, organize, sync, share, and back up personal files across iCloud, Google Drive, Dropbox, and OneDrive.
+tags:
+  - typescript
+  - docker
+  - aws
+  - azure
+  - ai
+  - security
 ---
 
 ## Triggers

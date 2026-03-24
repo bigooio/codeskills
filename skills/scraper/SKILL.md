@@ -1,6 +1,13 @@
 ---
 name: scraper
 description: Structured extraction and cleanup for public, user-authorized web pages. Use when the user wants to collect, clean, summarize, or transform content from accessible pages into reusable text or data. Do not use to bypass logins, paywalls, captchas, robots restrictions, or access controls. Local-only output.
+tags:
+  - javascript
+  - typescript
+  - python
+  - ai
+  - api
+  - frontend
 ---
 
 # Scraper
