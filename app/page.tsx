@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getAllSkills, getAllTags } from '@/lib/skills'
 import SkillCard from '@/components/SkillCard'
 import SearchBar from '@/components/SearchBar'
+import InstallSection from '@/components/InstallSection'
 
 export default function Home() {
   const skills = getAllSkills()
@@ -23,17 +24,7 @@ export default function Home() {
         </div>
 
         {/* CLI Install */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <code className="px-4 py-2 bg-card border border-border rounded-lg text-sm font-mono text-accent">
-            curl -fsSL https://codeskills.cn/install.sh | bash
-          </code>
-          <Link
-            href="/discover"
-            className="px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium hover:bg-accent/90 transition"
-          >
-            浏览全部 →
-          </Link>
-        </div>
+        <InstallSection />
       </section>
 
       {/* Quick Tags */}
