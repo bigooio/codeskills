@@ -1,7 +1,10 @@
 #!/bin/bash
 #
 # CodeSkills CLI 安装脚本
-# 用法: curl -fsSL https://codeskills.cn/install.sh | bash
+# 用法:
+#   curl -fsSL https://codeskills.cn/install.sh | bash          # 自动选择
+#   curl -fsSL https://codeskills.cn/install.sh | bash -s -- github   # GitHub
+#   curl -fsSL https://codeskills.cn/install.sh | bash -s -- gitcode  # GitCode (国内加速)
 #
 
 set -e
@@ -12,10 +15,36 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 RESET='\033[0m'
 
-GH_RAW="https://raw.githubusercontent.com/bigooio/codeskills/main/packages/skills-cli/bin/skills.js"
-GH_REPO="https://github.com/bigooio/codeskills.git"
+# 解析参数
+SOURCE=""
+for arg in "$@"; do
+    case $arg in
+        github) SOURCE="github" ;;
+        gitcode) SOURCE="gitcode" ;;
+        --source=*) SOURCE="${arg#*=}" ;;
+    esac
+done
+
+# 如果未指定，自动检测
+if [ -z "$SOURCE" ]; then
+    # 简单测速：优先 GitHub
+    SOURCE="github"
+fi
+
+# 配置
 INSTALL_DIR="${HOME}/.local/bin"
 CLI_NAME="codeskills"
+
+# 源配置
+if [ "$SOURCE" = "gitcode" ]; then
+    GH_RAW="https://gitcode.com/codeskills/codeskills/raw/develop/packages/skills-cli/bin/skills.js"
+    GH_REPO="https://gitcode.com/codeskills/codeskills.git"
+    SOURCE_LABEL="GitCode"
+else
+    GH_RAW="https://raw.githubusercontent.com/bigooio/codeskills/develop/packages/skills-cli/bin/skills.js"
+    GH_REPO="https://github.com/bigooio/codeskills.git"
+    SOURCE_LABEL="GitHub"
+fi
 
 echo -e "${CYAN}"
 echo "╔═══════════════════════════════════════════╗"
@@ -23,6 +52,7 @@ echo "║         CodeSkills CLI Installer         ║"
 echo "║      发现编程超能力 - AI Agent 技能工具   ║"
 echo "╚═══════════════════════════════════════════╝"
 echo -e "${RESET}"
+echo -e "  镜像: ${GREEN}${SOURCE_LABEL}${RESET}  (可传递 -- github | gitcode)"
 
 # 检查 Node.js
 if ! command -v node &> /dev/null; then
@@ -44,41 +74,46 @@ mkdir -p "$INSTALL_DIR"
 
 # 下载 CLI
 CLI_PATH="${INSTALL_DIR}/${CLI_NAME}"
-echo -e "\n${YELLOW}▸ 下载 CodeSkills CLI...${RESET}"
+echo -e "\n${YELLOW}▸ 从 ${SOURCE_LABEL} 下载 CLI...${RESET}"
 
 if command -v curl &> /dev/null; then
-    curl -fsSL "$GH_RAW" -o "$CLI_PATH" 2>/dev/null || {
-        # 尝试 main 分支
-        GH_RAW="https://raw.githubusercontent.com/bigooio/codeskills/develop/packages/skills-cli/bin/skills.js"
-        curl -fsSL "$GH_RAW" -o "$CLI_PATH" 2>/dev/null
-    }
+    if ! curl -fsSL "$GH_RAW" -o "$CLI_PATH" 2>/dev/null; then
+        # GitHub 不通，切换 GitCode
+        if [ "$SOURCE" != "gitcode" ]; then
+            echo -e "${YELLOW}▸ GitHub 下载失败，切换到 GitCode...${RESET}"
+            GH_RAW="https://gitcode.com/codeskills/codeskills/raw/develop/packages/skills-cli/bin/skills.js"
+            GH_REPO="https://gitcode.com/codeskills/codeskills.git"
+            curl -fsSL "$GH_RAW" -o "$CLI_PATH" || true
+        fi
+    fi
 elif command -v wget &> /dev/null; then
-    wget -q "$GH_RAW" -O "$CLI_PATH" 2>/dev/null || {
-        GH_RAW="https://raw.githubusercontent.com/bigooio/codeskills/develop/packages/skills-cli/bin/skills.js"
-        wget -q "$GH_RAW" -O "$CLI_PATH"
-    }
+    wget -q "$GH_RAW" -O "$CLI_PATH" || true
 else
     echo -e "${RED}✗ 需要 curl 或 wget${RESET}"
     exit 1
 fi
 
-if [ ! -f "$CLI_PATH" ]; then
+if [ ! -f "$CLI_PATH" ] || [ ! -s "$CLI_PATH" ]; then
     echo -e "${RED}✗ 下载失败${RESET}"
     echo "  请检查网络连接，或手动安装:"
-    echo "  1. git clone $GH_REPO"
-    echo "  2. node packages/skills-cli/bin/skills.js"
+    echo "  git clone ${GH_REPO}"
+    echo "  node packages/skills-cli/bin/skills.js"
     exit 1
 fi
 
 chmod +x "$CLI_PATH"
 
-# 添加到 PATH（如果需要）
-SHELL_RC="${HOME}/.zshrc"
-if [ -f "${SHELL_RC}" ]; then
-    if ! grep -q ".local/bin" "${SHELL_RC}"; then
-        echo 'export PATH="$HOME/.local/bin:$PATH"' >> "${SHELL_RC}"
-        echo -e "${YELLOW}▸ 已添加 ~/.local/bin 到 PATH（重新加载: source ~/.zshrc）${RESET}"
-    fi
+# 添加到 PATH
+SHELL_RC=""
+if [ -f "${HOME}/.zshrc" ]; then
+    SHELL_RC="${HOME}/.zshrc"
+elif [ -f "${HOME}/.bashrc" ]; then
+    SHELL_RC="${HOME}/.bashrc"
+fi
+
+if [ -n "$SHELL_RC" ] && ! grep -q ".local/bin" "$SHELL_RC" 2>/dev/null; then
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$SHELL_RC"
+    echo -e "${YELLOW}▸ 已添加 ~/.local/bin 到 PATH（运行: source ${SHELL_RC}）${RESET}"
 fi
 
 echo -e "${GREEN}✓${RESET} CodeSkills CLI 已安装到 ${CLI_PATH}"

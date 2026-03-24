@@ -7,9 +7,28 @@ const https = require('https')
 const http = require('http')
 
 // 配置
-const GITCODDE_REPO = 'https://gitcode.com/codeskills/codeskills.git'
-const GITHUB_REPO = 'https://github.com/bigooio/codeskills.git'
 const DEFAULT_BRANCH = 'develop'
+
+// GitHub
+const GH = {
+  owner: 'bigooio',
+  repo: 'codeskills',
+  repoUrl: 'https://github.com/bigooio/codeskills.git',
+  rawUrl: (branch, file) => `https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/${branch}/${file}`,
+  apiUrl: (path_) => `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${path_}?ref=${branch}`
+}
+
+// GitCode (国内加速)
+const GC = {
+  owner: 'codeskills',
+  repo: 'codeskills',
+  repoUrl: 'https://gitcode.com/codeskills/codeskills.git',
+  rawUrl: (branch, file) => `https://gitcode.com/codeskills/codeskills/raw/${branch}/${file}`,
+  apiUrl: (path_) => `https://gitcode.com/api/v1/repos/codeskills/codeskills/contents/${path_}?ref=${branch}`
+}
+
+// 当前使用的源
+let SOURCE = GH
 
 // 颜色输出
 const colors = {
@@ -56,16 +75,35 @@ async function listRemoteSkills() {
   try {
     info('获取远程 Skills 列表...')
 
-    // 从 GitHub API 获取 skills 目录内容
-    const apiUrl = 'https://api.github.com/repos/bigooio/codeskills/contents/skills'
-    const data = await downloadFile(apiUrl, GH_HEADERS)
+    // 尝试 GitHub
+    let data = await downloadFile(SOURCE.apiUrl('skills'), GH_HEADERS)
+    let skills = []
 
-    if (!data) {
-      throw new Error('无法获取远程列表')
+    if (data && !data.includes('404')) {
+      try {
+        const files = JSON.parse(data)
+        skills = files.filter(f => f.type === 'dir')
+      } catch {}
     }
 
-    const files = JSON.parse(data)
-    const skills = files.filter(f => f.type === 'dir')
+    // GitHub 失败，尝试 GitCode
+    if (skills.length === 0 && SOURCE !== GC) {
+      SOURCE = GC
+      info('GitHub 获取失败，切换到 GitCode...')
+      try {
+        data = await downloadFile(SOURCE.apiUrl('skills'), {})
+        if (data) {
+          const files = JSON.parse(data)
+          skills = files.filter(f => f.type === 'dir')
+        }
+      } catch {}
+      SOURCE = GH // 重置为 GitHub（后续下载用）
+    }
+
+    if (skills.length === 0) {
+      warn('无法获取 Skills 列表，请检查网络')
+      return
+    }
 
     console.log(`\n${colors.cyan}╔═══════════════════════════════════════════╗${colors.reset}`)
     console.log(`${colors.cyan}║     CodeSkills 远程 Skills${colors.reset}`)
@@ -73,15 +111,13 @@ async function listRemoteSkills() {
 
     skills.forEach((skill, i) => {
       console.log(`  ${colors.green}${i + 1}.${colors.reset} ${colors.white}${skill.name}${colors.reset}`)
-      console.log(`     ${colors.gray}下载: npx skills install ${skill.name}${colors.reset}\n`)
+      console.log(`     ${colors.gray}安装: codeskills install ${skill.name}${colors.reset}\n`)
     })
 
     console.log(`${colors.yellow}共 ${skills.length} 个 Skills${colors.reset}\n`)
 
   } catch (e) {
-    // 如果 GitHub API 失败，尝试直接 clone
-    warn('无法获取远程列表，尝试直接克隆...')
-    await cloneAndShow()
+    warn('获取列表失败: ' + e.message)
   }
 }
 
@@ -89,7 +125,7 @@ async function cloneAndShow() {
   const tempDir = path.join(__dirname, '..', '..', 'temp-clone')
 
   try {
-    execSync(`git clone --depth 1 -b ${DEFAULT_BRANCH} ${GITCODDE_REPO} "${tempDir}"`, { stdio: 'pipe' })
+    execSync(`git clone --depth 1 -b ${DEFAULT_BRANCH} ${GC.repoUrl} "${tempDir}"`, { stdio: 'pipe' })
 
     const skillsPath = path.join(tempDir, 'skills')
     if (fs.existsSync(skillsPath)) {
@@ -114,39 +150,37 @@ async function cloneAndShow() {
   }
 }
 
-// 获取目录下所有文件的 GitHub Contents API
-async function getGithubTree(owner, repo, branch, skillName) {
+// 获取目录下所有文件的 Contents API
+async function getTree(src, skillName) {
+  const s = src || SOURCE
   try {
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/skills/${skillName}?ref=${branch}`
-    const data = await downloadFile(apiUrl, GH_HEADERS)
-    return JSON.parse(data)
+    const data = await downloadFile(s.apiUrl(`skills/${skillName}`), s === GH ? GH_HEADERS : {})
+    return data ? JSON.parse(data) : null
   } catch (e) {
     return null
   }
 }
 
-// 递归下载目录内容
-async function downloadSkillFromGithub(skillName) {
-  const GH_OWNER = 'bigooio'
-  const GH_REPO = 'codeskills'
+// 递归下载目录内容，支持 GitHub/GitCode
+async function downloadSkill(src, skillName) {
+  const s = src || SOURCE
   const branch = DEFAULT_BRANCH
+  const label = s === GH ? 'GitHub' : 'GitCode'
 
-  info(`从 GitHub 下载 Skill: ${skillName}`)
+  info(`从 ${label} 下载 Skill: ${skillName}`)
 
-  const items = await getGithubTree(GH_OWNER, GH_REPO, branch, skillName)
+  const items = await getTree(s, skillName)
   if (!items || !Array.isArray(items)) {
     // 降级：只下载 SKILL.md
-    const rawUrl = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${branch}/skills/${skillName}/SKILL.md`
+    const rawUrl = s.rawUrl(branch, `skills/${skillName}/SKILL.md`)
     const content = await downloadFile(rawUrl)
     if (!content || content.includes('404')) {
-      error(`Skill "${skillName}" 不存在`)
-      return false
+      return null
     }
     const skillDir = path.join(process.cwd(), 'skills', skillName)
     execSync(`mkdir -p "${skillDir}"`)
     fs.writeFileSync(path.join(skillDir, 'SKILL.md'), content)
-    success(`Skill "${skillName}" 安装成功（仅 SKILL.md）`)
-    return true
+    return 'partial'
   }
 
   const skillDir = path.join(process.cwd(), 'skills', skillName)
@@ -155,23 +189,22 @@ async function downloadSkillFromGithub(skillName) {
   let downloaded = 0
   for (const item of items) {
     if (item.type === 'file') {
-      const rawUrl = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${branch}/skills/${skillName}/${item.name}`
+      const rawUrl = s.rawUrl(branch, `skills/${skillName}/${item.name}`)
       const content = await downloadFile(rawUrl)
       if (content) {
         fs.writeFileSync(path.join(skillDir, item.name), content)
         downloaded++
       }
     } else if (item.type === 'dir') {
-      // 子目录
       execSync(`mkdir -p "${path.join(skillDir, item.name)}"`)
       const subItems = await downloadFile(
-        `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/skills/${skillName}/${item.name}?ref=${branch}`,
-        GH_HEADERS
+        s.apiUrl(`skills/${skillName}/${item.name}`),
+        s === GH ? GH_HEADERS : {}
       )
-      const subFiles = JSON.parse(subItems || '[]')
+      const subFiles = subItems ? JSON.parse(subItems) : []
       for (const sub of subFiles) {
         if (sub.type === 'file') {
-          const rawUrl = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${branch}/skills/${skillName}/${item.name}/${sub.name}`
+          const rawUrl = s.rawUrl(branch, `skills/${skillName}/${item.name}/${sub.name}`)
           const content = await downloadFile(rawUrl)
           if (content) {
             fs.writeFileSync(path.join(skillDir, item.name, sub.name), content)
@@ -182,7 +215,7 @@ async function downloadSkillFromGithub(skillName) {
     }
   }
 
-  return downloaded > 0
+  return downloaded > 0 ? 'full' : 'partial'
 }
 
 async function installSkill(skillName) {
@@ -198,11 +231,18 @@ async function installSkill(skillName) {
   }
 
   try {
-    const ok = await downloadSkillFromGithub(skillName)
-    if (ok) {
+    // 优先 GitHub，失败则 GitCode
+    let result = await downloadSkill(GH, skillName)
+    if (!result) {
+      info('GitHub 下载失败，切换到 GitCode...')
+      result = await downloadSkill(GC, skillName)
+    }
+    if (result) {
       const skillDir = path.join(process.cwd(), 'skills', skillName)
       success(`Skill "${skillName}" 安装成功！`)
       console.log(`\n📁 位置: ${skillDir}`)
+    } else {
+      error(`Skill "${skillName}" 不存在`)
     }
   } catch (e) {
     error(`安装失败: ${e.message}`)
@@ -212,9 +252,13 @@ async function installSkill(skillName) {
 async function searchSkills(query) {
   info(`搜索 Skills: ${query}`)
   try {
-    // 尝试从 GitHub raw 获取 skills.json
-    const rawUrl = `https://raw.githubusercontent.com/bigooio/codeskills/${DEFAULT_BRANCH}/data/skills.json`
-    const data = await downloadFile(rawUrl)
+    // 优先 GitHub，失败则 GitCode
+    let rawUrl = GH.rawUrl(DEFAULT_BRANCH, 'data/skills.json')
+    let data = await downloadFile(rawUrl)
+    if (!data || data.includes('404')) {
+      rawUrl = GC.rawUrl(DEFAULT_BRANCH, 'data/skills.json')
+      data = await downloadFile(rawUrl)
+    }
     if (data && !data.includes('404')) {
       const skills = JSON.parse(data)
       const q = query.toLowerCase()
@@ -319,7 +363,7 @@ ${colors.reset}
         const targetDir = path.join(process.cwd(), 'skills')
         execSync(`mkdir -p "${targetDir}"`)
         try {
-          execSync(`git clone --depth 1 -b ${DEFAULT_BRANCH} ${GITCODDE_REPO} temp-cs`, { stdio: 'pipe', cwd: process.cwd() })
+          execSync(`git clone --depth 1 -b ${DEFAULT_BRANCH} ${GC.repoUrl} temp-cs`, { stdio: 'pipe', cwd: process.cwd() })
           execSync(`cp -r temp-cs/skills/* "${targetDir}/"`, { stdio: 'pipe' })
           execSync(`rm -rf temp-cs`, { stdio: 'pipe' })
           const skills = fs.readdirSync(targetDir).filter(f => fs.statSync(path.join(targetDir, f)).isDirectory())
