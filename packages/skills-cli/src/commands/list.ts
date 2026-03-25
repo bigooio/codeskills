@@ -1,5 +1,5 @@
 import { getAllSkills, getGroupSkills, getAllGroups } from '../db'
-import { info, success, warn } from '../utils'
+import { info, success, warn, error } from '../utils'
 
 export function listCommand(args: string[]) {
   const [filter] = args
@@ -52,7 +52,7 @@ function listLocal() {
     }
   }
 
-  for (const [groupName, groupSkills] of skillsByGroup) {
+  for (const [groupName, groupSkills] of Array.from(skillsByGroup)) {
     const label = groupName === 'ungrouped' ? warn('未分组') : success(groupName)
     console.log(`${label} (${groupSkills.length}个):`)
 
