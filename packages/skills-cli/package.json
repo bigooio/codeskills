@@ -8,11 +8,24 @@
     "skills": "./bin/skills.js"
   },
   "scripts": {
-    "start": "node bin/skills.js"
+    "build": "esbuild src/main.ts --bundle --platform=node --outfile=bin/skills.js --external:fs --external:path --external:os --external:http --external:https --format=cjs",
+    "start": "node bin/skills.js",
+    "dev": "esbuild src/main.ts --bundle --platform=node --outfile=bin/skills.js --external:fs --external:path --external:os --external:http --external:https --format=cjs --watch"
   },
   "engines": {
     "node": ">=16"
   },
-  "keywords": ["skills", "programming", "codeskills", "tools"],
-  "files": ["bin"]
+  "keywords": [
+    "skills",
+    "programming",
+    "codeskills",
+    "tools"
+  ],
+  "files": [
+    "bin"
+  ],
+  "devDependencies": {
+    "esbuild": "^0.27.4",
+    "typescript": "^6.0.2"
+  }
 }
