@@ -12,6 +12,20 @@ out/
 build/
 dist/
 
+# Database (regenerate on server)
+data/skills.db
+data/skills.db-shm
+data/skills.db-wal
+
+# Large data files (regenerate on server)
+data/skills-skillhub-full.json
+data/skills-skillhub.json
+data/skills.json
+
+# PM2
+.pm2/
+ecosystem.config.js
+
 # Misc
 .DS_Store
 *.pem
@@ -26,3 +40,6 @@ yarn-error.log*
 
 # Vercel
 .vercel
+
+# TypeScript
+*.tsbuildinfo

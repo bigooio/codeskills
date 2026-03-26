@@ -4,6 +4,51 @@ import { notFound } from 'next/navigation'
 import SkillViewer from '@/components/SkillViewer'
 import CopyCommand from '@/components/CopyCommand'
 
+// Tag name mapping to Chinese
+const TAG_NAME_MAP: Record<string, string> = {
+  'ai-intelligence': 'AI智能',
+  'developer-tools': '开发工具',
+  'productivity': '效率提升',
+  'data-analysis': '数据分析',
+  'content-creation': '内容创作',
+  'security-compliance': '安全合规',
+  'automation': '自动化',
+  'browser': '浏览器',
+  'headless': '无头浏览器',
+  'web': 'Web开发',
+  'communication-collaboration': '通讯协作',
+  'lifestyle': '生活娱乐',
+  'integrations': '集成工具',
+  'finance': '金融',
+  'social': '社交',
+}
+
+// Skill title mapping to Chinese names
+const SKILL_TITLE_MAP: Record<string, string> = {
+  'Find Skills': '查找技能',
+  'Summarize': '内容总结',
+  'Agent Browser': '浏览器代理',
+  'Github': 'GitHub工具',
+  'Skill Vetter': '技能审查',
+  'Proactive Agent': '主动代理',
+  'Weather': '天气预报',
+  'Humanizer': '人性化改写',
+  'Brave Search': '勇敢搜索',
+  'Free Ride': '免费AI通道',
+  'Auto-Updater': '自动更新',
+  'Mcporter': 'MCP传输',
+  'Stock Analysis': '股票分析',
+  'Nano Banana Pro': '图像生成',
+  'Sonoscli': 'Sonos控制',
+  'self-improving-agent': '自我改进代理',
+  'Free Ride - Unlimited free AI': '免费AI通道 - 无限制免费AI',
+  'Auto-Updater Skill': '自动更新技能',
+}
+
+function getTagName(tag: string): string {
+  return TAG_NAME_MAP[tag] || tag
+}
+
 interface SkillPageProps {
   params: { slug: string }
 }
@@ -48,16 +93,22 @@ export default function SkillPage({ params }: SkillPageProps) {
                 href={`/discover?tag=${encodeURIComponent(tag)}`}
                 className="text-xs px-2 py-1 rounded bg-accent/10 text-accent hover:bg-accent/20 transition"
               >
-                {tag}
+                {getTagName(tag)}
               </Link>
             ))}
           </div>
-          <h1 className="text-3xl font-bold mb-4">{skill.title}</h1>
+          <h1 className="text-3xl font-bold mb-4">{SKILL_TITLE_MAP[skill.title] || skill.title}</h1>
           <p className="text-xl text-text-secondary mb-4">{skill.description}</p>
           <div className="flex items-center gap-4 text-sm text-text-secondary">
             <span className={skill.source === 'github' ? 'text-accent' : 'text-success'}>
-              {skill.source === 'github' ? '来自 GitHub' : '原创'}
+              {skill.source === 'github' ? '来自 GitHub' : skill.source === 'clawhub' ? '来自 SkillHub' : '原创'}
             </span>
+            {skill.downloads !== undefined && skill.downloads > 0 && (
+              <span>下载: {skill.downloads.toLocaleString()}</span>
+            )}
+            {skill.stars !== undefined && skill.stars > 0 && (
+              <span>⭐ {skill.stars.toLocaleString()}</span>
+            )}
             {skill.sourceUrl && (
               <a
                 href={skill.sourceUrl}
