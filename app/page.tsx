@@ -16,8 +16,37 @@ export default function Home() {
     .sort((a, b) => b.score - a.score)
     .slice(0, 50)
 
+  // JSON-LD structured data for homepage
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'CodeSkills',
+    alternateName: 'CodeSkills - 发现编程超能力',
+    description: '收录25,000+优质AI技能，支持分类浏览和关键词搜索，帮助开发者提升效率',
+    url: 'https://codeskills.cn',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://codeskills.cn/discover?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+    mainEntity: {
+      '@type': 'SoftwareApplication',
+      name: 'CodeSkills CLI',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Any',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'CNY' },
+    },
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero Section */}
       <section className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -103,16 +132,20 @@ export default function Home() {
             <div>
               <img
                 src="/screenshots/web-groups-view.png"
-                alt="Web 分组管理界面"
+                alt="CodeSkills Web 分组管理界面截图"
+                title="CodeSkills 分组管理界面"
                 className="rounded-lg shadow-lg w-full"
+                loading="lazy"
               />
               <p className="text-text-secondary text-sm mt-2 text-center">分组管理</p>
             </div>
             <div>
               <img
                 src="/screenshots/web-search-view.png"
-                alt="Web 技能市场"
+                alt="CodeSkills Web 技能市场界面截图"
+                title="CodeSkills 技能搜索界面"
                 className="rounded-lg shadow-lg w-full"
+                loading="lazy"
               />
               <p className="text-text-secondary text-sm mt-2 text-center">技能搜索与安装</p>
             </div>

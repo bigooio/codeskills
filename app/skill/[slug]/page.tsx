@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { getSkillBySlug, getAllSkills } from '@/lib/skills'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -23,28 +24,6 @@ const TAG_NAME_MAP: Record<string, string> = {
   'social': '社交',
 }
 
-// Skill title mapping to Chinese names
-const SKILL_TITLE_MAP: Record<string, string> = {
-  'Find Skills': '查找技能',
-  'Summarize': '内容总结',
-  'Agent Browser': '浏览器代理',
-  'Github': 'GitHub工具',
-  'Skill Vetter': '技能审查',
-  'Proactive Agent': '主动代理',
-  'Weather': '天气预报',
-  'Humanizer': '人性化改写',
-  'Brave Search': '勇敢搜索',
-  'Free Ride': '免费AI通道',
-  'Auto-Updater': '自动更新',
-  'Mcporter': 'MCP传输',
-  'Stock Analysis': '股票分析',
-  'Nano Banana Pro': '图像生成',
-  'Sonoscli': 'Sonos控制',
-  'self-improving-agent': '自我改进代理',
-  'Free Ride - Unlimited free AI': '免费AI通道 - 无限制免费AI',
-  'Auto-Updater Skill': '自动更新技能',
-}
-
 function getTagName(tag: string): string {
   return TAG_NAME_MAP[tag] || tag
 }
@@ -55,12 +34,38 @@ interface SkillPageProps {
 
 export const dynamic = 'force-dynamic'
 
-export function generateMetadata({ params }: SkillPageProps) {
+export async function generateMetadata({ params }: SkillPageProps): Promise<Metadata> {
   const skill = getSkillBySlug(params.slug)
-  if (!skill) return { title: 'Not Found' }
+  if (!skill) return { title: '技能未找到' }
+
+  const title = `${skill.title} - CodeSkills`
+  const description = skill.description || `${skill.title}是一个优质的AI技能，帮助你提升开发效率`
+  const keywords = skill.tags.map(t => getTagName(t)).concat([skill.title, 'AI技能', '编程工具'])
+
   return {
-    title: `${skill.title} - codeskills`,
-    description: skill.description,
+    title,
+    description,
+    keywords,
+    authors: [{ name: 'CodeSkills' }],
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url: `https://codeskills.cn/skill/${skill.slug}`,
+      images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+      publishedTime: skill.createdAt,
+      modifiedTime: skill.createdAt,
+      tags: skill.tags.map(t => getTagName(t)),
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+      images: ['/og-image.png'],
+    },
+    alternates: {
+      canonical: `https://codeskills.cn/skill/${skill.slug}`,
+    },
   }
 }
 
@@ -78,8 +83,37 @@ export default function SkillPage({ params }: SkillPageProps) {
 
   const installCmd = `codeskills install ${skill.slug}`
 
+  // JSON-LD structured data
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: skill.title,
+    description: skill.description,
+    url: `https://codeskills.cn/skill/${skill.slug}`,
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'CNY',
+    },
+    aggregateRating: skill.downloads ? {
+      '@type': 'AggregateRating',
+      ratingValue: Math.min(5, Math.max(1, Math.log10(skill.downloads + 1))),
+      ratingCount: skill.downloads,
+    } : undefined,
+    additionalProperty: skill.stars ? [
+      { '@type': 'PropertyValue', name: 'stars', value: skill.stars },
+    ] : undefined,
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <Link href="/discover" className="text-text-secondary hover:text-accent text-sm mb-6 inline-block">
         ← 返回发现
       </Link>
@@ -97,14 +131,14 @@ export default function SkillPage({ params }: SkillPageProps) {
               </Link>
             ))}
           </div>
-          <h1 className="text-3xl font-bold mb-4">{SKILL_TITLE_MAP[skill.title] || skill.title}</h1>
+          <h1 className="text-3xl font-bold mb-4">{skill.title}</h1>
           <p className="text-xl text-text-secondary mb-4">{skill.description}</p>
-          <div className="flex items-center gap-4 text-sm text-text-secondary">
+          <div className="flex items-center gap-4 text-sm text-text-secondary flex-wrap">
             <span className={skill.source === 'github' ? 'text-accent' : 'text-success'}>
               {skill.source === 'github' ? '来自 GitHub' : skill.source === 'clawhub' ? '来自 SkillHub' : '原创'}
             </span>
             {skill.downloads !== undefined && skill.downloads > 0 && (
-              <span>下载: {skill.downloads.toLocaleString()}</span>
+              <span>{skill.downloads.toLocaleString()} 下载</span>
             )}
             {skill.stars !== undefined && skill.stars > 0 && (
               <span>⭐ {skill.stars.toLocaleString()}</span>
@@ -119,7 +153,7 @@ export default function SkillPage({ params }: SkillPageProps) {
                 查看原文 →
               </a>
             )}
-            <span>{skill.createdAt}</span>
+            <span>更新于 {skill.createdAt}</span>
           </div>
 
           {/* CLI Install Command */}
